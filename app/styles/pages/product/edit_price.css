@@ -1,0 +1,485 @@
+.pep_title{
+    margin-top: 40px;
+    margin-bottom:10px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 2;
+    color: #0084ff;
+
+    &:first-child{
+        margin-top:30px;
+    }
+}
+
+.pep_p{
+    width: 935px;
+    margin-bottom: 30px;
+    margin-top: -1px;
+    z-index: 0;
+    border: solid 1px #e0e0e0;
+
+    &_tabGroup{
+        overflow: hidden;
+        height: 40px;
+        z-index: 1;
+    }
+
+    &_tab{
+        float: left;
+        height: 40px;
+        padding: 4px 29px;
+        box-sizing: border-box;
+        border: solid 1px #e0e0e0;
+        font-size: 14px;
+        line-height: 30px;
+        color: #7c8495;
+        margin-left: -1px;
+        z-index: 1;
+        background-image: url("./assets/icon-close.svg");
+        background-repeat: no-repeat;
+        background-position: right 5px top 5px;
+        background-size: 12px;
+        background-origin: padding-box;
+
+        &:first-child{
+            margin-left:0;
+            background-image: none;
+        }
+        &:last-child{
+            padding: 9px;
+            width: 40px;
+            background-image: url("./assets/icon-add.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        &--selected{
+            background-color: #17b4c6;
+            color: #ffffff;
+            z-index: 2;
+        }
+    }
+
+    &_gen{
+        height: 226px;
+        box-sizing: border-box;
+        padding: 20px;
+        background-color: #f7f7f7;
+
+        &_title{
+            line-height: 40px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #7c8495;
+            width: 160px;
+            float: left;
+        }
+
+        &_input{
+            height: 40px;
+            box-sizing: border-box;
+            width: 700px;
+            padding: 10px 12px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: solid 1px #e0e0e0;
+            font-size: 14px;
+            line-height: 18px;
+
+            &--dropdown{
+                width: 220px;
+                background-image: url("./assets/icon-filter.svg");
+                background-repeat: no-repeat;
+                background-position: right 8px center;
+                font-size: 14px;
+                color: #343c4b;
+            }
+        }
+
+        &_line{
+            margin: 10px;
+            height: 40px;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+    }
+}
+
+.pep_p_ag{
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 5px;
+
+    &_setZone{
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    &_set{
+        float: right;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    &_box{
+        border: solid 1px #e0e0e0;
+        margin-bottom: 20px;
+        padding: 15px 15px 20px 30px;
+        position: relative;
+
+        & input{
+            text-decoration: underline;
+            display: block;
+        }
+
+        &_close{
+            position: absolute;
+            top:15px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        &_title{
+            margin-top: 4px;
+            height: 25px;
+            line-height: 25px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        &_currency{
+            overflow: hidden;
+            margin-top: 14px;
+
+            &_title{
+                font-size: 13px;
+                font-weight: bold;
+                line-height: 25px;
+                color: #7c8495;
+                height: 16px;
+                line-height: 16px;
+                float: left;
+                margin-right: 20px;
+            }
+
+            &_rbox{
+                float: left;
+
+                &>div{
+                    font-size: 13px;
+                    text-align: left;
+                    color: #555555;
+                }
+
+            }
+        }
+
+        &_agencies{
+            margin:12px 0;
+            overflow: hidden;
+
+            &>p{
+                height: 20px;
+                padding: 0 10px;
+                border-radius: 100px;
+                border: solid 1px #696969;
+                float: left;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 20px;
+                color: #696969;
+                margin-right: 8px;
+            }
+        }
+        &_price{
+            border-collapse:collapse;
+            border: 1px solid black;
+            margin-top: 20px;
+
+            & td,th{
+                width: 120px;
+                height: 40px;
+                border: 1px solid #e0e0e0;
+                font-size: 14px;
+                text-align: center;
+            }
+
+            & input{
+                box-sizing: border-box;
+                width: 120px;
+                height: 40px;
+                line-height: 40px;
+                padding: 10px;
+                text-align: center;
+            }
+
+            & td:nth-child(1){
+                color: #7c8495;
+                font-size: 13px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    &_add{
+        float: right;
+        margin-bottom: 40px;
+    }
+}
+
+.pep_p_as{
+    padding: 20px 30px;
+    width: 935px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+
+    &_title{
+        margin-top: 4px;
+        height: 25px;
+        line-height: 25px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    &_price{
+        border-collapse:collapse;
+        border: 1px solid black;
+        margin-top: 20px;
+
+        & td,th{
+            width: 120px;
+            height: 40px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        & input{
+            box-sizing: border-box;
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        & td:nth-child(1){
+            color: #7c8495;
+            font-size: 13px;
+            font-weight: bold;
+        }
+    }
+
+    &_add{
+        float: right;
+        margin-right: 20px;
+    }
+}
+
+.pep_p_op{
+    width: 380px;
+    margin:0 20px 20px 0;
+    height: 80px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+
+    &_close{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 16px;
+        height: 16px;
+    }
+
+    &_name{
+        width: 110px;
+        height: 60px;
+        line-height: 60px;
+        margin: 10px 20px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7c8495;
+        float: left;
+    }
+
+    &_price{
+        height: 40px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        width: 120px;
+        text-align: right;
+        line-height: 40px;
+        padding: 0 16px;
+        box-sizing: border-box;
+        margin:20px 0;
+        float: left;
+    }
+
+    &_currency{
+        line-height: 80px;
+        float: left;
+        height: 80px;
+        margin-left: 15px;
+    }
+
+    &_add{
+        float: left;
+        margin-left: 155px;
+    }
+}
+
+.pep_p_bus{
+    float: left;
+    width: 270px;
+    height: 380px;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin: 10px 20px 0 0;
+
+    &_box{
+        overflow: hidden;
+    }
+
+    &_name{
+        margin:30px 0 10px 30px;
+        height: 25px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 25px;
+        width: 150px;
+    }
+
+    &_add{
+        float: right;
+        margin: 20px 100px 30px 0;
+    }
+
+    &_price{
+        border-collapse: collapse;
+        border-radius: 5px;
+        background-color: #ffffff;
+        border: solid 1px #e0e0e0;
+        margin-left: 30px;
+
+        & tr{
+            height: 40px;
+        }
+        & th,td, input{
+            width: 80px;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 40px;
+            text-align: center;
+            color: #7c8495;
+        }
+        & th:last-child, td:last-child{
+            width: 120px;
+            font-size: 14px;
+            color: #262e3e;
+        }
+
+        &_add{
+            cursor: pointer;
+        }
+    }
+}
+
+.pe_APC{
+    width:830px;
+    height:702px;
+    background-color: white;
+    border-radius: 5px;
+
+    &_header{
+        height: 70px;
+        background-color: #f7f9fb;
+        width: 100%;
+        overflow: hidden;
+        border-bottom: solid 1px #e0e0e0;
+
+        &_title{
+            float: left;
+            font-size: 20px;
+            line-height: 70px;
+            margin-left: 30px;
+        }
+        &_close{
+            float: right;
+            margin:25px 20px 0 0;
+        }
+    }
+
+    &_contents{
+        width: 770px;
+        height: 520px;
+        padding: 30px;
+        padding-bottom: 0;
+        overflow-x:hidden;
+        overflow-y: scroll;
+        border-bottom: solid 1px #e0e0e0;
+    }
+
+    &_agency{
+        float: left;
+        height: 72px;
+        width: 238px;
+        margin: 20px 30px 0 0;
+    }
+    &_title{
+        height: 25px;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 1.92;
+        margin-bottom: 5px;
+    }
+    &_drop{
+        width: 238px;
+        height: 40px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        padding-left: 20px;
+        user-select: none;
+    }
+    &_footer{
+        height: 80px;
+        width: 100%;
+        overflow: hidden;
+
+        &_save{
+            float: right;
+            box-sizing: border-box;
+            height: 50px;
+            border-radius: 5px;
+            width: 120px;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            padding: 14px 19px;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            color: #ffffff;
+            margin: 15px 30px;
+            cursor: pointer;
+
+            &:hover{
+                filter:brightness(0.9);
+            }
+            &:active{
+                filter:brightness(1.1);
+            }
+        }
+    }
+}
+
+.pe_memo_txt{
+    margin-top: 30px;
+    width: 918px !important;
+    height: 451px !important;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+}

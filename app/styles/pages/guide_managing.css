@@ -1,0 +1,209 @@
+.g_filter{
+    width:1280px;
+    margin: 0 auto;
+    padding: 30px 0 40px 0;
+    margin-bottom: 1px;
+    background-color: white;
+
+    &_wrapper{
+        box-shadow: 0 1px 0 0 #e0e0e0;
+    }
+
+    &_top{
+        overflow: hidden;
+        width: 1280px;
+        height: 40px;
+        margin-bottom: 10px;
+        display: inline-block;
+
+        &>p{
+            float: left;
+            margin-top: 10px;
+            font-size: 24px;
+            line-height: 25px;
+        }
+
+        &_filtered{
+            padding-right: 24px;
+            border-right: solid 1px #e0e0e0;
+            color: $hint_grey;
+        }
+        &_total{
+            color: $key_blue;
+            margin-left: 24px;
+        }
+        &_print{
+            float: right;
+        }
+    }
+
+    &_title{
+        margin-top: 30px;
+        height: 25px;
+        font-size: 16px;
+        line-height: 25px;
+        color: #696969;
+    }
+
+    & input{
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+        background: #ffffff;
+        border: solid 1px #e0e0e0;
+    }
+}
+
+.g_wrapper{
+    width: 100%;
+    background-color: #f8f8f8;
+}
+
+
+.g{
+
+    &_pop{
+        position: absolute;
+        left: 333px;
+        top:51px;
+        width: 116px;
+        height: 100px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 3px 0 #e0e0e0;
+        border: solid 1px #e0e0e0;
+        box-sizing: border-box;
+        z-index: 2;
+
+        &>div:hover{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+
+        &>div:active{
+            background-color: rgba(224, 224, 224, 0.4);
+        }
+
+        &>div{
+            padding: 10px 0 10px 20px;
+            height: 20px;
+            overflow: hidden;
+            cursor: pointer;
+
+            &>p{
+                float: left;
+                height: 20px;
+                font-size: 14px;
+                line-height: 1.43;
+            }
+
+            &>img{
+                float: left;
+                margin-right: 5px;
+            }
+        }
+
+        &_edit{
+            margin-top: 10px;
+        }
+
+        &_delete{
+            height: 40px;
+            overflow: hidden;
+            &>p{color:$alert_red;}
+        }
+    }
+
+    &_add{
+        background-color: white;
+        float: right;
+
+        &_div{
+            padding-top: 50px;
+            overflow: hidden;
+            width: 1280px;
+            margin: auto;
+        }
+    }
+
+    &_guide{
+
+        width: 420px;
+        height: 900px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        background-color: white;
+        margin: 0 10px 10px 0;
+        float: left;
+        position: relative;
+
+
+        &_div{
+            width: 1312px;
+            padding-bottom: 200px;
+            min-height: 500px;
+            margin-left:calc(50% - 640px);
+            margin-top: 20px;;
+            overflow: hidden;
+        }
+
+        &_info{
+            height: 20px;
+            float: right;
+            margin : 20px 20px 0 0;
+
+            &_div{
+                overflow: hidden;
+            }
+        }
+
+        &_face{
+            width: 120px;
+            height: auto;
+            border-radius: 8px;
+
+            &_wrapper{
+                width: 120px;
+                height: 120px;
+                border-radius: 8px;
+                margin:40px 0 15px 150px;
+                overflow: hidden;
+                position: relative;
+            }
+        }
+
+        &_name{
+            height: 42px;
+            font-size: 24px;
+            line-height: 1.75;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        &_box{
+            overflow: hidden;
+            width: 340px;
+            margin:8px 0 8px 30px;
+            display: inline-block;
+        }
+
+        &_title{
+            width: 95px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #7c8495;
+            line-height: 25px;
+            float: left;
+        }
+
+        &_txt{
+            width: 225px;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 25px;
+            float: left;
+            margin-left: 20px;
+        }
+
+    }
+}

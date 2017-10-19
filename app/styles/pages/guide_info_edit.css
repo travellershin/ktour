@@ -1,0 +1,231 @@
+.gie{
+    border-radius: 5px;
+    width: 512px;
+    box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+    border: solid 1px #e0e0e0;
+
+    &_name{
+        width: 100%;
+        font-size: 24px !important;
+        line-height: 1.75 !important;
+        text-align: center;
+        color: #343c4b;
+        text-decoration: underline;
+    }
+
+    &_header{
+        height: 20px;
+        background-color: #f7f9fb;
+        padding: 25px 20px 25px 30px;
+        overflow: hidden;
+        border-bottom: solid 1px #e0e0e0;
+
+        &>p{
+            height: 20px;
+            font-size: 20px;
+            line-height: 1;
+            float: left;
+        }
+
+        &>button{
+            float: right;
+            background: none;
+        }
+    }
+
+    &_div{
+        height:750px;
+        overflow-y: scroll;
+
+        & input{
+            font-size: 14px;
+            line-height: 1.43;
+            color: #262e3e;
+        }
+
+        &::-webkit-scrollbar-track
+        {
+            background-color: #ffffff;
+        }
+
+        &::-webkit-scrollbar
+        {
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+
+        &::-webkit-scrollbar-thumb
+        {
+            background-color: #e0e0e0;
+        }
+    }
+
+    &_boxWrapper{
+        padding: 20px 0 20px 0;
+        margin-left: 30px;
+        border-radius: 5px;
+        border: solid 1px #d7d7d7;
+        width: 452px;
+    }
+
+    &_info{
+        height: 20px;
+        float: right;
+        margin : 20px 20px 0 0;
+
+        &_div{
+            overflow: hidden;
+        }
+    }
+
+    &_face{
+
+        width: 120px;
+        height: auto;
+
+        &_wrapper{
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            margin:40px 0 15px 196px;
+            overflow: hidden;
+            position: relative;
+        }
+    }
+
+    &_name{
+        height: 42px;
+        font-size: 24px;
+        line-height: 1.75;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    &_box{
+        overflow: hidden;
+        width: 392px;
+        margin:10px 0 10px 30px;
+        display: inline-block;
+    }
+
+    &_languageBox{
+        overflow: hidden;
+        width: 100%;
+    }
+    &_preferBox{
+        overflow: hidden;
+        width: 100%;
+    }
+
+    &_title{
+        width: 95px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7c8495;
+        line-height: 40px;
+        float: left;
+    }
+
+    &_edit{
+        float: left;
+        margin-left: 20px;
+    }
+
+    &_drive{
+        float: left;
+        margin-left: 20px;
+        height: 40px;
+        border: 1px solid #d7d7d7;
+        width: 82px;
+        box-sizing: border-box;
+        padding:0 8px 0 20px;
+        border-radius: 5px;
+    }
+
+    &_memo{
+        &_title{
+            height: 20px;
+            font-size: 16px;
+            line-height: 1.25;
+            color: #262e3e;
+            margin: 40px 0 0 30px;
+        }
+
+        &_txt{
+            box-sizing: border-box;
+            height: 134px;
+            width: 452px;
+            margin : 15px 0 0 30px;
+            border: solid 1px #d7d7d7;
+            padding:12px 16px 12px 16px;
+            font-size: 14px;
+            line-height: 1.71;
+            color: #262e3e;
+            resize: none;
+            margin-bottom: 40px;
+        }
+    }
+
+    &_save{
+        float: right;
+        margin:15px 30px 15px 15px;
+        height: 80px;
+        width: 130px;
+        height: 50px;
+        border-radius: 5px;
+        background-color: #0084ff;
+        border: solid 1px #0079e9;
+        text-align: center;
+        line-height: 50px;
+        color:white;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #0079e9;
+        }
+
+        &_div{
+            overflow: hidden;
+            height: 80px;
+            border-top: solid 1px #e0e0e0;
+
+        }
+    }
+}
+
+
+#gie_upload_photo{
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+
+   &_label{
+       position: absolute;
+       cursor: pointer;
+       width: 20px;
+       height: 20px;
+       border-radius: 5px;
+       background-color: #0084ff;
+       border: solid 1px #0079e9;
+       right: 8px;
+       bottom: 8px;
+       background-image: url("./assets/icon-add.svg");
+   }
+}
+
+#drop_gge_driverz{
+    left:115px !important;
+    width:82px !important;
+    &>.drop_item{
+        padding-left: 15px !important;
+    }
+}
+
+.endDatePicker,.startDatePicker{
+    background-image: url("./assets/icon-filter.svg");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    cursor: pointer;
+}

@@ -1,0 +1,23 @@
+@import "base/var";
+@import "base/init";
+@import "base/global";
+
+@import "modules/header";
+
+@import "pages/index";
+@import "pages/check";
+@import "pages/reservation";
+@import "modules/reservation__info";
+@import "modules/reservation__edit";
+@import "modules/dw";
+@import "pages/operation";
+@import "pages/guide_managing";
+@import "pages/guide_info_edit";
+@import "pages/product/product";
+@import "pages/product/info_edit";
+@import "pages/product/info_show";
+@import "pages/agency";
+@import "pages/product/info_agency";
+@import "pages/product/info_price";
+@import "pages/product/edit_agency";
+@import "pages/product/edit_price";

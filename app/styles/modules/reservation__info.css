@@ -1,0 +1,137 @@
+.ri{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+    border: solid 1px #e0e0e0;
+
+    &_header{
+        height: 70px;
+        background-color: #f7f9fb;
+        padding: 25px 20px 25px 30px;
+        overflow: hidden;
+
+        &_star{
+            float: left;
+            height: 20px;
+        }
+        &_title{
+            margin-left: 10px;
+            float: left;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        &_close{
+            float: right;
+        }
+    }
+
+    &_smallTitle{
+        margin-left: 30px;
+        height: 20px;
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    &_contents{
+        height: 600px;
+        padding-bottom: 40px;
+        overflow-y: scroll;
+    }
+
+    &_contents::-webkit-scrollbar-track
+    {
+    	border-radius: 10px;
+    }
+
+    &_contents::-webkit-scrollbar
+    {
+    	width: 6px;
+    }
+
+    &_contents::-webkit-scrollbar-thumb
+    {
+    	border-radius: 10px;
+    	background-color: #e0e0e0;
+    }
+
+    &_footer{
+        height: 80px;
+        border-top: solid 1px #e0e0e0;
+        overflow: hidden;
+        padding:20px 30px 20px 0;
+
+        &>div{float: right;}
+
+        &_cancel{
+            margin-right: 10px;
+            &>p{color:$alert_red;}
+        }
+    }
+}
+
+.ric{
+    margin:20px 30px 40px 30px;
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+    border: solid 1px #d7d7d7;
+    overflow: hidden;
+
+    &_ti{
+        margin-right: 20px;
+        float: left;
+
+        &>p{
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 24px;
+            margin:9px 0 9px 0;
+            text-align: left;
+            color: $hint_grey;
+
+        }
+    }
+
+    &_co{
+        float: left;
+
+        &>p{
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 24px;
+            margin:9px 0 9px 0;
+            text-align: left;
+            max-width: 220px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+
+    }
+
+
+    &_verticalLine{
+        float: left;
+        width: 1px;
+        margin:10px 30px 10px 30px;
+        height: 288px;
+        background-color: #e0e0e0;
+
+    }
+}
+
+.rv_info_memo{
+    margin-left: 30px;
+    width: 600px;
+    line-height: 25px;
+    font-size: 14px;
+    margin-bottom: 40px;
+}
+.rv_info_cash{
+    margin-left: 30px;
+    width: 600px;
+    line-height: 25px;
+    font-size: 14px;
+}

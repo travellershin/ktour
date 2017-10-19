@@ -1,0 +1,273 @@
+.o_header{
+    overflow: hidden;
+    height: 100px;
+    width: 1300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding:29px 0 29px 0;
+
+
+    &_date{
+        float: left;
+        width: 130px;
+
+        &_txt{
+            float: left;
+            margin : 0 12px 0 4px;
+        }
+    }
+
+    &_quick{
+        float: left;
+        overflow: hidden;
+        padding:0;
+        margin-left: 10px;
+        cursor: pointer;
+
+        &>p{
+            float: left;
+            padding:9px 15px 9px 15px;
+            border-right: solid 1px #e0e0e0;
+        }
+
+        &--selected{
+            background-color: $key_blue;
+            color: white;
+        }
+    }
+
+    &_trash{
+        float: right;
+
+        &_no{
+            margin-left: 16px;
+            font-weight: bold;
+        }
+    }
+
+    &_print{
+        float: right;
+        margin-right: 10px;
+    }
+}
+
+.om{
+    width:100%;
+    margin-top: 40px;
+
+    &_city{
+        width: 1300px;
+        margin: 0 auto;
+        padding: 30px 0;
+
+        &_name{
+            height: 40px;
+            line-height: 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #343c4b;
+            margin-bottom: 10px;
+        }
+    }
+
+    &_box{
+        width: 1300px;
+        overflow: hidden;
+
+        &_pd{
+            width: 240px;
+            height: 520px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            float: left;
+            margin-right: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            padding-right: 5px;
+
+            &::-webkit-scrollbar-track
+            {
+                background-color: #ffffff;
+            }
+
+            &::-webkit-scrollbar
+            {
+                width: 3px;
+                background-color: #e0e0e0;
+
+            }
+
+            &::-webkit-scrollbar-thumb
+            {
+                background-color: #e0e0e0;
+            }
+        }
+    }
+
+    &_pop{
+        width: 400px;
+        height: 300px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+        border: solid 1px #e0e0e0;
+        box-sizing: border-box;
+        padding: 20px;
+        position: absolute;
+
+        &_line{
+            line-height: 25px;
+            font-size: 14px;
+            overflow: hidden;
+            height: 25px;
+            box-sizing: content-box;
+
+            &>p{
+                float: left;
+                font-weight: bold;
+                line-height: 25px;
+            }
+            &_title{
+                font-size: 13px;
+                color: #7c8495;
+                width: 116px;
+            }
+            &_txt{
+                font-size: 14px;
+                width: 240px;
+            }
+
+            &--border{
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+                border-bottom: solid 1px #e0e0e0;
+            }
+
+            &--deep{
+                height: 50px;
+                margin-bottom: 20px;
+            }
+        }
+        &_bottom{
+            overflow: hidden;
+
+            &>.longbtn{
+                float: right;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.omp{
+    &_name{
+        width:100%;
+        text-align: center;
+        margin-top: 30px;
+        font-size: 18px;
+        line-height: 20px;
+        height: 20px;
+    }
+
+    &_people{
+        width:180px;
+        height:32px;
+        margin-top: 25px;
+        margin-left: 30px;
+        overflow: hidden;
+
+        &_txt{
+            font-size: 12px;
+            line-height: 32px;
+            float: left;
+            color: #696969;
+        }
+
+        &_number{
+            font-size: 26px;
+            line-height: 32px;
+            float: right;
+        }
+    }
+
+    &_bus{
+        width:180px;
+        height:32px;
+        margin-top: 6px;
+        margin-left: 30px;
+        overflow: hidden;
+        margin-bottom: 5px;
+
+        &_txt{
+            font-size: 12px;
+            line-height: 32px;
+            float: left;
+            color: #696969;
+        }
+
+        &_number{
+            font-size: 26px;
+            line-height: 32px;
+            float: right;
+            color: #696969;
+        }
+    }
+
+    &_team{
+        box-sizing: border-box;
+        width: 200px;
+        height: 50px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        margin-left: 20px;
+        margin-top: 10px;
+        overflow: hidden;
+        cursor: pointer;
+
+        &:hover{
+            background-color: rgba(0, 132, 255, 0.1);
+            border: solid 1px #0084ff;
+        }
+        &:active{
+            background-color: rgba(0, 132, 255, 0.2);
+            border: solid 1px #0084ff;
+        }
+
+        &_names{
+            float: left;
+            width: 130px;
+            height: 30px;
+            margin-top: 9px;
+
+            &_bus{
+                font-size: 12px;
+                line-height: 13px;
+                margin-left: 12px;
+                color: #7c8495;
+            }
+
+            &_guide{
+                font-size: 13px;
+                line-height: 13px;
+                margin-top: 4px;
+                margin-left: 12px;
+            }
+        }
+
+        &_people{
+            height: 30px;
+            float: right;
+            margin-right: 12px;
+            margin-top: 9px;
+            line-height: 30px;
+            font-size: 20px;
+        }
+
+        &_add{
+            padding: 15px 33px !important;
+
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#007343" d="M11.15 0v19.119L0 17.092V1.945L11.15 0zm.48 2.227h7.688v14.707H11.63V2.227zm0 1.03v1.974h2.787V3.257h-2.788zm3.363 0v1.974h3.172V3.257h-3.172zm0 2.567v1.974h3.172V5.824h-3.172zm-3.364 0v1.974h2.788V5.824h-2.788zm0 2.566v1.974h2.788V8.39h-2.788zm0 2.566v1.974h2.788v-1.974h-2.788zm0 2.566v1.975h2.788v-1.975h-2.788zm3.364-5.132v1.974h3.172V8.39h-3.172zm0 2.566v1.974h3.172v-1.974h-3.172zm0 2.566v1.975h3.172v-1.975h-3.172z"/>
+        <text fill="#FFF" font-family="Lato-Regular, Lato" font-size="9">
+            <tspan x="2.716" y="12.287">X</tspan>
+        </text>
+    </g>
+</svg>

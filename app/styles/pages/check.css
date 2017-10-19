@@ -1,0 +1,266 @@
+.c_st{
+    width: 100%;
+    height: 140px;
+    background-color: #f0f0f0;
+
+    &_box{
+        &>*{
+            float: left;
+            overflow: hidden;
+        }
+        overflow: hidden;
+
+        &_total{
+            padding-right: 60px;
+            border-right:1px solid #e0e0e0;
+            height: 100px;
+
+            &_title{
+                margin-top: 15px;
+                font-size: 14px;
+                height: 20px;
+                line-height: 20px;
+                font-weight: bold;
+            }
+            &_number{
+                margin-top: 10px;
+                text-align: center;
+                font-size: 40px;
+                font-weight: 600;
+                line-height: 40px;
+            }
+        }
+
+        &_indi{
+            margin-left: 60px;
+            margin-top: 15px;
+            height: 70px;
+
+            &_title{
+                line-height: 20px;
+                height: 20px;
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 0.4px;
+                text-align: center;
+            }
+
+            &_nbox{
+                margin-top: 10px;
+                height: 40px;
+
+                &_circle{
+                    margin: 10px;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 10px;
+                }
+                &_number{
+                    height: 40px;
+                    font-size: 28px;
+                    line-height: 40px;
+                    letter-spacing: -0.1px;
+                }
+            }
+        }
+    }
+}
+
+.c{
+    width:1280px;
+    margin:0 auto;
+    padding-bottom: 80px;
+    position: relative;
+}
+
+.c_header_top{
+    height:40px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+
+    &_numbList{
+        margin-top: 20px;
+        line-height: 20px;
+        font-size: 15px;
+        float: left;
+    }
+
+    &_gmail{
+        height: 40px;
+        float: right;
+
+        &_img{
+            width:20px;
+            margin-left: 6px;
+            float: left;
+        }
+        &_txt{
+            margin-left: 8px;
+            height: 20px;
+            font-size: 14px;
+            text-align: left;
+            color: #343c4b;
+            line-height: 20px;
+            margin-right: 8px;
+            float: left;
+        }
+    }
+    &_refresh{
+        height: 40px;
+        float: right;
+        margin-right: 10px;
+
+        &_img{
+            width:20px;
+        }
+    }
+}
+
+
+.c_header_bottom{
+    height: 20px;
+    padding:10px 0 10px 0;
+    width: 100%;
+    border-top:solid 1px #cccccc;
+    border-bottom:solid 1px #cccccc;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    &>*{float: left;}
+
+    &_type{
+        width:110px;
+    }
+
+    &_date{
+        width:130px;
+        text-align: center;
+    }
+    &_company{
+        width: 250px;
+        text-align: center;
+        margin-left: 40px;
+        margin-right: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    &_title{
+        width: 700px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+    }
+}
+
+.c_ct{
+    box-sizing: border-box;
+    width: 1280px;
+    height: 50px;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin-bottom: 8px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+
+    &:hover{
+        background-color: rgba(0, 132, 255, 0.1);
+        border: solid 1px #0084ff;
+    }
+    &:active{
+        background-color: rgba(0, 132, 255, 0.2);
+        border: solid 1px #0084ff;
+    }
+
+    &>*{float: left;}
+
+    &_type{
+        width:110px;
+
+        &_circle{
+            width:16px;
+            height: 16px;
+            border-radius: 8px;
+            margin-top: 2px;
+        }
+    }
+
+    &_date{
+        width:130px;
+        text-align: center;
+    }
+    &_company{
+        width: 250px;
+        text-align: center;
+        margin-left: 40px;
+        margin-right: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    &_title{
+        width: 700px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+.c_filter{
+    position: absolute;
+    left: -50px;
+    width: 220px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px 0 #e0e0e0;
+    border: solid 1px #e0e0e0;
+    top:94px;
+    background-color: white;
+    padding:10px 0 10px 0;
+
+    &_check{
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+
+    &_circle{
+        width: 16px;
+        height: 16px;
+        border-radius: 8px;
+        margin-top: 2px;
+    }
+
+    &_txt{
+        margin-left: 10px;
+        line-height: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+
+    &>div{
+        overflow:hidden;
+        height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        cursor: pointer;
+
+        &:hover{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+
+        &>img,p,div{float: left;}
+    }
+
+    &_all>p{
+        font-size: 14px;line-height: 20px;
+    }
+}
+
+.bgco{
+    &_green{background-color: #8bd34a;}
+    &_yellow{background-color: #fbe12a;}
+    &_orange{background-color: #ffa24d;}
+    &_red{background-color: #f55b6e;}
+}

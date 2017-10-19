@@ -1,0 +1,235 @@
+.daterangepicker{
+    z-index: 99999;
+}
+
+.re{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+    border: solid 1px #e0e0e0;
+
+    &_header{
+        height: 70px;
+        background-color: #f7f9fb;
+        padding: 25px 20px 25px 30px;
+        overflow: hidden;
+
+        &_title{
+            margin-left: 10px;
+            float: left;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        &_close{
+            float: right;
+        }
+    }
+
+    &_content{
+        padding:20px 30px 40px 30px;
+        background-color: white;
+        overflow-y: scroll;
+        height: 700px;
+    }
+
+    &_content::-webkit-scrollbar-track{
+    	border-radius: 10px;
+    }
+
+    &_content::-webkit-scrollbar{
+    	width: 6px;
+    }
+
+    &_content::-webkit-scrollbar-thumb{
+    	border-radius: 10px;
+    	background-color: #e0e0e0;
+    }
+
+    &_footer{
+        overflow: hidden;
+        height: 80px;
+        border-top: solid 1px #e0e0e0;
+        width: 100%;
+
+        &_save{
+            margin-top: 15px;
+            margin-right: 30px;
+            float: right;
+            width: 120px;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            border: solid 1px #d0d0d0;
+            box-sizing: border-box;
+            padding: 14px 19px 14px 19px;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            color: white;
+        }
+    }
+}
+
+
+.rec{
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+    border: solid 1px #e0e0e0;
+    padding:30px 30px 10px 30px;
+    overflow: hidden;
+
+    &_ti{
+        margin-right: 20px;
+        float: left;
+
+        &>p{
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 40px;
+            text-align: left;
+            color: $hint_grey;
+            margin-bottom: 20px;
+        }
+
+        &_people{
+            display: inline-block;
+            margin-top: -10px;
+            height: 195px;
+        }
+    }
+
+    &_co{
+        float: left;
+
+        &>p{
+            font-size: 14px;
+            font-weight: bold;
+            margin:9px 0 20px 0;
+            text-align: left;
+            max-width: 220px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &_box{
+            display: inline-block;
+            height: 207px;
+
+            &_mini{
+                margin-top: 15px;
+                overflow: hidden;
+
+                &>*{float: left;}
+                &>input{margin-bottom: 0 !important;}
+
+                &_txt{
+                    width: 40px;
+                    margin-right: 20px;
+                    line-height: 40px;
+                    font-size: 13px;
+                    font-weight: bold;
+                    color: #7c8495;
+                }
+            }
+        }
+
+        & .rv_info_pickupTime{
+            width:110px;
+        }
+
+        & .input{
+            padding: 9px 8px 9px 12px;
+            margin-bottom: 20px;
+            line-height: 20px;
+            font-size: 14px;
+            overflow: hidden;
+
+            &>*{float: left;}
+
+            &_disabled{
+                background-color: #f8f8f8;
+                color: #7c8495;
+            }
+        }
+
+        &_midinput{
+            width: 130px;
+            & input{width: 82px;}
+        }
+
+        &_shortinput{
+            width: 70px !important;
+            & input{width: 28px;}
+        }
+
+        &_longinput{
+            width: 240px;
+            & input{width: 188px;}
+        }
+        &_full{
+            width:240px;
+            & input{width: 220px;}
+        }
+    }
+
+
+    &_verticalLine{
+        float: left;
+        width: 1px;
+        margin:10px 30px 10px 30px;
+        height: 488px;
+        background-color: #e0e0e0;
+    }
+
+    &_memo{
+        line-height: 20px;
+        height: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 40px;
+
+        &_txt{
+            margin-top: 15px;
+            width: 792px;
+            resize: none;
+            font-size: 14px;
+            line-height:24px;
+            height: 72px;
+            padding:12px 16px 12px 16px
+        }
+    }
+
+    &_cash{
+        line-height: 20px;
+        height: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 40px;
+
+        &_box{
+            margin-top: 16px;
+            overflow: hidden;
+            &>*{float: left;}
+
+            & input{
+                width:120px;
+                margin-right: 8px;
+                margin-left: 20px;
+            }
+
+            &>p{
+                line-height: 40px;
+                font-size: 13px;
+                height: 40px;
+                margin-right: 78px;
+
+                &.greyTxt{
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+}

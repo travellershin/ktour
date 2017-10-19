@@ -1,0 +1,174 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="./libraries/jquery-ui.min.css">
+
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks">EXCEPTION</li>
+            <li class="header_pageLinks">RESERVATION</li>
+            <li class="header_pageLinks header_pageLinks--selected">OPERATION</li>
+            <li class="header_pageLinks">PRODUCT</li>
+            <li class="header_pageLinks header_pageLinks_guide">GUIDE</li>
+            <li class="header_pageLinks">AGENCY</li>
+            <li class="header_pageLinks">ACCOUNT</li>
+        </ul>
+    </header>
+    <!--아래 가이드 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_guide">
+        <p class="header_guide_asset">ASSET</p>
+        <p class="header_guide_managing">MANAGING</p>
+    </div>
+    <div class="o">
+        <div class="o_header">
+            <div class="o_header_date input">
+                <input class="o_header_date_txt"></input>
+            </div>
+            <div class="o_header_quick input">
+                <p class="o_header_quick_yesterday">YESTERDAY</p>
+                <p class="o_header_quick_today r_set_quick--selected">TODAY</p>
+                <p class="o_header_quick_tomorrow">TOMORROW</p>
+            </div>
+            <div class="o_header_trash longbtn">
+                <img src="./assets/icon-print.svg"/>
+                <p>PRINT OUT</p>
+            </div>
+        </div>
+        <div class="om">
+
+            <!--
+
+            <div class="om_city om_city_seoul">
+                <p class="om_city_name">SEOUL</p>
+                <div class="om_box">
+                    <div class="om_box_pd">
+                        <p class="omp_name">남쁘아</p>
+                        <div class="omp_people">
+                            <p class="omp_people_txt">PEOPLE</p>
+                            <p class="omp_people_number">120</p>
+                        </div>
+                        <div class="omp_bus">
+                            <p class="omp_bus_txt">BUS</p>
+                            <p class="omp_bus_number">5</p>
+                        </div>
+                        <div class="omp_team">
+                            <div class="omp_team_names">
+                                <p class="omp_team_names_bus">BUS 01</p>
+                                <p class="omp_team_names_guide">Christal Nam</p>
+                            </div>
+                            <p class="omp_team_people">22</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <p class="om_cityName">SEOUL</p>
+            <div class="om_box om_seoul">
+
+                <div class="om_box_product">
+                    <p class="om_private_private_product">남쁘아상품명</p>
+                    <div class="om_private_bus">
+                        <div class="om_private_bus_names">
+                            <p class="om_private_bus_names_bus">BUS 01</p>
+                            <p class="om_private_bus_names_guide om_private_guide">Christal Nam</p>
+                        </div>
+                        <p class="om_box_product_bus_countPeople om_private_people">22</p>
+                    </div>
+                    <div class="om_private_date omw">
+                        <p class="omw_title">DATE</p>
+                        <p class="omw_content">2017-08-16</p>
+                    </div>
+                    <div class="om_private_city omw">
+                        <p class="omw_title">PLACE</p>
+                        <p class="omw_content">Seoul</p>
+                    </div>
+                    <div class="om_private_pickupPlace omw">
+                        <p class="omw_title">PICKUP PLACE</p>
+                        <p class="omw_content">Dongdaemoon Exit 5</p>
+                    </div>
+                    <div class="om_private_pickupTime omw">
+                        <p class="omw_title">PICKUP TIME</p>
+                        <p class="omw_content">8:00 am</p>
+                    </div>
+                    <div class="om_private_agency omw">
+                        <p class="omw_title">AGENCY</p>
+                        <p class="omw_content">funtastickorea</p>
+                    </div>
+                    <div class="om_private_option omw">
+                        <p class="omw_title">OPTION</p>
+                        <p class="omw_content">Ski</p>
+                    </div>
+                    <div class="om_private_chinese omw">
+                        <p class="omw_title">CHINESE</p>
+                        <p class="omw_content">X</p>
+                    </div>
+                    <div class="om_private_clientName omw">
+                        <p class="omw_title">NAME</p>
+                        <p class="omw_content">Christal.Nam</p>
+                    </div>
+                    <div class="om_private_natioinality omw">
+                        <p class="omw_title">NATIONALITY</p>
+                        <p class="omw_content">CHINA</p>
+                    </div>
+                    <div class="om_private_tel omw">
+                        <p class="omw_title">TEL</p>
+                        <p class="omw_content">+82-10-2878-6221</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="om_cityName">SEOUL</p>
+
+        -->
+
+        </div>
+    </div>
+
+    <div class="om_pop hidden">
+        <div class="om_pop_line">
+            <p class="om_pop_line_title">BUS COMPANY</p>
+            <p class="om_pop_line_txt om_pop_company">Company_A</p>
+        </div>
+        <div class="om_pop_line">
+            <p class="om_pop_line_title">CUSTOMERS</p>
+            <p class="om_pop_line_txt om_pop_people">Company_A</p>
+        </div>
+        <div class="om_pop_line om_pop_line--border">
+            <p class="om_pop_line_title">BUS COST</p>
+            <p class="om_pop_line_txt om_pop_cost">Company_A</p>
+        </div>
+        <div class="om_pop_line">
+            <p class="om_pop_line_title">GUIDE</p>
+            <p class="om_pop_line_txt om_pop_guide">Company_A</p>
+        </div>
+        <div class="om_pop_line om_pop_line--deep">
+            <p class="om_pop_line_title">MESSAGE</p>
+            <p class="om_pop_line_txt om_pop_message">HEllo </p>
+        </div>
+        <div class="om_pop_bottom">
+            <div class="longbtn">
+                <img src="./assets/icon-edit.svg"/>
+                <p>EDIT</p>
+            </div>
+        </div>
+    </div>
+
+    <script src='./libraries/jquery.js'></script>
+    <script src='./libraries/moment.js'></script>
+    <script type="text/javascript" src="./libraries/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="./libraries/daterangepicker.css" />
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/pages/operation.js'></script>
+    <script src='./libraries/jquery-ui.min.js'></script>
+</body>

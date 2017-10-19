@@ -1,0 +1,124 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<script src='./libraries/jquery.js'></script>
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks">EXCEPTION</li>
+            <li class="header_pageLinks">RESERVATION</li>
+            <li class="header_pageLinks">OPERATION</li>
+            <li class="header_pageLinks">PRODUCT</li>
+            <li class="header_pageLinks header_pageLinks_guide">GUIDE</li>
+            <li class="header_pageLinks header_pageLinks--selected">AGENCY</li>
+            <li class="header_pageLinks">ACCOUNT</li>
+        </ul>
+    </header>
+    <!--아래 가이드 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_guide">
+        <p class="header_guide_asset">ASSET</p>
+        <p class="header_guide_managing">MANAGING</p>
+    </div>
+
+    <div class="ag">
+        <div class="ag_list"></div>
+
+        <div class="ag_info hidden">
+            <input spellcheck="false" class="ag_info_name" value="TRAZY"></input>
+            <div class="ov_hidden mb_20">
+                <p class="ag_info_title">자동처리여부</p>
+                <div class="fl_left ag_auto_yes">
+                    <radio class="ag_info_auto ag_info_auto--selected fl_left"></radio>
+                    <p class="fl_left">YES</p>
+                </div>
+                <div class="fl_left ag_auto_no">
+                    <radio class="ag_info_auto ag_info_auto--unselected fl_left"></radio>
+                    <p class="fl_left">NO</p>
+                </div>
+            </div>
+            <div class="ov_hidden mb_20">
+                <p class="ag_info_title">메일도메인</p>
+                <input class="ag_input ag_info_domain">
+            </div>
+            <div class="ov_hidden mb_20">
+                <p class="ag_info_title">메일제목</p>
+                <input class="ag_input ag_info_subject">
+            </div>
+            <div class="ov_hidden mb_20">
+                <p class="ag_info_title">자동처리규칙</p>
+                <textarea class="ag_textarea ag_info_rule">tlet regResult = /판매사[ :]*([^:\r\n]*)\r?\n/.exec(mail.content);
+    reservation.agency = (regResult) ? regResult[1] : reservation.agency;
+    reservation.agencyCode = /예약번호[ :]*([^:\r\n]*)\r?\n/.exec(mail.content)[1];
+    reservation.product = /상품명[ :]*([^:\r\n]*)\r?\n/.exec(mail.content)[1];
+    reservation.date = /이용일자[ :]*([^:\r\n]*)\r?\n/.exec(mail.content)[1];
+    reservation.pickupPlace = /픽업장소[ :]*([^\r\n]*)\r?\n/.exec(mail.content)[1];
+    regResult = /픽업장소[ :]*[^\«r\n]*([\d]{1,2}[ :]+[\d]{1,2}[PpAa][Mm])/i.exec(mail.content);
+    reservation.pickupTime = (regResult) ? regResult[1] : 'N/A';
+    reservation.clientName = /성함[ :]*([^:\r\n]*)\r?\n/.exec(mail.content)[1];
+    if (mail.content.match(/인원[ ]?수[ :]*\r?\n?[ ]?성인/)) {
+        reservation.people = 0;
+        reservation.adult = Number(/성인[ :]*([\d]*)/.exec(mail.content)[1]);
+        reservation.child = Number(/어린이[ :]*([\d]*)/.exec(mail.content)[1]);
+        reservation.baby = Number(/무료영아[ :]*([\d]*)/.exec(mail.content)[1]);
+        reservation.people = reservation.adult + reservation.child;
+    } else if (mail.content.match(/인원[ ]?수[ :]*\r?\n?[ ]?Adult/i)) {
+        reservation.people = 0;
+        reservation.adult = Number(/Adult[ :]*([\d]*)/i.exec(mail.content)[1]);
+        reservation.baby = Number(/Baby[ :]*([\d]*)/.exec(mail.content)[1]);
+        reservation.people = reservation.adult;
+    } else if (mail.content.match(/인원[ ]?수[ :]*\r?\n?[ ]?Shared[ ]?option/i)) {
+        let s = Number(/Shared[ ]?option[ :]*([\d]*)/i.exec(mail.content)[1]);
+        let p = Number(/Private[ ]?option[ :]*([\d]*)/i.exec(mail.content)[1]);
+        reservation.people = s + p;
+        reservation.option = 'Shared option: '+s+' Private option: '+p+'\n';
+    }
+    reservation.nationality = /국적[ :]*([^:\r\n]*)\r?\n/.exec(mail.content)[1];
+    regResult = /연락처[ :]*([^:\r\n]*)\r?\n/.exec(mail.content);
+    reservation.tel = (regResult) ? regResult[1] : 'N/A';
+    regResult = /메신저[ :]*([^:\r\n]*)\r?\n/.exec(mail.content);
+    reservation.messenger = (regResult) ? regResult[1] : 'N/A';
+    reservation.memo = '펀코의 메모: '
+        + /펀코의[ ]?메모[ :]*([\s\S]*)손님의[ ]?메모[ :]/.exec(mail.content)[1] + '\n'
+        + '손님의 메모: ' + /손님의[ ]?메모[ :]*([\s\S]*?)(?:옵션|판매사|이미 )[ :]?/.exec(mail.content)[1];</textarea>
+            </div>
+            <div class="ov_hidden mb_20 mt_20">
+                <p class="ag_info_title">자동답변방식</p>
+                <div class="fl_left ag_auto_mail">
+                    <radio class="ag_info_auto2 ag_info_auto2--selected fl_left"></radio>
+                    <p class="fl_left">메일링으로 자동답변</p>
+                </div>
+                <div class="fl_left ag_auto_click">
+                    <radio class="ag_info_auto2 ag_info_auto2--unselected fl_left"></radio>
+                    <p class="fl_left">클릭으로 메일답변</p>
+                </div>
+            </div>
+            <div class="ov_hidden mb_20">
+                <p class="ag_info_title">메일답변양식</p>
+                <input class="ag_input ag_info_replySubject">
+            </div>
+            <div class="ov_hidden mb_20">
+                <p class="ag_info_title"> </p>
+                <textarea class="ag_textarea--small ag_info_replyBody"></textarea>
+            </div>
+            <div class="ag_footer">
+                <div class="ag_footer_save">SAVE</div>
+                <div class="ag_footer_delete longbtn">
+                    <img src="./assets/icon-trash.svg"/>
+                    <p>DELETE</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/pages/agency.js'></script>
+</body>

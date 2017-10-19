@@ -1,0 +1,45 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<script src='libraries/jquery.js'></script>
+</head>
+
+<body>
+    <div class="login_wrapper centering">
+        <img class="login_wrapper_background" src="./assets/img-login-bg@2x.png"/>
+        <div class="login">
+            <img class="login_logo" src="./assets/img-login-logo.png"/>
+            <h1 class="login_title">Ktourstory Admin</h1>
+            <p class="login_txt">Please put your e-mail address confirmed by master</p>
+            <p class="login_txt">If you forgot your password, please contant administrator</p>
+            <input class='login_email input' type="email" placeholder="Email address"></input>
+            <input class='login_password input' type="password" placeholder="Password"></input>
+            <p class='login_wrong hidden'></p>
+            <div class='login_remind'>
+                <p class='login_remind_txt'>Remember ID</p>
+                <input class='login_remind_check' type="checkbox"></input>
+            </div>
+            <button class='login_btn login_btn_disabled'>LOGIN</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.3.1/firebase.js"></script>
+    <script>
+    var config = {
+        apiKey: "AIzaSyD-n6Cq73SzyFw-gH18epmFsIrWXfGAdsU",
+        authDomain: "intranet-64851.firebaseapp.com",
+        databaseURL: "https://intranet-64851.firebaseio.com",
+        projectId: "intranet-64851",
+        storageBucket: "gs://intranet-64851.appspot.com",
+        messagingSenderId: "915872590084"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src='scripts/pages/index.js'></script>
+
+
+</body>

@@ -1,0 +1,18 @@
+.pe_tab_agency{
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+}
+.pea{
+    &_title{
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 25px;
+        height: 25px;
+        margin-bottom: 17px;
+    }
+}
+.pea_agency{
+    overflow: hidden;
+    margin-bottom: 30px;
+}

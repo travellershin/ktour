@@ -1,0 +1,164 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<script src='./libraries/jquery.js'></script>
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks header_pageLinks--selected">EXCEPTION</li>
+            <li class="header_pageLinks">RESERVATION</li>
+            <li class="header_pageLinks">OPERATION</li>
+            <li class="header_pageLinks">PRODUCT</li>
+            <li class="header_pageLinks header_pageLinks_guide">GUIDE</li>
+            <li class="header_pageLinks">AGENCY</li>
+            <li class="header_pageLinks">ACCOUNT</li>
+        </ul>
+    </header>
+    <!--아래 가이드 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_guide">
+        <p class="header_guide_asset">ASSET</p>
+        <p class="header_guide_managing">MANAGING</p>
+    </div>
+    <div class="c_st centering">
+        <div class="c_st_box">
+            <div class="c_st_box_total">
+                <p class="c_st_box_total_title">TO FOLLOW UP</p>
+                <p class="c_st_box_total_number">264</p>
+            </div>
+            <div class="c_st_box_indi">
+                <p class="c_st_box_indi_title">주의도 낮음</p>
+                <div class="c_st_box_indi_nbox centering_hor">
+                    <div class="c_st_box_indi_nbox_circle bgco_green"></div>
+                    <p class="c_st_box_indi_nbox_number cc_low">0</p>
+                </div>
+            </div>
+
+            <div class="c_st_box_indi">
+                <p class="c_st_box_indi_title">주의도 중간</p>
+                <div class="c_st_box_indi_nbox centering_hor">
+                    <div class="c_st_box_indi_nbox_circle bgco_yellow"></div>
+                    <p class="c_st_box_indi_nbox_number cc_mid">0</p>
+                </div>
+            </div>
+            <div class="c_st_box_indi">
+                <p class="c_st_box_indi_title">주의도 높음</p>
+                <div class="c_st_box_indi_nbox centering_hor">
+                    <div class="c_st_box_indi_nbox_circle bgco_orange"></div>
+                    <p class="c_st_box_indi_nbox_number cc_high">0</p>
+                </div>
+            </div>
+            <div class="c_st_box_indi">
+                <p class="c_st_box_indi_title">주의도 매우 높음</p>
+                <div class="c_st_box_indi_nbox centering_hor">
+                    <div class="c_st_box_indi_nbox_circle bgco_red"></div>
+                    <p class="c_st_box_indi_nbox_number cc_vhigh">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="c">
+        <div class="c_header_top">
+            <p class="c_header_top_numbList">list 32</p>
+            <div class="c_header_top_gmail longbtn">
+                <img src="./assets/icon-gmail.png"/>
+                <p>GO TO GMAIL</p>
+            </div>
+            <div class="c_header_top_refresh btn">
+                <img src="./assets/icon-refresh.svg"/>
+            </div>
+        </div>
+
+        <div class="c_header_bottom">
+            <div class="c_header_bottom_type centering_hor">
+                <p class="c_header_bottom_type_txt">TYPE</p>
+                <img class="c_header_bottom_type_filter" src="./assets/icon-filter.svg"/>
+            </div>
+            <p class="c_header_bottom_date">DATE</p>
+            <p class="c_header_bottom_company">ERROR</p>
+            <p class="c_header_bottom_title">DETAIL</p>
+        </div>
+
+        <div class="c_filter hidden">
+            <div class="c_filter_all c_filter_btn" id="total">
+                <img class="c_filter_all_check c_filter_check" src="./assets/icon-input-check.svg"/>
+                <p>All</p>
+            </div>
+            <div class="c_filter_btn" id="agency">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_green"></div>
+                <p class="c_filter_txt">Unknown_Agency</p>
+            </div>
+            <div class="c_filter_btn" id="subject">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_yellow"></div>
+                <p class="c_filter_txt">Unknown_Subject</p>
+            </div>
+            <div class="c_filter_btn" id="orange_all">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_orange"></div>
+                <p class="c_filter_txt">ORANGE_ALL</p>
+            </div>
+            <div class="c_filter_btn" id="product">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_orange"></div>
+                <p class="c_filter_txt">Unknown_Product</p>
+            </div>
+            <div class="c_filter_btn" id="pickup">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_orange"></div>
+                <p class="c_filter_txt">Unknown_Pickup</p>
+            </div>
+            <div class="c_filter_btn" id="red_all">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_red"></div>
+                <p class="c_filter_txt">RED_ALL</p>
+            </div>
+            <div class="c_filter_btn" id="multiple">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_red"></div>
+                <p class="c_filter_txt">Multiple_Reservation</p>
+            </div>
+            <div class="c_filter_btn" id="malparsing">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_red"></div>
+                <p class="c_filter_txt">Malparsing</p>
+            </div>
+            <div class="c_filter_btn" id="integrity">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_red"></div>
+                <p class="c_filter_txt">Fail_in_Integrity</p>
+            </div>
+            <div class="c_filter_btn" id="structure">
+                <img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/>
+                <div class="c_filter_circle bgco_red"></div>
+                <p class="c_filter_txt">Unknown_Structure</p>
+            </div>
+        </div>
+
+        <div class="c_contents">
+            <!-- 샘플
+            <div class="c_ct">
+                <div class="c_ct_type centering_hor">
+                    <div class="c_ct_type_circle bgco_green"></div>
+                </div>
+                <p class="c_ct_date">2017-08-21 12:35</p>
+                <p class="c_ct_company">funtastickorea(corea@naec.com)</p>
+                <p class="c_ct_title">[Trazy]*날짜변경요청* 사용자 예약이 접수되었습니다.  확인요청메일이 sujungnam9101@gmail.caom..</p>
+            </div>
+
+        -->
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/pages/check.js'></script>
+</body>

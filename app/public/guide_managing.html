@@ -1,0 +1,284 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>Guide Managing / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./libraries/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./libraries/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="./libraries/jquery-ui.min.css">
+
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks">EXCEPTION</li>
+            <li class="header_pageLinks">RESERVATION</li>
+            <li class="header_pageLinks">OPERATION</li>
+            <li class="header_pageLinks">PRODUCT</li>
+            <li class="header_pageLinks header_pageLinks_guide header_pageLinks--selected">GUIDE</li>
+            <li class="header_pageLinks">AGENCY</li>
+            <li class="header_pageLinks">ACCOUNT</li>
+        </ul>
+    </header>
+    <!--아래 가이드 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_guide">
+        <p class="header_guide_asset">ASSET</p>
+        <p class="header_guide_managing">MANAGING</p>
+    </div>
+    <div class="g">
+        <div class="g_filter_wrapper">
+            <div class="g_filter">
+                <div class="g_filter_top">
+                    <p class="g_filter_top_filtered">FILTERED 72</p>
+                    <p class="g_filter_top_total">TOTAL 72</p>
+                    <div class="g_filter_top_print longbtn">
+                        <img src="./assets/icon-print.svg"/>
+                        <p>PRINT OUT</p>
+                    </div>
+                </div>
+
+                <p class="g_filter_title">LANGUAGE</p>
+                <div class="g_filter_language ov_hidden">
+                    <!--아래는 css를 위한 예제-->
+                    <input id="fil_korean" type="checkbox"></input>
+                    <label for="fil_korean">KOREAN (0)</label>
+                </div>
+                <p class="g_filter_title">DRIVE AVAILABLE</p>
+                <div class="g_filter_drive ov_hidden">
+                    <input class="g_filter_driveCheck" type="checkbox"></input>
+                    <label>DRIVE LICENCE</label>
+                </div>
+                <p class="g_filter_title">PREFER DAY</p>
+                <div class="g_filter_day ov_hidden">
+                    <input class="g_filter_mon" type="checkbox"></input>
+                    <label>MON (0)</label>
+                    <input class="g_filter_tue" type="checkbox"></input>
+                    <label>TUE (0)</label>
+                    <input class="g_filter_wed" type="checkbox"></input>
+                    <label>WED (0)</label>
+                    <input class="g_filter_thu" type="checkbox"></input>
+                    <label>THU (0)</label>
+                    <input class="g_filter_fri" type="checkbox"></input>
+                    <label>FRI (0)</label>
+                    <input class="g_filter_sat" type="checkbox"></input>
+                    <label>SAT (0)</label>
+                    <input class="g_filter_sun" type="checkbox"></input>
+                    <label>SUN (0)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="g_wrapper">
+            <div class="g_add_div">
+                <div class="longbtn g_add">
+                    <img src="./assets/icon-add.svg" />
+                    <p>ADD NEW GUIDE</p>
+                </div>
+            </div>
+            <div class="g_guide_div">
+                <!--아래는 dom 구조 확인을 위한 예제 guide임-->
+                <div class="g_guide hidden">
+                    <div class="g_pop hidden">
+                        <div class="g_pop_edit">
+                            <img src="./assets/icon-edit.svg" />
+                            <p>EDIT</p>
+                        </div>
+                        <div class="g_pop_delete">
+                            <img src="./assets/icon-trash.svg" />
+                            <p>DELETE</p>
+                        </div>
+                    </div>
+                    <div class="g_guide_info_div">
+                        <img class="g_guide_info" src="./assets/icon-more.svg"/>
+                    </div>
+                    <div class="g_guide_face_wrapper">
+                        <img class="g_guide_face" src="./guides/0.jpg"/>
+                    </div>
+
+                    <p class="g_guide_name gg_name">Taylor Swift</p>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">START DATE</p>
+                        <p class="g_guide_txt gg_start">2017-08-17</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">END DATE</p>
+                        <p class="g_guide_txt gg_end">2017-08-17</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">MAIL</p>
+                        <p class="g_guide_txt gg_email">sujungnam9101@gmail.com</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">PHONE</p>
+                        <p class="g_guide_txt gg_phone">+82-10-5160-9101</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">LANGUAGE</p>
+                        <p class="g_guide_txt gg_language">English, Russian</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">DRIVE</p>
+                        <p class="g_guide_txt gg_drive">O</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">ACCOUNT</p>
+                        <p class="g_guide_txt gg_account">Wooribank<br>238902-2982178</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">ADRESS</p>
+                        <p class="g_guide_txt gg_address">서울시 송파구 잠실동</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">BONUS</p>
+                        <p class="g_guide_txt gg_bonus">+20,000WON (+20%)</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">PREFER DAY</p>
+                        <p class="g_guide_txt gg_dayInWeek">Mon, Wed, Fri</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">CARD NUMBER</p>
+                        <p class="g_guide_txt gg_card">5522 9000 5632 1578</p>
+                    </div>
+                    <div class="g_guide_box">
+                        <p class="g_guide_title">MEMO</p>
+                        <p class="g_guide_txt gg_memo">미스춘향 선발대회 2등 입상</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="pop_blackScreen centering hidden">
+        <div class="pop_background gie">
+            <form>
+                <div class="gie_header">
+                    <p>GUIDE INFO_EDIT</p>
+                    <button type="reset"><img src="./assets/icon-close.svg"/></button>
+                </div>
+                <div class="gie_div">
+                    <div class="gie_face_wrapper">
+                        <label for="gie_upload_photo" id="gie_upload_photo_label"></label>
+                        <div id="gie_wwwraper">
+                            <img class="gie_face" src=""/>
+                        </div>
+                        <input type="file" accept="image/*" id="gie_upload_photo" onchange="uploadGuide(this.files)"></input>
+                    </div>
+
+                    <input class="gie_name gge_name" value="GUIDE NAME"></input>
+                    <div class="gie_boxWrapper">
+                        <div class="gie_box">
+                            <p class="gie_title">START DATE</p>
+                            <input class="gie_edit input midinput startDatePicker gge_start" value="2017-08-23"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">END DATE</p>
+                            <input class="gie_edit input midinput endDatePicker gge_end" value="2017-08-23"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">E-MAIL</p>
+                            <input class="gie_edit input fullinput gge_email"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">PHONE</p>
+                            <input class="gie_edit input fullinput gge_phone"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">LANGUAGE</p>
+                            <div class="clearBoth gie_languageBox">
+                                <input type="checkbox" name="language" id="gie_korean"></input>
+                                <label for="gie_korean">KOREAN</label>
+                                <input type="checkbox" name="language" id="gie_english"></input>
+                                <label for="gie_english">ENGLISH</label>
+                                <input type="checkbox" name="language" id="gie_chinese"></input>
+                                <label for="gie_chinese">CHINESE</label>
+                                <input type="checkbox" name="language" id="gie_cantonese"></input>
+                                <label for="gie_cantonese">CANTONESE</label>
+                                <input type="checkbox" name="language" id="gie_japanese"></input>
+                                <label for="gie_japanese">JAPANESE</label>
+                                <input type="checkbox" name="language" id="gie_indonesian"></input>
+                                <label for="gie_indonesian">INDONESIAN</label>
+                                <input type="checkbox" name="language" id="gie_thai"></input>
+                                <label for="gie_thai">THAI</label>
+                                <input type="checkbox" name="language" id="gie_vietnamese"></input>
+                                <label for="gie_vietnamese">VIETNAMESE</label>
+                                <input type="checkbox" name="language" id="gie_tagalog"></input>
+                                <label for="gie_tagalog">TAGALOG</label>
+                                <input type="checkbox" name="language" id="gie_french"></input>
+                                <label for="gie_french">FRENCH</label>
+                                <input type="checkbox" name="language" id="gie_spanish"></input>
+                                <label for="gie_spanish">SPANISH</label>
+                                <input type="checkbox" name="language" id="gie_german"></input>
+                                <label for="gie_german">GERMAN</label>
+                            </div>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">DRIVE</p>
+                            <input class="gie_drive gge_drive dw_dropdown" readonly id="gge_driverz" dropitem="O, X"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">ACCOUNT</p>
+                            <input class="gie_edit input fullinput gge_account"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">ADDRESS</p>
+                            <input class="gie_edit input fullinput gge_address"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">BONUS</p>
+                            <input class="gie_edit input midinput gge_bonus"></input>
+                        </div>
+                        <div class="gie_box">
+                            <p class="gie_title">PREFER DAY</p>
+                            <div class="clearBoth gie_preferBox">
+                                <input type="checkbox" id="gie_Mon"></input>
+                                <label for="gie_Mon">MON</label>
+                                <input type="checkbox" id="gie_Tue"></input>
+                                <label for="gie_Tue">TUE</label>
+                                <input type="checkbox" id="gie_Wed"></input>
+                                <label for="gie_Wed">WED</label>
+                                <input type="checkbox" id="gie_Thu"></input>
+                                <label for="gie_Thu">THU</label>
+                                <input type="checkbox" id="gie_Fri"></input>
+                                <label for="gie_Fri">FRI</label>
+                                <input type="checkbox" id="gie_Sat"></input>
+                                <label for="gie_Sat">SAT</label>
+                                <input type="checkbox" id="gie_Sun"></input>
+                                <label for="gie_Sun">SUN</label>
+                            </div>
+                        </div>
+
+                        <div class="gie_box">
+                            <p class="gie_title gge_card">CARD NUMBER</p>
+                            <input class="gie_edit input fullinput"></input>
+                        </div>
+                    </div>
+
+                    <p class="gie_memo_title">MEMO</p>
+                    <textarea class="gie_memo_txt gge_memo"></textarea>
+                </div>
+                <div class="gie_save_div">
+                    <button type="submit" class="gie_save">SAVE</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./libraries/jquery.js'></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/module/dropdown.js'></script>
+    <script src='./scripts/module/upload.js'></script>
+    <script src='./libraries/moment.js'></script>
+    <script type="text/javascript" src="./libraries/daterangepicker.js"></script>
+    <script src='./libraries/jquery-ui.min.js'></script>
+    <script src='./scripts/pages/guide_managing.js'></script>
+</body>

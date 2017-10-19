@@ -1,0 +1,303 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks">EXCEPTION</li>
+            <li class="header_pageLinks header_pageLinks--selected">RESERVATION</li>
+            <li class="header_pageLinks">OPERATION</li>
+            <li class="header_pageLinks">PRODUCT</li>
+            <li class="header_pageLinks header_pageLinks_guide">GUIDE</li>
+            <li class="header_pageLinks">AGENCY</li>
+            <li class="header_pageLinks">ACCOUNT</li>
+        </ul>
+    </header>
+    <!--아래 가이드 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_guide">
+        <p class="header_guide_asset">ASSET</p>
+        <p class="header_guide_managing">MANAGING</p>
+    </div>
+
+<div class="r">
+    <div class="r_set">
+        <div class="r_set_date dropdown">
+            <p class="r_set_date_txt drp_txt">2017-09-11 ~ 2017-09-11</p>
+        </div>
+        <div class="r_set_quick input drp_quick">
+            <p class="drp_quick_yesterday">YESTERDAY</p>
+            <p class="drp_quick_today drp_quick--selected">TODAY</p>
+            <p class="drp_quick_tomorrow">TOMORROW</p>
+        </div>
+        <div class="r_set_trash longbtn">
+            <img src="./assets/icon-trash.svg"/>
+            <p>CANCELED</p>
+            <p class="r_set_trash_no">123</p>
+        </div>
+        <div class="r_set_print longbtn">
+            <img src="./assets/icon-print.svg"/>
+            <p>PRINT OUT</p>
+        </div>
+    </div>
+
+    <div class="r_stat"></div>
+    <!--예약 통계 그래프는 모듈로 빼는 것이 좋을듯-->
+
+    <div class="r_htop">
+        <p class="r_htop_numbList"></p>
+        <div class="r_htop_gmail longbtn">
+            <img src="./assets/icon-excel.svg"/>
+            <p>EXPORT TO EXCEL</p>
+        </div>
+        <p class="r_htop_filterRemove btn">모든 필터 해제</p>
+    </div>
+
+    <div class="r_hbot">
+        <p class="r_hbot_date">DATE</p>
+        <div class="r_hbot_product dw_dndropdown multiselect" id="r_filter_product">
+            <p>PRODUCT</p>
+        </div>
+        <div class="r_hbot_pickup dw_dndropdown multiselect" id="r_filter_pickupPlace">
+            <p>PICKUP PLACE</p>
+        </div>
+        <p class="r_hbot_people">PEOPLE</p>
+        <div class="r_hbot_option">
+            <p>OPTION</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
+        <div class="r_hbot_chinese">
+            <p>CHINESE</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
+        <p class="r_hbot_name">CLIENT NAME</p>
+        <div class="r_hbot_nationality dw_dndropdown multiselect" id="r_filter_nationality">
+            <p>NATIONALITY</p>
+        </div>
+        <div class="r_hbot_agency dw_dndropdown multiselect" id="r_filter_agency">
+            <p>AGENCY</p>
+        </div>
+    </div>
+
+    <div class="rv_box"></div>
+
+    <!--예약정보 팝업-->
+    <div class="popUp hidden">
+        <div class="lightBox_shadow centering">
+            <div class="ri">
+                <div class="ri_header">
+                    <img class="ri_header_star" src="./assets/icon-star-off.svg"/>
+                    <p class="ri_header_title">RESERVATION INFO</p>
+                    <img class="ri_header_close" src="./assets/icon-close.svg">
+                </div>
+                <div class="ri_contents">
+                    <div class="ric">
+                        <div class="ric_ti">
+                            <p>DATE</p>
+                            <p class="ric_product">PRODUCT</p>
+                            <p>AREA</p>
+                            <p class="ric_pick">PICKUP PLACE</p>
+                            <p>PICKUP TIME</p>
+                            <p>PEOPLE</p>
+                            <p>AGENCY</p>
+                            <p class="ric_option">OPTION</p>
+                            <p>CHINESE</p>
+                        </div>
+                        <div class="ric_co">
+                            <p class="rv_info_date">-</p>
+                            <p class="rv_info_product">-</p>
+                            <p class="rv_info_area">-</p>
+                            <p class="rv_info_pickupPlace">-</p>
+                            <p class="rv_info_pickupTime">-</p>
+                            <p class="rv_info_people">-</p>
+                            <p class="rv_info_agency">-</p>
+                            <p class="rv_info_option">-</p>
+                            <p class="rv_info_chinese">-</p>
+                        </div>
+
+                        <div class="ric_verticalLine"></div>
+
+                        <div class="ric_ti">
+                            <p class="ric_name">NAME</p>
+                            <p>NATIONALITY</p>
+                            <p>TEL</p>
+                            <p>MESSENGER</p>
+                            <p>E-MAIL</p>
+                            <p>CODE</p>
+                            <p>AGENCY CODE</p>
+                        </div>
+                        <div class="ric_co">
+                            <p class="rv_info_clientName">-</p>
+                            <p class="rv_info_nationality">-</p>
+                            <p class="rv_info_tel">-</p>
+                            <p class="rv_info_messenger">-</p>
+                            <p class="rv_info_email">-</p>
+                            <p class="rv_info_code">-</p>
+                            <p class="rv_info_agencyCode">-</p>
+                        </div>
+
+                    </div>
+
+                    <p class="ri_smallTitle">MEMO</p>
+                    <p class="rv_info_memo">-</p>
+
+                    <p class="ri_smallTitle">CASH</p>
+                    <p class="rv_info_cash">RECEIPT:356,000won &nbsp;&nbsp;&nbsp;&nbsp; REFUND:76,000won</p>
+                </div>
+                <div class="ri_footer">
+                    <div class="ri_footer_edit longbtn">
+                        <img src="./assets/icon-edit.svg" />
+                        <p>EDIT</p>
+                    </div>
+                    <div class="ri_footer_cancel longbtn">
+                        <img src="./assets/icon-trash.svg" />
+                        <p>CANCEL RESERVATION</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="re hidden">
+                <div class="re_header">
+                    <p class="re_header_title">RESERVATION EDIT</p>
+                    <img class="re_header_close" src="./assets/icon-close.svg">
+                </div>
+
+                <div class="re_content">
+                    <div class="rec">
+                        <div class="rec_ti">
+                            <p>DATE</p>
+                            <p>PRODUCT</p>
+                            <p>AREA</p>
+                            <p>PICKUP PLACE</p>
+                            <p>PICKUP TIME</p>
+                            <p class="rec_ti_people">PEOPLE</p>
+                            <p>AGENCY</p>
+                            <p>OPTION</p>
+                            <p>CHINESE</p>
+                        </div>
+                        <div class="rec_co">
+
+                            <div id="singleDateBox" class="rec_co_midinput input">
+                                <input id="singleDate" class="rv_info_date"></input>
+                                <img src="./assets/icon-filter.svg" />
+                            </div>
+                            <div class="rec_co_longinput input input_disabled rv_info_product"></div>
+                            <div class="rec_co_longinput input">
+                                <input class="rv_info_area"></input>
+                            </div>
+                            <div class="rec_co_longinput input">
+                                <input class="rv_info_pickupPlace"></input>
+                                <img src="./assets/icon-filter.svg" />
+                            </div>
+                            <div class="rec_co_midinput input">
+                                <input class="rv_info_pickupTime" type="time"></input>
+                            </div>
+                            <div class="rec_co_box">
+                                <input class="rv_info_people"></input>
+                                <div class="rec_co_box_mini">
+                                    <p class="rec_co_box_mini_txt">Adult</p>
+                                    <input type="number" class="rv_info_adult rec_co_shortinput input"></input>
+                                </div>
+                                <div class="rec_co_box_mini">
+                                    <p class="rec_co_box_mini_txt">Child</p>
+                                    <input type="number" class="rv_info_child rec_co_shortinput input"></input>
+                                </div>
+                                <div class="rec_co_box_mini">
+                                    <p class="rec_co_box_mini_txt">Baby</p>
+                                    <input type="number" class="rv_info_baby rec_co_shortinput input"></input>
+                                </div>
+                            </div>
+                            <div class="rec_co_longinput input input_disabled rv_info_agency"></div>
+                            <div class="rec_co_longinput input">
+                                <input class="rv_info_option"></input>
+                            </div>
+                            <div class="rec_co_shortinput input">
+                                <input class="rv_info_chinese"></input>
+                                <img src="./assets/icon-filter.svg" />
+                            </div>
+                        </div>
+
+                        <div class="ric_verticalLine"></div>
+
+                        <div class="rec_ti">
+                            <p>NAME</p>
+                            <p>NATIONALITY</p>
+                            <p>TEL</p>
+                            <p>MESSENGER</p>
+                            <p>E-MAIL</p>
+                            <p>CODE</p>
+                            <p>AGENCY CODE</p>
+                        </div>
+                        <div class="rec_co">
+
+                            <div class="rec_co_full input">
+                                <input class="rv_info_clientName"></input>
+                            </div>
+                            <div class="rec_co_longinput input">
+                                <input class="rv_info_nationality"></input>
+                            </div>
+                            <div class="rec_co_full input">
+                                <input class="rv_info_tel"></input>
+                            </div>
+                            <div class="rec_co_full input">
+                                <input class="rv_info_messenger"></input>
+                            </div>
+                            <div class="rec_co_full input">
+                                <input class="rv_info_email"></input>
+                            </div>
+                            <div class="rec_co_longinput input input_disabled rv_info_code"></div>
+                            <div class="rec_co_longinput input input_disabled rv_info_agencyCode"></div>
+                        </div>
+                    </div>
+
+                    <p class="rec_memo">MEMO</p>
+                    <textarea class="rec_memo_txt rv_info_memo">이 손님 전화번호 변경 바랍니다.
+교통비 2400원 현금 빌려줌.
+이메일 주소 변경할 것.</textarea>
+
+                    <p class="rec_cash">CASH</p>
+                    <div class="rec_cash_box">
+                        <p class="greyTxt">RECEIPT</p>
+                        <input type="text" class="input"></input>
+                        <p>WON</p>
+                        <p class="greyTxt">REFUND</p>
+                        <input type="text" class="input"></input>
+                        <p>WON</p>
+                    </div>
+                </div>
+                <div class="re_footer">
+                    <div class="re_footer_save">SAVE</div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+    <script src='./libraries/jquery.js'></script>
+    <script src='./libraries/moment.js'></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <script src="./libraries/jquery-ui.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/module/date.js'></script>
+    <script src='./scripts/pages/reservation_new.js'></script>
+    <script src='./scripts/module/dropdown.js'></script>
+
+</body>

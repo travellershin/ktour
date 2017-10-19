@@ -1,0 +1,125 @@
+.login{
+
+    width: 600px;
+    height:600px;
+    position: absolute;
+
+    &_wrapper{
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        &_background{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &_logo{
+        width: 100px;
+        height: 100px;
+        margin-left: 250px;
+    }
+    &_title{
+        width: 600px;
+        height: 50px;
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 50px;
+        letter-spacing: 0.6px;
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 16px;
+    }
+    &_txt{
+        width: 600px;
+        height: 22px;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: 0.3px;
+        text-align: center;
+        color: #ffffff;
+        opacity: 0.8;
+    }
+
+    &>input{
+        width:300px;
+        height:40px;
+        margin-left: 150px;
+        line-height: 20px;
+        color: $hint_grey;
+    }
+
+    &_email{
+        margin-top: 50px;
+    }
+
+    &_password{
+        margin-top: 12px;
+    }
+
+    &_wrong{
+        width:300px;
+        height:25px;
+        margin-top: 8px;
+        margin-left: 150px;
+        line-height: 25px;
+        color:$alert_red;
+        font-weight: bold;
+    }
+
+    &_remind{
+        width:300px;
+        margin-left: 150px;
+        margin-top: 12px;
+
+        &_txt{
+            float: right;
+            height: 20px;
+            font-family: Lato;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -0.2px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+        &_check{
+            float: right;
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            margin-right: 10px;
+        }
+    }
+
+    &_btn{
+        width: 300px;
+        height: 50px;
+        border-radius: 5px;
+        margin-left: 150px;
+        margin-top:24px;
+        line-height: 50px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-align: center;
+
+        &_disabled{
+            background-color: #d7d7d7;
+            border: solid 1px #cccccc;
+            color: rgba(12,12,12,0.2);
+        }
+
+        &_enabled{
+            background-color: #121212;
+            border: solid 1px #000000;
+            color: #ffffff;
+            cursor: pointer;
+
+        }
+
+    }
+
+
+
+}

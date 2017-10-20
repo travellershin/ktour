@@ -8,6 +8,7 @@
 <script src='./libraries/jquery.js'></script>
 </head>
 <body>
+    <!--전 페이지 통합 헤더 nav CSS modules/header-->
     <header class="header">
         <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
         <ul>
@@ -25,11 +26,13 @@
         <p class="header_guide_asset">ASSET</p>
         <p class="header_guide_managing">MANAGING</p>
     </div>
+
+    <!--상단 숫자 상태창 css pages/exception-->
     <div class="c_st centering">
         <div class="c_st_box">
             <div class="c_st_box_total">
-                <p class="c_st_box_total_title">TO FOLLOW UP</p>
-                <p class="c_st_box_total_number">264</p>
+                <p class="c_st_box_total_title">TOTAL EXCEPTION</p>
+                <p class="c_st_box_total_number">0</p>
             </div>
             <div class="c_st_box_indi">
                 <p class="c_st_box_indi_title">주의도 낮음</p>
@@ -63,7 +66,10 @@
         </div>
     </div>
 
+    <!--메인 리스팅 css pages/exception-->
     <div class="c">
+
+        <!--메인 리스팅 헤더 css pages/exception-->
         <div class="c_header_top">
             <p class="c_header_top_numbList">list 32</p>
             <div class="c_header_top_gmail longbtn">
@@ -85,6 +91,7 @@
             <p class="c_header_bottom_title">DETAIL</p>
         </div>
 
+        <!--메인 리스팅 필터 css pages/exception-->
         <div class="c_filter hidden">
             <div class="c_filter_all c_filter_btn" id="total">
                 <img class="c_filter_all_check c_filter_check" src="./assets/icon-input-check.svg"/>
@@ -142,8 +149,9 @@
             </div>
         </div>
 
+        <!--메인 리스팅 리스트 css pages/exception-->
         <div class="c_contents">
-            <!-- 샘플
+            <!-- 데이터 샘플(실 데이터는 scripting)
             <div class="c_ct">
                 <div class="c_ct_type centering_hor">
                     <div class="c_ct_type_circle bgco_green"></div>

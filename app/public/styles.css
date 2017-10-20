@@ -52,6 +52,12 @@ p,h1 {
 input:focus {
   outline: none;
 }
+.daterangepicker td.active{
+    background-color: #3f55d2 !important;
+}
+.daterangepicker td.in-range{
+    background-color: #eef0fb !important;
+}
 body{
     color:#262e3e;
     font-family: 'Lato', sans-serif;
@@ -543,6 +549,7 @@ textarea::-webkit-scrollbar-thumb
             cursor: pointer;
 
         }
+/*상단 숫자 상태창*/
 .c_st{
     width: 100%;
     height: 140px;
@@ -603,12 +610,14 @@ textarea::-webkit-scrollbar-thumb
                     line-height: 40px;
                     letter-spacing: -0.1px;
                 }
+/*메인 리스팅 wrapper*/
 .c{
     width:1280px;
     margin:0 auto;
     padding-bottom: 80px;
     position: relative;
 }
+/*메인 리스팅 헤더*/
 .c_header_top{
     height:40px;
     width: 100%;
@@ -682,6 +691,52 @@ textarea::-webkit-scrollbar-thumb
         white-space: nowrap;
         text-align: center;
     }
+/*메인 리스팅 필터*/
+.c_filter{
+    position: absolute;
+    left: -50px;
+    width: 220px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 2px 3px 0 #e0e0e0;
+            box-shadow: 0 2px 3px 0 #e0e0e0;
+    border: solid 1px #e0e0e0;
+    top:94px;
+    background-color: white;
+    padding:10px 0 10px 0;
+}
+.c_filter_check{
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+.c_filter_circle{
+        width: 16px;
+        height: 16px;
+        border-radius: 8px;
+        margin-top: 2px;
+    }
+.c_filter_txt{
+        margin-left: 10px;
+        line-height: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+.c_filter>div{
+        overflow:hidden;
+        height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        cursor: pointer;
+    }
+.c_filter>div:hover{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+.c_filter>div>img,.c_filter>div p,.c_filter>div div{float: left;}
+.c_filter_all>p{
+        font-size: 14px;line-height: 20px;
+    }
+/*메인 리스팅 리스트*/
 .c_ct{
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -730,66 +785,17 @@ textarea::-webkit-scrollbar-thumb
         text-overflow: ellipsis;
         white-space: nowrap;
     }
-.c_filter{
-    position: absolute;
-    left: -50px;
-    width: 220px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 2px 3px 0 #e0e0e0;
-            box-shadow: 0 2px 3px 0 #e0e0e0;
-    border: solid 1px #e0e0e0;
-    top:94px;
-    background-color: white;
-    padding:10px 0 10px 0;
-}
-.c_filter_check{
-        margin-left: 10px;
-        margin-right: 5px;
-    }
-.c_filter_circle{
-        width: 16px;
-        height: 16px;
-        border-radius: 8px;
-        margin-top: 2px;
-    }
-.c_filter_txt{
-        margin-left: 10px;
-        line-height: 20px;
-        height: 20px;
-        font-size: 14px;
-    }
-.c_filter>div{
-        overflow:hidden;
-        height: 20px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        cursor: pointer;
-    }
-.c_filter>div:hover{
-            background-color: rgba(224, 224, 224, 0.2);
-        }
-.c_filter>div>img,.c_filter>div p,.c_filter>div div{float: left;}
-.c_filter_all>p{
-        font-size: 14px;line-height: 20px;
-    }
 .bgco_green{background-color: #8bd34a;}
 .bgco_yellow{background-color: #fbe12a;}
 .bgco_orange{background-color: #ffa24d;}
 .bgco_red{background-color: #f55b6e;}
-.daterangepicker td.active{
-    background-color: #3f55d2 !important;
-}
-.daterangepicker td.in-range{
-    background-color: #eef0fb !important;
-}
 .r{
     width:1280px;
     padding-bottom: 80px;
     margin:0 auto;
     padding-top: 30px;
 }
+/*날짜 세팅*/
 .r_set{
     overflow: hidden;
     height: 40px;
@@ -812,6 +818,7 @@ textarea::-webkit-scrollbar-thumb
         float: right;
         margin-right: 10px;
     }
+/*헤더 - 윗부분(갯수, 필터해제, Excel)*/
 .r_htop{
     height:40px;
     width: 100%;
@@ -838,6 +845,7 @@ textarea::-webkit-scrollbar-thumb
         float: right;
         margin-right: 8px;
     }
+/*헤더 - 아랫부분(예약정보 분류명)*/
 .r_hbot{
     height:42px;
     -webkit-box-sizing: border-box;

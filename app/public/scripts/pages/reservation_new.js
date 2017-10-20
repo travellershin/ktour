@@ -1,6 +1,12 @@
-let reservation = {};
-let reserv_filtered = {};
-let filter_rev = {}
+let reservation_NF = []; //not filtered reservation
+let filter = {}
+let rev_obj = {}
+let adjusted = {
+    product : [],
+    pickupPlace : [],
+    nationality : [],
+    agency : []
+}
 
 $(document).ready(function(){
     datepicker_init();
@@ -16,21 +22,21 @@ $(document).on("click",".drp_quick_yesterday",function(){
     $(this).addClass("drp_quick--selected")
     $(".r_set_date_txt").html(datestring.yesterday()+" ~ "+datestring.yesterday())
     dateArray = [datestring.yesterday()];
-    collect_rev(0);
+    collect_rev();
 })
 $(document).on("click",".drp_quick_today",function(){
     $(".drp_quick>p").removeClass("drp_quick--selected");
     $(this).addClass("drp_quick--selected")
     $(".r_set_date_txt").html(datestring.today()+" ~ "+datestring.today())
     dateArray = [datestring.today()];
-    collect_rev(0);
+    collect_rev();
 })
 $(document).on("click",".drp_quick_tomorrow",function(){
     $(".drp_quick>p").removeClass("drp_quick--selected");
     $(this).addClass("drp_quick--selected")
     $(".r_set_date_txt").html(datestring.tomorrow()+" ~ "+datestring.tomorrow())
     dateArray = [datestring.tomorrow()];
-    collect_rev(0);
+    collect_rev();
 })
 $(document).on("click",".rv_content",function(){
     rev_detail($(this).attr("id"));
@@ -61,154 +67,124 @@ $(document).on("click", ".re_footer_save", function(){
     // TODO: save 기능
 })
 
-function collect_rev(i){
-    firebase.database().ref("reservation").orderByChild("date").equalTo(dateArray[i]).on("value",snap=>{
-        console.log("renewing data of " + dateArray[i]) // 데이터 최신화 작동 확인을 위해 console.log 남겨둠
-        reservation[dateArray[i]] = {} //data 삭제 경우를 대비, 무조건 새로 mapping
-        let data = snap.val();
-        for (let revKey in data) {
-            reservation[dateArray[i]][revKey] = data[revKey]
-        };
-        i++;
-        if(i<dateArray.length){
-            collect_rev(i)
-        }
+function collect_rev(){
+    reservation_NF = []
+    firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
+        snap.forEach(function(child){
+            reservation_NF.push(child.val())
+        })
+        rev_obj = snap.val();
         filterOut_rev();
     })
 }
 
 function filterOut_rev(){
-    reserv_filtered = {
-        total:{},
-        product:{},
-        place:{},
-        pickupPlace:{},
-        nationality:{},
-        agency:{}
-    }
 
-    filter_rev = {
-        product:[],
-        pickupPlace:[],
-        nationality:[],
-        agency:[]
-    }
+    let filter_product = new Set(); //필터 이름
+    let filter_pickupPlace = new Set(); //필터 이름
+    let filter_nationality = new Set(); //필터 이름
+    let filter_agency = new Set(); //필터 이름
 
-    for (let i = 0; i < dateArray.length; i++) {
-        for (let keys in reservation[dateArray[i]]) {
-            let rvdata = reservation[dateArray[i]][keys];
-            reserv_filtered.total[keys] = rvdata;
-
-            if(!reserv_filtered.place[rvdata.city]){reserv_filtered.place[rvdata.city] = {}}
-            reserv_filtered.place[rvdata.city][keys] = rvdata;
-
-            if(rvdata.nationality === "N/A"){
-                if(!reserv_filtered.nationality.unknown){reserv_filtered.nationality.unknown = {}}
-                reserv_filtered.nationality.unknown[keys] = rvdata;
-
-            }else{
-                if(!reserv_filtered.nationality[rvdata.nationality]){reserv_filtered.nationality[rvdata.nationality] = {}}
-                reserv_filtered.nationality[rvdata.nationality][keys] = rvdata;
-            }
-
-            if(!reserv_filtered.product[rvdata.product]){reserv_filtered.product[rvdata.product] = {}}
-            reserv_filtered.product[rvdata.product][keys] = rvdata;
-
-            if(!reserv_filtered.agency[rvdata.agency]){reserv_filtered.agency[rvdata.agency] = {}}
-            reserv_filtered.agency[rvdata.agency][keys] = rvdata;
-
-            if(!reserv_filtered.pickupPlace[rvdata.pickupPlace]){reserv_filtered.pickupPlace[rvdata.pickupPlace] = {}}
-            reserv_filtered.pickupPlace[rvdata.pickupPlace][keys] = rvdata;
+    for (let i = 0; i < reservation_NF.length; i++) {
+        filter_product.add(reservation_NF[i].product)
+        filter_pickupPlace.add(reservation_NF[i].pickupPlace)
+        if(reservation_NF[i].nationality){
+            filter_nationality.add(reservation_NF[i].nationality)
+        }else{
+            filter_nationality.add("Unknown")
         }
+        filter_agency.add(reservation_NF[i].agency)
     }
 
-    dynamicDrop($("#r_filter_product"),Object.keys(reserv_filtered.product));
-    dynamicDrop($("#r_filter_pickupPlace"),Object.keys(reserv_filtered.pickupPlace));
-    dynamicDrop($("#r_filter_nationality"),Object.keys(reserv_filtered.nationality));
-    dynamicDrop($("#r_filter_agency"),Object.keys(reserv_filtered.agency));
-    for (let filters in filter_rev) {
-        if(filter_rev[filters].length === 0){
-            filter_rev[filters] = Object.keys(reserv_filtered[filters]);
-        }
+    filter = {
+        product : Array.from(filter_product),
+        pickupPlace : Array.from(filter_pickupPlace),
+        nationality : Array.from(filter_nationality) ,
+        agency : Array.from(filter_agency)
     }
+    dynamicDrop($("#r_filter_product"),filter.product);
+    dynamicDrop($("#r_filter_pickupPlace"),filter.pickupPlace);
+    dynamicDrop($("#r_filter_nationality"),filter.nationality);
+    dynamicDrop($("#r_filter_agency"),filter.agency);
 
-    inflate_rev();
+    inflate_rev(reservation_NF);
 }
 
-function inflate_rev(){
+function inflate_rev(reservation){
     let domTxt = ""
 
-    let data = {
-        agency:{},
-        nationality:{},
-        pickupPlace:{},
-        place:{},
-        product:{}
-    }
-
-    let show = {}
-
-    for (let filtername in filter_rev) {
-        let filterArray = filter_rev[filtername];
-        for (let i = 0; i < filter_rev[filtername].length; i++) {
-            for (let key in reserv_filtered[filtername][filter_rev[filtername][i]]) {
-                data[filtername][key] = reserv_filtered[filtername][filter_rev[filtername][i]][key]
-            }
-        }
-    }
-
-    for (let keys in data.product) {
-        if(keys in data.pickupPlace && keys in data.nationality && keys in data.agency){
-            show[keys] = data.product[keys]
-        }
-    }
-    for (let key in show) {
-        domTxt += '<div class="rv_content" id="'+key+'"><img class="rv_content_star" src="./assets/icon-star-off.svg"/><img class="rv_content_memo" src="./assets/icon-memo-on.svg"/><p class="rv_content_date">'
-        domTxt += show[key].date + '</p><p class="rv_content_product">'
-        domTxt += show[key].product.split("_")[2] + '</p><p class="rv_content_pickup">'
-        domTxt += show[key].pickupPlace + '</p><p class="rv_content_people">'
-        domTxt += show[key].people +'</p><p class="rv_content_option">'
+    for (let i = 0; i < reservation.length; i++) {
+        domTxt += '<div class="rv_content" id="'+reservation[i].id+'"><img class="rv_content_star" src="./assets/icon-star-off.svg"/><img class="rv_content_memo" src="./assets/icon-memo-on.svg"/><p class="rv_content_date">'
+        domTxt += reservation[i].date + '</p><p class="rv_content_product">'
+        domTxt += reservation[i].product.split("_")[2] + '</p><p class="rv_content_pickup">'
+        domTxt += reservation[i].pickupPlace + '</p><p class="rv_content_people">'
+        domTxt += reservation[i].people +'</p><p class="rv_content_option">'
         //옵션여부를 검사하는 곳
         domTxt += 'OPTION' +'</p><p class="rv_content_chinese">'
         //중국인가이드 요청여부를 검사하는 곳
         domTxt += 'X' + '</p><p class="rv_content_name" title="'
-        domTxt += show[key].clientName + '">'
-        domTxt += show[key].clientName + '</p><p class="rv_content_nationality">'
-        domTxt += show[key].nationality + '</p><p class="rv_content_agency">'
-        domTxt += show[key].agency + '</p></div>'
-    };
+        domTxt += reservation[i].clientName + '">'
+        domTxt += reservation[i].clientName + '</p><p class="rv_content_nationality">'
+        domTxt += reservation[i].nationality + '</p><p class="rv_content_agency">'
+        domTxt += reservation[i].agency + '</p></div>'
+
+    }
+
     $('.rv_box').html(domTxt)
 
-    let totalNo = Object.keys(reserv_filtered.total).length;
+    let totalNo = reservation_NF.length;
     let filteredNo = $(".rv_content").length;
 
     $(".r_htop_numbList").html(filteredNo + " / " + totalNo + " Reservations")
+
 }
 
 function filter_set(div){
+    let filteredRev = {
+        product : [],
+        pickupPlace : [],
+        nationality : [],
+        agency : [],
+        total : []
+    }
+
 
     let kind = $(div).parent().attr("id").split("_")[3] //어떤 종류의 필터가 선택되었는가!
     $(div).toggleClass("drop_item--selected");
     if($(div).hasClass("drop_item--selected")){
-        if(filter_rev[kind].length === Object.keys(reserv_filtered[kind]).length){
-            filter_rev[kind] = [$(div).html()];
+        if(adjusted[kind].length === filter[kind].length){
+            adjusted[kind] = [$(div).html()];
         }else{
-            filter_rev[kind].push($(div).html());
+            adjusted[kind].push($(div).html());
         }
-
     }else{
-        filter_rev[kind].splice(filter_rev[kind].indexOf($(div).html()),1);
+        adjusted[kind].splice(adjusted[kind].indexOf($(div).html()),1);
     }
-    for (let filters in filter_rev) {
-        if(filter_rev[filters].length === 0){
-            filter_rev[filters] = Object.keys(reserv_filtered[filters]);
+    for (let filters in adjusted) {
+        if(adjusted[filters].length === 0){
+            adjusted[filters] = filter[filters];
         }
     }
-    inflate_rev();
+    for (let filterName in adjusted) {
+        for (let i = 0; i < reservation_NF.length; i++) {
+            if(adjusted[filterName].indexOf(reservation_NF[i][filterName])>-1){
+                filteredRev[filterName].push(reservation_NF[i])
+            }
+        }
+    }
+
+    for (let i = 0; i < filteredRev.product.length; i++) {
+        if(filteredRev.pickupPlace.indexOf(filteredRev.product[i])>-1&&filteredRev.nationality.indexOf(filteredRev.product[i])>-1&&filteredRev.agency.indexOf(filteredRev.product[i])>-1){
+            filteredRev.total.push(filteredRev.product[i])
+        }
+    }
+
+    inflate_rev(filteredRev.total);
 }
 
 function rev_detail(id){
-    let data = reserv_filtered.total[id]
+    let data = rev_obj[id]
+    console.log(data)
 
     for (var key in data) {
         if(data[key] == "N/A"){
@@ -219,7 +195,6 @@ function rev_detail(id){
             $('.rv_info_'+key).val(data[key]);
         }
     }
-    console.log($(".rv_info_memo").html())
     if(data.agencyCode){$('.rv_info_agencyCode').html(data.agencyCode)}
     if(data.code){$('.rv_info_code').html(data.code)}
     if(data.agency){$('.rv_info_agency').html(data.agency)}
@@ -241,15 +216,16 @@ function rev_detail(id){
 }
 
 function filter_init(){
-    for (let filters in filter_rev) {
-        filter_rev[filters] = Object.keys(reserv_filtered[filters]);
-    }
     $(".drop_item").removeClass("drop_item--selected")
     $(".dropbox").addClass("display_none");
-    inflate_rev();
-
+    inflate_rev(reservation_NF);
+    adjusted = {
+        product : [],
+        pickupPlace : [],
+        nationality : [],
+        agency : []
+    }
 }
-
 
 function datepicker_init(){
     $(".r_set_date_txt").html(datestring.today()+" ~ "+datestring.today())

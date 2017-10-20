@@ -35,6 +35,7 @@ function singlePick(start){
     console.log(start.format('YYYY-MM-DD'))
 }
 
+/*
 $('.r_set_date_txt').daterangepicker(drp_config,
     function(start, end, label) {
 
@@ -62,3 +63,4 @@ $('.r_set_date_txt').daterangepicker(drp_config,
         reservation.watch(dateArray,0);
     }
 );
+*/

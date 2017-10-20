@@ -1,17 +1,11 @@
-.daterangepicker td.active{
-    background-color: $key_blue !important;
-}
-
-.daterangepicker td.in-range{
-    background-color: #eef0fb !important;
-}
-
 .r{
     width:1280px;
     padding-bottom: 80px;
     margin:0 auto;
     padding-top: 30px;
 }
+
+/*날짜 세팅*/
 .r_set{
     overflow: hidden;
     height: 40px;
@@ -40,6 +34,7 @@
     }
 }
 
+/*헤더 - 윗부분(갯수, 필터해제, Excel)*/
 .r_htop{
     height:40px;
     width: 100%;
@@ -70,6 +65,7 @@
     }
 }
 
+/*헤더 - 아랫부분(예약정보 분류명)*/
 .r_hbot{
     height:42px;
     box-sizing: border-box;

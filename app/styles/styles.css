@@ -5,10 +5,13 @@
 @import "modules/header";
 
 @import "pages/index";
-@import "pages/check";
-@import "pages/reservation";
-@import "modules/reservation__info";
-@import "modules/reservation__edit";
+
+@import "pages/exception";
+
+@import "pages/reservation/main";
+@import "pages/reservation/detail";
+@import "pages/reservation/edit";
+
 @import "modules/dw";
 @import "pages/operation";
 @import "pages/guide_managing";

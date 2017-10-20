@@ -1,3 +1,11 @@
+.daterangepicker td.active{
+    background-color: $key_blue !important;
+}
+
+.daterangepicker td.in-range{
+    background-color: #eef0fb !important;
+}
+
 body{
     color:#262e3e;
     font-family: 'Lato', sans-serif;

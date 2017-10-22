@@ -9,7 +9,7 @@
 @import "pages/exception";
 
 @import "pages/reservation/main";
-@import "pages/reservation/detail";
+@import "pages/reservation/info";
 @import "pages/reservation/edit";
 
 @import "modules/dw";

@@ -12,6 +12,9 @@
 @import "pages/reservation/info";
 @import "pages/reservation/edit";
 
+@import "pages/operation/busedit";
+@import "pages/operation/buslist";
+
 @import "modules/dw";
 @import "pages/operation";
 @import "pages/guide_managing";

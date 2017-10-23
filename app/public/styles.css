@@ -860,7 +860,7 @@ textarea::-webkit-scrollbar-thumb
     letter-spacing: -0.3px;
 }
 .r_hbot>p{
-        margin-right: 20px;
+        margin-right: 14px;
         line-height: 20px;
         text-align: center;
         float: left;
@@ -868,7 +868,7 @@ textarea::-webkit-scrollbar-thumb
     }
 .r_hbot>div{
         float: left;
-        margin-right: 20px;
+        margin-right: 14px;
         overflow: hidden;
     }
 .r_hbot>div>img{
@@ -881,20 +881,25 @@ textarea::-webkit-scrollbar-thumb
             margin-right: 2px;
             font-size: 14px;
         }
+.r_hbot_memo{
+        margin-left: 60px;
+        width: 220px;
+    }
 .r_hbot_date{
-        margin-left: 96px;
-        width: 118px;
+        width: 100px;
     }
 .r_hbot_product{
         width: 110px;
-        margin-right: 50px !important;
     }
 .r_hbot_product>p{
             margin-left: 17px;
         }
 .r_hbot_pickup{
         width:120px;
-        margin-right: 30px !important;
+        margin-right: 15px !important;
+    }
+.r_hbot_people{
+        width: 65px;
     }
 .r_hbot_option{
         width:90px;
@@ -903,7 +908,7 @@ textarea::-webkit-scrollbar-thumb
             margin-left: 10px;
         }
 .r_hbot_name{
-        width: 180px;
+        width: 170px;
     }
 .r_hbot_nationality{
         width: 110px;
@@ -934,36 +939,32 @@ textarea::-webkit-scrollbar-thumb
         line-height: 20px;
         font-size: 14px;
         text-align: center;
-        margin-right: 20px;
+        margin-right: 14px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
 .rv_content_memo{
-        margin-left: 16px;
-        margin-right: 18px;
+        margin-left: 20px;
+        width: 220px;
     }
 .rv_content_date{
-        width: 118px;
+        width: 100px;
     }
 .rv_content_product{
         width: 110px;
     }
 .rv_content_pickup{
-        width: 160px;
+        width: 120px;
     }
 .rv_content_people{
-        width: 50px;
+        width: 65px;
     }
 .rv_content_option{
         width: 90px;
     }
-.rv_content_chinese{
-        width: 70px;
-        margin-right: 28px!important;
-    }
 .rv_content_name{
-        width: 180px;
+        width: 170px;
     }
 .rv_content_nationality{
         width: 110px;
@@ -987,6 +988,9 @@ textarea::-webkit-scrollbar-thumb
         background-color: #3f55d2;
         color: white;
     }
+.rv_box{
+    padding-bottom: 60px;
+}
 /*예약 데이터 클릭시 상세정보*/
 .ri{
     background-color: white;
@@ -1311,6 +1315,380 @@ textarea::-webkit-scrollbar-thumb
 .rec_cash_box>p.greyTxt{
                     margin-right: 0;
                 }
+/*버스정보(팀) 수정*/
+.obe{
+    height:640px;
+    width: 460px;
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 150px;
+    border-radius: 5px;
+}
+.obe_header{
+        height: 69px;
+        width: 100%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: #f7f9fb;
+        border-bottom: solid 1px #e0e0e0;
+        margin-bottom: 10px;
+    }
+.obe_header_title{
+            height: 20px;
+            font-size: 20px;
+            line-height: 69px;
+            margin-left: 30px;
+            float: left;
+        }
+.obe_header_close{
+            float: right;
+            margin: 25px 20px 0 0;
+            cursor: pointer;
+        }
+.obe_body{
+        width: 100%;
+        margin-bottom: 30px;
+        height: 450px;
+        overflow-y: auto;
+    }
+.obe_body_line{
+            padding: 0 30px;
+            margin-top: 20px;
+            height: 40px;
+            display: inline-block;
+        }
+.obe_body_deepline{
+            padding: 0 30px;
+            margin-top: 20px;
+            height: 122px;
+            overflow: hidden;
+            display: inline-block;
+        }
+.obe_body_title{
+            line-height: 40px;
+            float: left;
+            font-size: 13px;
+            font-weight: bold;
+            color: #7c8495;
+            height: 40px;
+            width: 142px;
+        }
+.obe_body_input{
+            width: 238px;
+            height: 38px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            float: left;
+            -webkit-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+            padding: 0 12px;
+        }
+.obe_body_message{
+            width: 238px;
+            height: 122px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            padding: 12px;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            font-size: 14px;
+            line-height: 1.43;
+        }
+.obe_body_guide{
+            width: 238px;
+            height: auto;
+            float: left;
+        }
+.obe_body_guide>input{
+                margin-bottom: 4px;
+            }
+.obe_footer{
+        width: 100%;
+        height: 80px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        border-top: solid 1px #e0e0e0;
+        overflow: hidden;
+
+    }
+.obe_footer_save{
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            width: 120px;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            font-size: 14px;
+            line-height: 50px;
+            color: white;
+            text-align: center;
+            float: right;
+            margin:14px 19px 0 0;
+            cursor: pointer;
+        }
+.obe_footer_save:hover{
+                -webkit-filter:brightness(1.1);
+                        filter:brightness(1.1);
+            }
+.obe_footer_save:active{
+                -webkit-filter:brightness(1.3);
+                        filter:brightness(1.3);
+            }
+.ol{
+    width: 1300px;
+    margin: 0 auto;
+    height: 700px;
+}
+.ol_return{
+        float: left;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        padding: 9px;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+.ol_return:hover{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+.ol_return:active{
+            background-color: rgba(224, 224, 224, 0.4);
+        }
+.ol_title{
+        height: 30px;
+        font-size: 20px;
+        line-height: 1.5;
+    }
+.ol_bus{
+        width: 100%;
+        margin:10px 0 40px 0;
+        overflow: hidden;
+    }
+.ol_bus_box{
+            width: 220px;
+            height: 50px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            margin: 0 16px 10px 0;
+            float: left;
+            overflow: hidden;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            cursor: pointer;
+        }
+.ol_bus_box:hover{
+                background-color: rgba(224, 224, 224, 0.2);
+            }
+.ol_bus_box:active{
+                background-color: rgba(224, 224, 224, 0.4);
+            }
+.ol_bus_box--selected{
+                background-color: rgba(0, 132, 255, 0.1);
+                border: solid 1px #0084ff;
+            }
+.ol_bus_box--selected:hover{
+                    background-color: rgba(0, 132, 255, 0.2);
+                }
+.ol_bus_box--selected:active{
+                    background-color: rgba(0, 132, 255, 0.3);
+                }
+.ol_bus_total_txt{
+                line-height: 48px;
+                margin-left: 12px;
+                float: left;
+                font-size: 14px;
+                font-weight: 900;
+            }
+.ol_bus_total_number{
+                font-size: 26px;
+                font-weight: bold;
+                line-height: 48px;
+                float: right;
+                margin-right: 12px;
+            }
+.ol_bus_team{
+            overflow: hidden;
+        }
+.ol_bus_team_left{
+                float: left;
+            }
+.ol_bus_team_busno{
+                height: 13px;
+                margin:9px 0 0 12px;
+                font-size: 12px;
+                line-height: 13px;
+                color: #7c8495;
+            }
+.ol_bus_team_guide{
+                height: 13px;
+                font-size: 13px;
+                line-height: 1;
+                margin:4px 0 0 12px;
+                width: 115px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+.ol_bus_team_number{
+                float: right;
+                height: 30px;
+                font-size: 20px;
+                line-height: 1.5;
+                margin: 10px 12px 0 0;
+            }
+.ol_bus_add{
+            overflow: hidden;
+        }
+.ol_bus_add>img{
+                float: left;
+                margin: 15px 0 0 37px;
+            }
+.ol_bus_add>p{
+                float: left;
+                margin: 14px 0 0 8px;
+                line-height: 20px;
+            }
+.op_hbot_bus{
+        float: left;
+        margin-left: 60px;
+        width: 60px;
+    }
+.op_hbot_memo{
+        float: left;
+        width: 380px;
+    }
+.op_content_bus{
+        margin-left: 20px;
+        width: 60px;
+        text-align:center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+.op_content_memo{
+        width: 380px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+.ol_editBus{
+    float: right;
+    margin-right: 20px;
+}
+.ol_selectAll{
+    float: right;
+    margin-right: 20px;
+    color: #0084ff;
+}
+.ol_unSelect{
+    float: right;
+    margin-right: 20px;
+    color: #0084ff;
+}
+.ol_busEdit{
+    height: 157px;
+    width: 100%;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 -2px 3px 0 #d7d7d7;
+            box-shadow: 0 -2px 3px 0 #d7d7d7;
+    position: fixed;
+    bottom: 0;
+}
+.ol_busEdit_wrapper{
+        width: 1300px;
+        margin: 0 auto;
+        height: 157px;
+        overflow: hidden;
+    }
+.ol_busEdit_number{
+        float: left;
+        height: 70px;
+        margin:42px 80px 0 11px;
+    }
+.ol_busEdit_number>p{
+            height: 18px;
+            font-size: 14px;
+            line-height: 1.29;
+            color: #0084ff;
+            width: 62px;
+            text-align: center;
+        }
+.ol_busEdit_number_txt{
+            height: 43px !important;
+            font-size: 36px !important;
+            font-weight: bold;
+            margin-top: 9px;
+        }
+.ol_busEdit_busbox{
+        width: 800px;
+        height: 155px;
+        float: left;
+    }
+.ol_busEdit_busbox_inst{
+            height: 18px;
+            margin-top: 22px;
+            font-size: 14px;
+            line-height: 1.29;
+            color: #0084ff;
+        }
+.ol_busEdit_busbox_box{
+            margin-top: 18px;
+            width: 100%;
+            height: 70px;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+.ol_busEdit_bus{
+        float: left;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        width: 80px;
+        height: 26px;
+        text-align: center;
+        line-height: 26px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        margin:8px 8px 0 0;
+        font-size: 13px;
+        font-weight: bold;
+        color: #0070d2;
+        cursor: pointer;
+    }
+.ol_busEdit_cancel{
+        margin-left: 68px;
+        width: 120px;
+        height: 50px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        float: left;
+        margin-top: 60px;
+        line-height: 50px;
+        text-align: center;
+        cursor: pointer;
+    }
+.ol_busEdit_save{
+        margin-left: 20px;
+        width: 120px;
+        height: 50px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        float: left;
+        margin-top: 60px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #0084ff;
+        color: #ffffff;
+        cursor: pointer;
+    }
+.rev--selected{
+    background-color: rgba(0, 132, 255, 0.1);
+    border: solid 1px #0084ff;
+}
 .dw_dropdown,.dw_dndropdown{
     background-position: right;
     background-image: url("./assets/icon-filter.svg");
@@ -1329,6 +1707,8 @@ textarea::-webkit-scrollbar-thumb
     padding: 8px 0;
     border:solid 1px #e0e0e0;
     border-radius:5px;
+    max-height: 210px;
+    overflow-y: auto;
 }
 .drop_item{
     cursor: pointer;
@@ -1463,7 +1843,7 @@ textarea::-webkit-scrollbar-thumb
             -webkit-box-sizing: border-box;
                     box-sizing: border-box;
             margin-bottom: 20px;
-            padding-right: 5px;
+            position: relative;
         }
 .om_box_pd::-webkit-scrollbar-track
             {
@@ -1513,6 +1893,11 @@ textarea::-webkit-scrollbar-thumb
 .om_pop_line_txt{
                 font-size: 14px;
                 width: 240px;
+                line-height: 25px;
+                height: 25px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
             }
 .om_pop_line--border{
                 padding-bottom: 10px;
@@ -1520,9 +1905,15 @@ textarea::-webkit-scrollbar-thumb
                 border-bottom: solid 1px #e0e0e0;
             }
 .om_pop_line--deep{
-                height: 50px;
+                height: 75px;
                 margin-bottom: 20px;
             }
+.om_pop_message{
+            font-size: 14px;
+            width: 240px;
+            line-height: 25px;
+            height: 25px;
+        }
 .om_pop_bottom{
             overflow: hidden;
         }
@@ -1613,6 +2004,11 @@ textarea::-webkit-scrollbar-thumb
                 line-height: 13px;
                 margin-top: 4px;
                 margin-left: 12px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                width: 118px;
+                height: 13px;
             }
 .omp_team_people{
             height: 30px;
@@ -1624,7 +2020,30 @@ textarea::-webkit-scrollbar-thumb
         }
 .omp_team_add{
             padding: 15px 33px !important;
-
+        }
+.omp_list{
+        position: absolute;
+        bottom: 0;
+        overflow: hidden;
+        height: 50px;
+        width: 238px;
+        border-top: solid 1px #e0e0e0;
+        cursor: pointer;
+    }
+.omp_list>img{
+            float: left;
+            margin:15px 7px 0 70px;
+        }
+.omp_list>p{
+            float: left;
+            line-height: 50px;
+            font-size: 14px;
+        }
+.omp_list:hover{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+.omp_list:active{
+            background-color: rgba(224, 224, 224, 0.4);
         }
 .g_filter{
     width:1280px;
@@ -1807,6 +2226,11 @@ textarea::-webkit-scrollbar-thumb
             float: left;
             margin-left: 20px;
         }
+.gie_mail_gmail{
+    line-height: 40px;
+    margin-left: 16px;
+    float: left;
+}
 .gie{
     border-radius: 5px;
     width: 512px;

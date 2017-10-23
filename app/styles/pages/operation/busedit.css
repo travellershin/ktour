@@ -1,0 +1,129 @@
+/*버스정보(팀) 수정*/
+.obe{
+    height:640px;
+    width: 460px;
+    background-color: white;
+    margin: 0 auto;
+    margin-top: 150px;
+    border-radius: 5px;
+
+    &_header{
+        height: 69px;
+        width: 100%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: #f7f9fb;
+        border-bottom: solid 1px #e0e0e0;
+        margin-bottom: 10px;
+
+        &_title{
+            height: 20px;
+            font-size: 20px;
+            line-height: 69px;
+            margin-left: 30px;
+            float: left;
+        }
+
+        &_close{
+            float: right;
+            margin: 25px 20px 0 0;
+            cursor: pointer;
+        }
+    }
+
+    &_body{
+        width: 100%;
+        margin-bottom: 30px;
+        height: 450px;
+        overflow-y: auto;
+
+        &_line{
+            padding: 0 30px;
+            margin-top: 20px;
+            height: 40px;
+            display: inline-block;
+        }
+
+        &_deepline{
+            padding: 0 30px;
+            margin-top: 20px;
+            height: 122px;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        &_title{
+            line-height: 40px;
+            float: left;
+            font-size: 13px;
+            font-weight: bold;
+            color: #7c8495;
+            height: 40px;
+            width: 142px;
+        }
+
+        &_input{
+            width: 238px;
+            height: 38px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            float: left;
+            user-select: none;
+            padding: 0 12px;
+        }
+
+        &_message{
+            width: 238px;
+            height: 122px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            padding: 12px;
+            box-sizing: border-box;
+            font-size: 14px;
+            line-height: 1.43;
+        }
+
+        &_guide{
+            width: 238px;
+            height: auto;
+            float: left;
+            &>input{
+                margin-bottom: 4px;
+            }
+        }
+    }
+
+
+
+    &_footer{
+        width: 100%;
+        height: 80px;
+        box-sizing: border-box;
+        border-top: solid 1px #e0e0e0;
+        overflow: hidden;
+
+        &_save{
+            box-sizing: border-box;
+            width: 120px;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            font-size: 14px;
+            line-height: 50px;
+            color: white;
+            text-align: center;
+            float: right;
+            margin:14px 19px 0 0;
+            cursor: pointer;
+
+            &:hover{
+                filter:brightness(1.1);
+            }
+            &:active{
+                filter:brightness(1.3);
+            }
+        }
+
+    }
+}

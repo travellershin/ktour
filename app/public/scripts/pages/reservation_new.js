@@ -114,20 +114,18 @@ function inflate_rev(reservation){
     let domTxt = ""
 
     for (let i = 0; i < reservation.length; i++) {
-        domTxt += '<div class="rv_content" id="'+reservation[i].id+'"><img class="rv_content_star" src="./assets/icon-star-off.svg"/><img class="rv_content_memo" src="./assets/icon-memo-on.svg"/><p class="rv_content_date">'
+        domTxt += '<div class="rv_content" id="'+reservation[i].id+'"><img class="rv_content_star" src="./assets/icon-star-off.svg"/>'
+        domTxt += '<p class="rv_content_memo">안녕하세욪ㅁ다ㅣㅓ메모입니다아아아</p><p class="rv_content_date">'
         domTxt += reservation[i].date + '</p><p class="rv_content_product">'
         domTxt += reservation[i].product.split("_")[2] + '</p><p class="rv_content_pickup">'
         domTxt += reservation[i].pickupPlace + '</p><p class="rv_content_people">'
         domTxt += reservation[i].people +'</p><p class="rv_content_option">'
         //옵션여부를 검사하는 곳
-        domTxt += 'OPTION' +'</p><p class="rv_content_chinese">'
-        //중국인가이드 요청여부를 검사하는 곳
-        domTxt += 'X' + '</p><p class="rv_content_name" title="'
+        domTxt += 'OPTION' +'</p><p class="rv_content_name" title="'
         domTxt += reservation[i].clientName + '">'
         domTxt += reservation[i].clientName + '</p><p class="rv_content_nationality">'
         domTxt += reservation[i].nationality + '</p><p class="rv_content_agency">'
         domTxt += reservation[i].agency + '</p></div>'
-
     }
 
     $('.rv_box').html(domTxt)

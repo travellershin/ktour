@@ -24,11 +24,11 @@ $(document).on("click",".dw_dropdown",function(){
         }
         appendTxt+="</div>"
         $(this).after(appendTxt)
-
+        console.log($(this).position().left)
         $("#drop_"+did).css({
             "left":$(this).position().left +"px",
-            "top":"40px",
-            "width":$(this).css("width").slice(0,-2)*1+22+"px"
+            "top":$(this).position().top +40 +"px",
+            "width":$(this).css("width").slice(0,-2)*1+"px"
         })
     }
 })

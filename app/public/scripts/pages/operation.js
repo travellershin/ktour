@@ -1,21 +1,3 @@
-$('.o_header_date_txt').daterangepicker({
-    "autoApply": true,
-    singleDatePicker: true,
-    locale: { format: 'YYYY-MM-DD'}
-},function(start,end,label){
-    getOpData(start.format('YYYY-MM-DD'));
-    opdate = start.format('YYYY-MM-DD');
-    $(".o_header_quick>p").removeClass("drp_quick--selected");
-    if(start.format('YYYY-MM-DD') === datestring.today()){
-        $(".o_header_quick_today").addClass("drp_quick--selected")
-    };
-    if(start.format('YYYY-MM-DD') === datestring.yesterday()){
-        $(".o_header_quick_yesterday").addClass("drp_quick--selected")
-    }
-    if(start.format('YYYY-MM-DD') === datestring.tomorrow()){
-        $(".o_header_quick_tomorrow").addClass("drp_quick--selected")
-    }
-})
 
 let operation = {};
 let opdate = "";
@@ -44,16 +26,28 @@ $(".ol_editBus").click(function(){
 })
 
 $(document).on("click",".ol_busEdit_bus",function(){
-    let target_team = $(this).attr("tid")
-    let s_product = $(".ol_title").html();
+    let target_team = $(this).attr("tid") // 선택된(옮겨질) team id
+    let s_product = $(".ol_title").html(); // 프로덕트명
     for (let i = 0; i < selectArray.length; i++) {
-        let s_team = selectArray[i][0];
-        let s_rev = selectArray[i][1];
+        let s_team = selectArray[i][0];  //원 소속 팀
+        let s_rev = selectArray[i][1];  //reservation id
+        console.log("원 소속팀: "+s_team);
+        console.log("옮겨질 팀: "+target_team);
+        console.log("예약 번호: "+s_rev);
+
         console.log(totaldata)
+
+        let reservationData = totaldata[s_product].teams[s_team].reservations[s_rev] //복사해둠
+        delete totaldata[s_product].teams[s_team].reservations[s_rev] // 지움
+        totaldata[s_product].teams[target_team].reservations[s_rev] = reservationData //붙여넣기
+
+        console.log(totaldata)
+
+
+        // TODO: 해당일 상품 전체를 변수에 담는다. 옮길 reservation을 복사해둔다. 기존 팀에 있는 reservation을 삭제한다. 변수에 합친다. firebase에 set한다.
         //firebase.database().ref("operation/"+opdate+"/"+s_product+"/teams/"+s_team+"/reservations/"+s_rev).remove()
-        console.log(s_rev)
-        console.log(totaldata[s_product].teams[s_team].reservations[s_rev])
-        firebase.database().ref("operation/"+opdate+"/"+s_product+"/teams/"+target_team+"/reservations/"+s_rev).set(totaldata[s_product].teams[s_team].reservations[s_rev])
+        //console.log(totaldata[s_product].teams[s_team].reservations[s_rev])
+        //firebase.database().ref("operation/"+opdate+"/"+s_product+"/teams/"+target_team+"/reservations/"+s_rev).set(totaldata[s_product].teams[s_team].reservations[s_rev])
     }
 })
 
@@ -170,50 +164,6 @@ $(".o_header_quick_tomorrow").click(function(){
 })
 
 
-function getOpData(date){
-    firebase.database().ref("operation/"+date).on("value",snap => {
-        let data = snap.val();
-        totaldata = snap.val();
-        if(!operation[date]){
-            operation[date] = {}
-        }
-        console.log(data)
-        if(data){
-            for (let productName in data) {
-                // TODO: PRIVATE 걸러내기
-                let pname = productName.split("_");
-                let num_people = 0;
-                let num_bus = 0;
-                if(!operation[date][pname[0]]){ //operation.seoul이 없으면
-                    operation[date][pname[0]] = {}; //만들어
-                }
-                for (let i = 0; i < data[productName].teams.length; i++) {
-
-                    for (let rev in data[productName].teams[i].reservations) {
-                        num_people += data[productName].teams[i].reservations[rev].people;
-                    }
-                    num_bus++
-                }
-                operation[date][pname[0]][pname[2]] = {
-                    teams:{},
-                    people:num_people,
-                    bus:num_bus
-                }
-
-                for (keys in data[productName].teams) {
-                    operation[date][pname[0]][pname[2]].teams[keys] = data[productName].teams[keys];
-                    operation[date][pname[0]][pname[2]].teams[keys].productName = productName
-                }
-                /*
-                    데이터 구조를 도시명 - 상품명(간략) - 상품정보 - 팀정보 구조로 바꾼다
-                */
-            }
-        }else{
-            alert('해당일 예약은 아직 잡히지 않았습니다')
-        }
-        inflate_op(operation[date])
-    })
-}
 
 function teamPop(div){
     let tid = div.attr("tid");
@@ -484,7 +434,13 @@ function showList(pname){
             console.log(teamlist)
 
             bustxt+='<div class="ol_bus_team ol_bus_box" tid="'+key+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+busno+'</p>'
-            bustxt+='<p class="ol_bus_team_guide" title="'+team.guide.toString()+'">'+team.guide.toString()+'</p></div>'
+            if(team.guide){
+                bustxt+='<p class="ol_bus_team_guide" title="'+team.guide.toString()+'">'+team.guide.toString()+'</p></div>'
+            }else{
+                bustxt+='<p class="ol_bus_team_guide">Unassigned</p></div>'
+            }
+
+
             bustxt+='<p class="ol_bus_team_number">'+teamNumber+"/"+team.bus_size+'</p></div>'
 
         }

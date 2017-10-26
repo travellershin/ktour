@@ -1,4 +1,4 @@
-$(document).on("click",".dw_dropdown",function(){
+$(document).on("click",".dw_dropdown",function(event){
     let did = $(this).attr("id"); //드롭다운에 쭉 쓰일 id값
 
     if($(this).hasClass("drop_appended")){
@@ -30,6 +30,12 @@ $(document).on("click",".dw_dropdown",function(){
             "top":$(this).position().top +40 +"px",
             "width":$(this).css("width").slice(0,-2)*1+"px"
         })
+        $(document).bind("click", function(event) {
+            if(!$(event.target).hasClass(did)){
+                $("#drop_"+did).addClass("display_none")
+            }
+
+        });
     }
 })
 

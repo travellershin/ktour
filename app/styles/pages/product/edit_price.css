@@ -11,6 +11,23 @@
     }
 }
 
+.closeContext{
+    width: 250px;
+    height: 40px;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    z-index: 1999;
+    line-height: 40px;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    cursor: pointer;
+
+    &:hover{
+        background-color:#fff0f2;
+    }
+}
+
 .pep_p{
     width: 935px;
     margin-bottom: 30px;
@@ -27,7 +44,8 @@
     &_tab{
         float: left;
         height: 40px;
-        padding: 4px 29px;
+        text-align: center;
+        padding: 4px 12px;
         box-sizing: border-box;
         border: solid 1px #e0e0e0;
         font-size: 14px;
@@ -35,11 +53,7 @@
         color: #7c8495;
         margin-left: -1px;
         z-index: 1;
-        background-image: url("./assets/icon-close.svg");
-        background-repeat: no-repeat;
-        background-position: right 5px top 5px;
-        background-size: 12px;
-        background-origin: padding-box;
+        width: 140px;
 
         &:first-child{
             margin-left:0;

@@ -1,6 +1,7 @@
 let product = new Product();
 let pd_save = new Product_save();
 let pd_edit = new Product_edit();
+let pickArray = []
 let product_filter = {
     total : {},
     status : {
@@ -67,6 +68,16 @@ $(".pe_pickSet_add").click(function(){
 $(".pe_pickSet_footer_save").click(function(){
     savePickLocation();
 })
+$(".closeContext").click(function(){
+    if(confirm("Are you sure you want to delete this priceSet?")){
+        firebase.database().ref("product/"+$(".pe").attr("productname")+"/price/"+$(this).attr("tid")).remove().then(function(){
+            firebase.database().ref("product/"+$(".pe").attr("productname")+"/price").once("value", snap => {
+                let data = snap.val();
+                pd_edit.price(data)
+            })
+        })
+    }
+})
 $(document).on("click",".pep_p_tab",function(){
     if(!$(this).hasClass("pep_p_tab_add")){
         $(".pep_p_tab").removeClass("pep_p_tab--selected")
@@ -75,8 +86,24 @@ $(document).on("click",".pep_p_tab",function(){
         $("#"+$(this).attr("tid")).removeClass("hidden")
     }
 })
+$(document).on("contextmenu",".pep_p_tab",function(){
+    if(!$(this).hasClass("pep_p_tab_add")){
+        event.preventDefault();
+        $(".closeContext").removeClass("hidden")
+        $(".closeContext").html("Delete PriceSet : "+$(this).val())
+        $(".closeContext").attr("tid",$(this).attr("tid"))
+        $(".closeContext").css({top: event.pageY + "px", left: event.pageX + "px"});
+        $(document).bind("click", function(event) {
+            $(".closeContext").addClass("hidden")
+        });
+    }
+})
 $(document).on("click",".pep_p_tab_add",function(){
-    price_addTab($(".pe").attr("productname"));
+    if($(".pep_p_tab").length<7){
+        price_addTab($(".pe").attr("productname"));
+    }else{
+        alert("최대 상품 갯수를 초과했습니다")
+    }
 })
 $(document).on("click",".pep_p_ag_add",function(){
     makePriceGroup($(this).attr("pid"))
@@ -104,7 +131,11 @@ $(document).on("click",".pep_p_bus_price_add",function(){
 $(document).on("click",".pep_p_bus_add",function(){
     addBus();
 })
-
+$(".pei_location_add").click(function(){
+    let picktxt = ""
+    picktxt+='<div class="ov_hidden mt_20"><p class="pei_meeting_no">'+($(".pei_pickupLocationZone input").length+1)+'.</p><input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid pei_meeting pei_meeting_'+$(".pei_pickupLocationZone input").length+1+'" id="pei_meeting_'+$(".pei_pickupLocationZone input").length+1+'" dropitem="'+pickArray+'" value="Not Selected"></div>'
+    $(".pei_pickupLocationZone").append(picktxt)
+})
 
 
 
@@ -159,6 +190,7 @@ function Product(){
         firebase.database().ref("product").on("value", snap => {
             let data = snap.val();
             let txt = ""
+            console.log(data)
 
             for (var keys in data) {
 
@@ -172,9 +204,9 @@ function Product(){
                 let code = data[keys].info.code;
                 let inf_status = data[keys].info.status;
                 let bgco = ""
-                if(inf_status === "ON"){
+                if(inf_status.toLowerCase() === "on"){
                     bgco = "green";
-                }else if(inf_status === "READY"){
+                }else if(inf_status.toLowerCase() === "ready"){
                     bgco = "orange";
                 }else{
                     bgco = "red";
@@ -206,7 +238,7 @@ function Product(){
 
                 //만들어지는 html은 product.html 구조 파악용 샘플 데이터 -1 참고
                 // TODO: bgco_green부분과 ON에 데이터 넣기
-                txt+= '<div class="pc" id="'+keys+'"><div class="pc_status"><div class="bgco_'+bgco+'">'+inf_status+'</div></div><p class="pc_area">'+area+'</p><p class="pc_category">'
+                txt+= '<div class="pc" id="'+keys+'"><div class="pc_status"><div class="bgco_'+bgco+'">'+inf_status.toUpperCase()+'</div></div><p class="pc_area">'+area+'</p><p class="pc_category">'
                 txt+= category+'</p><div class="pc_product"><p>'+name+'</p><p class="font_grey">'+code+'</p></div><p class="pc_start">'+start+'</p><p class="pc_end">'+end+'</p>'
                 txt+= '<div class="pc_price"><p>adult '+price_adult+'won</p><p>child '+price_child+'won</p></div><div class="pc_net"><p>adult '+net_adult+'won</p><p>child '+net_child+'won</p></div>'
                 txt+= '<div class="pc_agency"><p>'+agency_total+'개</p><p class="font_grey">(진행'+agency_ongoing+' 심사'+agency_screening+' 거절'+agency_rejected+')</p></div></div>'
@@ -217,80 +249,73 @@ function Product(){
     }
 
     this.add = function(){
-        let pickArray = []
-        firebase.database().ref("place/pickup").once("value", snap => {
-            let pickdata = snap.val();
-            for (let code in pickdata) {
-                pickArray.push(pickdata[code].place)
+
+        let data = {};
+        data.price = {default:{
+            byAgencies:[{
+                adultAge_max:0,
+                adultAge_min:0,
+                adult_gross:10000,
+                adult_net:10000,
+                agency:["not selected"],
+                currency:"KRW",
+                infantAge_max:0,
+                infantAge_min:0,
+                infant_gross:10000,
+                infant_net:10000,
+                kidAge_max:0,
+                kidAge_min:0,
+                kid_gross:10000,
+                kid_net:10000,
+            }],
+            description:"description field",
+            forAll:false,
+            reservationDate_from:datestring.today(),
+            reservationDate_to:datestring.today(),
+            tourDate_from:datestring.today(),
+            tourDate_to:datestring.today(),
+            title:"Default"
+        }};
+        data.cost = {
+            bus:[{max:0,min:0,name:"BUS NAME",size:[{cost:10000,max:0,min:0}]}],
+            item:[]
+        };
+        data.id = "Seoul_Regular_NEWPRODUCT";
+        data.info = {
+            area:"Seoul",
+            available:[false,false,false,false,false,false,false,false],
+            cancellation:"-",
+            category:"Regular",
+            code:"",
+            deadline:24,
+            description:"-",
+            destination:"-",
+            ending:"-",
+            exclude:"-",
+            hotelPickup:false,
+            id:"Seoul_Regular_NEWPRODUCT",
+            include:"_",
+            itinerary:"-",
+            language:[true,false,false,false,false,false,false,false,false,false,false,false],
+            max:99,
+            min:1,
+            name:"NEW PRODUCT",
+            others:"-",
+            period:"-",
+            pickup:["Myungdong Station"],
+            status:"on"
+        };
+        data.option = [],
+        data.possibles = ["Not written Yet"]
+        data.agency = {}
+        firebase.database().ref("agency").once("value",snap =>{
+            let agency = snap.val();
+            for (let key in agency) {
+                data.agency[agency[key].name] = "Screening"
             }
-        }).then(function(){
-            firebase.database().ref("agency").once("value", snap => {
-                let agency = snap.val();
-                let agencyTxt = ""
-                for (let agencyID in agency) {
-                    let agencyName = agency[agencyID].name
-                    agencyTxt+='<p class="pea_title">'+agencyName+'</p><div class="pea_agency pea_'+agencyName+'" rstat="Ongoing">'
-                    agencyTxt+='<div class="dw_radio dw_radio_selected">Ongoing</div><div class="dw_radio">Screening</div><div class="dw_radio">Refused</div></div>'
-                }
-                $(".pe_tab_agency").html(agencyTxt)
+            let key = firebase.database().ref("product").push(data).key;
+            this.edit(key);
 
-                this.productKey = "new";
-                console.log(this.productKey)
-
-                $('.pe_header_title').html("NEW PRODUCT");
-                let inputStringArray = ["id","code","possibles","ending","destination","area","category","status","period","description","cancellation","itinerary","include","exclude","others"];
-                //위의 inputStringArray 요소들 내부 값(value, html)을 비운다(아래) - 애초에 form을 쓰지 않은 이유가 있었음(button type 문제?)
-                for (var i = 0; i < inputStringArray.length; i++) {
-                    $(".pei_"+inputStringArray[i]).val("")
-                    $(".pei_"+inputStringArray[i]).html("")
-                }
-
-                $(".pei_language_cb").removeClass('cb_checked');
-                $(".pei_available_cb").removeClass('cb_checked');
-                $(".pei_pickup_radio").eq(0).addClass('rd_selected');
-                $(".pei_pickup_radio").eq(1).removeClass('rd_selected');
-                $(".pei_pickupLocationZone").html('<div class="ov_hidden mt_20"><p class="pei_meeting_no">1.</p><input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid pei_meeting" id="pei_meeting_1" dropitem="'+pickArray+'" value=""></div>')
-
-                show.info_edit();
-            })
-        }).then(function(){
-
-            let key = firebase.database().ref().push().key;
-            let data = {};
-            data.price = {};
-            data.price[key] = {
-                byAgencies:[{
-                    adultAge_max:0,
-                    adultAge_min:0,
-                    adult_gross:10000,
-                    adult_net:10000,
-                    agency:["not selected"],
-                    currency:"KRW",
-                    infantAge_max:0,
-                    infantAge_min:0,
-                    infant_gross:10000,
-                    infant_net:10000,
-                    kidAge_max:0,
-                    kidAge_min:0,
-                    kid_gross:10000,
-                    kid_net:10000,
-                }],
-                description:"description field",
-                forAll:false,
-                reservationDate_from:datestring.today(),
-                reservationDate_to:datestring.today(),
-                tourDate_from:datestring.today(),
-                tourDate_to:datestring.today(),
-                title:"Default"
-            }
-            pd_edit.price(data.price)
-
-
-
-            pd_edit.agency(data)
-            $(".pep_p_op_box").html("")
-            $(".pep_p_as_box").html("")
-            $(".pep_p_bus_box").html("")
         })
 
     }
@@ -412,7 +437,7 @@ function Product(){
     }
 
     this.edit = function(cid){
-        let pickArray = []
+        pickArray = []
         $(".pe").attr("productname",cid)
         this.productKey = cid;
 
@@ -429,6 +454,7 @@ function Product(){
 
                 $(".pe_tab").addClass("hidden");
                 $(".pe_tab_info").removeClass("hidden")
+                $(".pe_header_title").html(data.id.split("_")[2] + " EDIT")
 
 
                 let inputStringArray = ["code","possibles","destination","area","period","category","status"];
@@ -464,7 +490,7 @@ function Product(){
                 }
                 let picktxt = ""
                 for (var i = 0; i < info.pickup.length; i++) {
-                    picktxt+='<div class="ov_hidden mt_20"><p class="pei_meeting_no">'+(i+1)+'.</p><input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid pei_meeting" id="pei_meeting_'+(i+1)+'" dropitem="'+pickArray+'" value="'+info.pickup[i]+'"></div>'
+                    picktxt+='<div class="ov_hidden mt_20"><p class="pei_meeting_no">'+(i+1)+'.</p><input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid pei_meeting pei_meeting_'+(i+1)+'" id="pei_meeting_'+(i+1)+'" dropitem="'+pickArray+'" value="'+info.pickup[i]+'"></div>'
                 }
                 $(".pei_pickupLocationZone").html(picktxt)
 
@@ -869,43 +895,48 @@ function Product_edit(){
 
     this.option = function(data){ //product edit임
         let optionTxt = ''
-
-        for (var i = 0; i < data.option.length; i++) {
-            let opt = data.option[i]
-            optionTxt+='<div class="pep_p_op"><img class="pep_p_op_close" src="./assets/icon-close.svg"/><input class="pep_p_op_name" value="'+opt.option+'"/>'
-            optionTxt+='<input class="pep_p_op_price" value="'+opt.price+'"/><p class="pep_p_op_currency">WON</p></div>'
+        if(data.option){
+            for (var i = 0; i < data.option.length; i++) {
+                let opt = data.option[i]
+                optionTxt+='<div class="pep_p_op"><img class="pep_p_op_close" src="./assets/icon-close.svg"/><input class="pep_p_op_name" value="'+opt.option+'"/>'
+                optionTxt+='<input class="pep_p_op_price" value="'+opt.price+'"/><p class="pep_p_op_currency">WON</p></div>'
+            }
         }
+
 
         $(".pep_p_op_box").html(optionTxt)
     }
 
     this.cost = function(cost){ //product edit임
-        console.log(cost);
         let costTxt = '';
-        for (let i = 0; i < cost.item.length; i++) {
-            costTxt +='<div class="pep_p_as"><input class="pep_p_as_title"/><table class="pep_p_as_price">'
-            costTxt+='<tr><th></th><th>ADULT</th><th>TEEN</th><th>YOUNG</th><th>BABY</th></tr><tr><td>AGE</td>'
-            costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
-            costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
-            costTxt+='</tr><tr><td>PRICE</td>'
-            costTxt+='<td><input class="pei_price_adult_'+i+'"/></td><td><input class="pei_price_young_'+i+'"/></td>'
-            costTxt+='<td><input class="pei_price_kid_'+i+'"/></td><td><input class="pei_price_free_'+i+'"/></td>'
-            costTxt+='</tr></table></div>'
+        if(cost.item){
+            for (let i = 0; i < cost.item.length; i++) {
+                costTxt +='<div class="pep_p_as"><input class="pep_p_as_title"/><table class="pep_p_as_price">'
+                costTxt+='<tr><th></th><th>ADULT</th><th>TEEN</th><th>YOUNG</th><th>BABY</th></tr><tr><td>AGE</td>'
+                costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
+                costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
+                costTxt+='</tr><tr><td>PRICE</td>'
+                costTxt+='<td><input class="pei_price_adult_'+i+'"/></td><td><input class="pei_price_young_'+i+'"/></td>'
+                costTxt+='<td><input class="pei_price_kid_'+i+'"/></td><td><input class="pei_price_free_'+i+'"/></td>'
+                costTxt+='</tr></table></div>'
+            }
         }
+
         $(".pep_p_as_box").html(costTxt)
 
-        for (let i = 0; i < cost.item.length; i++) {
-            $(".pep_p_as_title").eq(i).val(cost.item[i].item)
-            $(".pei_age_adult_"+i).val(cost.item[i].adultAge_min+"-"+cost.item[i].adultAge_max)
-            $(".pei_age_young_"+i).val(cost.item[i].youngAge_min+"-"+cost.item[i].youngAge_max)
-            $(".pei_age_kid_"+i).val(cost.item[i].kidAge_min+"-"+cost.item[i].kidAge_max)
-            $(".pei_age_free_"+i).val("-")
-            $(".pei_price_adult_"+i).val(cost.item[i].adult_cost)
-            $(".pei_price_young_"+i).val(cost.item[i].young_cost)
-            $(".pei_price_kid_"+i).val(cost.item[i].kid_cost)
-            $(".pei_price_free_"+i).val(0)
+        if(cost.item){
+            for (let i = 0; i < cost.item.length; i++) {
+                $(".pep_p_as_title").eq(i).val(cost.item[i].item)
+                $(".pei_age_adult_"+i).val(cost.item[i].adultAge_min+"-"+cost.item[i].adultAge_max)
+                $(".pei_age_young_"+i).val(cost.item[i].youngAge_min+"-"+cost.item[i].youngAge_max)
+                $(".pei_age_kid_"+i).val(cost.item[i].kidAge_min+"-"+cost.item[i].kidAge_max)
+                $(".pei_age_free_"+i).val("-")
+                $(".pei_price_adult_"+i).val(cost.item[i].adult_cost)
+                $(".pei_price_young_"+i).val(cost.item[i].young_cost)
+                $(".pei_price_kid_"+i).val(cost.item[i].kid_cost)
+                $(".pei_price_free_"+i).val(0)
+            }
         }
-
 
         let busTxt = '';
 
@@ -964,7 +995,7 @@ function savePickLocation(){
 function removePriceGroup(cid){
     let address = cid.split("_")
     firebase.database().ref("product/"+$(".pe").attr("productname")+"/price/"+address[0]+"/byAgencies/"+address[1]).remove();
-    product.edit();
+    product.edit($(".pe").attr("productname"));
 }
 
 $(document).on('focus',".pep_p_gen_reservation", function(){

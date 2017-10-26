@@ -117,8 +117,7 @@
                         <p class="ol_busEdit_bus">BUS 1</p>
                     </div>
                 </div>
-                <p class="ol_busEdit_cancel">CANCEL</p>
-                <p class="ol_busEdit_save">SAVE</p>
+                <p class="ol_busEdit_done">DONE</p>
             </div>
         </div>
 
@@ -126,11 +125,8 @@
 
         <div class="om">
 
-            <!--
-
-            <div class="om_city om_city_seoul">
-                <p class="om_city_name">SEOUL</p>
                 <div class="om_box">
+                    <!--
                     <div class="om_box_pd">
                         <p class="omp_name">남쁘아</p>
                         <div class="omp_people">
@@ -153,10 +149,11 @@
                             <p>VIEW LIST</p>
                         </div>
                     </div>
+
+                -->
                 </div>
-            </div>
 
-
+<!--
             <p class="om_cityName">SEOUL</p>
             <div class="om_box om_seoul">
 
@@ -258,20 +255,20 @@
             <div class="obe_body">
                 <div class="obe_body_line clearfix">
                     <p class="obe_body_title">BUS COMPANY</p>
-                    <input class="obe_body_input dw_dropdown" id="op_bus_company" value="서울버스" readonly dropitem="대한통운,고양운수"/>
+                    <input class="obe_body_input dw_dropdown op_bus_company" id="op_bus_company" value="서울버스" readonly dropitem="대한통운,고양운수"/>
                 </div>
                 <div class="obe_body_line clearfix">
                     <p class="obe_body_title">BUS TYPE</p>
-                    <input class="obe_body_input dw_dropdown" id="op_bus_size" readonly dropitem="8인승,16인승,25인승,45인승"/>
+                    <input class="obe_body_input dw_dropdown op_bus_size" id="op_bus_size" readonly dropitem="8인승,16인승,25인승,45인승"/>
                 </div>
                 <div class="obe_body_line clearfix">
                     <p class="obe_body_title">GUIDE</p>
                     <div class="obe_body_guide">
-                        <input class="obe_body_input dw_dropdown" id="op_guide" readonly dropitem="김도형, 남수정"/>
-                        <input class="obe_body_input dw_dropdown" id="op_guide2" readonly dropitem="김도형, 남수정"/>
-                        <input class="obe_body_input dw_dropdown" id="op_guide3" readonly dropitem="김도형, 남수정"/>
-                        <input class="obe_body_input dw_dropdown" id="op_guide4" readonly dropitem="김도형, 남수정"/>
-                        <input class="obe_body_input dw_dropdown" id="op_guide5" readonly dropitem="김도형, 남수정"/>
+                        <input class="obe_body_input dw_dropdown op_guide" id="op_guide" readonly dropitem="김도형, 남수정"/>
+                        <input class="obe_body_input dw_dropdown op_guide2" id="op_guide2" readonly dropitem="김도형, 남수정"/>
+                        <input class="obe_body_input dw_dropdown op_guide3" id="op_guide3" readonly dropitem="김도형, 남수정"/>
+                        <input class="obe_body_input dw_dropdown op_guide4" id="op_guide4" readonly dropitem="김도형, 남수정"/>
+                        <input class="obe_body_input dw_dropdown op_guide5" id="op_guide5" readonly dropitem="김도형, 남수정"/>
                     </div>
 
                 </div>
@@ -293,7 +290,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
     <script src='./scripts/module/firebase.js'></script>
     <script src='./scripts/module/global.js'></script>
-    <script src='./scripts/pages/operation.js'></script>
+    <script src='./scripts/pages/operation_new.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
     <script src='./libraries/jquery-ui.min.js'></script>
 </body>

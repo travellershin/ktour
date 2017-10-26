@@ -3,20 +3,6 @@ let statusColor = new StatusColor();
 
 function Show(){
     this.info = function(){
-        /* 본래 코드
-        $('.lightBox_shadow').removeClass('hidden');
-        $('.pi').removeClass('hidden');
-        $('.pe').addClass('hidden');
-        $('.pi_tab').addClass('hidden');
-        $('.pi_tab_info').removeClass('hidden');
-
-        $('.pii_itinerary').height(1).height($('.pii_itinerary').prop('scrollHeight'));
-        $('.pii_cancellation').height(1).height($('.pii_cancellation').prop('scrollHeight'));
-        $('.pii_description').height(1).height($('.pii_description').prop('scrollHeight'));
-        $('.pii_inclusive').height(1).height($('.pii_inclusive').prop('scrollHeight'));
-        $('.pii_exclusive').height(1).height($('.pii_exclusive').prop('scrollHeight'));
-        $('.pii_others').height(1).height($('.pii_others').prop('scrollHeight'));
-        */
         $('.lightBox_shadow').removeClass('hidden');
         $('.pi').addClass('hidden');
         $('.pe').removeClass('hidden');
@@ -54,6 +40,22 @@ function Show(){
         $(".pe_tab_"+tabName).removeClass("hidden");
         $(".pe_nav").children().removeClass("pe_nav--selected");
         $(div).addClass("pe_nav--selected")
+    }
+
+    this.agency = function(){
+        $(".pe").removeClass("hidden");
+        $(".pe_tab").addClass("hidden");
+        $(".pe_nav").children().removeClass("pe_nav--selected");
+        $(".pe_tab_agency").addClass("hidden");
+        $(".pe_nav_agency").addClass("hidden");
+    }
+
+    this.price = function(){
+        $(".pe").removeClass("hidden");
+        $(".pe_tab").addClass("hidden");
+        $(".pe_nav").children().removeClass("pe_nav--selected");
+        $(".pe_tab_price").addClass("hidden");
+        $(".pe_nav_price").addClass("hidden");
     }
 }
 

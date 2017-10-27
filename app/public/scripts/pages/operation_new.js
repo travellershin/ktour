@@ -4,6 +4,9 @@ let date = ""
 let guidedata = {};
 let isEditing = false;
 let reservation = {}
+let viewing = ""
+let teamlist = []
+let op_rev = []
 
 $(document).ready(function(){
     init_op_datepicker();
@@ -59,7 +62,8 @@ $(document).on("click",".omp_list",function(){
 })
 $(document).on("click",".ol_bus_total",function(){
     filter_init();
-    inflate_reservation(reservation)
+    inflate_reservation(op_rev)
+    console.log(op_rev)
     $(".ol_bus_box").removeClass("ol_bus_box--selected")
     $(this).addClass("ol_bus_box--selected")
 })
@@ -69,6 +73,15 @@ $(document).on("click",".ol_bus_team",function(){
     $(".ol_bus_box").removeClass("ol_bus_box--selected")
     $(this).addClass("ol_bus_box--selected")
 })
+$(".ol_busEdit_done").click(function(){
+    isEditing = false;
+    $(".ol_editBus").removeClass("hidden");
+    $(".ol_unSelect").addClass("hidden");
+    $(".ol_selectAll").addClass("hidden");
+    $(".ol_busEdit").addClass("hidden")
+    $(".rv_box").css("padding-bottom","200px")
+    selectArray = []
+})
 $(".ol_return").click(function(){
     $(this).addClass("hidden");
     $(".ol").addClass("hidden");
@@ -77,7 +90,10 @@ $(".ol_return").click(function(){
     $(".ol_unSelect").addClass("hidden");
     $(".ol_selectAll").addClass("hidden");
     $(".ol_editBus").removeClass("hidden");
+    $(".o_header_date").removeClass("hidden");
+    $(".o_header_quick").removeClass("hidden");
     isEditing = false;
+    viewing = ""
 })
 $(".ol_editBus").click(function(){
     isEditing = true;
@@ -87,6 +103,18 @@ $(".ol_editBus").click(function(){
     $(".ol_busEdit").removeClass("hidden")
     $(".rv_box").css("padding-bottom","200px")
     selectArray = []
+})
+$(".o_header_quick_yesterday").click(function(){
+    date = datestring.yesterday();
+    quickSelectOpdata($(this));
+})
+$(".o_header_quick_today").click(function(){
+    date = datestring.today();
+    quickSelectOpdata($(this));
+})
+$(".o_header_quick_tomorrow").click(function(){
+    date = datestring.tomorrow();
+    quickSelectOpdata($(this));
 })
 $(document).on("click",".rv_content",function(){
     if(isEditing){
@@ -99,14 +127,12 @@ $(document).on("click",".rv_content",function(){
             }
         }
         $(".ol_busEdit_number_txt").html(selectArray.length)
-        console.log(selectArray)
     }
 })
 
 $(document).on("click",".ol_busEdit_bus",function(){
     let target_team = $(this).attr("tid") // 선택된(옮겨질) team id
     let s_product = $(".ol_title").html(); // 프로덕트명
-    console.log(operationData)
     let reservationData = {}
     for (let i = 0; i < selectArray.length; i++) {
         let s_team = selectArray[i][0];  //원 소속 팀
@@ -114,11 +140,12 @@ $(document).on("click",".ol_busEdit_bus",function(){
 
         reservationData = operationData[date][s_product].teams[s_team].reservations[s_rev] //복사해둠
         delete operationData[date][s_product].teams[s_team].reservations[s_rev] // 지움
-        operationData[date][s_product].teams[target_team].reservations[s_rev] = reservationData //붙여넣기
-
-        // TODO: 해당일 상품 전체를 변수에 담는다. 옮길 reservation을 복사해둔다. 기존 팀에 있는 reservation을 삭제한다. 변수에 합친다. firebase에 set한다.
-        //firebase.database().ref("operation/"+opdate+"/"+s_product+"/teams/"+s_team+"/reservations/"+s_rev).remove()
-        //console.log(totaldata[s_product].teams[s_team].reservations[s_rev])
+        if(operationData[date][s_product].teams[target_team].reservations){
+            operationData[date][s_product].teams[target_team].reservations[s_rev] = reservationData //붙여넣기
+        }else{
+            operationData[date][s_product].teams[target_team].reservations = {};
+            operationData[date][s_product].teams[target_team].reservations[s_rev] = reservationData;
+        }
     }
     firebase.database().ref("operation/"+date+"/"+s_product).set(operationData[date][s_product])
     showList(s_product)
@@ -201,7 +228,12 @@ function inflate_data(){
                 let tid = operationData[date][product].teamArgArray[i]
 
                 txt+='<div class="omp_team" pid="'+product+'" tid="'+tid+'"><div class="omp_team_names"><p class="omp_team_names_bus">BUS '+(i+1)+'</p>'
-                txt+='<p class="omp_team_names_guide">'+domdata.teams[tid].guide.toString()+'</p></div>'
+                if(domdata.teams[tid].guide){
+                    txt+='<p class="omp_team_names_guide">'+domdata.teams[tid].guide.toString()+'</p></div>'
+                }else{
+                    txt+='<p class="omp_team_names_guide">Unassigned</p></div>'
+                }
+
                 txt+='<p class="omp_team_people">'+domdata.teams[tid].people+'</p></div>'
 
             }
@@ -215,6 +247,10 @@ function inflate_data(){
         for (let team in operationData[date][product].teams) {
             firebase.database().ref("operation/"+date+"/"+product+"/teams/"+team+"/people").set(operationData[date][product].teams[team].people);
         }
+    }
+
+    if(viewing.length>0){
+        showList(viewing)
     }
 }
 
@@ -247,8 +283,6 @@ function editTeam(div){
     let tid = div.attr("tid");
     let pid = div.attr("pid");
     let busno = div.attr("busno");
-    $("#obe_footer_save").attr("tid",tid);
-    $("#obe_footer_save").attr("pid",pid);
     let teamdata = operationData[date][pid].teams[tid];
     firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
         let data = snap.val();
@@ -282,18 +316,20 @@ function editTeam(div){
         }else{
             $("#op_bus_size").val("Unknown Bus Size")
         }
+        let guidetxt = "";
         if(teamdata.guide){
-            let guidetxt = "";
             let guidenumber = 0
             for (let i = 0; i < teamdata.guide.length; i++) {
                 guidetxt+='<input class="obe_body_input dw_dropdown op_guide'+i+'" value="'+teamdata.guide[i]+'" id="op_guide'+i+'" readonly/>'
                 guidenumber++
             }
             guidetxt+='<input class="obe_body_input dw_dropdown op_guide'+(guidenumber)+'" value="Unassigned" id="op_guide'+(guidenumber)+'" readonly/>'
-            $(".obe_body_guide").html(guidetxt);
+
         }else{
+            guidetxt+='<input class="obe_body_input dw_dropdown op_guide0" value="Unassigned" id="op_guide0" readonly/>'
             $("#op_guide").val("Unassigned");
         }
+        $(".obe_body_guide").html(guidetxt);
 
         $("#op_message").val(teamdata.message);
         let guidenameArray = []
@@ -310,6 +346,7 @@ function editTeam(div){
 
 function changeBusCompany(busname){
     let pid = $(".omp_edit").attr("pid");
+    console.log(pid)
     firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
         let data = snap.val();
         let productdata = {}
@@ -394,12 +431,16 @@ function showList(pid){
     $(".ol_return").removeClass("hidden")
     $(".ol").removeClass("hidden")
     $(".ol_title").html(pid)
+    $(".o_header_date").addClass("hidden");
+    $(".o_header_quick").addClass("hidden");
+    viewing = pid;
 
     let data = operationData[date][pid]
     let bustxt = "";
     let busEditTxt = "";
 
-    let op_rev = []
+    teamlist = []
+    op_rev = []
 
     bustxt+='<div class="ol_bus_total ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
     console.log(operationData)
@@ -409,7 +450,6 @@ function showList(pid){
         console.log(data.teams[data.teamArgArray[i]].reservations)
 
         for (let revkey in data.teams[data.teamArgArray[i]].reservations) {
-
 
             console.log(data.teams[data.teamArgArray[i]].reservations[revkey])
 
@@ -432,6 +472,12 @@ function showList(pid){
             }
 
             op_rev.push(reservation_data)
+
+            if(teamlist[i]){
+                teamlist[i].push(reservation_data)
+            }else{
+                teamlist[i] = [reservation_data]
+            }
         }
 
         bustxt+='<div class="ol_bus_team ol_bus_box" tid="'+data.teamArgArray[i]+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+(i+1)+'</p>'
@@ -548,6 +594,70 @@ function addbus(){
     $(".obe").removeClass("hidden");
     $(".obe_header_title").html($(".ol_title").html().split("_")[2])
 
+    let pid = $(".ol_title").html();
+    console.log(pid)
+    let tid = firebase.database().ref("operation/"+date+"/"+pid+"/teams").push().key;
+    let time = new Date();
+    time = time.getTime()
+    $(".omp_edit").attr("pid",pid);
+
+
+    let teamdata = {};
+    firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
+        let data = snap.val();
+        console.log(data)
+        let productdata = {}
+        for (let key in data) {
+            productdata = data[key]
+        }
+        let busno = $(".ol_bus_team").length + 1
+        let busnameArray = []
+        let bussizeno = 0;
+        for (let i = 0; i < productdata.cost.bus.length; i++) {
+            busnameArray.push(productdata.cost.bus[i].name);
+            if($("#op_bus_company").val() === productdata.cost.bus[i].name){
+                bussizeno = i
+            }
+        }
+        let bussizeArray = []
+        for (let i = 0; i < productdata.cost.bus[bussizeno].size.length; i++) {
+            bussizeArray.push(productdata.cost.bus[bussizeno].size[i].max + "인승(" + productdata.cost.bus[bussizeno].size[i].cost+"원)")
+        }
+        $(".obe_footer_save").attr("tid",tid);
+        $(".obe_footer_save").attr("pid",pid);
+        $("#op_bus_company").attr("dropitem",busnameArray.toString())
+        $("#op_bus_size").attr("dropitem",bussizeArray.toString())
+        $(".pop_blackScreen").removeClass("hidden");
+        $(".obe").removeClass("hidden");
+        $(".obe_header_title").html([pid.split("_")[2]]+" "+busno);
+        $("#op_bus_company").val("Not Selected Yet");
+        $("#op_bus_size").val("Not Selected Yet")
+        $("#op_guide").val("Unassigned");
+        $("#op_message").val(teamdata.message);
+        let guidenameArray = []
+        guidenameArray.push("Unassigned")
+        for (let guidekey in guidedata) {
+            guidenameArray.push(guidedata[guidekey].name)
+        }
+        op_revdata = {}
+        let guidetxt = '<input class="obe_body_input dw_dropdown op_guide0" value="Unassigned" id="op_guide0" readonly/>'
+        $("#op_guide").val("Unassigned");
+        $(".obe_body_guide").html(guidetxt);
+
+        $(".obe_body_guide>input").attr("dropitem",guidenameArray.toString())
+
+        showList(pid);
+    });
+}
+function quickSelectOpdata(div){
+    getOperationData(datestring.yesterday());
+    $(".o_header_quick>p").removeClass("drp_quick--selected");
+    div.addClass("drp_quick--selected")
+    $(".o_header_date_txt").data('daterangepicker').setStartDate(date)
+    $(".o_header_date_txt").data('daterangepicker').setEndDate(date)
+    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
+        reservation[date] = snap.val();
+    })
 }
 
 function filter_init(){

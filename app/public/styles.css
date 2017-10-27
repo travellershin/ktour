@@ -1799,7 +1799,8 @@ textarea::-webkit-scrollbar-thumb
         margin-right: 10px;
     }
 .om{
-    width:100%;
+    width:1300px;
+    margin: 0 auto;
     margin-top: 40px;
 }
 .om_city{

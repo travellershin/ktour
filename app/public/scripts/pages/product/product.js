@@ -24,7 +24,6 @@ let product_filter = {
 
 $(document).ready(function(){
     product.listing();
-    listingPickLocation();
 })
 $('.p_set_add').click(function(){
     product.add();
@@ -52,21 +51,6 @@ $(".pi_nav").children().click(function(){
 })
 $(".pe_nav").children().click(function(){
     show.tab_edit($(this));
-})
-$(".pei_location_setting").click(function(){
-    $(".insidePop").removeClass("hidden");
-    $(".pe_APC").addClass("hidden")
-    $(".pe_pickSet").removeClass("hidden");
-})
-$(".pe_pickSet_header_close").click(function(){
-    $(".insidePop").addClass("hidden")
-    $(".pe_pickSet").addClass("hidden")
-})
-$(".pe_pickSet_add").click(function(){
-    addPickLocation();
-})
-$(".pe_pickSet_footer_save").click(function(){
-    savePickLocation();
 })
 $(".closeContext").click(function(){
     if(confirm("Are you sure you want to delete this priceSet?")){
@@ -160,20 +144,6 @@ $('.pei_available').click(function(){
     }
 })
 
-$('.pei_pickup_yes').click(function(){
-    $(this).addClass('pei_pickup_selected');;
-    $(".pei_pickup_no").removeClass('pei_pickup_selected');
-    $(".pei_pickup_radio").eq(0).css("background-image","url(./assets/icon-radio-check.svg)");
-    $(".pei_pickup_radio").eq(1).css("background-image","url(./assets/icon-radio-default.svg)");
-})
-
-$('.pei_pickup_no').click(function(){
-    $(this).addClass('pei_pickup_selected');
-    $(".pei_pickup_yes").removeClass('pei_pickup_selected');
-    $(".pei_pickup_radio").eq(1).css("background-image","url(./assets/icon-radio-check.svg)");
-    $(".pei_pickup_radio").eq(0).css("background-image","url(./assets/icon-radio-default.svg)");
-})
-
 $(document).on("click",".pep_p_ag_box_close",function(){ //priceGroup 삭제
     removePriceGroup($(this).attr("cid"))
 })
@@ -201,7 +171,6 @@ function Product(){
                 let area = data[keys].info.area;
                 let category = data[keys].info.category;
                 let name = data[keys].info.name;
-                let code = data[keys].info.code;
                 let inf_status = data[keys].info.status;
                 let bgco = ""
                 if(inf_status.toLowerCase() === "on"){
@@ -239,7 +208,7 @@ function Product(){
                 //만들어지는 html은 product.html 구조 파악용 샘플 데이터 -1 참고
                 // TODO: bgco_green부분과 ON에 데이터 넣기
                 txt+= '<div class="pc" id="'+keys+'"><div class="pc_status"><div class="bgco_'+bgco+'">'+inf_status.toUpperCase()+'</div></div><p class="pc_area">'+area+'</p><p class="pc_category">'
-                txt+= category+'</p><div class="pc_product"><p>'+name+'</p><p class="font_grey">'+code+'</p></div><p class="pc_start">'+start+'</p><p class="pc_end">'+end+'</p>'
+                txt+= category+'</p><div class="pc_product"><p>'+name+'</p></div><p class="pc_start">'+start+'</p><p class="pc_end">'+end+'</p>'
                 txt+= '<div class="pc_price"><p>adult '+price_adult+'won</p><p>child '+price_child+'won</p></div><div class="pc_net"><p>adult '+net_adult+'won</p><p>child '+net_child+'won</p></div>'
                 txt+= '<div class="pc_agency"><p>'+agency_total+'개</p><p class="font_grey">(진행'+agency_ongoing+' 심사'+agency_screening+' 거절'+agency_rejected+')</p></div></div>'
             }
@@ -286,19 +255,13 @@ function Product(){
             available:[false,false,false,false,false,false,false,false],
             cancellation:"-",
             category:"Regular",
-            code:"",
             deadline:24,
             description:"-",
-            destination:"-",
-            ending:"-",
             exclude:"-",
-            hotelPickup:false,
             id:"Seoul_Regular_NEWPRODUCT",
             include:"_",
             itinerary:"-",
             language:[true,false,false,false,false,false,false,false,false,false,false,false],
-            max:99,
-            min:1,
             name:"NEW PRODUCT",
             others:"-",
             period:"-",
@@ -327,18 +290,12 @@ function Product(){
         firebase.database().ref("product/"+cid).once("value", snap => {
             let data = snap.val();
 
-            let strArray = ["destination","area","category","period","status","description","ending","itinerary","cancellation","include","exclude","others"]
-            $('.pii_name').html('('+data.info.code+')'+" "+data.info.name);
-            $('.pi_header_title').html('('+data.info.code+')'+" "+data.info.name);
+            let strArray = ["area","category","period","status","description","itinerary","cancellation","include","exclude","others"]
+            $('.pii_name').html(data.info.name);
+            $('.pi_header_title').html(data.info.name);
 
             for (var i = 0; i < strArray.length; i++) {
                 $('.pii_'+strArray[i]).html(data.info[strArray[i]])
-            }
-
-            if(data.info.hotelPickup){
-                $(".pii_pickup").html("Yes")
-            }else{
-                $(".pii_pickup").html("No")
             }
 
             let status = data.info.status
@@ -373,7 +330,6 @@ function Product(){
             $('.pii_available').html(availShowTxt)
 
             $('.pii_deadline').html(data.info.deadline +' day(s) before')
-            $('.pii_participants').html('Min ' +data.info.cap_min +' / Max '+data.info.cap_max)
 
             let meetTxt = ""
             for (var i = 0; i < data.info.pickup.length; i++) {
@@ -457,8 +413,8 @@ function Product(){
                 $(".pe_header_title").html(data.id.split("_")[2] + " EDIT")
 
 
-                let inputStringArray = ["code","possibles","destination","area","period","category","status"];
-                let htmlStringArray = ["description","cancellation","itinerary","include","exclude","others","ending","category","status"]
+                let inputStringArray = ["code","possibles","area","period","category","status"];
+                let htmlStringArray = ["description","cancellation","itinerary","include","exclude","others","category","status"]
 
                 for (var i = 0; i < inputStringArray.length; i++) {
                     $(".pei_"+inputStringArray[i]).val(info[inputStringArray[i]])
@@ -466,7 +422,7 @@ function Product(){
 
                 $('.pei_name').val(info.name)
 
-                let inputNumArray = ["max","min","deadline"];
+                let inputNumArray = ["deadline"];
 
                 for (var i = 0; i < inputNumArray.length; i++) {
                     $(".pei_"+inputNumArray[i]).val(info[inputNumArray[i]]*1)
@@ -502,19 +458,6 @@ function Product(){
                         $(".pei_language").eq(i).removeClass('pei_language_selected')
                         $(".pei_language_cb").eq(i).removeClass('cb_checked')
                     }
-                }
-
-                if(info.hotelPickup){
-                    $(".pei_pickup_yes").addClass('pei_pickup_selected');
-                    $(".pei_pickup_no").removeClass('pei_pickup_selected');
-                    $(".pei_pickup_radio").eq(0).css("background-image","url(./assets/icon-radio-check.svg)");
-                    $(".pei_pickup_radio").eq(1).css("background-image","url(./assets/icon-radio-default.svg)");
-
-                }else{
-                    $(".pei_pickup_yes").removeClass('pei_pickup_selected');
-                    $(".pei_pickup_no").addClass('pei_pickup_selected');
-                    $(".pei_pickup_radio").eq(1).css("background-image","url(./assets/icon-radio-check.svg)");
-                    $(".pei_pickup_radio").eq(0).css("background-image","url(./assets/icon-radio-default.svg)");
                 }
 
                 pd_edit.agency(data)
@@ -557,7 +500,6 @@ function Product(){
 function Product_save(){
     this.info = function(pkey){
         let product_info  = {
-            destination:"",
             area:"",
             category:"",
             status:"",
@@ -566,14 +508,9 @@ function Product_save(){
             available:[0,0,0,0,0,0,0,0],
             description:"",
             deadline:0,
-            min:0,
-            max:0,
             pickup:[],
-            hotelPickup:true,
             cancellation:"",
             itinerary:"",
-            code:"",
-            ending:"",
             include:"",
             exclude:"",
             others:"",
@@ -592,14 +529,6 @@ function Product_save(){
                 case "available":
                     for (let i = 0; i < $(".pei_available_cb").length; i++) {
                             product_info.available[i] = $(".pei_available_cb").eq(i).hasClass("cb_checked");
-                    }
-                    break;
-
-                case "hotelPickup":
-                    if($(".pei_pickup_yes").hasClass('pei_pickup_selected')){
-                        product_info.hotelPickup = true;
-                    }else{
-                        product_info.hotelPickup = false;
                     }
                     break;
 
@@ -961,36 +890,6 @@ function Product_edit(){
     }
 }
 
-function listingPickLocation(){
-    firebase.database().ref("place/pickup").once("value", snap => {
-        let data = snap.val();
-        let txt = ""
-
-        for (let code in data) {
-            txt+='<div class="pe_pickSet_pickUp"><input spellcheck="false" id="pickplace_'+code+'" class="pe_pickSet_pickUp_txt" value="'
-            txt+=data[code].place +'"/><img class="pe_pickSet_remove" id="'+code+'" src="./assets/icon-close-small.svg"/></div><input spellcheck="false" id="pickpossibles_'+code+'"  class="pe_pickSet_possibles" value="'+data[code].possibles+'"/>'
-        }
-
-        $(".pe_pickSet_txtZone").html(txt)
-    });
-}
-function addPickLocation(){
-    pkey = firebase.database().ref("place/pickup").push().key;
-    let txt = '<div class="pe_pickSet_pickUp"><input spellcheck="false" id="pickplace_'+pkey+'" class="pe_pickSet_pickUp_txt"/><img class="pe_pickSet_remove" id="'+pkey+'" src="./assets/icon-close-small.svg"/></div><input spellcheck="false" id="pickpossibles_'+pkey+'" class="pe_pickSet_possibles"/>'
-    $(".pe_pickSet_txtZone").append(txt);
-}
-function savePickLocation(){
-    let pickupObj = {}
-    for (var i = 0; i < $(".pe_pickSet_pickUp").length; i++) {
-        let sid = $(".pe_pickSet_remove").eq(i).attr("id");
-        if($("#pickplace_"+sid).val().length>0 && $("#pickpossibles_"+sid).val().length>0)
-        pickupObj[sid] = {
-            place:$("#pickplace_"+sid).val(),
-            possibles:$("#pickpossibles_"+sid).val().split(",")
-        }
-    }
-    firebase.database().ref("place/pickup").set(pickupObj)
-}
 
 function removePriceGroup(cid){
     let address = cid.split("_")
@@ -1156,7 +1055,6 @@ function setAgencyPrice(pid){
 
         $(".pe_APC_contents").html(txt)
         $(".insidePop").removeClass("hidden");
-        $(".pe_pickSet").addClass("hidden");
         $(".pe_APC").removeClass("hidden");
 
     })
@@ -1191,7 +1089,6 @@ function saveAgencyPrice(pid){
             }
         }
         $(".insidePop").addClass("hidden");
-        $(".pe_pickSet").addClass("hidden");
         $(".pe_APC").addClass("hidden");
     })
 

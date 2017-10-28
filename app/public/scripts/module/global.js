@@ -14,19 +14,28 @@ $(".header_guide").hover(function(){
     $(".header_guide").css("display","none")
 })
 
+$(".header_pageLinks_setting").hover(function(){
+    $(".header_setting").css("display","block")
+},function(){
+    $(".header_setting").css("display","none")
+})
+
+$(".header_setting").hover(function(){
+    $(".header_setting").css("display","block")
+},function(){
+    $(".header_setting").css("display","none")
+})
 
 $('#logo').click(function(){
     event.preventDefault();
     location.href = './check.html';
 })
 
-$('.header_pageLinks').click(function(){
-    if($(this).html() === "GUIDE"){
-        // TODO: 드롭다운이 열리고 가이드 창 3개 선택지가 표시되어야 함
-        location.href = 'guide_managing.html'
-    }else{
-        location.href = $(this).html().toLowerCase()+'.html'
-    }
+$('.header_singlelink').click(function(){
+    location.href = $(this).html().toLowerCase()+'.html'
+})
+$(".header_setting>p").click(function(){
+    location.href = $(this).html().toLowerCase()+'.html'
 })
 
 //startDate와 endDate(YYYY-MM-DD 스타일), listDate(Array)를 인자로 받아 사이에 있는 날을 구한다.

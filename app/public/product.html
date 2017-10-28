@@ -14,19 +14,20 @@
     <header class="header">
         <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
         <ul>
-            <li class="header_pageLinks">EXCEPTION</li>
-            <li class="header_pageLinks">RESERVATION</li>
-            <li class="header_pageLinks">OPERATION</li>
-            <li class="header_pageLinks header_pageLinks--selected">PRODUCT</li>
-            <li class="header_pageLinks header_pageLinks_guide">GUIDE</li>
-            <li class="header_pageLinks">AGENCY</li>
-            <li class="header_pageLinks">ACCOUNT</li>
+            <li class="header_pageLinks header_singlelink">EXCEPTION</li>
+            <li class="header_pageLinks header_singlelink">RESERVATION</li>
+            <li class="header_pageLinks header_singlelink">OPERATION</li>
+            <li class="header_pageLinks header_singlelink header_pageLinks--selected">PRODUCT</li>
+            <li class="header_pageLinks header_singlelink">GUIDE</li>
+            <li class="header_pageLinks header_singlelink">ACCOUNT</li>
+            <li class="header_pageLinks header_pageLinks_setting">SETTING</li>
         </ul>
     </header>
-    <!--아래 가이드 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
-    <div class="header_guide">
-        <p class="header_guide_asset">ASSET</p>
-        <p class="header_guide_managing">MANAGING</p>
+    <!--아래 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_setting header_drop">
+        <p class="header_setting_agency">AGENCY</p>
+        <p class="header_setting_pickup">PICKUP</p>
+        <p class="header_setting_nationality">NATIONALITY</p>
     </div>
 
     <div class="p_st centering">
@@ -142,10 +143,6 @@
                         <p class="pi_content pii_name"></p>
                     </div>
                     <div class="pi_tab_info_div">
-                        <p class="pi_title">DESTINATION</p>
-                        <p class="pi_content pii_destination"></p>
-                    </div>
-                    <div class="pi_tab_info_div">
                         <p class="pi_title">AREA</p>
                         <p class="pi_content pii_area"></p>
                     </div>
@@ -178,20 +175,8 @@
                         <p class="pi_content pii_deadline"></p>
                     </div>
                     <div class="pi_tab_info_div">
-                        <p class="pi_title">PARTICIPANTS</p>
-                        <p class="pi_content pii_participants"></p>
-                    </div>
-                    <div class="pi_tab_info_div">
                         <p class="pi_title">MEETING LOCATION</p>
                         <p class="pi_content pii_meeting"></p>
-                    </div>
-                    <div class="pi_tab_info_div">
-                        <p class="pi_title">ENDING LOCATION</p>
-                        <p class="pi_content pii_ending"></p>
-                    </div>
-                    <div class="pi_tab_info_div">
-                        <p class="pi_title">HOTEL PICK-UP/DROP-OFF</p>
-                        <p class="pi_content pii_pickup"></p>
                     </div>
                     <div class="pi_tab_info_div pi_breakLine">
                         <p class="pi_title">ITINERARY</p>
@@ -503,29 +488,6 @@
 
         <div class="pe hidden">
             <div class="insidePop hidden">
-                <div class="pe_pickSet hidden">
-                    <div class="pe_pickSet_header">
-                        <p class="pe_pickSet_header_title">MEETING LOCATION SETTING</p>
-                        <img class="pe_pickSet_header_close" src="./assets/icon-close.svg"/>
-                    </div>
-                    <div class="pe_pickSet_body">
-                        <div class="pe_pickSet_txtZone">
-                            <div class="pe_pickSet_pickUp">
-                                <input spellcheck="false" class="pe_pickSet_pickUp_txt"/>
-                                <img src="./assets/icon-close-small.svg"/>
-                            </div>
-                            <input class="pe_pickSet_possibles"/>
-                        </div>
-                        <div class="pe_pickSet_add longbtn">
-                            <img src="./assets/icon-add.svg"/>
-                            <p>ADD NEW MEETING LOCATION</p>
-                        </div>
-                    </div>
-                    <div class="pe_pickSet_footer">
-                        <p class="pe_pickSet_footer_save">SAVE</p>
-                    </div>
-                </div>
-
                 <div class="pe_APC hidden">
                     <div class="pe_APC_header">
                         <p class="pe_APC_header_title">AGENCY PRICEGROUP SETTING</p>
@@ -566,15 +528,9 @@
                         <div class="pe_product_name">
                             <p class="pe_hint">제품명</p>
                             <input spellcheck="false" class="pei_name pe_full" value="Seoul_Regular_태감송해">
-                            <p class="pe_hint">제품코드</p>
-                            <input spellcheck="false" class="pei_code pe_mid" value="RSE003">
                             <p class="pe_hint mt_15">*Agency Product(메일로 들어오는 제품명 경우의 수를 세미콜론(;)으로 구분해 입력해주세요)</p>
                             <textarea spellcheck="false" class="pei_possibles">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                         </div>
-                    </div>
-                    <div>
-                        <p class="pe_title">DESTINATION</p>
-                        <input spellcheck="false" class="pei_destination pe_full" value="Nami, Petite france">
                     </div>
                     <div class="pe_div_area">
                         <p class="pe_title">PLACE</p>
@@ -714,20 +670,9 @@
                         </div>
                     </div>
 
-                    <div class="pe_div_participants">
-                        <p class="pe_title">PARTICIPANTS</p>
-                        <div class=ov_hidden>
-                            <input type="number" class="pe_small pei_min">
-                            <p class="fl_left lh_40 mr_30">Minimum</p>
-                            <input type="number" class="pe_small pei_max">
-                            <p class="fl_left lh_40">Maximum</p>
-                        </div>
-                    </div>
-
                     <div>
                         <p class="pe_title">MEETING LOCATION</p>
                         <div class="pei_meeting_wrapper">
-                            <div class="btn pei_location_setting">SETTING</div>
                             <div class="pei_meeting_contents">
                                 <div class="pei_pickupLocationZone">
                                 <!--SAMPLE DATA
@@ -743,25 +688,6 @@
                                 <p class="pei_location_add">+ ADD LOCATION</p>
 
                             </div>
-                    </div>
-
-                    <div class="pe_div_ending mt_30">
-                        <p class="pe_title pe_title--lowLine">ENDING LOCATIOIN</p>
-                        <textarea spellcheck="false" class="pei_ending"></textarea>
-                    </div>
-
-                    <div class="pe_div_pickUp">
-                        <p class="pe_title pe_title--lowLine">HOTEL PICK-UP/DROP-OFF</p>
-                        <div class="ov_hidden">
-                            <div class="pei_pickup pei_pickup_yes pei_pickup_selected">
-                                <radio class="pei_pickup_radio pei_pickup_radio--selected"></radio>
-                                <p>YES</p>
-                            </div>
-                            <div class="pei_pickup pei_pickup_no">
-                                <radio class="pei_pickup_radio"></radio>
-                                <p>NO</p>
-                            </div>
-                        </div>
                     </div>
 
                     <div>

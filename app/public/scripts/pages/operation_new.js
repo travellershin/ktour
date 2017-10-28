@@ -68,10 +68,18 @@ $(document).on("click",".ol_bus_total",function(){
     $(this).addClass("ol_bus_box--selected")
 })
 $(document).on("click",".ol_bus_team",function(){
-    filter_init();
-    inflate_reservation(teamlist[$(".ol_bus_team").index($(this))])
-    $(".ol_bus_box").removeClass("ol_bus_box--selected")
-    $(this).addClass("ol_bus_box--selected")
+    if($(this).hasClass("ol_bus_box--selected")){
+        //버스정보 보기
+        $(this).attr("pid",$(".ol_title").html())
+        $(this).attr("busno",$(".ol_bus_team").index($(this))+1)
+        editTeam($(this))
+    }else{
+        filter_init();
+        inflate_reservation(teamlist[$(".ol_bus_team").index($(this))])
+        $(".ol_bus_box").removeClass("ol_bus_box--selected")
+        $(this).addClass("ol_bus_box--selected")
+    }
+
 })
 $(".ol_busEdit_done").click(function(){
     isEditing = false;
@@ -274,7 +282,7 @@ function teamPop(div){
     }
     $(".omp_edit").attr("tid",tid);
     $(".omp_edit").attr("pid",pid);
-    $(".omp_edit").attr("busno",busno);
+    $(".omp_edit").attr("busno",busno+1);
 }
 
 

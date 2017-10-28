@@ -36,12 +36,10 @@
         }
     }
 
-    &_guide{
+    &_drop{
         position: absolute;
         display: none;
         top:60px;
-        width: 120px;
-        left: 636px;
         border-radius: 4px;
         background-color: #222837;
         box-shadow: 0 2px 3px 0 #e0e0e0;
@@ -63,4 +61,16 @@
             }
         }
     }
+
+    &_guide{
+        width: 120px;
+        left: 636px;
+    }
+
+    &_setting{
+        width: 140px;
+        left: 850px;
+    }
+
+
 }

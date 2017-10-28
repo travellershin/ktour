@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<script src='./libraries/jquery.js'></script>
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks header_singlelink">EXCEPTION</li>
+            <li class="header_pageLinks header_singlelink">RESERVATION</li>
+            <li class="header_pageLinks header_singlelink">OPERATION</li>
+            <li class="header_pageLinks header_singlelink">PRODUCT</li>
+            <li class="header_pageLinks header_singlelink">GUIDE</li>
+            <li class="header_pageLinks header_singlelink">ACCOUNT</li>
+            <li class="header_pageLinks header_pageLinks_setting header_pageLinks--selected">SETTING</li>
+        </ul>
+    </header>
+    <!--아래 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_setting header_drop">
+        <p class="header_setting_agency">AGENCY</p>
+        <p class="header_setting_pickup">PICKUP</p>
+        <p class="header_setting_nationality">NATIONALITY</p>
+    </div>
+
+    <div class="pickup_wrapper">
+        <div class="pickup_addCity longbtn">
+            <img src="./assets/icon-add.svg"/>
+            <p>ADD NEW CITY</p>
+        </div>
+
+        <div class="pickup">
+            <div class="pickup_cityBox">
+                <input class="pickup_cityName" value="Seoul" placeholder="City Name" spellcheck="false"/>
+                <div class="pickup_placebox2">
+                    <div class="pickup_placeBox">
+                        <input class="pickup_place" value="Myungdong" placeholder="Pickup Place" spellcheck="false"/>
+                        <div class="pickup_place_possibleBox">
+                            <div class="pickup_place_possibleBox2">
+                                <div class="pickup_possible">
+                                    <p class="pickup_possible_txt">myungdong</p>
+                                    <img class="pickup_possible_close" src="./assets/icon-close.svg"/>
+                                </div>
+                            </div>
+                            <input class="pickup_possible_new"/>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="pickup_place_new">+ Add Pickup Place</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pickup_footer">
+        <div class="pickup_footer_centerer">
+            <div class="pickup_save">SAVE</div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/pages/pickup.js'></script>
+</body>

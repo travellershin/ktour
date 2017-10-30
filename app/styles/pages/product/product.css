@@ -84,11 +84,14 @@
     height: 20px;
     width: 1200px;
     margin:0 auto;
-    display: flex;
-    justify-content: space-between;
+    overflow: hidden;
     border-top: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
     padding: 9px 40px 9px 40px;
+    &>*{
+        float: left;
+        margin-right: 25px;
+    }
 
     &>div{
         overflow: hidden;
@@ -115,21 +118,26 @@
     &_product{width: 84px;}
     &_start{width: 65px;}
     &_end{width: 61px;}
-    &_price{width: 118px;}
-    &_net{width: 118px;}
     &_agency{width: 125px;}
+    &_memo{
+        width: 425px;
+        margin-right: 0;
+    }
 }
 
 .pc{
     height: 32px;
     width: 1198px;
     margin:0 auto;
-    display: flex;
-    justify-content: space-between;
     border: solid 1px #cccccc;
     padding: 8px 40px 8px 40px;
     margin-top: 8px;
     border-radius: 5px;
+    cursor: pointer;
+    &>*{
+        float: left;
+        margin-right: 25px;
+    }
 
     & p{
         text-align: center;
@@ -142,6 +150,11 @@
     &>div>p{
         line-height: 16px;
     }
+
+    &_box{
+        padding-bottom: 60px;
+    }
+
 
     &_status{
         width: 75px;
@@ -161,7 +174,23 @@
     &_product{width: 84px;}
     &_start{width: 61px;}
     &_end{width: 61px;}
-    &_price{width: 118px;}
-    &_net{width: 118px;}
     &_agency{width: 125px;}
+    &_memo{
+        width: 425px;
+        margin-right: 0;
+        height: 32px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        line-height: 16px !important;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+}
+
+#drop_p_header_status{
+    left: 22px !important;
 }

@@ -393,15 +393,11 @@ function Product(){
     }
 
     this.edit = function(cid){
-        pickArray = []
         $(".pe").attr("productname",cid)
         this.productKey = cid;
 
-        firebase.database().ref("place/pickup").once("value", snap => {
+        firebase.database().ref("place/city").once("value", snap => {
             let pickdata = snap.val();
-            for (let code in pickdata) {
-                pickArray.push(pickdata[code].place)
-            }
         }).then(function(){
             firebase.database().ref("product/"+cid).once("value", snap => {
 

@@ -18,13 +18,15 @@ $(document).on("click",".pickup_possible_close",function(){
 $(document).on("click",".pickup_place_new",function(){
     add_place($(this))
 })
+$(".pickup_save").click(function(){
+    pickup_save();
+})
 
 let citydata = {}
 
 function inflate_pickup(){
     firebase.database().ref("place/city").on("value", snap => {
         citydata = snap.val();
-        console.log(citydata)
         let txt = ""
 
         for (let city in citydata) {
@@ -76,5 +78,27 @@ function add_place(div){
     txt+='</div><input class="pickup_possible_new"/></div></div>'
 
     $(div).siblings(".pickup_placebox2").append(txt)
+}
 
+function pickup_save(){
+    for (let i = 0; i < $(".pickup_cityName").length; i++) {
+        let city = $(".pickup_cityName").eq(i).val()
+        citydata[city] = {};
+
+        for (var j = 0; j < $(".pickup_placebox2").eq(i).find(".pickup_place").length; j++) {
+            let pickupPlace = $(".pickup_placebox2").eq(i).find(".pickup_place").eq(j).val();
+
+            if(pickupPlace.length>0){
+                citydata[city][pickupPlace] = [];
+
+                for (var k = 0; k < $(".pickup_placebox2").eq(i).find(".pickup_place_possibleBox").eq(j).find(".pickup_possible_txt").length; k++) {
+                    let possibles = $(".pickup_placebox2").eq(i).find(".pickup_place_possibleBox").eq(j).find(".pickup_possible_txt").eq(k).html();
+                    citydata[city][pickupPlace].push(possibles)
+                }
+            }
+        }
+    }
+    firebase.database().ref("place/city").set(citydata).then(function(){
+        alert("저장 완료")
+    });
 }

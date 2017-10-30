@@ -45,8 +45,12 @@
     display: block;
     height: 0;
     overflow: hidden;
+    width: 0;
 }
-.clearfix:after { clear: both; }
+.clearfix:after {
+    clear: both;
+    width: 0;
+}
 .display_none{
     display: none;
 }

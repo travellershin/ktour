@@ -34,6 +34,7 @@
         }
         &_close{
             float: right;
+            cursor: pointer;
         }
     }
 
@@ -104,6 +105,10 @@
         &--lowLine{
             line-height: 25px;
         }
+    }
+
+    &_meetingLo{
+        margin-top: 40px;
     }
 
     &_full{
@@ -277,6 +282,13 @@
         float: left;
         line-height: 40px;
         margin-right: 8px;
+    }
+    &_meeting_wrapper{
+        float: left;
+        line-height: 40px;
+        margin-right: 8px;
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
 
 
@@ -459,4 +471,13 @@
         width: 270px;
     }
 
+}
+
+.p_ml_remove{
+    cursor: pointer;
+    margin:10px 0 0 8px;
+}
+
+.mt_20:nth-child(1)>.p_ml_remove{
+    display: none;
 }

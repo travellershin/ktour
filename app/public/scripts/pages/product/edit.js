@@ -104,10 +104,20 @@ $(document).on("click",".pep_p_as_add",function(){
 $(document).on("click",".pep_p_as_remove",function(){
     $(this).parent().remove();
 })
-
+$(document).on("click",".pep_p_bus_add",function(){
+    addBus();
+})
+$(document).on("click",".pep_p_bus_price_add",function(){
+    let index = $(".pep_p_bus_price_add").index(this);
+    addBusCell(index);
+})
+$(document).on("click",".pep_p_bus_remove",function(){
+    $(this).parent().remove();
+})
 
 function addNewProduct(){
     let key = firebase.database().ref().push().key
+    $(".pe").attr("pid",key)
     product[key] = {};
     let data = product[key];
     data.price = {default:{
@@ -182,9 +192,9 @@ function show_detail(pid){
     }
 
     if(data.info.memo){ //메모 내용은 없을수도 있어서...?
-        $(".input_info_memo").val(data.info.memo)
+        $(".pe_memo_txt").val(data.info.memo)
     }else{
-        $(".input_info_memo").val("")
+        $(".pe_memo_txt").val("")
     }
 
     $(".arraydata_possibles").val(data.possibles.join(";\n")); //possibles는 ;으로 분리해 보여줌
@@ -328,7 +338,7 @@ function show_detail(pid){
     if(cost.item){
         for (let i = 0; i < cost.item.length; i++) {
             costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><input class="pep_p_as_title"/><table class="pep_p_as_price">'
-            costTxt+='<tr><th></th><th>ADULT</th><th>TEEN</th><th>YOUNG</th><th>BABY</th></tr><tr><td>AGE</td>'
+            costTxt+='<tr><th></th><th>ADULT</th><th>YOUNG</th><th>KID</th><th>BABY</th></tr><tr><td>AGE</td>'
             costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
             costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
             costTxt+='</tr><tr><td>PRICE</td>'
@@ -356,23 +366,37 @@ function show_detail(pid){
 
     let busTxt = '';
 
-    for (let i = 0; i < cost.bus.length; i++) {
-        busTxt+='<div class="pep_p_bus"><input class="pep_p_bus_name"><table class="pep_p_bus_price" border="1"><tr><th>PEOPLE</th><th>PRICE</th></tr>';
+    if(cost.bus){
+        for (let i = 0; i < cost.bus.length; i++) {
+            busTxt+='<div class="pep_p_bus"><img class="pep_p_bus_remove" src="./assets/icon-close.svg"/><input class="pep_p_bus_name"><table class="pep_p_bus_price" border="1"><tr><th>PEOPLE</th><th>PRICE</th></tr>';
 
-        for (let j = 0; j < cost.bus[i].size.length; j++) {
-            busTxt+='<tr class="pei_bus_'+i+'"><th><input class="pei_bus_'+i+'_people_'+j+'"/></th><th><input class="pei_bus_'+i+'_price_'+j+'"/></th></tr>'
+            for (let j = 0; j < cost.bus[i].size.length; j++) {
+                busTxt+='<tr class="pei_bus_'+i+'"><th><input class="pei_bus_'+i+'_people_'+j+'"/></th><th><input class="pei_bus_'+i+'_price_'+j+'"/></th></tr>'
+            }
+            busTxt+='<tr><th class="pep_p_bus_price_add"  colspan="2">+ ADD CELL</th></tr></table></div>'
         }
-        busTxt+='<tr><th class="pep_p_bus_price_add"  colspan="2">+ ADD CELL</th></tr></table></div>'
     }
     $(".pep_p_bus_box").html(busTxt)
 
-    for (let i = 0; i < cost.bus.length; i++) {
-        $(".pep_p_bus_name").eq(i).val(cost.bus[i].name);
-        for (let j = 0; j < cost.bus[i].size.length; j++) {
-            $(".pei_bus_"+i+"_people_"+j).val(cost.bus[i].size[j].min +"-"+cost.bus[i].size[j].max);
-            $(".pei_bus_"+i+"_price_"+j).val(cost.bus[i].size[j].cost);
+    if(cost.bus){
+        for (let i = 0; i < cost.bus.length; i++) {
+            $(".pep_p_bus_name").eq(i).val(cost.bus[i].name);
+            for (let j = 0; j < cost.bus[i].size.length; j++) {
+                $(".pei_bus_"+i+"_people_"+j).val(cost.bus[i].size[j].min +"-"+cost.bus[i].size[j].max);
+                $(".pei_bus_"+i+"_price_"+j).val(cost.bus[i].size[j].cost);
+            }
         }
     }
+
+    let optionTxt = ''
+    if(data.option){
+        for (let i = 0; i < data.option.length; i++) {
+            optionTxt+='<div class="pep_p_op"><img class="pep_p_op_close" src="./assets/icon-close.svg"/><div class="ov_hidden"><input class="pep_p_op_name" value="'+data.option[i].option+'"/>'
+            optionTxt+='<input class="pep_p_op_price" value="'+data.option[i].price+'"/><p class="pep_p_op_currency">WON</p></div><div class="ov_hidden"><p class="pep_p_op_potitle">Possibles</p><input class="pep_p_op_possibles" spellcheck="false" value="'+data.option[i].possibles.join(";")+'"></input></div></div>'
+        }
+    }
+
+    $(".pep_p_op_box").html(optionTxt)
 
 
 
@@ -610,8 +634,8 @@ function setAPC(){
 function addOption(){
     let optionTxt = ''
 
-    optionTxt+='<div class="pep_p_op"><img class="pep_p_op_close" src="./assets/icon-close.svg"/><input class="pep_p_op_name" value="OPTION NAME"/>'
-    optionTxt+='<input class="pep_p_op_price" value="0"/><p class="pep_p_op_currency">WON</p></div>'
+    optionTxt+='<div class="pep_p_op"><img class="pep_p_op_close" src="./assets/icon-close.svg"/><div class="ov_hidden"><input class="pep_p_op_name" value="OPTION NAME"/>'
+    optionTxt+='<input class="pep_p_op_price" value="0"/><p class="pep_p_op_currency">WON</p></div><div class="ov_hidden"><p class="pep_p_op_potitle">Possibles</p><input class="pep_p_op_possibles" spellcheck="false"></input></div></div>'
 
     $(".pep_p_op_box").append(optionTxt)
 }
@@ -620,7 +644,7 @@ function addAsset(){
     let i = $(".pep_p_as").length
 
     costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><input class="pep_p_as_title" value="asset_name"/><table class="pep_p_as_price">'
-    costTxt+='<tr><th></th><th>ADULT</th><th>TEEN</th><th>YOUNG</th><th>BABY</th></tr><tr><td>AGE</td>'
+    costTxt+='<tr><th></th><th>ADULT</th><th>YOUNG</th><th>KID</th><th>BABY</th></tr><tr><td>AGE</td>'
     costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
     costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
     costTxt+='</tr><tr><td>PRICE</td>'
@@ -629,4 +653,24 @@ function addAsset(){
     costTxt+='</tr></table></div>'
 
     $(".pep_p_as_box").append(costTxt)
+}
+function addBus(){
+    let busTxt = '';
+
+    let i = $(".pep_p_bus").length
+    busTxt+='<div class="pep_p_bus"><img class="pep_p_bus_remove" src="./assets/icon-close.svg"/><input class="pep_p_bus_name" value="NEW BUS"><table class="pep_p_bus_price" border="1"><tr><th>PEOPLE</th><th>PRICE</th></tr>';
+
+    for (let j = 0; j < 2; j++) {
+        busTxt+='<tr class="pei_bus_'+i+'"><th><input class="pei_bus_'+i+'_people_'+j+'" value="0-0"/></th><th><input class="pei_bus_'+i+'_price_'+j+'" value="0"/></th></tr>'
+    }
+    busTxt+='<tr><th class="pep_p_bus_price_add"  colspan="2">+ ADD CELL</th></tr></table></div>'
+
+    $(".pep_p_bus_box").append(busTxt)
+}
+function addBusCell(no){
+    let number = $(".pei_bus_"+no).length - 1;
+    if(number<4){
+        let txt = '<tr class="pei_bus_'+no+'"><th><input class="pei_bus_'+no+'_people_'+(number+1)+'" value="0-0"/></th><th><input class="pei_bus_'+no+'_price_'+(number+1)+'" value="0"/></th></tr>'
+        $(".pei_bus_"+no).eq(number).after(txt)
+    }
 }

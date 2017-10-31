@@ -90,8 +90,7 @@ function set_filter(div){
     product_filtered = { //사용자가 선택한 필터에 맞는 product들 모음 초기화
         status:[],
         area:[],
-        category:[],
-        total:[]
+        category:[]
     }
 
     let kind = $(div).parent().attr("id").split("_")[3] //어떤 종류의 필터가 선택되었는가!
@@ -110,12 +109,10 @@ function set_filter(div){
             filter_adjusted[filters] = filter[filters]; //모두 다 선택한 것으로 간주함
         }
     }
-
     for (let filters in filter_adjusted) {
         for (let key in product) {
             if(filter_adjusted[filters].indexOf(product[key].info[filters])>-1){ //product 내의 필터 관련정보를 확인
                 product_filtered[filters].push(key)  //각 필터에 맞게 넣음
-                product_filtered.total.push(key) //전체 갯수도 파악해야하므로
             }
         }
     }
@@ -125,13 +122,14 @@ function set_filter(div){
             inflateArray.push(product_filtered.area[i])  //현재 선택된 필터에 맞게 보여줄 내용을 결정
         }
     }
-    console.log(inflateArray)
 
     inflate_product(inflateArray);
 }
 
 function inflate_product(pArray){
     let txt = "";
+
+    $(".p_set_list").html(pArray.length+" / "+Object.keys(product).length +" Product")
 
     for (let i = 0; i < pArray.length; i++) {
         let data = product[pArray[i]]

@@ -30,6 +30,25 @@
         <p class="header_setting_nationality">NATIONALITY</p>
     </div>
 
+    <div class="p_st centering">
+        <div class="p_st_total">
+            <p>PRODUCTS</p>
+            <p class="p_st_total_no">144</p>
+        </div>
+        <div class="p_st_on p_st_stat">
+            <div class="bgco_green">ON</div>
+            <p class="p_stno_on">90</p>
+        </div>
+        <div class="p_st_ready p_st_stat">
+            <div class="bgco_orange">READY</div>
+            <p class="p_stno_ready">25</p>
+        </div>
+        <div class="p_st_stop p_st_stat">
+            <div class="bgco_red">STOP</div>
+            <p class="p_stno_stop">24</p>
+        </div>
+    </div>
+
     <div class="p_set">
         <p class="p_set_list">list 24<p>
         <div class="p_set_add longbtn">
@@ -43,14 +62,30 @@
     </div>
 
     <div class="p_header">
-        <div class="p_header_status dw_dndropdown" id="p_header_status">STATUS</div>
-        <div class="p_header_area dw_dndropdown centering_hor" id="p_header_area">AREA</div>
-        <div class="p_header_category dw_dndropdown centering_hor" id="p_header_category">CATEGORY</div>
+        <div class="p_header_status centering_hor">
+            <p>STATUS</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
+        <div class="p_header_area centering_hor">
+            <p>PLACE</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
+        <div class="p_header_category centering_hor">
+            <p>category</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
         <p class="p_header_product centering_hor">RRODUCT</p>
-        <p class="p_header_start">START</p>
-        <p class="p_header_end centering_hor">END</p>
+        <div class="p_header_start">
+            <p>START</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
+        <div class="p_header_end centering_hor">
+            <p>END</p>
+            <img src="./assets/icon-filter.svg"/>
+        </div>
+        <p class="p_header_price">PRODUCT PRICE</p>
+        <p class="p_header_net">NET PRICE</p>
         <p class="p_header_agency">AGENCY</p>
-        <p class="p_header_memo">MEMO</p>
     </div>
     <div class="pc_box">
         <!-- 구조 파악용 샘플 데이터 -1
@@ -60,19 +95,397 @@
             </div>
             <p class="pc_area">Seoul</p>
             <p class="pc_category">Season</p>
-            <p class="pc_product">남쁘아상품명</p>
+            <div class="pc_product">
+                <p>남쁘아상품명</p>
+                <p class="font_grey">RSE123</p>
+            </div>
             <p class="pc_start">17-08-08</p>
             <p class="pc_end">17-09-03</p>
+            <div class="pc_price">
+                <p>adult 132,000won</p>
+                <p>child 32,000won</p>
+            </div>
+            <div class="pc_net">
+                <p>adult 2,132,000won</p>
+                <p>child 32,000won</p>
+            </div>
             <div class="pc_agency">
                 <p>13개</p>
                 <p class="font_grey">(진행5 심사2 거절6)</p>
             </div>
-            <p class="pc_memo"></p>
         </div>
         -->
     </div>
 
     <div class="lightBox_shadow hidden">
+        <div class="pi hidden">
+            <div class="pi_header">
+                <p class="pi_header_title"></p>
+                <img class="pi_header_close" src="./assets/icon-close.svg"/>
+            </div>
+            <div class="pi_wrapper">
+                <div class="pi_nav">
+                    <p class="pi_nav_info pi_nav--selected">INFO</p>
+                    <div class="pi_nav_shortBottomLine"></div>
+                    <p class="pi_nav_agency">AGENCY</p>
+                    <div class="pi_nav_shortBottomLine"></div>
+                    <p class="pi_nav_price">PRICE</p>
+                    <div class="pi_nav_shortBottomLine"></div>
+                    <p class="pi_nav_price">COST</p>
+                    <div class="pi_nav_shortBottomLine"></div>
+                    <p class="pi_nav_memo">PRIVATE MEMO</p>
+                    <div class="pi_nav_longBottomLine"></div>
+                </div>
+
+                <div class="pi_tab pi_tab_info hidden">
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">PRODUCT</p>
+                        <p class="pi_content pii_name"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">AREA</p>
+                        <p class="pi_content pii_area"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">CATEGORY</p>
+                        <p class="pi_content pii_category"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title pi_title--status">STATUS</p>
+                        <p class="pi_content pii_status bgco_green">ON</p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">SERVING LANGUAGES</p>
+                        <p class="pi_content pii_language"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">OPERATING PERIOD</p>
+                        <p class="pi_content pii_period"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">AVAILABLE DAY</p>
+                        <p class="pi_content pii_available"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">DESCRIPTION</p>
+                        <textarea readonly class="pi_content pii_description"></textarea>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">DEADLINE</p>
+                        <p class="pi_content pii_deadline"></p>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">MEETING LOCATION</p>
+                        <p class="pi_content pii_meeting"></p>
+                    </div>
+                    <div class="pi_tab_info_div pi_breakLine">
+                        <p class="pi_title">ITINERARY</p>
+                        <textarea readonly class="pi_content pii_itinerary"></textarea>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">CANCELLATION POLICY</p>
+                        <textarea readonly class="pi_content pii_cancellation"></textarea>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">INCLUSIVE</p>
+                        <textarea readonly class="pi_content pii_include"></textarea>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">EXCLUSIVE</p>
+                        <textarea readonly class="pi_content pii_exclude">-</textarea>
+                    </div>
+                    <div class="pi_tab_info_div">
+                        <p class="pi_title">OTHER NOTES</p>
+                        <textarea readonly class="pi_content pii_others">-</textarea>
+                    </div>
+
+                </div>
+                <div class="pi_tab pi_tab_agency hidden">
+                    <p class="pi_tab_agency_class font_green">ONGOING</p>
+                    <div class="pi_tab_agency_ongoing">
+                        <p class="pi_tab_agency_name">KLOOK</p>
+                    </div>
+                    <p class="pi_tab_agency_class font_orange">SCREENING</p>
+                    <div class="pi_tab_agency_screening">
+
+                    </div>
+                    <p class="pi_tab_agency_class font_refused">REFUSED</p>
+                    <div class="pi_tab_agency_refused">
+
+                    </div>
+                    <p class="pi_tab_agency_class">UNASSIGNED</p>
+                    <div class="pi_tab_agency_unassigned">
+
+                    </div>
+                </div>
+                <div class="pi_tab pi_tab_price">
+                    <p class="pip_title">PRODUCT PRICE</p>
+                    <div class="pip_p_tabGroup">
+                        <p class="pip_p_tab pip_p_tab--selected">DEFAULT</p>
+                        <p class="pip_p_tab">PROMOTION</p>
+                        <p class="pip_p_tab">EARLY BIRD</p>
+                        <p class="pip_p_tab"></p>
+                    </div>
+
+                    <div class="pip_p">
+                        <div class="pip_p_gen">
+                            <div class="pip_p_gen_line">
+                                <p class="pip_p_gen_title">DESCRIPTION</p>
+                                <input class="pip_p_gen_input"/>
+                            </div>
+                            <div class="pip_p_gen_line">
+                                <p class="pip_p_gen_title">RESERVATION DATE</p>
+                                <input class="pip_p_gen_input pip_p_gen_input--dropdown"/>
+                            </div>
+                            <div class="pip_p_gen_line">
+                                <p class="pip_p_gen_title">TOUR DATE</p>
+                                <input class="pip_p_gen_input pip_p_gen_input--dropdown"/>
+                            </div>
+                        </div>
+
+                        <div class="pip_p_ag">
+                            <div class="pip_p_ag_setZone">
+                                <p class="pip_p_ag_set btn">AGENCY PRICE SET</p>
+                            </div>
+                            <div class="pip_p_ag_box">
+                                <input class="pip_p_ag_box_title" value="PRICE GROUP A">
+                                <img class="pip_p_ag_box_close" src="./assets/icon-close.svg"/>
+                                <div class="pip_p_ag_box_currency">
+                                    <p class="pip_p_ag_box_currency_title">CURRENCY UNIT</p>
+                                    <div class="pip_p_ag_box_currency_rbox pii_price_currency" rstat="USD">
+                                        <div class="dw_radio">USD</div>
+                                        <div class="dw_radio">KRW</div>
+                                        <div class="dw_radio">CNY</div>
+                                    </div>
+                                </div>
+                                <div class="pip_p_ag_box_agencies">
+                                    <p>Funtastic Korea</p>
+                                    <p>Klook</p>
+                                </div>
+                                <table class="pip_p_ag_box_price">
+                                    <tr>
+                                        <th></th>
+                                        <th>ADULT</th>
+                                        <th>YOUNG</th>
+                                        <th>BABY</th>
+                                    </tr>
+                                    <tr>
+                                        <td>AGE</td>
+                                        <td><input class="pii_price_0_age_adult"/></td>
+                                        <td><input class="pii_price_0_age_young"/></td>
+                                        <td><input class="pii_price_0_age_baby"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>GROSS</td>
+                                        <td><input class="pii_price_0_gross_adult"/></td>
+                                        <td><input class="pii_price_0_gross_young"/></td>
+                                        <td><input class="pii_price_0_gross_baby"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>NET</td>
+                                        <td><input class="pii_price_0_net_adult"/></td>
+                                        <td><input class="pii_price_0_net_young"/></td>
+                                        <td><input class="pii_price_0_net_baby"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>COMMISION</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="ov_hidden">
+                                <div class="longbtn pip_p_ag_add">
+                                    <img src="./assets/icon-add.svg"/>
+                                    <p>ADD NEW PRICE GROUP</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <p class="pip_title">OPTION PRICE</p>
+                    <div class="pip_p_op_box">
+                        <div class="pip_p_op">
+                            <img class="pip_p_op_close" src="./assets/icon-close.svg"/>
+                            <input class="pip_p_op_name" value="OPTION NAME"/>
+                            <input class="pip_p_op_price" value="28000"/>
+                            <p class="pip_p_op_currency">WON</p>
+                        </div>
+                    </div>
+                    <div class="ov_hidden">
+                        <div class="longbtn pip_p_op_add">
+                            <img src="./assets/icon-add.svg"/>
+                            <p>ADD NEW OPTION PRICE</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="pi_tab pi_tab_cost hidden">
+
+                    <p class="pip_title">ASSET COST</p>
+                    <div class="pip_p_as_box">
+                        <div class="pip_p_as">
+                            <p class="pip_p_as_title">아침고요 수목원 입장권</p>
+                            <table class="pip_p_as_price">
+                                <tr>
+                                    <th></th>
+                                    <th>ADULT</th>
+                                    <th>TEEN</th>
+                                    <th>YOUNG</th>
+                                    <th>BABY</th>
+                                </tr>
+                                <tr>
+                                    <td>AGE</td>
+                                    <td><input class="pii_asset0_age_0_adult"/></td>
+                                    <td><input class="pii_asset0_age_0_teen"/></td>
+                                    <td><input class="pii_asset0_age_0_young"/></td>
+                                    <td><input class="pii_asset0_age_0_baby"/></td>
+                                </tr>
+                                <tr>
+                                    <td>PRICE</td>
+                                    <td><input class="pii_asset0_price_0_age_adult"/></td>
+                                    <td><input class="pii_asset0_price_0_age_teen"/></td>
+                                    <td><input class="pii_asset0_price_0_age_young"/></td>
+                                    <td><input class="pii_asset0_price_0_age_baby"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="pip_p_as">
+                            <p class="pip_p_as_title">아침고요 수목원 입장권</p>
+                            <table class="pip_p_as_price">
+                                <tr>
+                                    <th></th>
+                                    <th>ADULT</th>
+                                    <th>TEEN</th>
+                                    <th>YOUNG</th>
+                                    <th>BABY</th>
+                                </tr>
+                                <tr>
+                                    <td>AGE</td>
+                                    <td><input class="pii_asset0_age_0_adult"/></td>
+                                    <td><input class="pii_asset0_age_0_teen"/></td>
+                                    <td><input class="pii_asset0_age_0_young"/></td>
+                                    <td><input class="pii_asset0_age_0_baby"/></td>
+                                </tr>
+                                <tr>
+                                    <td>PRICE</td>
+                                    <td><input class="pii_asset0_price_0_age_adult"/></td>
+                                    <td><input class="pii_asset0_price_0_age_teen"/></td>
+                                    <td><input class="pii_asset0_price_0_age_young"/></td>
+                                    <td><input class="pii_asset0_price_0_age_baby"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="ov_hidden">
+                        <div class="longbtn pip_p_as_add">
+                            <img src="./assets/icon-add.svg"/>
+                            <p>ADD NEW ASSET PRICE</p>
+                        </div>
+                    </div>
+
+                    <p class="pip_title">BUS COST</p>
+                    <div class="pip_p_bus_box">
+                        <div class="pip_p_bus">
+                            <input class="pip_p_bus_name" value="공룡운수">
+                            <table class="pip_p_bus_price" border="1">
+                                <tr>
+                                    <th>piOPLE</th>
+                                    <th>PRICE</th>
+                                </tr>
+                                <tr>
+                                    <th><input class="pii_bus_0_piople_0" value="1-10"/></th>
+                                    <th><input class="pii_bus_0_price_0" value="12000"/></th>
+                                </tr>
+                                <tr>
+                                    <th><input class="pii_bus_0_piople_1" value="11-20"/></th>
+                                    <th><input class="pii_bus_0_price_1" value="22000"/></th>
+                                </tr>
+                                <tr>
+                                    <th class="pip_p_bus_price_add" colspan="2">+ ADD CELL</th>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="pip_p_bus">
+                            <input class="pip_p_bus_name" value="공룡운수">
+                            <table class="pip_p_bus_price" border="1">
+                                <tr>
+                                    <th>piOPLE</th>
+                                    <th>PRICE</th>
+                                </tr>
+                                <tr>
+                                    <th><input class="pii_bus_0_piople_0" value="1-10"/></th>
+                                    <th><input class="pii_bus_0_price_0" value="12000"/></th>
+                                </tr>
+                                <tr>
+                                    <th><input class="pii_bus_0_piople_1" value="11-20"/></th>
+                                    <th><input class="pii_bus_0_price_1" value="22000"/></th>
+                                </tr>
+                                <tr>
+                                    <th class="pip_p_bus_price_add" colspan="2">+ ADD CELL</th>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <div class="pip_p_bus">
+                            <input class="pip_p_bus_name" value="공룡운수">
+                            <table class="pip_p_bus_price" border="1">
+                                <tr>
+                                    <th>piOPLE</th>
+                                    <th>PRICE</th>
+                                </tr>
+                                <tr>
+                                    <th><input class="pii_bus_0_piople_0" value="1-10"/></th>
+                                    <th><input class="pii_bus_0_price_0" value="12000"/></th>
+                                </tr>
+                                <tr>
+                                    <th><input class="pii_bus_0_piople_1" value="11-20"/></th>
+                                    <th><input class="pii_bus_0_price_1" value="22000"/></th>
+                                </tr>
+                                <tr>
+                                    <th class="pip_p_bus_price_add" colspan="2">+ ADD CELL</th>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="ov_hidden">
+                        <div class="longbtn pip_p_bus_add">
+                            <img src="./assets/icon-add.svg"/>
+                            <p>ADD NEW BUS PRICE</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="pi_footer">
+                <div class="longbtn pi_footer_print">
+                    <img src="./assets/icon-print.svg"/>
+                    <p>PRINT OUT</p>
+                </div>
+                <div class="longbtn pi_footer_edit">
+                    <img src="./assets/icon-edit.svg"/>
+                    <p>EDIT</p>
+                </div>
+                <div class="longbtn pi_footer_delete">
+                    <img src="./assets/icon-trash.svg"/>
+                    <p>DELETE PRODUCT</p>
+                </div>
+                <p class="pi_footer_delete_confirm"></p>
+            </div>
+        </div>
+
+
         <div class="pe hidden">
             <div class="insidePop hidden">
                 <div class="pe_APC hidden">
@@ -81,15 +494,13 @@
                         <img class="pe_APC_header_close" src="./assets/icon-close.svg"/>
                     </div>
                     <div class="pe_APC_contents">
-                        <div class="APC_groupZone">
-                            <p class="APC_agency"></p>
-                        </div>
-                        <div class="APC_otherZone">
-
+                        <div class="pe_APC_agency" aid="klook">
+                            <p class="pe_APC_title">klook</p>
+                            <div><input class="pe_APC_drop dw_dropdown" id="APC_klook" readonly dropitem="PRICE 0, PRICE 1" value="PRICE 0"/></div>
                         </div>
                     </div>
                     <div class="pe_APC_footer">
-                        <p class="pe_APC_footer_save">DONE</p>
+                        <p class="pe_APC_footer_save">SAVE</p>
                     </div>
                 </div>
             </div>
@@ -116,22 +527,22 @@
                         <p class="pe_title">PRODUCT</p>
                         <div class="pe_product_name">
                             <p class="pe_hint">제품명</p>
-                            <input spellcheck="false" class="pei_name pe_full input_info_name" value="">
+                            <input spellcheck="false" class="pei_name pe_full" value="Seoul_Regular_태감송해">
                             <p class="pe_hint mt_15">*Agency Product(메일로 들어오는 제품명 경우의 수를 세미콜론(;)으로 구분해 입력해주세요)</p>
-                            <textarea spellcheck="false" class="pei_possibles arraydata_possibles"></textarea>
+                            <textarea spellcheck="false" class="pei_possibles">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                         </div>
                     </div>
                     <div class="pe_div_area">
-                        <p class="pe_title">AREA</p>
-                        <input spellcheck="false" class="pe_mid pei_area dw_dropdown input_info_area" id="pei_area" readonly>
+                        <p class="pe_title">PLACE</p>
+                        <input spellcheck="false" class="pe_mid pei_area">
                     </div>
                     <div>
                         <p class="pe_title">CATEGORY</p>
-                        <input class="pe_mid pei_category input_info_category">
+                        <input readonly class="pe_mid dw_dropdown pei_category" id="pei_category" dropitem="Regular, spring, strawberry, summer, autumn, maple, winter, ski">
                     </div>
                     <div class="pe_div_status">
                         <p class="pe_title">STATUS</p>
-                        <input readonly class="pe_mid dw_dropdown pei_status input_info_status" id="pei_status" dropitem="ON, STOP, READY">
+                        <input readonly class="pe_mid dw_dropdown pei_status" id="pei_status" dropitem="ON, STOP, READY">
                     </div>
                     <div>
                         <p class="pe_title pe_title--lowLine">SERVING LANGUAGES</p>
@@ -201,7 +612,7 @@
 
                     <div class="pe_div_period">
                         <p class="pe_title">OPERATING PERIOD</p>
-                        <input spellcheck="false" class="pei_period pe_full input_info_period" value="All year round">
+                        <input spellcheck="false" class="pei_period pe_full" value="All year round">
                     </div>
 
                     <div>
@@ -248,19 +659,19 @@
 
                     <div class="pe_div_description">
                         <p class="pe_title pe_title--lowLine">DESCRIPTION</p>
-                        <textarea spellcheck="false" class="pei_description input_info_description">seoulewc ; erwcc3ke ; ercerercdde</textarea>
+                        <textarea spellcheck="false" class="pei_description">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                     </div>
 
                     <div>
                         <p class="pe_title">DEADLINE</p>
                         <div class=ov_hidden>
-                            <input type="number" class="pe_small pei_deadline input_info_deadline">
+                            <input type="number" class="pe_small pei_deadline">
                             <p class="fl_left lh_40">days before</p>
                         </div>
                     </div>
 
                     <div>
-                        <p class="pe_title pe_meetingLo">MEETING LOCATION</p>
+                        <p class="pe_title">MEETING LOCATION</p>
                         <div class="pei_meeting_wrapper">
                             <div class="pei_meeting_contents">
                                 <div class="pei_pickupLocationZone">
@@ -268,7 +679,6 @@
                                     <div class="ov_hidden mt_20">
                                         <p class="pei_meeting_no">1.</p>
                                         <input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid" id="pei_meeting_1" dropitem="Myungdong, BUsan" value="Myungdong Station">
-                                        <img class="p_ml_remove" src="./assets/icon-close-small.svg"/>
                                     </div>
                                 -->
 
@@ -282,29 +692,29 @@
 
                     <div>
                         <p class="pe_title pe_title--lowLine">ITINERARY</p>
-                        <textarea spellcheck="false" class="pei_itinerary input_info_itinerary">seoulewc ; erwcc3ke ; ercerercdde</textarea>
+                        <textarea spellcheck="false" class="pei_itinerary">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                     </div>
 
                     <!--LINE-->
 
                     <div class="pe_div_cancellation">
                         <p class="pe_title pe_title--lowLine">CANCELLATION POLICY</p>
-                        <textarea spellcheck="false" class="pei_cancellation input_info_cancellation">seoulewc ; erwcc3ke ; ercerercdde</textarea>
+                        <textarea spellcheck="false" class="pei_cancellation">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                     </div>
 
                     <div>
                         <p class="pe_title pe_title--lowLine">INCLUSIVE</p>
-                        <textarea spellcheck="false" class="pei_include input_info_include">seoulewc ; erwcc3ke ; ercerercdde</textarea>
+                        <textarea spellcheck="false" class="pei_include">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                     </div>
 
                     <div class="pe_div_exclude">
                         <p class="pe_title pe_title--lowLine">EXClUSIVE</p>
-                        <textarea spellcheck="false" class="pei_exclude input_info_exclude">seoulewc ; erwcc3ke ; ercerercdde</textarea>
+                        <textarea spellcheck="false" class="pei_exclude">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                     </div>
 
                     <div class="pe_div_other">
                         <p class="pe_title pe_title--lowLine">OTHER NOTES</p>
-                        <textarea spellcheck="false" class="pei_others input_info_others">seoulewc ; erwcc3ke ; ercerercdde</textarea>
+                        <textarea spellcheck="false" class="pei_others">seoulewc ; erwcc3ke ; ercerercdde</textarea>
                     </div>
                 </div>
             </div>
@@ -571,7 +981,7 @@
 
             </div>
             <div class="pe_tab pe_tab_memo hidden">
-                <textarea class="pe_memo_txt input_info_memo"></textarea>
+                <textarea class="pe_memo_txt"></textarea>
             </div>
 
 
@@ -601,7 +1011,7 @@
     <script src='./scripts/module/firebase.js'></script>
     <script src='./scripts/module/global.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
-    <script src='./scripts/pages/product/listing.js'></script>
-    <script src='./scripts/pages/product/edit.js'></script>
+    <script src='./scripts/pages/product/product.js'></script>
+    <script src='./scripts/pages/product/show.js'></script>
 
 </body>

@@ -115,12 +115,12 @@
     &_status{width: 75px;}
     &_area{width: 78px;}
     &_category{width: 108px;}
-    &_product{width: 84px;}
+    &_product{width: 104px;}
     &_start{width: 65px;}
     &_end{width: 61px;}
     &_agency{width: 125px;}
     &_memo{
-        width: 425px;
+        width: 405px;
         margin-right: 0;
     }
 }
@@ -171,12 +171,18 @@
     }
     &_area{width: 78px;}
     &_category{width: 108px;}
-    &_product{width: 84px;}
+    &_product{
+        width: 104px;
+        overflow: hidden;
+        word-wrap: normal;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
     &_start{width: 61px;}
     &_end{width: 61px;}
     &_agency{width: 125px;}
     &_memo{
-        width: 425px;
+        width: 405px;
         margin-right: 0;
         height: 32px;
         display: inline-block;

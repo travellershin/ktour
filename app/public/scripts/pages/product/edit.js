@@ -49,9 +49,64 @@ $('.pei_available').click(function(){
 $(document).on("click",".pep_p_ag_add",function(){
     makePriceGroup($(this).attr("pid"))
 })
+$(document).on("click",".pep_p_ag_box_close",function(){
+    deletePriceGroup($(this))
+})
+$(document).on('focus',".pep_p_gen_reservation", function(){ //reservation date 설정 input을 클릭하면 그 때 동적으로 datepicker 달기
+    let dateArray = $(this).val().split("-");
+    let start = dateArray[0]+"-"+dateArray[1]+"-"+dateArray[2].trim();
+    let end = dateArray[3].trim()+"-"+dateArray[4]+"-"+dateArray[5];
+
+    $(this).daterangepicker({
+        "autoApply": true,
+        locale: { format: 'YYYY-MM-DD'},
+        startDate: start,
+        endDate: end
+    });
+})
+
+$(document).on('focus',".pep_p_gen_tour", function(){
+    let dateArray = $(this).val().split("-");
+    let start = dateArray[0]+"-"+dateArray[1]+"-"+dateArray[2].trim();
+    let end = dateArray[3].trim()+"-"+dateArray[4]+"-"+dateArray[5];
+    $(this).daterangepicker({
+        "autoApply": true,
+        locale: { format: 'YYYY-MM-DD'},
+        startDate: start,
+        endDate: end
+    });
+})
+
+$(document).on("click",".pep_p_ag_set",function(){
+    setAgencyPrice($(this))
+})
+$(document).on("click",".APC_agency",function(){
+    agencySelect($(this))
+})
+$(document).on("click",".APC_group",function(){
+    agencyMove($(this))
+})
+$(".pe_APC_header_close").click(function(){
+    APCClose();
+})
+$(".pe_APC_footer_save").click(function(){
+    setAPC();
+})
+$(document).on("click",".pep_p_op_add",function(){
+    addOption()
+})
+$(document).on("click",".pep_p_op_close",function(){
+    $(this).parent().remove();
+})
+$(document).on("click",".pep_p_as_add",function(){
+    addAsset();
+})
+$(document).on("click",".pep_p_as_remove",function(){
+    $(this).parent().remove();
+})
+
 
 function addNewProduct(){
-    console.log("addnew")
     let key = firebase.database().ref().push().key
     product[key] = {};
     let data = product[key];
@@ -61,7 +116,7 @@ function addNewProduct(){
             adultAge_min:0,
             adult_gross:10000,
             adult_net:10000,
-            agency:["not selected"],
+            agency:[],
             currency:"KRW",
             infantAge_max:0,
             infantAge_min:0,
@@ -133,7 +188,7 @@ function show_detail(pid){
     }
 
     $(".arraydata_possibles").val(data.possibles.join(";\n")); //possibles는 ;으로 분리해 보여줌
-    console.log(data.info.language)
+
     for (var i = 0; i < data.info.language.length; i++) {
         if(data.info.language[i]){
             $(".pei_language_cb").eq(i).addClass('cb_checked')
@@ -157,15 +212,13 @@ function show_detail(pid){
     $(".pei_pickupLocationZone").html(picktxt)
     //info 탭 내용 draw가 끝났다
 
-    console.log(product[$(".pe").attr("pid")])
-
     let agencyTxt = ""
     for (let i = 0; i < agencyArray.length; i++) {
         agencyTxt+='<p class="pea_title">'+agencyArray[i]+'</p><div class="pea_agency pea_'+agencyArray[i]+'" rstat="';
         if(data.agency[agencyArray[i]]){
             agencyTxt+=data.agency[agencyArray[i]]+'"><div class="dw_radio">Ongoing</div><div class="dw_radio">Screening</div><div class="dw_radio">Refused</div><div class="dw_radio">Unassigned</div></div>'
         }else{
-            agencyTxt+='Usnassigned"><div class="dw_radio">Ongoing</div><div class="dw_radio">Screening</div><div class="dw_radio">Refused</div><div class="dw_radio">Unassigned</div></div>'
+            agencyTxt+='Unassigned"><div class="dw_radio">Ongoing</div><div class="dw_radio">Screening</div><div class="dw_radio">Refused</div><div class="dw_radio">Unassigned</div></div>'
         }
     }
     $(".pe_tab_agency").html(agencyTxt);
@@ -221,7 +274,6 @@ function show_detail(pid){
                 }
             }
 
-
             tabInfoTxt+='</div><table class="pep_p_ag_box_price"><tr><th></th><th>ADULT</th><th>YOUNG</th><th>BABY</th></tr>'
             tabInfoTxt+='<tr><td>AGE</td><td><input value="'+info.adultAge_min+' - '+info.adultAge_max+'" class="'+priceCode+'_pei_price_age_adult_'+i+'"/></td>';
             tabInfoTxt+='<td><input value="'+info.kidAge_min+' - '+info.kidAge_max+'" class="'+priceCode+'_pei_price_age_kid_'+i+'"/></td>';
@@ -275,7 +327,7 @@ function show_detail(pid){
     let costTxt = '';
     if(cost.item){
         for (let i = 0; i < cost.item.length; i++) {
-            costTxt +='<div class="pep_p_as"><input class="pep_p_as_title"/><table class="pep_p_as_price">'
+            costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><input class="pep_p_as_title"/><table class="pep_p_as_price">'
             costTxt+='<tr><th></th><th>ADULT</th><th>TEEN</th><th>YOUNG</th><th>BABY</th></tr><tr><td>AGE</td>'
             costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
             costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
@@ -355,23 +407,12 @@ function addPickDrop(){
     let pickArray = pickupObj[$(".pei_area").val()]
     let picktxt='<div class="ov_hidden mt_20"><p class="pei_meeting_no">'+(i+1)+'.</p><input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid pei_meeting pei_meeting_'+(i+1)+'" id="pei_meeting_'+(i+1)+'" dropitem="'+pickArray+'" value="New Meeting Location"><img class="p_ml_remove" src="./assets/icon-close-small.svg"/></div>'
     $(".pei_pickupLocationZone").append(picktxt);
-    product[$(".pe").attr("pid")].info.pickup.push("New Meeting Location")
-
 }
 function removePickDrop(div){
-    let data = product[$(".pe").attr("pid")].info.pickup
-    data.splice($(".p_ml_remove").index($(div)),1)
-
-    let pickArray = pickupObj[$(".pei_area").val()]
-
-    let picktxt = "" //Meeting Location을 그려준다.
-    for (var i = 0; i < data.length; i++) {
-        picktxt+='<div class="ov_hidden mt_20"><p class="pei_meeting_no">'+(i+1)+'.</p><input readonly spellcheck="false" class="dw_dropdown fl_left pe_mid pei_meeting pei_meeting_'+(i+1)+'" id="pei_meeting_'+(i+1)+'" dropitem="'+pickArray+'" value="'+data[i]+'"><img class="p_ml_remove" src="./assets/icon-close-small.svg"/></div>'
+    $(div).parent().remove();
+    for (let i = 0; i < $(".pei_meeting_no").length; i++) {
+        $(".pei_meeting_no").eq(i).html(i+1+".")
     }
-    $(".pei_pickupLocationZone").html(picktxt)
-
-    open_product("info");
-
 }
 
 function choosePickDrop(div){
@@ -394,7 +435,7 @@ function makePriceGroup(pid){
         adultAge_min:0,
         adult_gross:10000,
         adult_net:10000,
-        agency:["not selected"],
+        agency:[],
         currency:"KRW",
         infantAge_max:0,
         infantAge_min:0,
@@ -405,11 +446,8 @@ function makePriceGroup(pid){
         kid_gross:10000,
         kid_net:10000,
     }
-
-    console.log(product[$(".pe").attr("pid")].price)
-    let i = product[$(".pe").attr("pid")].price[pid].byAgencies.length //배열의 요기에 저장될것
+    let i = $("."+pid+"_byAgenciesBox").children(".pep_p_ag_box").length //배열의 요기에 저장될것
     let priceCode = pid;
-    product[$(".pe").attr("pid")].price[pid].byAgencies.push(info)
     let tabInfoTxt = ""
 
     tabInfoTxt+='<div class="pep_p_ag_box '+priceCode+'_pep_p_ag_box_'+i+'"><p class="pep_p_ag_box_title pep_pricegroup_'+priceCode+'">PRICE GROUP '+i+'</p>'
@@ -439,4 +477,156 @@ function makePriceGroup(pid){
     tabInfoTxt+='<td><input readonly class="'+priceCode+'_pei_price_commision_infant_'+i+'"/></td></tr></table></div>';
 
     $("."+pid+"_byAgenciesBox").append(tabInfoTxt)
+}
+
+function deletePriceGroup(div){
+    for (let i = 0; i < $(".pep_p_ag").length; i++) {
+        for (var j = 0; j < $(".pep_p_ag").eq(i).find(".pep_p_ag_box").length; j++) {
+            if($(".pep_p_ag").eq(i).find(".pep_p_ag_box").length>1){
+                $(div).parent().remove();
+                $(".pep_p_ag").eq(i).find(".pep_p_ag_box").eq(j).find(".pep_p_ag_box_title").html("PRICE GROUP "+j)
+            }
+        }
+    }
+}
+
+function setAgencyPrice(div){
+    let priceID = $(div).parent().attr("pid")
+    $(".pe_APC_footer_save").attr("pid",priceID)
+
+    let priceGroup = {
+        agencyStatUnassigned:[],
+        Refused:[],
+        Screening:[],
+        Unassigned:[]
+    }
+
+
+    for (let i = 0; i < $(".pea_agency").length; i++) {
+        if($(".pea_agency").eq(i).attr("rstat")==="Refused"){
+            priceGroup.Refused.push($(".pea_title").eq(i).html())
+        }else if($(".pea_agency").eq(i).attr("rstat")==="Unassigned"){
+            priceGroup.agencyStatUnassigned.push($(".pea_title").eq(i).html())
+        }else if($(".pea_agency").eq(i).attr("rstat")==="Screening"){
+            priceGroup.Screening.push($(".pea_title").eq(i).html())
+        }else{
+            priceGroup.Unassigned.push($(".pea_title").eq(i).html())
+        }
+    }
+
+    let apg = $("."+priceID+"_byAgenciesBox").find(".pep_p_ag_box_agencies")
+
+    for (let i = 0; i < apg.length; i++) {
+        priceGroup["Group"+(i)] = []
+        for (let j = 0; j < $(apg).eq(i).children("p").length; j++) {
+            priceGroup["Group"+(i)].push($(apg).eq(i).children("p").eq(j).html());
+            priceGroup.Unassigned.splice(priceGroup.Unassigned.indexOf($(apg).eq(i).children("p").eq(j).html()),1)
+        }
+    }
+
+    let txt = ""
+    let groupTxt = ""
+    for (let group in priceGroup) {
+        if(group==="agencyStatUnassigned"){
+            txt+='<p class="APC_title">Agency Status Unassigned</p><div class="APC_box APC_agencyStatUnassigned">'
+            for (let i = 0; i < priceGroup[group].length; i++) {
+                txt+='<p class="APC_agency APC_agency--dim">'+priceGroup[group][i]+'</p>'
+            }
+            txt+='</div>'
+        }else if(group==="Screening"){
+            txt+='<p class="APC_title">Screening</p><div class="APC_box APC_Screening">'
+            for (let i = 0; i < priceGroup[group].length; i++) {
+                txt+='<p class="APC_agency APC_agency--dim">'+priceGroup[group][i]+'</p>'
+            }
+            txt+='</div>'
+        }else if(group==="Refused"){
+            txt+='<p class="APC_title">Refused</p><div class="APC_box APC_Refused">'
+            for (let i = 0; i < priceGroup[group].length; i++) {
+                txt+='<p class="APC_agency APC_agency--dim">'+priceGroup[group][i]+'</p>'
+            }
+            txt+='</div>'
+        }else if(group==="Unassigned"){
+            groupTxt+='<p class="APC_title">Price Group Unassigned</p><div class="APC_box APC_Unassigned">'
+            for (let i = 0; i < priceGroup[group].length; i++) {
+                groupTxt+='<p class="APC_agency">'+priceGroup[group][i]+'</p>'
+            }
+            groupTxt+='</div>'
+        }else{
+            groupTxt+='<p class="APC_title APC_group">'+group+'</p><div class="APC_box APC_'+group+'">'
+            for (let i = 0; i < priceGroup[group].length; i++) {
+                groupTxt+='<p class="APC_agency">'+priceGroup[group][i]+'</p>'
+            }
+            groupTxt+='</div>'
+        }
+    }
+
+    $(".APC_groupZone").html(groupTxt);
+    $(".APC_otherZone").html(txt);
+
+    $(".insidePop").removeClass("hidden");
+    $(".pe_APC").removeClass("hidden");
+
+}
+
+function agencySelect(div){
+    if(!$(div).hasClass("APC_agency--dim")){
+        $(div).toggleClass("APC_agency--selected")
+    }
+    if($(".APC_agency--selected").length>0){
+        $(".APC_group").addClass("APC_group--shine")
+    }else{
+        $(".APC_group").removeClass("APC_group--shine")
+    }
+}
+function agencyMove(div){
+    let txt=""
+    for (let i = 0; i < $(".APC_agency--selected").length; i++) {
+        txt+='<p class="APC_agency">'+$(".APC_agency--selected").eq(i).html()+'</p>'
+    }
+    $(div).next().append(txt)
+    $(".APC_agency--selected").remove()
+    if($(".APC_agency--selected").length>0){
+        $(".APC_group").addClass("APC_group--shine")
+    }else{
+        $(".APC_group").removeClass("APC_group--shine")
+    }
+}
+function APCClose(){
+    $(".insidePop").addClass("hidden");
+    $(".pe_APC").addClass("hidden");
+}
+function setAPC(){
+    let groupArray = []
+    let pid = $(".pe_APC_footer_save").attr("pid")
+    let txt = ""
+    for (let i = 0; i < $(".APC_group").length; i++) {
+        txt=""
+        for (var j = 0; j < $(".APC_group").eq(i).next().children(".APC_agency").length; j++) {
+            txt+='<p>'+$(".APC_group").eq(i).next().children(".APC_agency").eq(j).html()+'</p>'
+        }
+        $("."+pid+"_byAgenciesBox").find(".pep_p_ag_box_agencies").eq(i).html(txt)
+    }
+}
+function addOption(){
+    let optionTxt = ''
+
+    optionTxt+='<div class="pep_p_op"><img class="pep_p_op_close" src="./assets/icon-close.svg"/><input class="pep_p_op_name" value="OPTION NAME"/>'
+    optionTxt+='<input class="pep_p_op_price" value="0"/><p class="pep_p_op_currency">WON</p></div>'
+
+    $(".pep_p_op_box").append(optionTxt)
+}
+function addAsset(){
+    let costTxt = '';
+    let i = $(".pep_p_as").length
+
+    costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><input class="pep_p_as_title" value="asset_name"/><table class="pep_p_as_price">'
+    costTxt+='<tr><th></th><th>ADULT</th><th>TEEN</th><th>YOUNG</th><th>BABY</th></tr><tr><td>AGE</td>'
+    costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
+    costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
+    costTxt+='</tr><tr><td>PRICE</td>'
+    costTxt+='<td><input class="pei_price_adult_'+i+'"/></td><td><input class="pei_price_young_'+i+'"/></td>'
+    costTxt+='<td><input class="pei_price_kid_'+i+'"/></td><td><input class="pei_price_free_'+i+'"/></td>'
+    costTxt+='</tr></table></div>'
+
+    $(".pep_p_as_box").append(costTxt)
 }

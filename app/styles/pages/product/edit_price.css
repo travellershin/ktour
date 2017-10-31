@@ -266,6 +266,15 @@
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
     margin-bottom: 20px;
+    position: relative;
+
+    &>img{
+        cursor: pointer;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 16px;
+    }
 
     &_title{
         margin-top: 4px;
@@ -273,6 +282,7 @@
         line-height: 25px;
         font-size: 18px;
         font-weight: bold;
+        text-decoration: underline;
     }
 
     &_price{
@@ -326,6 +336,7 @@
         right: 15px;
         width: 16px;
         height: 16px;
+        cursor: pointer;
     }
 
     &_name{
@@ -337,6 +348,7 @@
         font-weight: bold;
         color: #7c8495;
         float: left;
+        text-decoration: underline;
     }
 
     &_price{
@@ -514,4 +526,57 @@
     height: 451px !important;
     border-radius: 5px;
     border: solid 1px #e0e0e0;
+}
+
+.input-mini{
+    padding: 0 !important;
+    width: 240px !important;
+    margin:8px 0 0 8px !important;
+}
+
+.APC{
+    &_groupZone{
+        width: 100%;
+        display: inline-block;
+        padding-bottom: 28px;
+        border-bottom: 1px solid lightgrey;
+        margin-bottom: 40px;
+    }
+    &_title{
+        font-size: 14px;
+        font-weight: bold;
+    }
+    &_box{
+        overflow: hidden;
+        margin-bottom: 16px;
+    }
+    &_group--shine{
+        color:#0084ff;
+    }
+    &_agency{
+        cursor: pointer;
+        float: left;
+        font-size: 13px;
+        padding: 2px 6px;
+        border: 1px solid #e0e0e0;
+        border-radius: 108px;
+        margin: 8px 8px 0 0;
+
+        &--dim{
+            background-color: #fafafa;
+            color:#c0c0c0;
+            cursor:default;
+        }
+        &--selected{
+            background-color: #0084ff;
+            color: white;
+            border: 1px solid #0079e9;
+        }
+    }
+
+    &_Unassigned{
+        padding-bottom: 20px;
+        border-bottom: 1px dotted lightgrey;
+        margin-bottom: 20px;
+    }
 }

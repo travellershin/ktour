@@ -2763,10 +2763,11 @@ textarea::-webkit-scrollbar-thumb
 .pe_wrapper{
     padding-top: 30px;
     width: 962px;
-    height: 600px;
+    height: 540px;
     margin-left: 30px;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding-bottom: 60px;
 }
 .pe_tab_info>div{
 
@@ -3987,13 +3988,22 @@ textarea.pi_content:focus {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     margin-bottom: 20px;
+    position: relative;
 }
+.pep_p_as>img{
+        cursor: pointer;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 16px;
+    }
 .pep_p_as_title{
         margin-top: 4px;
         height: 25px;
         line-height: 25px;
         font-size: 18px;
         font-weight: bold;
+        text-decoration: underline;
     }
 .pep_p_as_price{
         border-collapse:collapse;
@@ -4042,6 +4052,7 @@ textarea.pi_content:focus {
         right: 15px;
         width: 16px;
         height: 16px;
+        cursor: pointer;
     }
 .pep_p_op_name{
         width: 110px;
@@ -4052,6 +4063,7 @@ textarea.pi_content:focus {
         font-weight: bold;
         color: #7c8495;
         float: left;
+        text-decoration: underline;
     }
 .pep_p_op_price{
         height: 40px;
@@ -4218,6 +4230,53 @@ textarea.pi_content:focus {
     border-radius: 5px;
     border: solid 1px #e0e0e0;
 }
+.input-mini{
+    padding: 0 !important;
+    width: 240px !important;
+    margin:8px 0 0 8px !important;
+}
+.APC_groupZone{
+        width: 100%;
+        display: inline-block;
+        padding-bottom: 28px;
+        border-bottom: 1px solid lightgrey;
+        margin-bottom: 40px;
+    }
+.APC_title{
+        font-size: 14px;
+        font-weight: bold;
+    }
+.APC_box{
+        overflow: hidden;
+        margin-bottom: 16px;
+    }
+.APC_group--shine{
+        color:#0084ff;
+    }
+.APC_agency{
+        cursor: pointer;
+        float: left;
+        font-size: 13px;
+        padding: 2px 6px;
+        border: 1px solid #e0e0e0;
+        border-radius: 108px;
+        margin: 8px 8px 0 0;
+    }
+.APC_agency--dim{
+            background-color: #fafafa;
+            color:#c0c0c0;
+            cursor:default;
+        }
+.APC_agency--selected{
+            background-color: #0084ff;
+            color: white;
+            border: 1px solid #0079e9;
+        }
+.APC_Unassigned{
+        padding-bottom: 20px;
+        border-bottom: 1px dotted lightgrey;
+        margin-bottom: 20px;
+    }
 .pickup_wrapper{
     width: 1280px;
     margin:0 auto;

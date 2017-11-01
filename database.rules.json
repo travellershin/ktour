@@ -4,6 +4,9 @@
     ".write": true,
     "reservation": {
       ".indexOn": ["date"]
+    },
+    "account":{
+      ".indexOn":["date"]
     }
   }
 }

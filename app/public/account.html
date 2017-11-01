@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="./styles.css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<script src='./libraries/jquery.js'></script>
 </head>
 <body>
     <header class="header">
@@ -27,6 +26,87 @@
         <p class="header_setting_nationality">NATIONALITY</p>
     </div>
 
+    <div class="account_wrapper">
+        <div class="a_set">
+            <div class="a_set_date dropdown">
+                <p class="a_set_date_txt drp_txt">2017-09-11 ~ 2017-09-11</p>
+            </div>
+            <div class="a_set_quick input drp_quick">
+                <p class="drp_quick_yesterday">YESTERDAY</p>
+                <p class="drp_quick_today drp_quick--selected">TODAY</p>
+                <p class="drp_quick_tomorrow">TOMORROW</p>
+            </div>
+            <div class="a_set_print longbtn">
+                <img src="./assets/icon-print.svg"/>
+                <p>PRINT OUT</p>
+            </div>
+            <div class="btn a_set_exchange">EXCHANGE RATE</div>
+        </div>
+
+        <div class="a_stat">
+            <div id="account_chart"></div>
+        </div>
+
+        <div class="a_htop">
+            <p class="a_htop_numbList"></p>
+            <div class="a_htop_add longbtn">
+                <img src="./assets/icon-add.svg"/>
+                <p>ADD NEW ITEM</p>
+            </div>
+            <div class="a_htop_gmail longbtn">
+                <img src="./assets/icon-excel.svg"/>
+                <p>EXPORT TO EXCEL</p>
+            </div>
+            <p class="a_htop_filterRemove btn">모든 필터 해제</p>
+        </div>
+
+        <div class="a_hbot">
+            <p class="a_hbot_date">DATE</p>
+            <div class="a_hbot_category dw_dndropdown multiselect" id="a_filter_category">CATEGORY</div>
+            <div class="a_hbot_writer dw_dndropdown multiselect" id="a_filter_writer">WRITER</div>
+            <p class="a_hbot_contents">CONTENTS</p>
+            <div class="a_hbot_card">
+                <p>CARD</p>
+                <div>
+                    <p>INCOME</p>
+                    <p>EXPENDITURE</p>
+                </div>
+            </div>
+            <div class="a_hbot_cash">
+                <p>CASH</p>
+                <div>
+                    <p>INCOME</p>
+                    <p>EXPENDITURE</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="a_contents">
+            <!--
+            <div class="a_item">
+                <p class="a_item_date">17-08-31</p>
+                <p class="a_item_category"></p>
+                <p class="a_item_writer"></p>
+                <p class="a_item_contents"></p>
+                <p class="a_item_cardIncome"></p>
+                <p class="a_item_cardExpenditure"></p>
+                <p class="a_item_cashIncome"></p>
+                <p class="a_item_cashExpenditure"></p>
+            </div>
+            <div class="a_item">
+
+            </div>
+            <div class="a_item">
+
+            </div>
+            <div class="a_item">
+
+            </div>
+
+            -->
+        </div>
+
+    </div>
 
 
 
@@ -36,8 +116,17 @@
 
 
 
+
+
+    <script src='./libraries/jquery.js'></script>
+    <script src='./libraries/moment.js'></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <script src="./libraries/jquery-ui.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
     <script src='./scripts/module/firebase.js'></script>
     <script src='./scripts/module/global.js'></script>
-    <script src='./scripts/pages/pickup.js'></script>
+    <script src='./scripts/module/date.js'></script>
+    <script src='./scripts/pages/account.js'></script>
+    <script src='./scripts/module/dropdown.js'></script>
 </body>

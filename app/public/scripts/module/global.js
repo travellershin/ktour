@@ -1,6 +1,12 @@
 String.prototype.capitalizeFirst = function(){
     return this.charAt(0).toUpperCase + this.slice(1)
 }
+function comma(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+출처: http://fruitdev.tistory.com/160 [과일가게 개발자]
 
 $(".header_pageLinks_guide").hover(function(){
     $(".header_guide").css("display","block")

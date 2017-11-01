@@ -1,0 +1,217 @@
+.account_wrapper{
+    width:1280px;
+    padding-bottom: 80px;
+    margin:0 auto;
+    padding-top: 30px;
+}
+
+.a_set{
+    overflow: hidden;
+    height: 40px;
+
+    &_date{
+        float: left;
+
+        &_txt{
+            float: left;
+            margin : 0 12px 0 4px;
+        }
+    }
+
+    &_exchange{
+        float: right;
+        margin-right: 20px;
+    }
+
+    &_print{
+        float: right;
+        margin-right: 10px;
+    }
+}
+
+.a_htop{
+    height:40px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+
+    &_numbList{
+        float: left;
+        margin-top: 20px;
+        line-height: 20px;
+    }
+
+    &_gmail{
+        float: right;
+        margin-right: 8px;
+    }
+
+    &_add{
+        float: right;
+    }
+    &_filterRemove{
+        float: right;
+        margin-right: 8px;
+    }
+}
+.daterangepicker{
+    display: none;
+}
+.input-mini{
+    text-align: center;
+}
+
+/*헤더 - 아랫부분(예약정보 분류명)*/
+.a_hbot{
+    height:42px;
+    box-sizing: border-box;
+    border-top:solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    width: 1280px;
+    margin-top: 10px;
+    padding:4px 0;
+    overflow: hidden;
+    letter-spacing: -0.3px;
+
+    &>p{
+        margin-right: 14px;
+        line-height: 32px;
+        text-align: center;
+        float: left;
+        font-size: 14px;
+    }
+
+    &>div{
+        float: left;
+        line-height: 32px;
+        margin-right: 14px;
+        overflow: hidden;
+
+        &>img{
+            float: left;
+            width: 20px;
+        }
+    }
+
+    &_date{
+        width: 85px;
+    }
+
+    &_category{
+        width: 110px;
+        text-align: center;
+    }
+
+    &_writer{
+        width: 105px;
+        padding: 0 25px;
+        text-align: center;
+    }
+
+    &_contents{
+        width: 380px;
+    }
+
+    &_card{
+        margin-top: -2px;
+        width:240px;
+        &>p{
+            height: 17px;
+            line-height: 16px;
+            width: 240px;
+            text-align: center;
+            font-size: 14px;
+            text-align: center;
+            color: #262e3e;
+            border-bottom: solid 1px #e0e0e0;
+        }
+        &>div{
+            overflow: hidden;
+            height: 18px;
+            &>p{
+                float: left;
+                line-height: 19px;
+                width: 120px;
+                text-align: center;
+                font-size: 14px;
+                color: #262e3e;
+            }
+        }
+    }
+    &_cash{
+        margin: -2px 0 !important;
+        width:240px;
+        &>p{
+            height: 17px;
+            line-height: 16px;
+            width: 240px;
+            text-align: center;
+            font-size: 14px;
+            text-align: center;
+            color: #262e3e;
+            border-bottom: solid 1px #e0e0e0;
+        }
+        &>div{
+            overflow: hidden;
+            height: 18px;
+            &>p{
+                float: left;
+                line-height: 19px;
+                width: 120px;
+                text-align: center;
+                font-size: 14px;
+                color: #262e3e;
+            }
+        }
+    }
+}
+.a_item{
+    width: 1280px;
+    box-sizing: border-box;
+    height: 40px;
+    border: solid 1px #e0e0e0;
+    margin-top: 8px;
+    overflow: hidden;
+
+    &>p{
+        height: 38px;
+        float: left;
+        margin-right: 14px;
+        line-height: 38px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    &_date{
+        width: 85px;
+        font-size: 13px !important;
+    }
+
+    &_category{
+        width: 110px;
+        text-align: center;
+    }
+
+    &_writer{
+        width: 155px;
+        text-align: center;
+    }
+
+    &_contents{
+        width: 380px;
+    }
+    &_cardIncome{
+        width:110px;
+    }
+    &_cardExpenditure{
+        width:110px;
+        margin-right: 22px !important;
+    }
+    &_cashIncome{
+        width:110px;
+    }
+    &_cashExpenditure{
+        width:110px;
+        margin-right: 0 !important;
+    }
+}

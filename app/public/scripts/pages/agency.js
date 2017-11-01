@@ -78,9 +78,9 @@ function Agency(){
             };
             $(".ag_info_domain").val(data.domain);
             $(".ag_info_subject").val(data.subject);
-            $(".ag_info_rule").html(data.rule);
+            $(".ag_info_rule").val(data.rule);
             $(".ag_info_replySubject").val(data.replySubject);
-            $(".ag_info_replyBody").html(data.replyBody);
+            $(".ag_info_replyBody").val(data.replyBody);
 
         });
     }
@@ -94,13 +94,13 @@ function Agency(){
         this.putNo();
         $(".ag_info_domain").val("");
         $(".ag_info_subject").val("");
-        $(".ag_info_rule").html("");
+        $(".ag_info_rule").val("");
         $(".ag_auto_click>radio").removeClass("ag_info_auto2--selected")
         $(".ag_auto_click>radio").addClass("ag_info_auto2--unselected")
         $(".ag_auto_mail>radio").removeClass("ag_info_auto2--selected")
         $(".ag_auto_mail>radio").addClass("ag_info_auto2--unselected")
         $(".ag_info_replySubject").val("");
-        $(".ag_info_replyBody").html("");
+        $(".ag_info_replyBody").val("");
     }
 
     this.save = function(){
@@ -110,11 +110,16 @@ function Agency(){
         if(userStatus === "new"){
             agencyKey = firebase.database().ref().push().key;
             console.log("새로운 agencyid "+agencyKey+"를 생성해 기록합니다")
+            userStatus = agencyKey
+            this.nextStep(agencyKey)
         }else{
             agencyKey = userStatus;
             console.log("기존 agencyid "+agencyKey+"에 덮어씁니다")
+            this.nextStep(agencyKey)
         }
+    }
 
+    this.nextStep = function(agencyKey){
         let checkAuto = true;
         let checkMail = true;
         let checkClick = true;
@@ -133,14 +138,14 @@ function Agency(){
             name:$(".ag_info_name").val(),
             domain:$(".ag_info_domain").val(),
             subject:$(".ag_info_subject").val(),
-            rule:$(".ag_info_rule").html(),
+            rule:$(".ag_info_rule").val(),
             replySubject:$(".ag_info_replySubject").val(),
-            replyBody:$(".ag_info_replyBody").html(),
+            replyBody:$(".ag_info_replyBody").val(),
             auto: checkAuto,
             byMail: checkMail,
             byClick: checkClick
-        });
-
+        })
+        
         this.init();
     }
 

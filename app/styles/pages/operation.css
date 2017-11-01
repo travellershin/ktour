@@ -80,30 +80,12 @@
             height: 520px;
             border-radius: 5px;
             border: solid 1px #e0e0e0;
-            overflow-x: hidden;
-            overflow-y: scroll;
+            overflow: hidden;
             float: left;
             margin-right: 20px;
             box-sizing: border-box;
             margin-bottom: 20px;
             position: relative;
-
-            &::-webkit-scrollbar-track
-            {
-                background-color: #ffffff;
-            }
-
-            &::-webkit-scrollbar
-            {
-                width: 3px;
-                background-color: #e0e0e0;
-
-            }
-
-            &::-webkit-scrollbar-thumb
-            {
-                background-color: #e0e0e0;
-            }
         }
     }
 
@@ -184,6 +166,28 @@
         font-size: 18px;
         line-height: 20px;
         height: 20px;
+    }
+
+    &_box{
+        height: 310px;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar-track
+        {
+            background-color: #ffffff;
+        }
+
+        &::-webkit-scrollbar
+        {
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+
+        &::-webkit-scrollbar-thumb
+        {
+            background-color: #e0e0e0;
+        }
     }
 
     &_people{

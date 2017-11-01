@@ -176,6 +176,7 @@ function filter_set(div){
             filteredRev.total.push(filteredRev.product[i])
         }
     }
+    console.log(filteredRev)
 
     inflate_rev(filteredRev.total);
 }

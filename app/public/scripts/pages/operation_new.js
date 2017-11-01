@@ -9,6 +9,7 @@ let teamlist = []
 let op_rev = []
 
 $(document).ready(function(){
+    date = datestring.today();
     init_op_datepicker();
     getOperationData(datestring.today())
     firebase.database().ref("guide").on("value",snap => {
@@ -181,17 +182,13 @@ $(document).on("click",".ol_bus_add",function(){
 
 
 function getOperationData(date){
+    console.log(date+" 예약을 불러옵니다")
     if(operationData[date]){
         inflate_data()
     }else{
         firebase.database().ref("operation/"+date).on("value",snap => {
             operationData[date] = snap.val();
-
-            if(operationData){
-                inflate_data();
-            }else{
-                $(".om").html("해당일 예약은 아직 잡히지 않았습니다.")
-            }
+            inflate_data();
         });
     }
 }
@@ -230,7 +227,7 @@ function inflate_data(){
 
         txt+='<div class="om_box_pd" pid="'+product+'"><p class="omp_name">'+product.split("_")[2]+'</p>'
         txt+='<div class="omp_people"><p class="omp_people_txt">PEOPLE</p><p class="omp_people_number">'+domdata.people+'</p></div>'
-        txt+='<div class="omp_bus"><p class="omp_bus_txt">BUS</p><p class="omp_bus_number">'+Object.keys(domdata.teams).length+'</p></div>'
+        txt+='<div class="omp_bus"><p class="omp_bus_txt">BUS</p><p class="omp_bus_number">'+Object.keys(domdata.teams).length+'</p></div><div class="omp_box">'
 
             for (let i = 0; i < operationData[date][product].teamArgArray.length; i++) {
                 let tid = operationData[date][product].teamArgArray[i]
@@ -246,7 +243,7 @@ function inflate_data(){
 
             }
 
-        txt+='<div class="omp_list" pid="'+product+'"><img src="./assets/icon-list.svg"/><p>VIEW LIST</p></div></div>'
+        txt+='</div><div class="omp_list" pid="'+product+'"><img src="./assets/icon-list.svg"/><p>VIEW LIST</p></div></div>'
     }
 
     $(".om").html(txt)
@@ -264,7 +261,8 @@ function inflate_data(){
 
 function teamPop(div){
     let tid = div.attr("tid");
-    let pid = div.parent().attr("pid");
+    let pid = div.attr("pid");
+    console.log(pid)
     let teamObj = operationData[date][pid].teams[tid]
     let busno = operationData[date][pid].teamArgArray.indexOf(tid)
     $(".om_pop").css("left",event.pageX +10 + "px")
@@ -300,6 +298,7 @@ function editTeam(div){
         }
         let busnameArray = []
         let bussizeno = 0;
+        console.log(productdata)
         for (let i = 0; i < productdata.cost.bus.length; i++) {
             busnameArray.push(productdata.cost.bus[i].name);
             if($("#op_bus_company").val() === productdata.cost.bus[i].name){
@@ -387,8 +386,13 @@ function saveTeam(div){
     let tid = div.attr("tid");
     let pid = div.attr("pid");
     let busname = $("#op_bus_company").val();
-    let bussize = $("#op_bus_size").val().split("인승(")[0]*1;
-    let buscost = $("#op_bus_size").val().split("인승(")[1].slice(0,-2)*1;
+    let bussize = ""
+    let buscost = ""
+    if($("#op_bus_size").val().indexOf("인승")>0){
+        bussize = $("#op_bus_size").val().split("인승(")[0]*1;
+        buscost = $("#op_bus_size").val().split("인승(")[1].slice(0,-2)*1;
+    }
+
     let guidef = [];
     for (var i = 0; i < $(".obe_body_guide>input").length; i++) {
         if($(".obe_body_guide>input").eq(i).val() !== "Unassigned"){

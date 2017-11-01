@@ -68,6 +68,10 @@
             }
         }
 
+        &:nth-child(6){
+            display: none;
+        }
+
         &:last-child{
             cursor: pointer;
             border: solid 1px #e0e0e0;

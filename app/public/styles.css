@@ -803,6 +803,9 @@ textarea::-webkit-scrollbar-thumb
     margin:0 auto;
     padding-top: 30px;
 }
+#drop_r_filter_product{
+    left: 380px !important;
+}
 /*날짜 세팅*/
 .r_set{
     overflow: hidden;
@@ -1837,8 +1840,7 @@ textarea::-webkit-scrollbar-thumb
             height: 520px;
             border-radius: 5px;
             border: solid 1px #e0e0e0;
-            overflow-x: hidden;
-            overflow-y: scroll;
+            overflow: hidden;
             float: left;
             margin-right: 20px;
             -webkit-box-sizing: border-box;
@@ -1846,20 +1848,6 @@ textarea::-webkit-scrollbar-thumb
             margin-bottom: 20px;
             position: relative;
         }
-.om_box_pd::-webkit-scrollbar-track
-            {
-                background-color: #ffffff;
-            }
-.om_box_pd::-webkit-scrollbar
-            {
-                width: 3px;
-                background-color: #e0e0e0;
-
-            }
-.om_box_pd::-webkit-scrollbar-thumb
-            {
-                background-color: #e0e0e0;
-            }
 .om_pop{
         width: 400px;
         height: 300px;
@@ -1930,6 +1918,24 @@ textarea::-webkit-scrollbar-thumb
         line-height: 20px;
         height: 20px;
     }
+.omp_box{
+        height: 310px;
+        overflow-y: scroll;
+    }
+.omp_box::-webkit-scrollbar-track
+        {
+            background-color: #ffffff;
+        }
+.omp_box::-webkit-scrollbar
+        {
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+.omp_box::-webkit-scrollbar-thumb
+        {
+            background-color: #e0e0e0;
+        }
 .omp_people{
         width:180px;
         height:32px;
@@ -3818,6 +3824,9 @@ textarea.pi_content:focus {
                 cursor: pointer;
                 padding: 10px 2px;
             }
+.pep_p_tab:nth-child(6){
+            display: none;
+        }
 .pep_p_tab:last-child{
             cursor: pointer;
             border: solid 1px #e0e0e0;
@@ -4459,4 +4468,200 @@ textarea.pi_content:focus {
     }
 .pickup_save:active{
         background-color:#189bff;
+    }
+.account_wrapper{
+    width:1280px;
+    padding-bottom: 80px;
+    margin:0 auto;
+    padding-top: 30px;
+}
+.a_set{
+    overflow: hidden;
+    height: 40px;
+}
+.a_set_date{
+        float: left;
+    }
+.a_set_date_txt{
+            float: left;
+            margin : 0 12px 0 4px;
+        }
+.a_set_exchange{
+        float: right;
+        margin-right: 20px;
+    }
+.a_set_print{
+        float: right;
+        margin-right: 10px;
+    }
+.a_htop{
+    height:40px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+}
+.a_htop_numbList{
+        float: left;
+        margin-top: 20px;
+        line-height: 20px;
+    }
+.a_htop_gmail{
+        float: right;
+        margin-right: 8px;
+    }
+.a_htop_add{
+        float: right;
+    }
+.a_htop_filterRemove{
+        float: right;
+        margin-right: 8px;
+    }
+.daterangepicker{
+    display: none;
+}
+.input-mini{
+    text-align: center;
+}
+/*헤더 - 아랫부분(예약정보 분류명)*/
+.a_hbot{
+    height:42px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-top:solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    width: 1280px;
+    margin-top: 10px;
+    padding:4px 0;
+    overflow: hidden;
+    letter-spacing: -0.3px;
+}
+.a_hbot>p{
+        margin-right: 14px;
+        line-height: 32px;
+        text-align: center;
+        float: left;
+        font-size: 14px;
+    }
+.a_hbot>div{
+        float: left;
+        line-height: 32px;
+        margin-right: 14px;
+        overflow: hidden;
+    }
+.a_hbot>div>img{
+            float: left;
+            width: 20px;
+        }
+.a_hbot_date{
+        width: 85px;
+    }
+.a_hbot_category{
+        width: 110px;
+        text-align: center;
+    }
+.a_hbot_writer{
+        width: 105px;
+        padding: 0 25px;
+        text-align: center;
+    }
+.a_hbot_contents{
+        width: 380px;
+    }
+.a_hbot_card{
+        margin-top: -2px;
+        width:240px;
+    }
+.a_hbot_card>p{
+            height: 17px;
+            line-height: 16px;
+            width: 240px;
+            text-align: center;
+            font-size: 14px;
+            text-align: center;
+            color: #262e3e;
+            border-bottom: solid 1px #e0e0e0;
+        }
+.a_hbot_card>div{
+            overflow: hidden;
+            height: 18px;
+        }
+.a_hbot_card>div>p{
+                float: left;
+                line-height: 19px;
+                width: 120px;
+                text-align: center;
+                font-size: 14px;
+                color: #262e3e;
+            }
+.a_hbot_cash{
+        margin: -2px 0 !important;
+        width:240px;
+    }
+.a_hbot_cash>p{
+            height: 17px;
+            line-height: 16px;
+            width: 240px;
+            text-align: center;
+            font-size: 14px;
+            text-align: center;
+            color: #262e3e;
+            border-bottom: solid 1px #e0e0e0;
+        }
+.a_hbot_cash>div{
+            overflow: hidden;
+            height: 18px;
+        }
+.a_hbot_cash>div>p{
+                float: left;
+                line-height: 19px;
+                width: 120px;
+                text-align: center;
+                font-size: 14px;
+                color: #262e3e;
+            }
+.a_item{
+    width: 1280px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    height: 40px;
+    border: solid 1px #e0e0e0;
+    margin-top: 8px;
+    overflow: hidden;
+}
+.a_item>p{
+        height: 38px;
+        float: left;
+        margin-right: 14px;
+        line-height: 38px;
+        font-size: 14px;
+        text-align: center;
+    }
+.a_item_date{
+        width: 85px;
+        font-size: 13px !important;
+    }
+.a_item_category{
+        width: 110px;
+        text-align: center;
+    }
+.a_item_writer{
+        width: 155px;
+        text-align: center;
+    }
+.a_item_contents{
+        width: 380px;
+    }
+.a_item_cardIncome{
+        width:110px;
+    }
+.a_item_cardExpenditure{
+        width:110px;
+        margin-right: 22px !important;
+    }
+.a_item_cashIncome{
+        width:110px;
+    }
+.a_item_cashExpenditure{
+        width:110px;
+        margin-right: 0 !important;
     }

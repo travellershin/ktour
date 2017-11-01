@@ -151,7 +151,10 @@ function inflate_product(pArray){
         let price_child = '32,000'
         let net_adult = '132,000'
         let net_child = '32,000'
-        let agency_total = Object.keys(data.agency).length;
+        let agency_total = 0
+        if(data.agency){
+            agency_total = Object.keys(data.agency).length;
+        }
         let agency_ongoing = 0;
         let agency_screening = 0;
         let agency_rejected = 0;

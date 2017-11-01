@@ -3853,6 +3853,7 @@ textarea.pi_content:focus {
             float: left;
         }
 .pep_p_gen_input{
+            float: left;
             height: 40px;
             -webkit-box-sizing: border-box;
                     box-sizing: border-box;
@@ -4040,6 +4041,26 @@ textarea.pi_content:focus {
 .pep_p_as_add{
         float: right;
         margin-right: 20px;
+    }
+.pei_forall{
+
+    display: inline-block;
+    float: left;
+    margin: 11px 8px 0 32px;
+    width: 16px;
+    height: 16px;
+    background-image: url("./assets/checkboxes-default.svg");
+    cursor: pointer;
+}
+.pei_forall--checked{
+        background-image: url("./assets/checkboxes-active.svg");
+    }
+.pei_forall_txt{
+        line-height: 36px;
+        float: left;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7c8495;
     }
 .pep_p_op{
     width: 720px;

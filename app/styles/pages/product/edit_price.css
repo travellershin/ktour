@@ -108,6 +108,7 @@
         }
 
         &_input{
+            float: left;
             height: 40px;
             box-sizing: border-box;
             width: 700px;
@@ -317,6 +318,29 @@
     &_add{
         float: right;
         margin-right: 20px;
+    }
+}
+
+.pei_forall{
+
+    display: inline-block;
+    float: left;
+    margin: 11px 8px 0 32px;
+    width: 16px;
+    height: 16px;
+    background-image: url("./assets/checkboxes-default.svg");
+    cursor: pointer;
+
+    &--checked{
+        background-image: url("./assets/checkboxes-active.svg");
+    }
+
+    &_txt{
+        line-height: 36px;
+        float: left;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7c8495;
     }
 }
 

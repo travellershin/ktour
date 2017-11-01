@@ -117,13 +117,22 @@ function save_product(){
 
     for (let i = 0; i < $(".pep_p_as").length; i++) {
         let itemData = {};
-        let adultAge = $(".pei_age_adult_"+i).val().split("-")
+        let adultAge = [18,64]
+        if($(".pei_age_adult_"+i).val().split("-")[1]){
+            adultAge = $(".pei_age_adult_"+i).val().split("-")
+        }
         itemData.adultAge_max = adultAge[1].trim()*1;
         itemData.adultAge_min = adultAge[0].trim()*1;
-        let youngAge = $(".pei_age_young_"+i).val().split("-")
+        let youngAge = [18,64]
+        if($(".pei_age_young_"+i).val().split("-")[1]){
+            youngAge = $(".pei_age_young_"+i).val().split("-")
+        }
         itemData.youngAge_max = youngAge[1].trim()*1;
         itemData.youngAge_min = youngAge[0].trim()*1;
-        let kidAge = $(".pei_age_young_"+i).val().split("-")
+        let kidAge = [18,64]
+        if($(".pei_age_kid_"+i).val().split("-")[1]){
+            kidAge = $(".pei_age_kid_"+i).val().split("-")
+        }
         itemData.kidAge_max = kidAge[1].trim()*1;
         itemData.kidAge_min = kidAge[0].trim()*1;
         itemData.adult_cost = $(".pei_price_adult_"+i).val()*1;

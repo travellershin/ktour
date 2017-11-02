@@ -8,6 +8,18 @@
     left: 380px !important;
 }
 
+.r_stat{
+    height: 400px;
+    width: 100%;
+    margin-top: 30px;
+    overflow: hidden;
+}
+#chart_product{
+    width: 800px !important;
+    height: 400px !important;
+    float: left;
+}
+
 /*날짜 세팅*/
 .r_set{
     overflow: hidden;
@@ -34,6 +46,11 @@
     &_print{
         float: right;
         margin-right: 10px;
+    }
+
+    &_chartToggle{
+        float: right;
+        margin-left: 10px;
     }
 }
 

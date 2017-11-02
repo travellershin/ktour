@@ -83,6 +83,7 @@ $(document).on("click",".drop_item",function(){
         $("#drop_"+did).addClass("display_none");
         $("#"+did).val($(this).html());
         $("#"+did).attr("value",$(this).html());
+        console.log($(this).html())
     }
 
 })

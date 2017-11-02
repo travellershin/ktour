@@ -14,14 +14,14 @@ function dw_drp(start,end,label){
     $('.drp_txt').html(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));
 
     if(start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD')){
-        if(end.format('YYYY-MM-DD')===datestring.today()){
-            $('.r_set_quick_today').addClass('r_set_quick--selected')
-        };
         if(end.format('YYYY-MM-DD')===datestring.yesterday()){
-            $('.r_set_quick_yesterday').addClass('r_set_quick--selected')
+            $('.drp_quick_yesterday').addClass('drp_quick--selected')
+        };
+        if(end.format('YYYY-MM-DD')===datestring.today()){
+            $('.drp_quick_today').addClass('drp_quick--selected')
         }
         if(end.format('YYYY-MM-DD')===datestring.tomorrow()){
-            $('.r_set_quick_tomorrow').addClass('r_set_quick--selected')
+            $('.drp_quick_tomorrow').addClass('drp_quick--selected')
         }
 
         dateArray = [start.format('YYYY-MM-DD')] //dateArray에는 선택한 하루만이 들어간다

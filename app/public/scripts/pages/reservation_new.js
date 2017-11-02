@@ -67,6 +67,16 @@ $(document).on("click", ".re_footer_save", function(){
     // TODO: save 기능
 })
 
+$(".r_set_chartToggle").click(function(){
+    if($(".r_stat").hasClass("hidden")){
+        $(".r_stat").removeClass("hidden");
+        $(this).html("차트 닫기")
+    }else{
+        $(".r_stat").addClass("hidden");
+        $(this).html("차트 열기")
+    }
+})
+
 function collect_rev(){
     reservation_NF = []
     firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
@@ -108,6 +118,35 @@ function filterOut_rev(){
     dynamicDrop($("#r_filter_agency"),filter.agency);
 
     inflate_rev(reservation_NF);
+
+    let chartObj = {
+        agency:{
+            labels : filter.agency,
+            data : []
+        },
+        nationality:{
+            labels : filter.nationality,
+            data : []
+        },
+        product:{
+            labels : filter.product,
+            data : []
+        }
+    }
+    for (let charts in chartObj) {
+        for (let i = 0; i < chartObj[charts].labels.length; i++) {
+            let label = chartObj[charts].labels[i]
+            chartObj[charts].data.push(0)
+
+            for (let j = 0; j < reservation_NF.length; j++) {
+                if(reservation_NF[j][charts]===label){
+                    chartObj[charts].data[i]++
+                }
+            }
+        }
+    }
+
+    draw_chart(chartObj)
 }
 
 function inflate_rev(reservation){
@@ -251,3 +290,42 @@ $(document).on('focus','#singleDate', function(){
         endDate: date
     });
 })
+
+function draw_chart(obj){
+    let ctx = document.getElementById("chart_product").getContext('2d');
+    let data = {
+        datasets:[{
+            data:obj.product.data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }],
+        labels:obj.product.labels
+    }
+    let product_chart = new Chart(ctx,{
+        type: 'pie',
+        data: data,
+        options: {
+            legend: {
+                labels: {
+                    fontColor: 'black',
+                    fontSize:25
+                }
+            }
+        }
+    });
+}

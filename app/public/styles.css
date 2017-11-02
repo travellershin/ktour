@@ -55,6 +55,21 @@ input:focus {
 .daterangepicker td.active{
     background-color: #3f55d2 !important;
 }
+.glyphicon-chevron-left{
+    background-image: url("./assets/Chevron_left.png");
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-size: contain;
+}
+.glyphicon-chevron-right{
+    background-image: url("./assets/Chevron_right.png");
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-size: contain;
+
+}
 .daterangepicker td.in-range{
     background-color: #eef0fb !important;
 }
@@ -806,6 +821,17 @@ textarea::-webkit-scrollbar-thumb
 #drop_r_filter_product{
     left: 380px !important;
 }
+.r_stat{
+    height: 400px;
+    width: 100%;
+    margin-top: 30px;
+    overflow: hidden;
+}
+#chart_product{
+    width: 800px !important;
+    height: 400px !important;
+    float: left;
+}
 /*날짜 세팅*/
 .r_set{
     overflow: hidden;
@@ -828,6 +854,10 @@ textarea::-webkit-scrollbar-thumb
 .r_set_print{
         float: right;
         margin-right: 10px;
+    }
+.r_set_chartToggle{
+        float: right;
+        margin-left: 10px;
     }
 /*헤더 - 윗부분(갯수, 필터해제, Excel)*/
 .r_htop{
@@ -4619,6 +4649,9 @@ textarea.pi_content:focus {
                 font-size: 14px;
                 color: #262e3e;
             }
+#drop_a_filter_writer{
+    left:250px !important;
+}
 .a_item{
     width: 1280px;
     -webkit-box-sizing: border-box;
@@ -4627,6 +4660,7 @@ textarea.pi_content:focus {
     border: solid 1px #e0e0e0;
     margin-top: 8px;
     overflow: hidden;
+    cursor: pointer;
 }
 .a_item>p{
         height: 38px;
@@ -4665,3 +4699,181 @@ textarea.pi_content:focus {
         width:110px;
         margin-right: 0 !important;
     }
+.a_item--income{
+        color: #0084ff;
+        font-weight: bold;
+        text-align: right;
+    }
+.a_item--exp{
+        font-weight: bold;
+        text-align: right;
+        color: #f54b5e;
+    }
+.a_edit{
+    width: 410px;
+    height: 80%;
+    max-height: 910px;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+}
+.a_edit_header{
+        width: 100%;
+        height: 70px;
+        background-color: #f7f9fb;
+        border-bottom: solid 1px #e0e0e0;
+        overflow: hidden;
+    }
+.a_edit_header_title{
+            float: left;
+            line-height: 70px;
+            font-size: 20px;
+            margin-left: 30px;
+        }
+.a_edit_header_close{
+            float: right;
+            margin:25px 20px;
+            cursor: pointer;
+        }
+.a_edit_wrapper{
+        height: calc(100% - 152px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        padding: 10px 30px 15px 39px;
+    }
+.a_edit_wrapper::-webkit-scrollbar-track{
+            background-color: #ffffff;
+        }
+.a_edit_wrapper::-webkit-scrollbar{
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+.a_edit_wrapper::-webkit-scrollbar-thumb{
+            background-color: #e0e0e0;
+        }
+.a_edit_line{
+        margin:10px 0;
+        display: inline-block;
+        width: 100%;
+        height: 40px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        overflow: hidden;
+    }
+.a_edit_line--contents{
+            height: 120px;
+        }
+.a_edit_line2{
+        margin:10px 0;
+        width: 100%;
+        height: 40px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+    }
+.a_edit_title{
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: solid 1px #e0e0e0;
+        font-size: 16px;
+    }
+.a_edit_sTitle{
+        float: left;
+        line-height: 38px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7c8495;
+        width: 119px;
+    }
+.a_edit_won{
+        font-size: 13px;
+        line-height: 38px;
+        margin-left: 8px;
+        float: left;
+    }
+.a_edit_footer{
+        width: 100%;
+        height: 80px;
+        position: absolute;
+        border-top: solid 1px #e0e0e0;
+        bottom: 0;
+        overflow: hidden;
+    }
+.a_edit_footer_save{
+            width: 100px;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            float: right;
+            margin: 15px 24px 0 0;
+            margin-left: 0;
+            font-size: 14px;
+            line-height: 50px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+        }
+.a_edit_footer_save:hover{
+                -webkit-filter: brightness(1.1);
+                        filter: brightness(1.1);
+            }
+.a_edit_footer_save:active{
+                -webkit-filter: brightness(1.2);
+                        filter: brightness(1.2);
+            }
+.a_edit_footer_delete{
+            width: 120px;
+            height: 50px;
+            float: right;
+            margin:15px 16px;
+            padding-top: 14px;
+            color: #f54b5e;
+        }
+.a_edit_footer_delete:hover{
+                background-color:#fafafa;
+            }
+.a_edit_footer_delete:active{
+                background-color:#f0f0f0;
+            }
+.a_edit_input{
+        width: 128px;
+        float: left;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        height: 40px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        line-height: 38px;
+        padding-left: 12px;
+        font-size: 14px;
+    }
+.a_edit_input--money{
+            text-align: right;
+            padding-right: 12px;
+        }
+.a_edit_input_date{
+            float: left;
+            background-image: url("./assets/icon-filter.svg");
+            background-repeat: no-repeat;
+            background-position: right 8px top 10px;
+            cursor: pointer;
+        }
+.a_edit_input_category{
+            width: 215px;
+            background-position: right 8px top 10px !important;
+        }
+.a_edit_input_writer{
+            width: 215px;
+        }
+.a_edit_input_contents{
+            width: 215px;
+            height: 120px;
+            line-height: 20px;
+            padding: 12px;
+        }

@@ -86,11 +86,11 @@ function DateString(){
 
             let year = nowDate.getFullYear();
             let month = String(nowDate.getMonth() + 1);
-            if(month.length===1){
+            if((month+"").length===1){
                 month = "0" + month;
             }
             let day = nowDate.getDate();
-            if(day.length===1){
+            if((day+"").length===1){
                 day = "0" + day;
             }
 
@@ -104,11 +104,11 @@ function DateString(){
 
             let year = nowDate.getFullYear();
             let month = String(nowDate.getMonth() + 1);
-            if(month.length===1){
+            if((month+"").length===1){
                 month = "0" + month;
             }
             let day = nowDate.getDate();
-            if(day.length===1){
+            if((day+"").length===1){
                 day = "0" + day;
             }
             return  year +"-"+ month +"-"+ day;

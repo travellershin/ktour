@@ -165,6 +165,9 @@
         }
     }
 }
+#drop_a_filter_writer{
+    left:250px !important;
+}
 .a_item{
     width: 1280px;
     box-sizing: border-box;
@@ -172,6 +175,7 @@
     border: solid 1px #e0e0e0;
     margin-top: 8px;
     overflow: hidden;
+    cursor: pointer;
 
     &>p{
         height: 38px;
@@ -213,5 +217,200 @@
     &_cashExpenditure{
         width:110px;
         margin-right: 0 !important;
+    }
+
+    &--income{
+        color: #0084ff;
+        font-weight: bold;
+        text-align: right;
+    }
+    &--exp{
+        font-weight: bold;
+        text-align: right;
+        color: #f54b5e;
+    }
+}
+
+.a_edit{
+    width: 410px;
+    height: 80%;
+    max-height: 910px;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+
+    &_header{
+        width: 100%;
+        height: 70px;
+        background-color: #f7f9fb;
+        border-bottom: solid 1px #e0e0e0;
+        overflow: hidden;
+
+        &_title{
+            float: left;
+            line-height: 70px;
+            font-size: 20px;
+            margin-left: 30px;
+        }
+
+        &_close{
+            float: right;
+            margin:25px 20px;
+            cursor: pointer;
+        }
+    }
+
+    &_wrapper{
+        height: calc(100% - 152px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+        padding: 10px 30px 15px 39px;
+
+        &::-webkit-scrollbar-track{
+            background-color: #ffffff;
+        }
+
+        &::-webkit-scrollbar{
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+
+        &::-webkit-scrollbar-thumb{
+            background-color: #e0e0e0;
+        }
+    }
+
+    &_line{
+        margin:10px 0;
+        display: inline-block;
+        width: 100%;
+        height: 40px;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        &--contents{
+            height: 120px;
+        }
+    }
+
+    &_line2{
+        margin:10px 0;
+        width: 100%;
+        height: 40px;
+        box-sizing: border-box;
+    }
+
+    &_title{
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: solid 1px #e0e0e0;
+        font-size: 16px;
+    }
+
+    &_sTitle{
+        float: left;
+        line-height: 38px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #7c8495;
+        width: 119px;
+    }
+
+    &_won{
+        font-size: 13px;
+        line-height: 38px;
+        margin-left: 8px;
+        float: left;
+    }
+
+    &_footer{
+        width: 100%;
+        height: 80px;
+        position: absolute;
+        border-top: solid 1px #e0e0e0;
+        bottom: 0;
+        overflow: hidden;
+
+        &_save{
+            width: 100px;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            float: right;
+            margin: 15px 24px 0 0;
+            margin-left: 0;
+            font-size: 14px;
+            line-height: 50px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            box-sizing: border-box;
+
+            &:hover{
+                filter: brightness(1.1);
+            }
+            &:active{
+                filter: brightness(1.2);
+            }
+        }
+
+        &_delete{
+            width: 120px;
+            height: 50px;
+            float: right;
+            margin:15px 16px;
+            padding-top: 14px;
+            color: #f54b5e;
+
+            &:hover{
+                background-color:#fafafa;
+            }
+            &:active{
+                background-color:#f0f0f0;
+            }
+        }
+    }
+
+    &_input{
+        width: 128px;
+        float: left;
+        box-sizing: border-box;
+        height: 40px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        line-height: 38px;
+        padding-left: 12px;
+        font-size: 14px;
+
+        &--money{
+            text-align: right;
+            padding-right: 12px;
+        }
+
+        &_date{
+            float: left;
+            background-image: url("./assets/icon-filter.svg");
+            background-repeat: no-repeat;
+            background-position: right 8px top 10px;
+            cursor: pointer;
+        }
+
+        &_category{
+            width: 215px;
+            background-position: right 8px top 10px !important;
+        }
+        &_writer{
+            width: 215px;
+        }
+        &_contents{
+            width: 215px;
+            height: 120px;
+            line-height: 20px;
+            padding: 12px;
+        }
     }
 }

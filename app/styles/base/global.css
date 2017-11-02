@@ -1,7 +1,21 @@
 .daterangepicker td.active{
     background-color: $key_blue !important;
 }
+.glyphicon-chevron-left{
+    background-image: url("./assets/Chevron_left.png");
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-size: contain;
+}
+.glyphicon-chevron-right{
+    background-image: url("./assets/Chevron_right.png");
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-size: contain;
 
+}
 .daterangepicker td.in-range{
     background-color: #eef0fb !important;
 }

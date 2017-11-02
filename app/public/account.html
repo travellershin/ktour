@@ -29,7 +29,7 @@
     <div class="account_wrapper">
         <div class="a_set">
             <div class="a_set_date dropdown">
-                <p class="a_set_date_txt drp_txt">2017-09-11 ~ 2017-09-11</p>
+                <p class="a_set_date_txt drp_txt"></p>
             </div>
             <div class="a_set_quick input drp_quick">
                 <p class="drp_quick_yesterday">YESTERDAY</p>
@@ -106,6 +106,62 @@
             -->
         </div>
 
+    </div>
+
+    <div class="lightBox_shadow hidden centering">
+        <div class="a_edit">
+            <div class="a_edit_header">
+                <p class="a_edit_header_title">ACCOUNT ITEM</p>
+                <img src="./assets/icon-close.svg" class="a_edit_header_close"/>
+            </div>
+            <div class="a_edit_wrapper">
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">DATE</p>
+                    <input class="a_edit_input a_edit_input_date"/>
+                </div>
+                <div class="a_edit_line2 clearfix">
+                    <p class="a_edit_sTitle">CATEGORY</p>
+                    <input id="categorydrop" readonly class="a_edit_input dw_dropdown a_edit_input_category" dropitem="reservation,tour,office,etc" />
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">Writer</p>
+                    <input class="a_edit_input a_edit_input_writer"/>
+                </div>
+                <div class="a_edit_line a_edit_line--contents">
+                    <p class="a_edit_sTitle">CONTENTS</p>
+                    <textarea class="a_edit_input a_edit_input_contents"></textarea>
+                </div>
+                <p class="a_edit_title">CARD</p>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">INCOME</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cardincome"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">EXPENDITURE</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cardexp"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+                <p class="a_edit_title">CASH</p>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">INCOME</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cashincome"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">EXPENDITURE</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cashexp"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+            </div>
+            <div class="a_edit_footer">
+                <div class="a_edit_footer_save">SAVE</div>
+                <div class="a_edit_footer_delete longbtn">
+                    <img src="./assets/icon-trash.svg">
+                    <p>DELETE</p>
+                </div>
+            </div>
+        </div>
     </div>
 
 

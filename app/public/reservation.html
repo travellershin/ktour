@@ -40,6 +40,7 @@
             <p class="drp_quick_today drp_quick--selected">TODAY</p>
             <p class="drp_quick_tomorrow">TOMORROW</p>
         </div>
+        <p class="r_set_chartToggle btn">차트 닫기</p>
         <div class="r_set_trash longbtn">
             <img src="./assets/icon-trash.svg"/>
             <p>CANCELED</p>
@@ -51,7 +52,11 @@
         </div>
     </div>
 
-    <div class="r_stat"></div>
+    <div class="r_stat">
+        <canvas id="chart_product"></canvas>
+        <canvas id="chart_agency"></canvas>
+        <canvas id="chart_nationality"></canvas>
+    </div>
     <!--예약 통계 그래프는 모듈로 빼는 것이 좋을듯-->
 
     <!--헤더 - 윗부분(갯수, 필터해제, Excel) CSS pages/reservation/main-->
@@ -320,5 +325,6 @@
     <script src='./scripts/module/date.js'></script>
     <script src='./scripts/pages/reservation_new.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
+    <script src='./libraries/chart.js'></script>
 
 </body>

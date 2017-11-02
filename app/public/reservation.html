@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="./styles.css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 </head>
 <body>
     <header class="header">
@@ -52,10 +52,11 @@
         </div>
     </div>
 
+    <!--차트 CSS pages/reservation/main-->
     <div class="r_stat">
-        <canvas id="chart_product"></canvas>
-        <canvas id="chart_agency"></canvas>
-        <canvas id="chart_nationality"></canvas>
+        <div class="chartsquare" id="div_product"><div id="chart_product"></div></div>
+        <div class="chartsquare" id="div_agency"><div id="chart_agency"></div></div>
+        <div class="chartsquare" id="div_nationality"><div id="chart_nationality"></div></div>
     </div>
     <!--예약 통계 그래프는 모듈로 빼는 것이 좋을듯-->
 
@@ -316,6 +317,7 @@
 
     <script src='./libraries/jquery.js'></script>
     <script src='./libraries/moment.js'></script>
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
     <script src="./libraries/jquery-ui.min.js"></script>
@@ -325,6 +327,5 @@
     <script src='./scripts/module/date.js'></script>
     <script src='./scripts/pages/reservation_new.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
-    <script src='./libraries/chart.js'></script>
 
 </body>

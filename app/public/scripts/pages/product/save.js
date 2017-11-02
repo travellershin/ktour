@@ -59,7 +59,7 @@ function save_product(){
         data.price[tid] = {
             byAgencies:[],
             description:$(".pep_description_"+tid).val(),
-            forAll:false,
+            forAll:$("#"+tid).find(".pei_forall").hasClass("cb_checked"),
             reservationDate_from:revfrom,
             reservationDate_to:revto,
             tourDate_from:tourfrom,

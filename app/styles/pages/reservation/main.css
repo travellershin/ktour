@@ -8,17 +8,6 @@
     left: 380px !important;
 }
 
-.r_stat{
-    height: 400px;
-    width: 100%;
-    margin-top: 30px;
-    overflow: hidden;
-}
-#chart_product{
-    width: 800px !important;
-    height: 400px !important;
-    float: left;
-}
 
 /*날짜 세팅*/
 .r_set{
@@ -245,4 +234,49 @@
 }
 .rv_box{
     padding-bottom: 60px;
+}
+
+.r_stat{
+    height: 400px;
+    width: 100%;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+/*차트*/
+.chartsquare{
+    width: 400px;
+    height: 400px;
+    float: left;
+    margin-right: 40px;
+
+    &:last-child{
+        margin-right:0;
+    }
+}
+#chart_product,#chart_agency,#chart_nationality{
+    width: 400px;
+    height: 400px;
+    float: left;
+}
+.ct-series-a .ct-slice-pie{
+    fill:#56AEE2 !important;
+}
+.ct-series-b .ct-slice-pie{
+    fill:#56E2CF !important;
+}
+.ct-series-c .ct-slice-pie{
+    fill:#56E289 !important;
+}
+.ct-series-d .ct-slice-pie{
+    fill:#E2CF56 !important;
+}
+.ct-series-e .ct-slice-pie{
+    fill:#E28956 !important;
+}
+.ct-series-f .ct-slice-pie{
+    fill:#E25668 !important;
+}
+.ct-series-g .ct-slice-pie{
+    fill:#E256AE !important;
 }

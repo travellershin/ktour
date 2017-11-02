@@ -121,6 +121,9 @@ $(document).on("click",".pep_p_tab_add",function(){
 $(document).on("click",".pep_p_tab_remove",function(){
     removePriceTab($(this));
 })
+$(document).on("click",".pei_forall",function(){
+    $(this).toggleClass("cb_checked")
+})
 
 let apg = {
     unassigned:[],
@@ -290,6 +293,7 @@ function show_detail(pid){
 
     let tabInfoTxt = "";
     for (let priceCode in price) {
+
         let pdata = price[priceCode]
         tabInfoTxt+='<div class="pep_p" id="'+priceCode+'"><div class="pep_p_gen"><div class="pep_p_gen_line"><p class="pep_p_gen_title">DESCRIPTION</p>';
         tabInfoTxt+='<input value="'+pdata.description+'" class="pep_p_gen_input pep_p_gen_input pep_description_'+priceCode+'"/></div><div class="pep_p_gen_line"><p class="pep_p_gen_title">RESERVATION DATE</p>';
@@ -336,6 +340,16 @@ function show_detail(pid){
     }
 
     $(".pep_p_tabinfo").html(tabInfoTxt)
+
+    for (let priceCode in price) {
+        if(price[priceCode].forAll){
+            $("#"+priceCode).find(".pei_forall").addClass("cb_checked")
+            console.log("forall")
+        }else{
+            $(".pei_forall").removeClass("cb_checked")
+            console.log("not forall")
+        }
+    }
 
     $(".pep_p_tab_box").eq(0).addClass("pep_p_tab--selected");
 

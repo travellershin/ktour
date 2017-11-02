@@ -78,8 +78,8 @@ $(".r_set_chartToggle").click(function(){
 })
 
 function collect_rev(){
-    reservation_NF = []
     firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
+        reservation_NF = []
         snap.forEach(function(child){
             reservation_NF.push(child.val())
         })
@@ -118,35 +118,6 @@ function filterOut_rev(){
     dynamicDrop($("#r_filter_agency"),filter.agency);
 
     inflate_rev(reservation_NF);
-
-    let chartObj = {
-        agency:{
-            labels : filter.agency,
-            data : []
-        },
-        nationality:{
-            labels : filter.nationality,
-            data : []
-        },
-        product:{
-            labels : filter.product,
-            data : []
-        }
-    }
-    for (let charts in chartObj) {
-        for (let i = 0; i < chartObj[charts].labels.length; i++) {
-            let label = chartObj[charts].labels[i]
-            chartObj[charts].data.push(0)
-
-            for (let j = 0; j < reservation_NF.length; j++) {
-                if(reservation_NF[j][charts]===label){
-                    chartObj[charts].data[i]++
-                }
-            }
-        }
-    }
-
-    draw_chart(chartObj)
 }
 
 function inflate_rev(reservation){
@@ -174,6 +145,8 @@ function inflate_rev(reservation){
 
     $(".r_htop_numbList").html(filteredNo + " / " + totalNo + " Reservations")
 
+    draw_chart(reservation)
+    console.log(reservation)
 }
 
 function filter_set(div){
@@ -291,41 +264,53 @@ $(document).on('focus','#singleDate', function(){
     });
 })
 
-function draw_chart(obj){
-    let ctx = document.getElementById("chart_product").getContext('2d');
-    let data = {
-        datasets:[{
-            data:obj.product.data,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }],
-        labels:obj.product.labels
+function draw_chart(rv){
+    console.log(rv)
+    let cdata = {
+        agency:{},
+        product:{},
+        nationality:{}
     }
-    let product_chart = new Chart(ctx,{
-        type: 'pie',
-        data: data,
-        options: {
-            legend: {
-                labels: {
-                    fontColor: 'black',
-                    fontSize:25
-                }
+    for (let keys in cdata) {
+        for (let i = 0; i < rv.length; i++) {
+            if(cdata[keys][rv[i][keys]]){
+                cdata[keys][rv[i][keys]]+= rv[i].people
+            }else{
+                cdata[keys][rv[i][keys]] = rv[i].people
             }
         }
-    });
+    }
+    console.log(cdata)
+    chartist = { //자료구조 명시를 위해 열어놓음
+        agency:{
+            labels:[],
+            series:[]
+        },
+        product:{
+            labels:[],
+            series:[]
+        },
+        nationality:{
+            labels:[],
+            series:[]
+        }
+    }
+
+    for (let keys in cdata.agency) {
+        chartist.agency.labels.push(keys);
+        chartist.agency.series.push(cdata.agency[keys])
+    }
+    for (let keys in cdata.nationality) {
+        chartist.nationality.labels.push(keys);
+        chartist.nationality.series.push(cdata.nationality[keys])
+    }
+    for (let keys in cdata.product) {
+        chartist.product.labels.push(keys.split("_")[2]);
+        chartist.product.series.push(cdata.product[keys])
+    }
+    console.log(chartist.product)
+
+    new Chartist.Pie('#chart_product', chartist.product);
+    new Chartist.Pie('#chart_agency', chartist.agency);
+    new Chartist.Pie('#chart_nationality', chartist.nationality);
 }

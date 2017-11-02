@@ -24,7 +24,28 @@ $(document).on("click", ".c_ct", function(){
 
 function Mailing(){
 
-    this.category = {total : [],orange_all : [],red_all : [],agency : [],subject : [],product : [],pickup : [],multiple : [],malparsing : [],integrity : [],structure : []}
+    this.category = {
+        total : [],
+        agency : [],
+        subject : [],
+        orange_all : [],
+        product : [],
+        product_closed : [],
+        pickup : [],
+        option : [],
+        multiple : [],
+        time : [],
+        price : [],
+        bus : [],
+        red_all : [],
+        process : [],
+        bot : [],
+        integrity : [],
+        unparsable : [],
+        unresponsible : [],
+        network : [],
+        type : []
+    }
 
     this.debugArray = []
 
@@ -62,22 +83,58 @@ function Mailing(){
                         this.category.product.push(this.category.total[i]);
                         break;
 
+                    case "CLOSED_PRODUCT":
+                        this.category.total[i].color = "orange"
+                        this.category.orange_all.push(this.category.total[i]);
+                        this.category.product_closed.push(this.category.total[i]);
+                        break;
+
                     case "UNKNOWN_PICKUP":
                         this.category.total[i].color = "orange"
                         this.category.orange_all.push(this.category.total[i]);
                         this.category.pickup.push(this.category.total[i]);
                         break;
 
-                    case "MULTIPLE_RESERVATION_CANNOT_DETERMINE":
+                    case "UNKNOWN_OPTION":
+                        this.category.total[i].color = "orange"
+                        this.category.orange_all.push(this.category.total[i]);
+                        this.category.option.push(this.category.total[i]);
+                        break;
+
+                    case "NO_BUS_INFO":
+                        this.category.total[i].color = "orange"
+                        this.category.orange_all.push(this.category.total[i]);
+                        this.category.bus.push(this.category.total[i]);
+                        break;
+
+                    case "LAST_MINUTE":
+                        this.category.total[i].color = "orange"
+                        this.category.orange_all.push(this.category.total[i]);
+                        this.category.time.push(this.category.total[i]);
+                        break;
+
+                    case "NO_PRICE_INFO":
+                        this.category.total[i].color = "orange"
+                        this.category.orange_all.push(this.category.total[i]);
+                        this.category.price.push(this.category.total[i]);
+                        break;
+
+                    case "CANNOT_DETERMINE":
                         this.category.total[i].color = "red"
                         this.category.red_all.push(this.category.total[i]);
                         this.category.multiple.push(this.category.total[i]);
                         break;
 
-                    case "MALPARSING":
+                    case "PROCESS_DIED":
                         this.category.total[i].color = "red"
                         this.category.red_all.push(this.category.total[i]);
-                        this.category.malparsing.push(this.category.total[i]);
+                        this.category.process.push(this.category.total[i]);
+                        break;
+
+                    case "BOT_DIED":
+                        this.category.total[i].color = "red"
+                        this.category.red_all.push(this.category.total[i]);
+                        this.category.bot.push(this.category.total[i]);
                         break;
 
                     case "FAIL_IN_INTEGRITY":
@@ -86,18 +143,38 @@ function Mailing(){
                         this.category.integrity.push(this.category.total[i]);
                         break;
 
-                    case "UNKNOWN_CONTENT_STRUCTURE":
+                    case "UNKNOWN_CONTENT_TYPE":
                         this.category.total[i].color = "red"
                         this.category.red_all.push(this.category.total[i]);
-                        this.category.structure.push(this.category.total[i]);
+                        this.category.type.push(this.category.total[i]);
+                        break;
+
+                    case "UNPARSABLE":
+                        this.category.total[i].color = "red"
+                        this.category.red_all.push(this.category.total[i]);
+                        this.category.unresponsible.push(this.category.total[i]);
+                        break;
+
+                    case "UNRESPONSIBLE":
+                        this.category.total[i].color = "red"
+                        this.category.red_all.push(this.category.total[i]);
+                        this.category.unparsable.push(this.category.total[i]);
+                        break;
+
+                    case "NETWORK_ERR":
+                        this.category.total[i].color = "red"
+                        this.category.red_all.push(this.category.total[i]);
+                        this.category.network.push(this.category.total[i]);
                         break;
                 }
             }
 
+
+    
             $('.cc_low').html(this.category.agency.length);
             $('.cc_mid').html(this.category.subject.length);
-            $('.cc_high').html(this.category.product.length + this.category.pickup.length);
-            $('.cc_vhigh').html(this.category.multiple.length + this.category.malparsing.length+this.category.integrity.length+this.category.structure.length);
+            $('.cc_high').html(this.category.price.length + this.category.time.length + this.category.bus.length + this.category.option.length + this.category.product_closed.length + this.category.product.length + this.category.pickup.length);
+            $('.cc_vhigh').html(this.category.bot.length+this.category.unresponsible.length+this.category.unparsable.length+this.category.network.length+this.category.process.length+this.category.multiple.length +this.category.integrity.length+this.category.type.length);
 
             this.show("total")
 

@@ -7,6 +7,11 @@ let reservation = {}
 let viewing = ""
 let teamlist = []
 let op_rev = []
+let adjusted = {
+    pickupPlace : [],
+    nationality : [],
+    agency : []
+}
 
 $(document).ready(function(){
     date = datestring.today();
@@ -227,28 +232,30 @@ function inflate_data(){
 
     let txt = ""
 
+
     for (let product in operationData[date]) {
         let domdata = operationData[date][product]
+        if(domdata.teams){//터짐방지를 위한 임시 null처리
+            txt+='<div class="om_box_pd" pid="'+product+'"><p class="omp_name">'+product.split("_")[2]+'</p>'
+            txt+='<div class="omp_people"><p class="omp_people_txt">PEOPLE</p><p class="omp_people_number">'+domdata.people+'</p></div>'
+            txt+='<div class="omp_bus"><p class="omp_bus_txt">BUS</p><p class="omp_bus_number">'+Object.keys(domdata.teams).length+'</p></div><div class="omp_box">'
 
-        txt+='<div class="om_box_pd" pid="'+product+'"><p class="omp_name">'+product.split("_")[2]+'</p>'
-        txt+='<div class="omp_people"><p class="omp_people_txt">PEOPLE</p><p class="omp_people_number">'+domdata.people+'</p></div>'
-        txt+='<div class="omp_bus"><p class="omp_bus_txt">BUS</p><p class="omp_bus_number">'+Object.keys(domdata.teams).length+'</p></div><div class="omp_box">'
+                for (let i = 0; i < operationData[date][product].teamArgArray.length; i++) {
+                    let tid = operationData[date][product].teamArgArray[i]
 
-            for (let i = 0; i < operationData[date][product].teamArgArray.length; i++) {
-                let tid = operationData[date][product].teamArgArray[i]
+                    txt+='<div class="omp_team" pid="'+product+'" tid="'+tid+'"><div class="omp_team_names"><p class="omp_team_names_bus">BUS '+(i+1)+'</p>'
+                    if(domdata.teams[tid].guide){
+                        txt+='<p class="omp_team_names_guide">'+domdata.teams[tid].guide.toString()+'</p></div>'
+                    }else{
+                        txt+='<p class="omp_team_names_guide">Unassigned</p></div>'
+                    }
 
-                txt+='<div class="omp_team" pid="'+product+'" tid="'+tid+'"><div class="omp_team_names"><p class="omp_team_names_bus">BUS '+(i+1)+'</p>'
-                if(domdata.teams[tid].guide){
-                    txt+='<p class="omp_team_names_guide">'+domdata.teams[tid].guide.toString()+'</p></div>'
-                }else{
-                    txt+='<p class="omp_team_names_guide">Unassigned</p></div>'
+                    txt+='<p class="omp_team_people">'+domdata.teams[tid].people+'</p></div>'
+
                 }
 
-                txt+='<p class="omp_team_people">'+domdata.teams[tid].people+'</p></div>'
-
-            }
-
-        txt+='</div><div class="omp_list" pid="'+product+'"><img src="./assets/icon-list.svg"/><p>VIEW LIST</p></div></div>'
+            txt+='</div><div class="omp_list" pid="'+product+'"><img src="./assets/icon-list.svg"/><p>VIEW LIST</p></div></div>'
+        }
     }
 
     $(".om").html(txt)
@@ -602,6 +609,8 @@ function filter_set(div){
             filteredRev.total.push(filteredRev.pickupPlace[i])
         }
     }
+    console.log(filter)
+    console.log(adjusted)
 
     inflate_reservation(filteredRev.total)
 }
@@ -667,7 +676,7 @@ function addbus(){
     });
 }
 function quickSelectOpdata(div){
-    getOperationData(datestring.yesterday());
+    getOperationData(date);
     $(".o_header_quick>p").removeClass("drp_quick--selected");
     div.addClass("drp_quick--selected")
     $(".o_header_date_txt").data('daterangepicker').setStartDate(date)

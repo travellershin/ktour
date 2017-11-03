@@ -1021,6 +1021,13 @@ textarea::-webkit-scrollbar-thumb
 .rv_box{
     padding-bottom: 60px;
 }
+#drop_rev_areadrop{
+    top:160px !important;
+    width: 240px !important;
+}
+#drop_rev_placedrop{
+    width: 240px !important;
+}
 .r_stat{
     height: 400px;
     width: 100%;
@@ -1099,7 +1106,8 @@ textarea::-webkit-scrollbar-thumb
         font-weight: bold;
     }
 .ri_contents{
-        height: 600px;
+        max-height: 530px;
+        height:80vh;
         padding-bottom: 40px;
         overflow-y: scroll;
     }
@@ -1214,7 +1222,8 @@ textarea::-webkit-scrollbar-thumb
         padding:20px 30px 40px 30px;
         background-color: white;
         overflow-y: scroll;
-        height: 700px;
+        height: calc(90vh - 150px);
+        max-height: 700px;
     }
 .re_content::-webkit-scrollbar-track{
     	border-radius: 10px;
@@ -1239,8 +1248,8 @@ textarea::-webkit-scrollbar-thumb
             width: 120px;
             height: 50px;
             border-radius: 5px;
-            background-color: #e0e0e0;
-            border: solid 1px #d0d0d0;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
             -webkit-box-sizing: border-box;
                     box-sizing: border-box;
             padding: 14px 19px 14px 19px;
@@ -1248,7 +1257,16 @@ textarea::-webkit-scrollbar-thumb
             line-height: 20px;
             text-align: center;
             color: white;
+            cursor: pointer;
         }
+.re_footer_save:hover{
+                -webkit-filter:brightness(1.1);
+                        filter:brightness(1.1);
+            }
+.re_footer_save:active{
+                -webkit-filter:brightness(1.2);
+                        filter:brightness(1.2);
+            }
 .rec{
     border-radius: 5px;
     background-color: #ffffff;
@@ -1342,7 +1360,7 @@ textarea::-webkit-scrollbar-thumb
         float: left;
         width: 1px;
         margin:10px 30px 10px 30px;
-        height: 488px;
+        height: calc(90vh - 150px);
         background-color: #e0e0e0;
     }
 .rec_memo{
@@ -1829,6 +1847,47 @@ textarea::-webkit-scrollbar-thumb
     }
 .dw_radio_selected{
     background-image: url("./assets/icon-radio-check.svg") !important;
+}
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 }
 .o_header{
     overflow: hidden;

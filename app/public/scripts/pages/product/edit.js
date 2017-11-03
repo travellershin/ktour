@@ -214,12 +214,20 @@ function show_detail(pid){
         $(".pe_header_title").html("제품명을 입력해주세요")
     }
 
-    let info = ["name","area","category","status","period","description","deadline","itinerary",
+    let info = ["name","area","category","status","description","deadline","itinerary",
                 "cancellation","include","exclude","others"] //db에서 input text 형태로 입력된 data들을 정의
 
     for (let i = 0; i < info.length; i++) { //input text 형태의 data들을 집어넣음
         $(".input_info_"+info[i]).val(data.info[info[i]]);
     }
+
+    let periodArray = []
+
+    for (let i = 0; i < data.info.period.length; i++) {
+        periodArray.push(data.info.period[i].from + " ~ " + data.info.period[i].to)
+    }
+
+    $(".input_info_period").val(periodArray.join(";"))
 
     if(data.info.memo){ //메모 내용은 없을수도 있어서...?
         $(".pe_memo_txt").val(data.info.memo)
@@ -427,7 +435,6 @@ function show_detail(pid){
     }else{
         console.log("cost 데이터가 없다");
     }
-    console.log(busTxt)
     $(".pep_p_bus_box").html(busTxt)
 
     if(data.cost){
@@ -736,7 +743,7 @@ function addPriceTab(){
     let tabInfoTxt = "";
     tabInfoTxt+='<div class="pep_p" id="'+key+'"><div class="pep_p_gen"><div class="pep_p_gen_line"><p class="pep_p_gen_title">DESCRIPTION</p>';
     tabInfoTxt+='<input value="" class="pep_p_gen_input pep_p_gen_input pep_description_'+key+'"/></div><div class="pep_p_gen_line">';
-    tabInfoTxt+='<p class="pep_p_gen_title">RESERVATION DATE</p><input value="'+datestring.today()+' - '+datestring.today()+'" class="pep_p_gen_input pep_p_gen_reservation pep_p_gen_input--dropdown '+key+'_reservation"/>';
+    tabInfoTxt+='<p class="pep_p_gen_title">RESERVATION DATE</p><input value="'+datestring.today()+' - '+datestring.today()+'" class="pep_p_gen_input pep_p_gen_reservation pep_p_gen_input--dropdown '+key+'_reservation"/><checkbox class="pei_forall"></checkbox><p class="pei_forall_txt">For All Date</p>';
     tabInfoTxt+='</div><div class="pep_p_gen_line"><p class="pep_p_gen_title">TOUR DATE</p><input value="'+datestring.today()+' - '+datestring.today()+'" class="pep_p_gen_input pep_p_gen_tour pep_p_gen_input--dropdown '+key+'_tour"/>';
     tabInfoTxt+='</div></div><div class="pep_p_ag"><div class="pep_p_ag_setZone" pid="'+key+'"><p class="pep_p_ag_set btn">AGENCY PRICE SET</p></div>'
     tabInfoTxt+='<div class="'+key+'_byAgenciesBox">'

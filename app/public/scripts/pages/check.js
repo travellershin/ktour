@@ -52,6 +52,28 @@ function Mailing(){
     this.init = function(){
         //데이터 분류
         firebase.database().ref("exception").on("value", snap => {
+            this.category = {
+                total : [],
+                agency : [],
+                subject : [],
+                orange_all : [],
+                product : [],
+                product_closed : [],
+                pickup : [],
+                option : [],
+                multiple : [],
+                time : [],
+                price : [],
+                bus : [],
+                red_all : [],
+                process : [],
+                bot : [],
+                integrity : [],
+                unparsable : [],
+                unresponsible : [],
+                network : [],
+                type : []
+            }
             let data = snap.val();
 
             for (var key in data) {
@@ -170,7 +192,7 @@ function Mailing(){
             }
 
 
-    
+
             $('.cc_low').html(this.category.agency.length);
             $('.cc_mid').html(this.category.subject.length);
             $('.cc_high').html(this.category.price.length + this.category.time.length + this.category.bus.length + this.category.option.length + this.category.product_closed.length + this.category.product.length + this.category.pickup.length);
@@ -194,9 +216,9 @@ function Mailing(){
         this.debugArray = this.category[filter]
 
         for (var i = 0; i < this.category[filter].length; i++) {
-            this.category[filter][i]
 
-            txt += '<div class="c_ct" id="'+this.category[filter][i].id+'"><div class="c_ct_type centering_hor"><div class="c_ct_type_circle bgco_'
+            txt += '<div class="c_ct" id="'+this.category[filter][i].id+'">'
+            txt+='<div class="c_ct_type centering_hor"><div class="c_ct_type_circle bgco_'
             txt += this.category[filter][i].color + '"></div></div><p class="c_ct_date">' + this.category[filter][i].date + " " + this.category[filter][i].time
             txt += '</p><p class="c_ct_company">' + this.category[filter][i].err + '</p><p class="c_ct_title">' + this.category[filter][i].detail
             txt += '</p></div>'

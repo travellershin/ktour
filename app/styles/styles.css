@@ -16,6 +16,8 @@
 @import "pages/operation/buslist";
 
 @import "modules/dw";
+@import "modules/snackbar";
+
 @import "pages/operation";
 @import "pages/guide_managing";
 @import "pages/guide_info_edit";

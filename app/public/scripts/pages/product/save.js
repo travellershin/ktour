@@ -1,5 +1,26 @@
+$(document).on('keydown', function(e){
+    if(e.ctrlKey && e.which === 83){ // Check for the Ctrl key being pressed, and if the key = [S] (83)
+        e.preventDefault();
+        if(!$(".pe").hasClass("hidden")){
+            save_product();
+            console.log("저장한다!")
+            $("#snackbar").html("저장되었습니다")
+            $("#snackbar").addClass("show")
+            setTimeout(function () {
+                $("#snackbar").removeClass("show")
+            }, 3000);
+        }
+        return false;
+    }
+});
+
 $(".pe_save").click(function(){
     save_product();
+    $("#snackbar").html("저장되었습니다")
+    $("#snackbar").addClass("show")
+    setTimeout(function () {
+        $("#snackbar").removeClass("show")
+    }, 3000);
 })
 
 function save_product(){
@@ -8,7 +29,8 @@ function save_product(){
         info:{
             available:[],
             language:[],
-            pickup:[]
+            pickup:[],
+            period:[]
         },
         agency:{},
         price:{},
@@ -20,7 +42,7 @@ function save_product(){
         option:[],
         id:""
     };
-    let info = ["name","area","category","status","period","description","deadline","itinerary",
+    let info = ["name","area","category","status","description","deadline","itinerary",
                 "cancellation","include","exclude","others"];
 
     for (let i = 0; i < info.length; i++) {
@@ -35,6 +57,40 @@ function save_product(){
     for (let i = 0; i < $(".pei_meeting").length; i++) {
         data.info.pickup.push($(".pei_meeting").eq(i).val())
     }
+
+    data.info.period = [{
+        from:"2017-11-01",
+        to:"2031-12-31"
+    }]
+
+    let periodData = $(".input_info_period").val().split(";");
+    if(periodData){
+        data.info.period = []
+        for (let i = 0; i < periodData.length; i++) {
+            periodData[i] = periodData[i].trim();
+        };
+        for (let i = 0; i < periodData.length; i++) {
+            if(periodData[i].length===0){
+                periodData.splice(i,1)
+            }
+        }
+        for (let i = 0; i < periodData.length; i++) {
+            periodData[i] = periodData[i].split("~")
+            for (let j = 0; j < periodData[i].length; j++) {
+                periodData[i][j] = periodData[i][j].trim()
+            }
+        }
+
+        for (let i = 0; i < periodData.length; i++) {
+            data.info.period.push({
+                from:periodData[i][0],
+                to:periodData[i][1]
+            })
+        }
+    }
+
+
+
     data.info.memo = $(".pe_memo_txt").val()
 
     //info 저장완료

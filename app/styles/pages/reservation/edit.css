@@ -30,7 +30,8 @@
         padding:20px 30px 40px 30px;
         background-color: white;
         overflow-y: scroll;
-        height: 700px;
+        height: calc(90vh - 150px);
+        max-height: 700px;
     }
 
     &_content::-webkit-scrollbar-track{
@@ -59,14 +60,22 @@
             width: 120px;
             height: 50px;
             border-radius: 5px;
-            background-color: #e0e0e0;
-            border: solid 1px #d0d0d0;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
             box-sizing: border-box;
             padding: 14px 19px 14px 19px;
             font-size: 14px;
             line-height: 20px;
             text-align: center;
             color: white;
+            cursor: pointer;
+
+            &:hover{
+                filter:brightness(1.1);
+            }
+            &:active{
+                filter:brightness(1.2);
+            }
         }
     }
 }
@@ -180,7 +189,7 @@
         float: left;
         width: 1px;
         margin:10px 30px 10px 30px;
-        height: 488px;
+        height: calc(90vh - 150px);
         background-color: #e0e0e0;
     }
 

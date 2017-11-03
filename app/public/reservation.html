@@ -171,12 +171,8 @@
                         </div>
 
                     </div>
-
                     <p class="ri_smallTitle">MEMO</p>
                     <p class="rv_info_memo">-</p>
-
-                    <p class="ri_smallTitle">CASH</p>
-                    <p class="rv_info_cash">RECEIPT:356,000won &nbsp;&nbsp;&nbsp;&nbsp; REFUND:76,000won</p>
                 </div>
                 <div class="ri_footer">
                     <div class="ri_footer_edit longbtn">
@@ -219,13 +215,8 @@
                                 <img src="./assets/icon-filter.svg" />
                             </div>
                             <div class="rec_co_longinput input input_disabled rv_info_product"></div>
-                            <div class="rec_co_longinput input">
-                                <input class="rv_info_area"></input>
-                            </div>
-                            <div class="rec_co_longinput input">
-                                <input class="rv_info_pickupPlace"></input>
-                                <img src="./assets/icon-filter.svg" />
-                            </div>
+                            <input class="rv_info_area rec_co_longinput input dw_dndropdown" readonly id="rev_areadrop"/>
+                            <div><input class="rec_co_longinput input rv_info_pickupPlace dw_dndropdown" readonly id="rev_placedrop"></div>
                             <div class="rec_co_midinput input">
                                 <input class="rv_info_pickupTime" type="time"></input>
                             </div>
@@ -254,7 +245,7 @@
                             </div>
                         </div>
 
-                        <div class="ric_verticalLine"></div>
+                        <div class="rec_verticalLine"></div>
 
                         <div class="rec_ti">
                             <p>NAME</p>
@@ -292,15 +283,6 @@
 교통비 2400원 현금 빌려줌.
 이메일 주소 변경할 것.</textarea>
 
-                    <p class="rec_cash">CASH</p>
-                    <div class="rec_cash_box">
-                        <p class="greyTxt">RECEIPT</p>
-                        <input type="text" class="input"></input>
-                        <p>WON</p>
-                        <p class="greyTxt">REFUND</p>
-                        <input type="text" class="input"></input>
-                        <p>WON</p>
-                    </div>
                 </div>
                 <div class="re_footer">
                     <div class="re_footer_save">SAVE</div>

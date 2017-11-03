@@ -36,7 +36,8 @@
     }
 
     &_contents{
-        height: 600px;
+        max-height: 530px;
+        height:80vh;
         padding-bottom: 40px;
         overflow-y: scroll;
     }

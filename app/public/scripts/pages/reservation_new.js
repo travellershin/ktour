@@ -7,15 +7,26 @@ let adjusted = {
     nationality : [],
     agency : []
 }
+let cityData = {}
 
 $(document).ready(function(){
     datepicker_init();
+    collect_pickupPlace();
 })
 $(document).on("click",".r_htop_filterRemove",function(){ //모든 필터 해제 클릭
     filter_init();
 })
-$(document).on("click",".drop_item",function(){ //드롭다운 하위 선택지들 클릭
+$(".r_hbot").on("click",".drop_item",function(){ //드롭다운 하위 선택지들 클릭
     filter_set($(this))
+})
+$(".re").on("click",".drop_item",function(){
+    if($(this).attr("did","rev_areadrop")){
+        let areaArray = []
+        for (let area in cityData[$(this).html()]) {
+            areaArray.push(area)
+        }
+        dynamicDrop($("#rev_placedrop"),areaArray)
+    }
 })
 $(document).on("click",".drp_quick_yesterday",function(){
     $(".drp_quick>p").removeClass("drp_quick--selected");
@@ -206,6 +217,14 @@ function rev_detail(id){
             $('.rv_info_'+key).val(data[key]);
         }
     }
+
+    if(cityData[$(".rv_info_area").val()]){
+        let areaArray = []
+        for (let area in cityData[$(".rv_info_area").val()]) {
+            areaArray.push(area)
+        }
+        dynamicDrop($("#rev_placedrop"),areaArray)
+    }
     if(data.agencyCode){$('.rv_info_agencyCode').html(data.agencyCode)}
     if(data.code){$('.rv_info_code').html(data.code)}
     if(data.agency){$('.rv_info_agency').html(data.agency)}
@@ -263,6 +282,17 @@ $(document).on('focus','#singleDate', function(){
         endDate: date
     });
 })
+
+function collect_pickupPlace(){
+    firebase.database().ref("place/city").on("value",snap=>{
+        cityData = snap.val();
+        let cityArray = []
+        for (let city in cityData) {
+            cityArray.push(city)
+        }
+        dynamicDrop($("#rev_areadrop"),cityArray)
+    })
+}
 
 function draw_chart(rv){
     console.log(rv)

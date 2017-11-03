@@ -8,7 +8,6 @@
     left: 380px !important;
 }
 
-
 /*날짜 세팅*/
 .r_set{
     overflow: hidden;
@@ -234,6 +233,14 @@
 }
 .rv_box{
     padding-bottom: 60px;
+}
+
+#drop_rev_areadrop{
+    top:160px !important;
+    width: 240px !important;
+}
+#drop_rev_placedrop{
+    width: 240px !important;
 }
 
 .r_stat{

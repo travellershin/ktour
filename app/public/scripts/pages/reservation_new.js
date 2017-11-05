@@ -8,6 +8,7 @@ let adjusted = {
     agency : []
 }
 let cityData = {}
+let reservation = {}
 
 $(document).ready(function(){
     datepicker_init();
@@ -51,13 +52,23 @@ $(document).on("click",".drp_quick_tomorrow",function(){
 })
 $(document).on("click",".rv_content",function(){
     rev_detail($(this).attr("id"));
+    $(".re_footer_save").attr("id",$(this).attr("id"))
 })
 $(document).on("click", ".ri_header_close", function(){
     $('.popUp').addClass('hidden');
     $('.ri').removeClass('hidden');
     $('.re').addClass('hidden');
 })
-
+$(".r_hbot").on("click",".drop_item",function(event){
+    event.stopPropagation();
+    let did = $(this).attr("did");
+    if(!$("#"+did).hasClass("multiselect")){
+        $("#drop_"+did).addClass("display_none");
+        $("#"+did).val($(this).html());
+        $("#"+did).attr("value",$(this).html());
+        console.log($(this).html())
+    }
+})
 $(document).on("click", ".re_header_close", function(){
     //해야됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     $('.popUp').addClass('hidden');
@@ -75,7 +86,22 @@ $(document).on("click", ".re_footer_save", function(){
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
 
+    re_save($(this).attr("id"));
+
     // TODO: save 기능
+})
+$(document).on("click", ".rv_content_star", function(event){
+    if($(this).hasClass("rv_content_star--on")){
+        console.log("스타를 지웁니다")
+        $(this).removeClass("rv_content_star--on")
+        firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(false)
+    }else{
+        console.log("스타를 부여합니다")
+        $(this).addClass("rv_content_star--on")
+        firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(true)
+    }
+    event.stopPropagation();
+
 })
 
 $(".r_set_chartToggle").click(function(){
@@ -94,6 +120,7 @@ function collect_rev(){
         snap.forEach(function(child){
             reservation_NF.push(child.val())
         })
+        reservation = snap.val()
         rev_obj = snap.val();
         filterOut_rev();
     })
@@ -133,9 +160,16 @@ function filterOut_rev(){
 
 function inflate_rev(reservation){
     let domTxt = ""
+    console.log(reservation)
 
     for (let i = 0; i < reservation.length; i++) {
-        domTxt += '<div class="rv_content" id="'+reservation[i].id+'"><img class="rv_content_star" src="./assets/icon-star-off.svg"/>'
+        domTxt += '<div class="rv_content" id="'+reservation[i].id+'">'
+        if(reservation[i].star){
+            domTxt+='<div class="rv_content_star rv_content_star--on"></div>'
+        }else{
+            domTxt+='<div class="rv_content_star"></div>'
+        }
+
         domTxt += '<p class="rv_content_memo">안녕하세욪ㅁ다ㅣㅓ메모입니다아아아</p><p class="rv_content_date">'
         domTxt += reservation[i].date + '</p><p class="rv_content_product">'
         domTxt += reservation[i].product.split("_")[2] + '</p><p class="rv_content_pickup">'
@@ -154,7 +188,7 @@ function inflate_rev(reservation){
     let totalNo = reservation_NF.length;
     let filteredNo = $(".rv_content").length;
 
-    $(".r_htop_numbList").html(filteredNo + " / " + totalNo + " Reservations")
+    $(".r_htop_numbList").html("<p class='bold fl_left'>"+filteredNo + "</p><p class='fl_left'>&nbsp;/ " + totalNo + " Reservations</p>")
 
     draw_chart(reservation)
     console.log(reservation)
@@ -207,6 +241,11 @@ function filter_set(div){
 function rev_detail(id){
     let data = rev_obj[id]
     console.log(data)
+    if(data.star){
+        $(".ri_header_star").addClass("ri_header_star--on")
+    }else{
+        $(".ri_header_star").removeClass("ri_header_star--on")
+    }
 
     for (var key in data) {
         if(data[key] == "N/A"){
@@ -231,9 +270,9 @@ function rev_detail(id){
 
     if(data.adult === 0){ //db에 adult 항목이 비어있으면 people을 adult로 간주해 db에 넣음
         firebase.database().ref("reservation/"+data.date+"/"+id+"/adult").set(data.people)
-        $('.rv_info_people').html(data.people+" (adult "+data.people+" / child 0)")
+        $('.rv_info_people').html(data.people+" (adult "+data.people+" / kid 0)")
     }else{
-        $('.rv_info_people').html(data.people+" (adult "+data.adult+" / child "+data.kid+")")
+        $('.rv_info_people').html(data.people+" (adult "+data.adult+" / kid "+data.kid+")")
     }
 
     //팝업창을 띄우고 높이를 조정
@@ -324,7 +363,7 @@ function draw_chart(rv){
             labels:[],
             series:[]
         }
-    }
+    };
 
     for (let keys in cdata.agency) {
         chartist.agency.labels.push(keys);
@@ -343,4 +382,20 @@ function draw_chart(rv){
     new Chartist.Pie('#chart_product', chartist.product);
     new Chartist.Pie('#chart_agency', chartist.agency);
     new Chartist.Pie('#chart_nationality', chartist.nationality);
+}
+
+function re_save(id){
+    let iArray = ["date","product","area","pickupPlace","pickupTime","option","chinese","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
+    for (let i = 0; i < iArray.length; i++) {
+        reservation[id][iArray[i]] = $(".rec .rv_info_"+iArray[i]).val();
+        if(typeof reservation[id][iArray[i]] == "undefined"){
+            reservation[id][iArray[i]] = ""
+        }
+    }
+    let numberArray = ["people","adult","infant","kid"];
+    for (let i = 0; i < numberArray.length; i++) {
+        reservation[id][numberArray[i]] = reservation[id][numberArray[i]]*1
+    }
+    firebase.database().ref("reservation/"+id).set(reservation[id])
+    toast("저장되었습니다")
 }

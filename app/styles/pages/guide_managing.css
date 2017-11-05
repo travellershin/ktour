@@ -166,7 +166,9 @@
                 width: 120px;
                 height: 120px;
                 border-radius: 8px;
-                margin:40px 0 15px 150px;
+                border: 1px solid #e0e0e0;
+                margin:40px 0 15px 148px;
+                background-color: #fafafa;
                 overflow: hidden;
                 position: relative;
             }
@@ -209,6 +211,6 @@
 }
 .gie_mail_gmail{
     line-height: 40px;
-    margin-left: 16px;
+    margin-left: 4px;
     float: left;
 }

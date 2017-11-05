@@ -5,7 +5,16 @@
     padding-top: 30px;
 }
 #drop_r_filter_product{
-    left: 380px !important;
+    left: 360px !important;
+}
+#drop_r_filter_pickupPlace{
+    left: 514px !important;
+}
+#drop_r_filter_nationality{
+    left: 1020px !important;
+}
+#drop_r_filter_agency{
+    left: 1140px !important;
 }
 
 /*날짜 세팅*/
@@ -15,10 +24,18 @@
 
     &_date{
         float: left;
+        &:hover{
+            background-color: rgba(105, 105, 105, 0.025);
+        }
 
         &_txt{
             float: left;
-            margin : 0 12px 0 4px;
+            margin-left:4px;
+            padding-right: 30px;
+            background-image: url(./assets/icon-filter.svg);
+            background-repeat: no-repeat;
+            background-position: right;
+            cursor: pointer;
         }
     }
 
@@ -154,6 +171,14 @@
             margin-left: 12px;
         }
     }
+
+    & .dropbox{
+        border-top: solid 1px #e0e0e0;
+    }
+
+    & .drop_item{
+        padding-left: 30px;
+    }
 }
 
 /*예약 데이터 리스팅*/
@@ -167,9 +192,28 @@
     padding-top: 14px;
     padding-bottom: 14px;
     padding-left: 20px;
+    cursor: pointer;
+    &:hover{
+        background-color: rgba(0, 132, 255, 0.1);
+        border: solid 1px #0084ff;
+    }
+    &:active{
+        background-color: rgba(0, 132, 255, 0.2);
+        border: solid 1px #0084ff;
+    }
 
     &>*{
         float: left;
+    }
+
+    &_star{
+        background-image: url("./assets/icon-star-off.svg");
+        width: 20px;
+        height: 20px;
+
+        &--on{
+            background-image: url("./assets/icon-star-on.svg");
+        }
     }
 
     &>p{
@@ -225,6 +269,9 @@
         padding:9px 15px 9px 15px;
         border-right: solid 1px #e0e0e0;
     }
+    &>p:last-child{
+        border-right: none;
+    }
 
     &--selected{
         background-color: $key_blue;
@@ -244,16 +291,17 @@
 }
 
 .r_stat{
-    height: 400px;
-    width: 100%;
-    margin-top: 30px;
+    height: 330px;
+    width: 980px;
+    margin:0 auto;
+    margin-top: 40px;
     overflow: hidden;
 }
 
 /*차트*/
 .chartsquare{
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     float: left;
     margin-right: 40px;
 
@@ -262,8 +310,8 @@
     }
 }
 #chart_product,#chart_agency,#chart_nationality{
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     float: left;
 }
 .ct-series-a .ct-slice-pie{

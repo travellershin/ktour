@@ -1,11 +1,17 @@
-
+$("body").click(function(){
+    $(".dropbox").addClass("display_none")
+})
 $(document).on("click",".dw_dropdown",function(event){
     let did = $(this).attr("id"); //드롭다운에 쭉 쓰일 id값
+    event.stopPropagation();
 
     if($(this).hasClass("drop_appended")){
         //dropdown이 달린 경우 - 열었다닫았다만
+        if($("#drop_"+did).hasClass("display_none")){
+            $("#drop_"+did).toggleClass("display_none")
+            console.log("토글")
+        }
 
-        $("#drop_"+did).toggleClass("display_none")
 
     }else{
         //dropdown 초기화
@@ -35,8 +41,10 @@ $(document).on("click",".dw_dropdown",function(event){
 })
 
 $(document).on("click",".dw_dndropdown",function(){
+    event.stopPropagation();
     let did = $(this).attr("id"); //드롭다운에 쭉 쓰일 id값
     $("#drop_"+did).toggleClass("display_none")
+    console.log("토글")
 })
 
 function dynamicDrop(div,item){
@@ -77,7 +85,8 @@ function dynamicDrop(div,item){
 
 }
 
-$(document).on("click",".drop_item",function(){
+$(document).on("click",".drop_item",function(event){
+    event.stopPropagation();
     let did = $(this).attr("did");
     if(!$("#"+did).hasClass("multiselect")){
         $("#drop_"+did).addClass("display_none");
@@ -85,7 +94,6 @@ $(document).on("click",".drop_item",function(){
         $("#"+did).attr("value",$(this).html());
         console.log($(this).html())
     }
-
 })
 
 $(document).on("click",".dw_radio",function(){

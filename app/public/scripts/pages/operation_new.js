@@ -166,6 +166,7 @@ $(document).on("click",".ol_busEdit_bus",function(){
             operationData[date][s_product].teams[target_team].reservations[s_rev] = reservationData;
         }
     }
+    toast("예약을 이동했습니다")
     firebase.database().ref("operation/"+date+"/"+s_product).set(operationData[date][s_product])
     showList(s_product)
 })
@@ -527,7 +528,12 @@ function inflate_reservation(rev){
     let domTxt = ""
     console.log(rev)
     for (let i = 0; i < rev.length; i++) {
-        domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'"><img class="rv_content_star" src="./assets/icon-star-off.svg"/>'
+        domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'"><img class="rv_content_star" '
+        if(rev[i].star){
+            domTxt += 'src="./assets/icon-star-on.svg"/>'
+        }else{
+            domTxt += 'src="./assets/icon-star-off.svg"/>'
+        }
         domTxt += '<p class="op_content_bus">'+rev[i].busNumber+'</p><p class="rv_content_date">';
         domTxt += '<p class="op_content_memo">'+rev[i].memo+'</p><p class="rv_content_pickup">';
         domTxt += rev[i].pickupPlace + '</p><p class="rv_content_people">';
@@ -597,9 +603,9 @@ function filter_set(div){
         }
     }
     for (let filterName in adjusted) {
-        for (let i = 0; i < reservation.length; i++) {
-            if(adjusted[filterName].indexOf(reservation[i][filterName])>-1){
-                filteredRev[filterName].push(reservation[i])
+        for (let i = 0; i < op_rev.length; i++) {
+            if(adjusted[filterName].indexOf(op_rev[i][filterName])>-1){
+                filteredRev[filterName].push(op_rev[i])
             }
         }
     }
@@ -609,8 +615,6 @@ function filter_set(div){
             filteredRev.total.push(filteredRev.pickupPlace[i])
         }
     }
-    console.log(filter)
-    console.log(adjusted)
 
     inflate_reservation(filteredRev.total)
 }

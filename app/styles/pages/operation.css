@@ -9,11 +9,23 @@
 
     &_date{
         float: left;
-        width: 130px;
+        width: 136px;
+        padding-right: 48px;
+        background-image: url("./assets/icon-filter.svg");
+        background-repeat: no-repeat;
+        background-position: right 9px top 9px;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(105, 105, 105, 0.025);
+        }
 
         &_txt{
+            cursor: pointer;
+            margin-top: -1px;
             float: left;
-            margin : 0 12px 0 4px;
+            margin-left:6px;
+            width: 85px;
+            background-color: inherit;
         }
     }
 
@@ -28,6 +40,9 @@
             float: left;
             padding:9px 15px 9px 15px;
             border-right: solid 1px #e0e0e0;
+            &:last-child{
+                border-right:none;
+            }
         }
 
         &--selected{

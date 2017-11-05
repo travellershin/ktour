@@ -10,6 +10,7 @@ $(document).on("click",".ag_add", function(){
 })
 $('.ag_footer_save').click(function(){
     agency.save();
+    toast("저장되었습니다")
 })
 $(document).on("click",".ag_agency",function(){
     if(!$(this).hasClass("ag_add")){
@@ -145,7 +146,7 @@ function Agency(){
             byMail: checkMail,
             byClick: checkClick
         })
-        
+
         this.init();
     }
 

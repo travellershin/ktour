@@ -3,12 +3,7 @@ $(document).on('keydown', function(e){
         e.preventDefault();
         if(!$(".pe").hasClass("hidden")){
             save_product();
-            console.log("저장한다!")
-            $("#snackbar").html("저장되었습니다")
-            $("#snackbar").addClass("show")
-            setTimeout(function () {
-                $("#snackbar").removeClass("show")
-            }, 3000);
+            toast("저장되었습니다")
         }
         return false;
     }
@@ -16,11 +11,7 @@ $(document).on('keydown', function(e){
 
 $(".pe_save").click(function(){
     save_product();
-    $("#snackbar").html("저장되었습니다")
-    $("#snackbar").addClass("show")
-    setTimeout(function () {
-        $("#snackbar").removeClass("show")
-    }, 3000);
+    toast("저장되었습니다")
 })
 
 function save_product(){
@@ -234,7 +225,11 @@ function save_product(){
     for (let i = 0; i < data.possibles.length; i++) {
         data.possibles[i] = data.possibles[i].trim();
     }
+
+    console.log(product[key])
     console.log(data)
+
+
 
     firebase.database().ref("product/"+key).set(data)
 

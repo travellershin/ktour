@@ -129,8 +129,7 @@ function set_filter(div){
 function inflate_product(pArray){
     let txt = "";
 
-    $(".p_set_list").html(pArray.length+" / "+Object.keys(product).length +" Product")
-
+    $(".p_set_list").html("<p class='bold fl_left'>"+pArray.length + "</p><p class='fl_left'>&nbsp;/ " + Object.keys(product).length + " Product</p>")
     for (let i = 0; i < pArray.length; i++) {
         let data = product[pArray[i]]
         let area = data.info.area;

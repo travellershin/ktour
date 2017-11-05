@@ -71,7 +71,7 @@
 .c{
     width:1280px;
     margin:0 auto;
-    padding-bottom: 80px;
+    padding-bottom: 180px;
     position: relative;
 }
 
@@ -161,14 +161,15 @@
 .c_filter{
     position: absolute;
     left: -50px;
-    width: 220px;
+    width: 265px;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 0 2px 3px 0 #e0e0e0;
     border: solid 1px #e0e0e0;
-    top:94px;
+    top:91px;
     background-color: white;
     padding:10px 0 10px 0;
+    margin-bottom: 80px;
 
     &_check{
         margin-left: 10px;
@@ -205,6 +206,34 @@
 
     &_all>p{
         font-size: 14px;line-height: 20px;
+    }
+}
+.c_filter_check{
+    margin-right: 38px;
+}
+#total{
+    &>.c_filter_check{
+        margin-right: 6px;
+    }
+    &>p{
+        font-weight: bold;
+        font-size: 15px;
+    }
+}
+#orange_all{
+    &>.c_filter_check{
+        margin-right: 11px;
+    }
+    &>.c_filter_txt{
+        font-weight: bold;
+    }
+}
+#red_all{
+    &>.c_filter_check{
+        margin-right: 11px;
+    }
+    &>.c_filter_txt{
+        font-weight: bold;
     }
 }
 
@@ -262,11 +291,74 @@
     }
 }
 
-
-
 .bgco{
     &_green{background-color: #8bd34a;}
     &_yellow{background-color: #fbe12a;}
     &_orange{background-color: #ffa24d;}
     &_red{background-color: #f55b6e;}
+}
+
+.exp_pop{
+    width: 502px;
+    max-height: 622px;
+    min-height: 522px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+    border: solid 1px #e0e0e0;
+    padding: 40px 10px 0 30px;
+    box-sizing: border-box;
+
+    &_contents{
+        width: 440px;
+        min-height: 420px;
+        max-height: 520px;
+        border: none;
+        font-size: 14px;
+        line-height: 24px;
+        padding-right: 25px;
+    }
+
+    &_footer{
+        overflow: hidden;
+        height: 80px;
+        width: 100%;
+
+        &_mail{
+            margin: 20px 10px 0 10px;
+            float: right;
+            width: 120px;
+            height: 40px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            font-size: 14px;
+            line-height: 38px;
+            color: #ffffff;
+            text-align: center;
+            cursor: pointer;
+
+            &:hover{
+                filter:brightness(1.05);
+            }
+            &:active{
+                filter:brightness(1.15);
+            }
+        }
+        &_close{
+            float: right;
+            width: 90px;
+            height: 40px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: solid 1px #e0e0e0;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            margin-top:20px;
+            cursor: pointer;
+
+        }
+    }
 }

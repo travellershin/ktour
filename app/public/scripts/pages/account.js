@@ -30,6 +30,7 @@ $(".a_htop_add").click(function(){
 })
 $(".a_edit_header_close").click(function(){
     $(".lightBox_shadow").addClass("hidden")
+    $("body").css("overflow","auto")
     $(".a_edit_footer_delete").removeClass("hidden")
 })
 $(document).on("click",".a_item",function(){
@@ -72,6 +73,7 @@ function delete_account(){
         delete rev_obj[aid];
         firebase.database().ref("account/"+aid).remove();
         $(".lightBox_shadow").addClass("hidden");
+        $("body").css("overflow","auto")
     }
 }
 
@@ -106,6 +108,7 @@ function save_account(){
 
         firebase.database().ref("account/"+aid).set(data)
         $(".lightBox_shadow").addClass("hidden")
+        $("body").css("overflow","auto")
     }
 }
 
@@ -114,6 +117,7 @@ function show_account(aid){
     $(".a_edit_header_title").html("ITEM DETAIL");
     $(".a_edit_footer_delete").removeClass("hidden")
     $(".lightBox_shadow").removeClass("hidden")
+    $("body").css("overflow","hidden")
     let data = rev_obj[aid]
     console.log(data)
     $(".a_edit_input_date").val(data.date);
@@ -136,6 +140,7 @@ function show_account(aid){
 
 function add_account(){
     $(".lightBox_shadow").removeClass("hidden")
+    $("body").css("overflow","hidden")
     $(".a_edit").attr("aid",firebase.database().ref().push().key)
     $(".a_edit_header_title").html("NEW ACCOUNT ITEM")
     $(".a_edit_footer_delete").addClass("hidden")

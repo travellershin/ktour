@@ -180,7 +180,7 @@
 }
 
 .pe_wrapper::-webkit-scrollbar-track{border-radius: 10px;}
-.pe_wrapper::-webkit-scrollbar{width: 6px;}
+.pe_wrapper::-webkit-scrollbar{width: 3px;}
 .pe_wrapper::-webkit-scrollbar-thumb{border-radius: 10px;background-color: #e0e0e0;}
 
 

@@ -88,9 +88,11 @@
             width: 120px;
             height: 120px;
             border-radius: 8px;
-            margin:40px 0 15px 196px;
+            background-color: #fafafa;
+            margin:40px 0 15px 195px;
             overflow: hidden;
             position: relative;
+            border: 1px solid #e0e0e0;
         }
     }
 
@@ -210,8 +212,8 @@
        background-color: #0084ff;
        border: solid 1px #0079e9;
        right: 8px;
-       bottom: 8px;
-       background-image: url("./assets/icon-add.svg");
+       bottom: 0;
+       background-image: url("./assets/icon-add-white.svg");
    }
 }
 

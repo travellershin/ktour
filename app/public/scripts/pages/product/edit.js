@@ -209,7 +209,7 @@ function show_detail(pid){
     console.log(data)
     $(".pe").attr("pid",pid);
     if(data.id){
-        $(".pe_header_title").html(data.id.split("_")[2] + " EDIT");
+        $(".pe_header_title").html(data.id.split("_")[2]);
     }else{
         $(".pe_header_title").html("제품명을 입력해주세요")
     }
@@ -235,7 +235,12 @@ function show_detail(pid){
         $(".pe_memo_txt").val("")
     }
 
-    $(".arraydata_possibles").val(data.possibles.join(";\n")); //possibles는 ;으로 분리해 보여줌
+    if(data.possibles){
+        $(".arraydata_possibles").val(data.possibles.join(";\n")); //possibles는 ;으로 분리해 보여줌
+    }else{
+        $(".arraydata_possibles").val("")
+    }
+
 
     for (var i = 0; i < data.info.language.length; i++) {
         if(data.info.language[i]){

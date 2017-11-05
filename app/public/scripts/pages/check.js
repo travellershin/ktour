@@ -12,15 +12,29 @@ $('.c_filter_btn').click(function(){
     mailing.setFilter($(this).attr("id"), $('.c_filter_btn').index($(this)));
 })
 
-//for debugging
-$(document).on("click", ".c_ct", function(){
-    // TODO: funko, 직접예약 등에서 오는 예약은 g메일에서 잡히면 안됨.
-    if(confirm("mail id : "+$(this).attr("id")+"\n"+mailing.debugArray[$(".c_ct").index(this)].detail)){
-        window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id"))
-    }else{
-
-    }
+$(".exp_pop_footer_close").click(function(){
+    $(".insidePop").addClass("hidden");
+    $("body").css("overflow","auto")
 })
+
+$(document).on("click", ".c_ct", function(){
+    if($(this).attr("id").charAt(0)==="N"){
+        $(".exp_pop_footer_mail").addClass("hidden")
+    }else{
+        $(".exp_pop_footer_mail").removeClass("hidden")
+        $(".exp_pop_footer_mail").attr("id",$(this).attr("id"))
+    }
+    $(".insidePop").removeClass("hidden");
+    $("body").css("overflow","hidden");
+    $(".exp_pop_contents").val(mailing.debugArray[$(".c_ct").index(this)].detail)
+})
+
+$(".exp_pop_footer_mail").click(function(){
+    $(".insidePop").addClass("hidden");
+    $("body").css("overflow","auto")
+    window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id"))
+})
+
 
 function Mailing(){
 
@@ -78,7 +92,6 @@ function Mailing(){
 
             for (var key in data) {
                 let dateTime = data[key].date + " " + data[key].time
-                data[key].id = key
                 data[key].newdate = Date.parse(dateTime);
                 this.category.total.push(data[key])
             }
@@ -225,6 +238,7 @@ function Mailing(){
         }
         $('.c_contents').html(txt)
         $(".c_st_box_total_number").html($(".c_ct").length)
+        $(".c_header_top_numbList").html("<p class='bold fl_left'>"+$(".c_ct").length + "</p><p class='fl_left'>&nbsp;/ " + this.category.total.length + " Reservations</p>")
     }
 }
 

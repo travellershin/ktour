@@ -15,22 +15,48 @@
     z-index: 999;
     padding: 8px 0;
     border:solid 1px #e0e0e0;
+    border-top: none;
     border-radius:5px;
-    max-height: 210px;
-    overflow-y: auto;
+    max-height: 250px;
+    overflow-y: auto !important;
+    box-shadow: 0 2px 3px 0 #e0e0e0;
+
+    &::-webkit-scrollbar-track
+    {
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: #e0e0e0;
+    }
 }
 .drop_item{
     cursor: pointer;
-    padding: 0px 24px 3px 26px;
+    padding: 0px 24px 3px 12px;
     font-size: 14px;
     float: none !important;
     border-left: 6px solid white;
     border-top: 3px solid white;
+
+    &:hover{
+        border-color: rgba(224, 224, 224, 0.2);
+    }
+}
+.r_hbot .drop_item{
+    margin-right: 0;
 }
 .drop_item--selected{
     background-image:url("./assets/icon-input-check.svg");
     background-repeat: no-repeat;
     background-origin:padding-box;
+    border-left: 6px solid white;
 }
 
 .dw_multiselected{

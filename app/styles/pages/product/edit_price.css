@@ -146,7 +146,6 @@
 .pep_p_ag{
     box-sizing: border-box;
     padding: 20px;
-    border-radius: 5px;
 
     &_setZone{
         overflow: hidden;
@@ -163,6 +162,7 @@
         margin-bottom: 20px;
         padding: 15px 15px 20px 30px;
         position: relative;
+        border-radius: 5px;
 
         & input{
             text-decoration: underline;
@@ -232,6 +232,7 @@
             border-collapse:collapse;
             border: 1px solid black;
             margin-top: 20px;
+            border-radius: 5px;
 
             & td,th{
                 width: 120px;
@@ -320,8 +321,7 @@
     }
 
     &_add{
-        float: right;
-        margin-right: 20px;
+        float: left;
     }
 }
 
@@ -400,7 +400,6 @@
 
     &_add{
         float: left;
-        margin-left: 495px;
     }
     &_potitle{
         float: left;

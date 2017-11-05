@@ -120,7 +120,7 @@
             <!-- 예약 데이터 클릭시 상세정보 CSS pages/reservation/info-->
             <div class="ri">
                 <div class="ri_header">
-                    <img class="ri_header_star" src="./assets/icon-star-off.svg"/>
+                    <div class="ri_header_star"></div>
                     <p class="ri_header_title">RESERVATION INFO</p>
                     <img class="ri_header_close" src="./assets/icon-close.svg">
                 </div>
@@ -132,7 +132,6 @@
                             <p>AREA</p>
                             <p class="ric_pick">PICKUP PLACE</p>
                             <p>PICKUP TIME</p>
-                            <p>PEOPLE</p>
                             <p>AGENCY</p>
                             <p class="ric_option">OPTION</p>
                             <p>CHINESE</p>
@@ -143,7 +142,6 @@
                             <p class="rv_info_area">-</p>
                             <p class="rv_info_pickupPlace">-</p>
                             <p class="rv_info_pickupTime">-</p>
-                            <p class="rv_info_people">-</p>
                             <p class="rv_info_agency">-</p>
                             <p class="rv_info_option">-</p>
                             <p class="rv_info_chinese">-</p>
@@ -154,19 +152,19 @@
                         <div class="ric_ti">
                             <p class="ric_name">NAME</p>
                             <p>NATIONALITY</p>
+                            <p>PEOPLE</p>
                             <p>TEL</p>
                             <p>MESSENGER</p>
                             <p>E-MAIL</p>
-                            <p>CODE</p>
                             <p>AGENCY CODE</p>
                         </div>
                         <div class="ric_co">
                             <p class="rv_info_clientName">-</p>
                             <p class="rv_info_nationality">-</p>
+                            <p class="rv_info_people">-</p>
                             <p class="rv_info_tel">-</p>
                             <p class="rv_info_messenger">-</p>
                             <p class="rv_info_email">-</p>
-                            <p class="rv_info_code">-</p>
                             <p class="rv_info_agencyCode">-</p>
                         </div>
 
@@ -203,7 +201,6 @@
                             <p>AREA</p>
                             <p>PICKUP PLACE</p>
                             <p>PICKUP TIME</p>
-                            <p class="rec_ti_people">PEOPLE</p>
                             <p>AGENCY</p>
                             <p>OPTION</p>
                             <p>CHINESE</p>
@@ -214,27 +211,13 @@
                                 <input id="singleDate" class="rv_info_date"></input>
                                 <img src="./assets/icon-filter.svg" />
                             </div>
-                            <div class="rec_co_longinput input input_disabled rv_info_product"></div>
+                            <input class="rec_co_longinput input input_disabled rv_info_product" readonly/>
                             <input class="rv_info_area rec_co_longinput input dw_dndropdown" readonly id="rev_areadrop"/>
                             <div><input class="rec_co_longinput input rv_info_pickupPlace dw_dndropdown" readonly id="rev_placedrop"></div>
                             <div class="rec_co_midinput input">
                                 <input class="rv_info_pickupTime" type="time"></input>
                             </div>
-                            <div class="rec_co_box">
-                                <input class="rv_info_people"></input>
-                                <div class="rec_co_box_mini">
-                                    <p class="rec_co_box_mini_txt">Adult</p>
-                                    <input type="number" class="rv_info_adult rec_co_shortinput input"></input>
-                                </div>
-                                <div class="rec_co_box_mini">
-                                    <p class="rec_co_box_mini_txt">Child</p>
-                                    <input type="number" class="rv_info_child rec_co_shortinput input"></input>
-                                </div>
-                                <div class="rec_co_box_mini">
-                                    <p class="rec_co_box_mini_txt">Baby</p>
-                                    <input type="number" class="rv_info_baby rec_co_shortinput input"></input>
-                                </div>
-                            </div>
+
                             <div class="rec_co_longinput input input_disabled rv_info_agency"></div>
                             <div class="rec_co_longinput input">
                                 <input class="rv_info_option"></input>
@@ -250,10 +233,10 @@
                         <div class="rec_ti">
                             <p>NAME</p>
                             <p>NATIONALITY</p>
+                            <p class="rec_ti_people">PEOPLE</p>
                             <p>TEL</p>
                             <p>MESSENGER</p>
                             <p>E-MAIL</p>
-                            <p>CODE</p>
                             <p>AGENCY CODE</p>
                         </div>
                         <div class="rec_co">
@@ -264,6 +247,21 @@
                             <div class="rec_co_longinput input">
                                 <input class="rv_info_nationality"></input>
                             </div>
+                            <div class="rec_co_box">
+                                <input class="rv_info_people" type="number"></input>
+                                <div class="rec_co_box_mini">
+                                    <p class="rec_co_box_mini_txt">Adult</p>
+                                    <input type="number" class="rv_info_adult rec_co_shortinput input"></input>
+                                </div>
+                                <div class="rec_co_box_mini">
+                                    <p class="rec_co_box_mini_txt">Child</p>
+                                    <input type="number" class="rv_info_kid rec_co_shortinput input"></input>
+                                </div>
+                                <div class="rec_co_box_mini">
+                                    <p class="rec_co_box_mini_txt">Baby</p>
+                                    <input type="number" class="rv_info_infant rec_co_shortinput input"></input>
+                                </div>
+                            </div>
                             <div class="rec_co_full input">
                                 <input class="rv_info_tel"></input>
                             </div>
@@ -273,15 +271,12 @@
                             <div class="rec_co_full input">
                                 <input class="rv_info_email"></input>
                             </div>
-                            <div class="rec_co_longinput input input_disabled rv_info_code"></div>
-                            <div class="rec_co_longinput input input_disabled rv_info_agencyCode"></div>
+                            <input class="rec_co_longinput input input_disabled rv_info_agencyCode" readonly spellcheck="false"/>
                         </div>
                     </div>
 
                     <p class="rec_memo">MEMO</p>
-                    <textarea class="rec_memo_txt rv_info_memo">이 손님 전화번호 변경 바랍니다.
-교통비 2400원 현금 빌려줌.
-이메일 주소 변경할 것.</textarea>
+                    <textarea class="rec_memo_txt rv_info_memo"></textarea>
 
                 </div>
                 <div class="re_footer">
@@ -289,9 +284,6 @@
                 </div>
 
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -306,6 +298,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
     <script src='./scripts/module/firebase.js'></script>
     <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/module/toast.js'></script>
     <script src='./scripts/module/date.js'></script>
     <script src='./scripts/pages/reservation_new.js'></script>
     <script src='./scripts/module/dropdown.js'></script>

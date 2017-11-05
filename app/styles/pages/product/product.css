@@ -123,6 +123,11 @@
         width: 405px;
         margin-right: 0;
     }
+
+    & .drop_item{
+        text-align: left !important;
+        padding-left: 30px;
+    }
 }
 
 .pc{
@@ -134,6 +139,14 @@
     margin-top: 8px;
     border-radius: 5px;
     cursor: pointer;
+    &:hover{
+        background-color: rgba(0, 132, 255, 0.1);
+        border: solid 1px #0084ff;
+    }
+    &:active{
+        background-color: rgba(0, 132, 255, 0.2);
+        border: solid 1px #0084ff;
+    }
     &>*{
         float: left;
         margin-right: 25px;
@@ -180,7 +193,13 @@
     }
     &_start{width: 61px;}
     &_end{width: 61px;}
-    &_agency{width: 125px;}
+    &_agency{
+        width: 125px;
+        & .font_grey{
+            font-size: 12px;
+            line-height: 20px;
+        }
+    }
     &_memo{
         width: 405px;
         margin-right: 0;
@@ -199,4 +218,33 @@
 
 #drop_p_header_status{
     left: 22px !important;
+}
+#drop_pei_status,#drop_pei_area{
+    width: 212px !important;
+}
+.pei_meeting_wrapper .dropbox{
+    width: 212px !important;
+}
+#drop_pei_status p{
+    &:first-child{
+        color:#8bc34a;
+    }
+    &:nth-child(2){
+        color:#f54b5e;
+    }
+    &:nth-child(3){
+        color:#ffb75d;
+    }
+}
+#pei_status{
+    font-weight: bold;
+    &[value=ON]{
+        color:#8bc34a;
+    }
+    &[value=STOP]{
+        color:#f54b5e;
+    }
+    &[value=READY]{
+        color:#ffb75d;
+    }
 }

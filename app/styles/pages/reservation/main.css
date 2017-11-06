@@ -84,6 +84,23 @@
         float: right;
         margin-right: 8px;
     }
+    &_newReservation{
+        float: right;
+        margin-right: 8px;
+        background-color: #0084ff;
+        border: solid 1px #0079e9;
+        color: white;
+        &:hover{
+            filter:brightness(1.1);
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+        }
+        &:active{
+            filter:brightness(1.2);
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+        }
+    }
     &_filterSet{
         float: right;
         margin-right: 8px;

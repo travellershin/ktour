@@ -68,6 +68,7 @@
             <p>EXPORT TO EXCEL</p>
         </div>
         <p class="r_htop_filterRemove btn">모든 필터 해제</p>
+        <p class="r_htop_newReservation btn">새 예약</p>
     </div>
 
     <!--헤더 - 아랫부분(예약정보 분류명) CSS pages/reservation/main-->
@@ -284,6 +285,57 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+</div>
+<div class="r_add_wrapper hidden">
+    <div class="r_add">
+        <div class="r_add_header">
+            <p>NEW RESERVATION</p>
+        </div>
+        <div class="r_add_body">
+            <div class="r_add_title">
+                <p class="r_add_title_date">DATE</p>
+                <p class="r_add_title_product">PRODUCT</p>
+                <p class="r_add_title_pickupPlace">PICKUP PLACE</p>
+                <p class="r_add_title_people">PEOPLE</p>
+                <hr>
+                <p class="r_add_title_name">NAME</p>
+                <p class="r_add_title_nationality">NATIONALITY</p>
+                <p class="r_add_title_agency">AGENCY</p>
+                <p class="r_add_title_tel">TEL</p>
+                <p class="r_add_title_email">E-MAIL</p>
+                <p class="r_add_title_messenger">MESSENGER</p>
+                <p class="r_add_title_option">OPTION</p>
+                <p class="r_add_title_chinese">CHINESE</p>
+                <p class="r_add_title_code">CODE</p>
+                <p class="r_add_title_agencyCode">AGENCY CODE</p>
+                <p class="r_add_title_memo">MEMO</p>
+            </div>
+            <div class="r_add_input">
+                <input class="r_add_input_date r_add_input--drop r_add_input--mid"/>
+                <input class="r_add_input_product r_add_input--drop" value="" spellcheck="false"/>
+                <div class="r_add_productDrop hidden"></div>
+                <input class="r_add_input_pickupPlace r_add_input--drop" readonly/>
+                <div class="r_add_pickDrop hidden"></div>
+                <input type="number" class="r_add_input_people r_add_input--short">
+                <hr>
+                <input class="r_add_input_name" placeholder="Unknown">
+                <input class="r_add_input_nationality" placeholder="Unknown">
+                <input class="r_add_input_agency" placeholder="Unknown">
+                <input class="r_add_input_tel" placeholder="Unknown">
+                <input class="r_add_input_email" placeholder="Unknown">
+                <input class="r_add_input_messenger" placeholder="Unknown">
+                <input class="r_add_input_option" placeholder="Unknown">
+                <input class="r_add_input_chinese" placeholder="Unknown">
+                <input class="r_add_input_code" placeholder="Unknown">
+                <input class="r_add_input_agencyCode" placeholder="Unknown">
+                <textarea class="r_add_input_memo" spellcheck="false"></textarea>
+            </div>
+        </div>
+        <div class="r_add_footer">
+            <div class="r_add_footer_save">SAVE</div>
+            <div class="r_add_footer_cancel">CANCEL<div>
         </div>
     </div>
 </div>

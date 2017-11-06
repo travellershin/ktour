@@ -11,6 +11,7 @@
 @import "pages/reservation/main";
 @import "pages/reservation/info";
 @import "pages/reservation/edit";
+@import "pages/reservation/add";
 
 @import "pages/operation/busedit";
 @import "pages/operation/buslist";

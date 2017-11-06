@@ -1,4 +1,5 @@
 let mailing = new Mailing
+let setfilter = "total"
 
 $(document).ready(function(){
     mailing.init();
@@ -10,6 +11,7 @@ $('.c_header_bottom_type').click(function(){
 
 $('.c_filter_btn').click(function(){
     mailing.setFilter($(this).attr("id"), $('.c_filter_btn').index($(this)));
+    setfilter = $(this).attr("id");
 })
 
 $(".exp_pop_footer_close").click(function(){
@@ -211,7 +213,7 @@ function Mailing(){
             $('.cc_high').html(this.category.price.length + this.category.time.length + this.category.bus.length + this.category.option.length + this.category.product_closed.length + this.category.product.length + this.category.pickup.length);
             $('.cc_vhigh').html(this.category.bot.length+this.category.unresponsible.length+this.category.unparsable.length+this.category.network.length+this.category.process.length+this.category.multiple.length +this.category.integrity.length+this.category.type.length);
 
-            this.show("total")
+            this.show(setfilter)
 
         });
         //데이터 분류
@@ -237,7 +239,7 @@ function Mailing(){
             txt += '</p></div>'
         }
         $('.c_contents').html(txt)
-        $(".c_st_box_total_number").html($(".c_ct").length)
+        $(".c_st_box_total_number").html(this.category.total.length)
         $(".c_header_top_numbList").html("<p class='bold fl_left'>"+$(".c_ct").length + "</p><p class='fl_left'>&nbsp;/ " + this.category.total.length + " Reservations</p>")
     }
 }

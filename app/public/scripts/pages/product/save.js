@@ -218,6 +218,8 @@ function save_product(){
 
     data.cost.bus = bus
 
+    data.cost.wage = $(".pei_wage").val()*1
+
 
     data.id = data.info.area+"_"+data.info.category+"_"+data.info.name;
     data.possibles = $(".pei_possibles").val().split(";")

@@ -45,6 +45,7 @@
         box-shadow: 0 2px 3px 0 #e0e0e0;
         border: solid 1px #171b22;
         padding: 10px 0;
+        z-index: 9999;
 
         &>p{
             height: 40px;

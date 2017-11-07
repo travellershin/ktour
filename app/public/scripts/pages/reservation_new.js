@@ -84,7 +84,6 @@ $(".r_hbot").on("click",".drop_item",function(event){
         $("#drop_"+did).addClass("display_none");
         $("#"+did).val($(this).html());
         $("#"+did).attr("value",$(this).html());
-        console.log($(this).html())
     }
 })
 $(document).on("click", ".re_header_close", function(){
@@ -110,11 +109,9 @@ $(document).on("click", ".re_footer_save", function(){
 })
 $(document).on("click", ".rv_content_star", function(event){
     if($(this).hasClass("rv_content_star--on")){
-        console.log("스타를 지웁니다")
         $(this).removeClass("rv_content_star--on")
         firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(false)
     }else{
-        console.log("스타를 부여합니다")
         $(this).addClass("rv_content_star--on")
         firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(true)
     }
@@ -226,7 +223,6 @@ function inflate_rev(reservation){
     $(".r_htop_numbList").html("<p class='bold fl_left'>"+filteredNo + "</p><p class='fl_left'>&nbsp;/ " + totalNo + " Reservations</p>")
 
     draw_chart(reservation)
-    console.log(reservation)
 }
 
 function filter_set(div){
@@ -268,7 +264,6 @@ function filter_set(div){
             filteredRev.total.push(filteredRev.product[i])
         }
     }
-    console.log(filteredRev)
 
     inflate_rev(filteredRev.total);
 }
@@ -408,7 +403,6 @@ function collect_pickupPlace(){
 }
 
 function draw_chart(rv){
-    console.log(rv)
     let cdata = {
         agency:{},
         product:{},
@@ -423,7 +417,6 @@ function draw_chart(rv){
             }
         }
     }
-    console.log(cdata)
     chartist = { //자료구조 명시를 위해 열어놓음
         agency:{
             labels:[],
@@ -451,7 +444,6 @@ function draw_chart(rv){
         chartist.product.labels.push(keys.split("_")[2]);
         chartist.product.series.push(cdata.product[keys])
     }
-    console.log(chartist.product)
 
     new Chartist.Pie('#chart_product', chartist.product);
     new Chartist.Pie('#chart_agency', chartist.agency);
@@ -475,7 +467,6 @@ function re_save(id){
 }
 
 function inputSearch(txt){
-    console.log(txt)
     searchArray = []
     if(txt === ""){
         searchArray = pNameArray

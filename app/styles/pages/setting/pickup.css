@@ -17,6 +17,10 @@
     &_addCity{
         width: 170px;
     }
+    &_addCountry{
+        width: 200px;
+        margin-bottom: 40px;
+    }
 
     &_cityName{
         text-decoration: underline;

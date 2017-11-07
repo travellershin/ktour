@@ -92,8 +92,10 @@ function pickup_save(){
                 citydata[city][pickupPlace] = [];
 
                 for (var k = 0; k < $(".pickup_placebox2").eq(i).find(".pickup_place_possibleBox").eq(j).find(".pickup_possible_txt").length; k++) {
-                    let possibles = $(".pickup_placebox2").eq(i).find(".pickup_place_possibleBox").eq(j).find(".pickup_possible_txt").eq(k).html();
-                    citydata[city][pickupPlace].push(possibles)
+                    if(!$(".pickup_placebox2").eq(i).find(".pickup_place_possibleBox").eq(j).find(".pickup_possible").eq(k).hasClass("hidden")){
+                        let possibles = $(".pickup_placebox2").eq(i).find(".pickup_place_possibleBox").eq(j).find(".pickup_possible_txt").eq(k).html();
+                        citydata[city][pickupPlace].push(possibles)
+                    }
                 }
             }
         }

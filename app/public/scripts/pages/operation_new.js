@@ -22,7 +22,6 @@ $(document).ready(function(){
     })
     firebase.database().ref("reservation").orderByChild("date").equalTo(datestring.today()).on("value",snap => {
         reservation[datestring.today()] = snap.val();
-        console.log(reservation)
     })
 })
 
@@ -69,7 +68,6 @@ $(document).on("click",".omp_list",function(){
 $(document).on("click",".ol_bus_total",function(){
     filter_init();
     inflate_reservation(op_rev)
-    console.log(op_rev)
     $(".ol_bus_box").removeClass("ol_bus_box--selected")
     $(this).addClass("ol_bus_box--selected")
 })
@@ -186,14 +184,12 @@ $(".ol_busEdit_done").click(function(){
 $(document).on("click",".ol_bus_add",function(){
     let date = new Date();
     date = date.getTime()
-    console.log(date)
     addbus();
 
 })
 
 
 function getOperationData(date){
-    console.log(date+" 예약을 불러옵니다")
     if(operationData[date]){
         inflate_data()
     }else{
@@ -275,7 +271,6 @@ function inflate_data(){
 function teamPop(div){
     let tid = div.attr("tid");
     let pid = div.attr("pid");
-    console.log(pid)
     let teamObj = operationData[date][pid].teams[tid]
     let busno = operationData[date][pid].teamArgArray.indexOf(tid)
     $(".om_pop").css("left",event.pageX +10 + "px")
@@ -311,7 +306,6 @@ function editTeam(div){
         }
         let busnameArray = []
         let bussizeno = 0;
-        console.log(productdata)
         for (let i = 0; i < productdata.cost.bus.length; i++) {
             busnameArray.push(productdata.cost.bus[i].name);
             if($("#op_bus_company").val() === productdata.cost.bus[i].name){
@@ -366,20 +360,17 @@ function editTeam(div){
 
 function changeBusCompany(busname){
     let pid = $(".omp_edit").attr("pid");
-    console.log(pid)
     firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
         let data = snap.val();
         let productdata = {}
         for (let key in data) {
             productdata = data[key]
         }
-        console.log(productdata)
         let bussizeno = 0;
         let busnameArray = [];
         let bussizeArray = [];
         for (let i = 0; i < productdata.cost.bus.length; i++) {
             if(busname === productdata.cost.bus[i].name){
-                console.log(busname + "얍얍")
                 bussizeno = i
             }
         }
@@ -446,7 +437,6 @@ function init_op_datepicker(){
         }
         firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
             reservation[date] = snap.val();
-            console.log(reservation)
         })
     })
 }
@@ -468,15 +458,11 @@ function showList(pid){
     op_rev = []
 
     bustxt+='<div class="ol_bus_total ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
-    console.log(operationData)
 
     for (let i = 0; i < data.teamArgArray.length; i++) {
         busEditTxt += '<p class="ol_busEdit_bus" tid="'+data.teamArgArray[i]+'">BUS '+(i+1)+'</p>'
-        console.log(data.teams[data.teamArgArray[i]].reservations)
 
         for (let revkey in data.teams[data.teamArgArray[i]].reservations) {
-
-            console.log(data.teams[data.teamArgArray[i]].reservations[revkey])
 
             let reservation_data = {
                 id:revkey,
@@ -526,7 +512,6 @@ function showList(pid){
 
 function inflate_reservation(rev){
     let domTxt = ""
-    console.log(rev)
     for (let i = 0; i < rev.length; i++) {
         domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'"><img class="rv_content_star" '
         if(rev[i].star){
@@ -575,7 +560,6 @@ function filterOut_rev(rev){
     dynamicDrop($("#r_filter_pickupPlace"),filter.pickupPlace);
     dynamicDrop($("#r_filter_nationality"),filter.nationality);
     dynamicDrop($("#r_filter_agency"),filter.agency);
-    console.log(filter)
 }
 
 function filter_set(div){
@@ -625,7 +609,6 @@ function addbus(){
     $(".obe_header_title").html($(".ol_title").html().split("_")[2])
 
     let pid = $(".ol_title").html();
-    console.log(pid)
     let tid = firebase.database().ref("operation/"+date+"/"+pid+"/teams").push().key;
     let time = new Date();
     time = time.getTime()
@@ -635,7 +618,6 @@ function addbus(){
     let teamdata = {};
     firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
         let data = snap.val();
-        console.log(data)
         let productdata = {}
         for (let key in data) {
             productdata = data[key]
@@ -704,7 +686,6 @@ function filter_init(){
 
 function rev_detail(id){
     let data = reservation[date][id]
-    console.log(reservation[date][id])
 
     for (var key in data) {
         if(data[key] == "N/A"){

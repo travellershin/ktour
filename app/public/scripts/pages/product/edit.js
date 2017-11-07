@@ -3,6 +3,11 @@
 $(document).on("click", ".pc", function(){ //개별 프로덕트 클릭 -> Edit창 열기
     show_detail($(this).attr('id'));
 })
+$(document).keyup(function(){
+    if(event.key === "Escape"){
+        close_detail();
+    }
+})
 $(".pe_header_close").click(function(){ //Edit창 닫기
     close_detail();
 })
@@ -136,7 +141,6 @@ let apg = {
 $(".pe_tab_agency").on("click",".dw_radio",function(){
     originGroup = $(this).parent().attr("rstat").toLowerCase();
     changedGroup =  $(this).html().toLowerCase();
-    console.log(apg)
 
 })
 
@@ -357,10 +361,8 @@ function show_detail(pid){
     for (let priceCode in price) {
         if(price[priceCode].forAll){
             $("#"+priceCode).find(".pei_forall").addClass("cb_checked")
-            console.log("forall")
         }else{
             $(".pei_forall").removeClass("cb_checked")
-            console.log("not forall")
         }
     }
 
@@ -426,8 +428,6 @@ function show_detail(pid){
 
     if(data.cost){
         if(cost.bus){
-            console.log(cost.bus)
-            console.log("버스 데이터가 있다");
             for (let i = 0; i < cost.bus.length; i++) {
                 busTxt+='<div class="pep_p_bus"><img class="pep_p_bus_remove" src="./assets/icon-close.svg"/><input class="pep_p_bus_name"><table class="pep_p_bus_price" border="1"><tr><th>PEOPLE</th><th>PRICE</th></tr>';
 
@@ -453,6 +453,11 @@ function show_detail(pid){
             }
         }else{
             console.log("bus 데이터가 없다");
+        }
+        if(cost.wage){
+            $(".pei_wage").val(cost.wage)
+        }else{
+            $(".pei_wage").val(0)
         }
     }else{
         console.log("cost 데이터가 없다");
@@ -600,7 +605,6 @@ function setAgencyPrice(div){
     for (let i = 0; i < agencyArray.length; i++) {
         unassignedGroup.push(agencyArray[i])
     }
-    console.log(unassignedGroup)
 
     let txt = ""
 

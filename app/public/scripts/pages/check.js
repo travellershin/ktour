@@ -240,7 +240,7 @@ function Mailing(){
         }
         $('.c_contents').html(txt)
         $(".c_st_box_total_number").html(this.category.total.length)
-        $(".c_header_top_numbList").html("<p class='bold fl_left'>"+$(".c_ct").length + "</p><p class='fl_left'>&nbsp;/ " + this.category.total.length + " Reservations</p>")
+        $(".c_header_top_numbList").html("<p class='bold fl_left'>"+$(".c_ct").length + "</p><p class='fl_left'>&nbsp;/ " + this.category.total.length + " Exceptions</p>")
     }
 }
 

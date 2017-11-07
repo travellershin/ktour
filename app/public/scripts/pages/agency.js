@@ -72,10 +72,16 @@ function Agency(){
             if(data.byClick){
                 $(".ag_auto_click>radio").addClass("ag_info_auto2--selected")
                 $(".ag_auto_click>radio").removeClass("ag_info_auto2--unselected")
+            }else{
+                $(".ag_auto_click>radio").removeClass("ag_info_auto2--selected")
+                $(".ag_auto_click>radio").addClass("ag_info_auto2--unselected")
             };
             if(data.byMail){
                 $(".ag_auto_mail>radio").addClass("ag_info_auto2--selected")
                 $(".ag_auto_mail>radio").removeClass("ag_info_auto2--unselected")
+            }else{
+                $(".ag_auto_mail>radio").removeClass("ag_info_auto2--selected")
+                $(".ag_auto_mail>radio").addClass("ag_info_auto2--unselected")
             };
             $(".ag_info_domain").val(data.domain);
             $(".ag_info_subject").val(data.subject);
@@ -127,12 +133,15 @@ function Agency(){
 
         if($(".ag_auto_yes>radio").hasClass("ag_info_auto--unselected")){
             checkAuto = false;
+            console.log("오토싫어")
         }
         if($(".ag_auto_mail>radio").hasClass("ag_info_auto2--unselected")){
             checkMail = false;
+            console.log("메일링싫어")
         }
         if($(".ag_auto_click>radio").hasClass("ag_info_auto2--unselected")){
             checkClick = false;
+            console.log("클릭싫어")
         }
 
         firebase.database().ref("agency/"+agencyKey).set({

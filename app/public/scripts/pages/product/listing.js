@@ -30,7 +30,6 @@ function collect_data(){
         for (let key in agency) {
             agencyArray.push(agency[key].name)
         }
-        console.log(agencyArray)
     });
     firebase.database().ref("place/city").on("value", snap => {
         cityArray = []

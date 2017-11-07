@@ -441,6 +441,7 @@ textarea::-webkit-scrollbar-thumb
                 box-shadow: 0 2px 3px 0 #e0e0e0;
         border: solid 1px #171b22;
         padding: 10px 0;
+        z-index: 9999;
     }
 .header_drop>p{
             height: 40px;
@@ -1457,6 +1458,7 @@ textarea::-webkit-scrollbar-thumb
         }
 .rec_co{
         float: left;
+        width: 242px;
     }
 .rec_co>p{
             font-size: 14px;
@@ -4381,6 +4383,10 @@ textarea.pi_content:focus {
 .pep_title:first-child{
         margin-top:30px;
     }
+.pep_title--guide{
+        float: left;
+        line-height: 58px;
+    }
 .closeContext{
     width: 250px;
     height: 40px;
@@ -4661,6 +4667,29 @@ textarea.pi_content:focus {
         }
 .pep_p_as_add{
         float: left;
+    }
+.pep_p_gu_box{
+    overflow: hidden;
+    margin-top: 40px;
+    float: left;
+}
+.pei_wage{
+    float: left;
+    height: 40px;
+    width: 100px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 14px;
+    padding-right: 12px;
+    text-align: right;
+    margin-left: 16px;
+}
+.pei_wage_txt{
+        float: left;
+        line-height: 40px;
+        margin-left: 8px;
     }
 .pei_forall{
 
@@ -4969,6 +4998,10 @@ textarea.pi_content:focus {
 .pickup_addCity{
         width: 170px;
     }
+.pickup_addCountry{
+        width: 200px;
+        margin-bottom: 40px;
+    }
 .pickup_cityName{
         text-decoration: underline;
         height: 30px;
@@ -5079,6 +5112,61 @@ textarea.pi_content:focus {
 .pickup_save:active{
         background-color:#189bff;
     }
+.nat_box{
+    width: 1180px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+.input_nat{
+        height: 40px;
+        line-height: 40px;
+        text-decoration: underline;
+        margin-left: 30px;
+        font-size: 14px;
+        float: left;
+        width: 220px;
+        margin-right: 30px;
+    }
+.input_nat_possibleDiv{
+            min-height: 40px;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            border: 1px solid #d0d0d0;
+            width: 900px;
+            float: left;
+            border-radius: 5px;
+            overflow: hidden;
+            padding-bottom: 6px;
+            cursor: text;
+        }
+.input_nat_possible{
+            overflow: hidden;
+            float: left;
+            padding: 4px 8px;
+            border-radius: 5px;
+            background-color: rgb(240,240,240);
+            height: 20px;
+            margin: 5px 0 0 8px;
+        }
+.input_nat_possible_txt{
+                font-size: 13px;
+                line-height: 20px;
+                float: left;
+                margin-right: 6px;
+            }
+.input_nat_possible_close{
+                width: 12px;
+                margin-top: 5px;
+                cursor: pointer;
+            }
+.input_nat_possible_new{
+                height: 28px;
+                float: left;
+                line-height: 28px;
+                margin-top: 5px;
+                margin-left: 10px;
+                width: 110px;
+            }
 .account_wrapper{
     width:1280px;
     padding-bottom: 80px;

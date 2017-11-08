@@ -80,9 +80,10 @@ function Mailing(){
                 multiple : [],
                 time : [],
                 price : [],
+                manual : [],
                 bus : [],
                 red_all : [],
-                process : [],
+                app : [],
                 bot : [],
                 integrity : [],
                 unparsable : [],
@@ -132,6 +133,12 @@ function Mailing(){
                         this.category.pickup.push(this.category.total[i]);
                         break;
 
+                    case "NOT_AUTO":
+                        this.category.total[i].color = "orange"
+                        this.category.orange_all.push(this.category.total[i]);
+                        this.category.manual.push(this.category.total[i]);
+                        break;
+
                     case "UNKNOWN_OPTION":
                         this.category.total[i].color = "orange"
                         this.category.orange_all.push(this.category.total[i]);
@@ -162,10 +169,10 @@ function Mailing(){
                         this.category.multiple.push(this.category.total[i]);
                         break;
 
-                    case "PROCESS_DIED":
+                    case "APP_DIED":
                         this.category.total[i].color = "red"
                         this.category.red_all.push(this.category.total[i]);
-                        this.category.process.push(this.category.total[i]);
+                        this.category.app.push(this.category.total[i]);
                         break;
 
                     case "BOT_DIED":

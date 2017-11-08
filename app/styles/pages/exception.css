@@ -360,5 +360,14 @@
             cursor: pointer;
 
         }
+
+        &_delete{
+            float: right;
+            margin:20px 10px 0 0 ;
+
+            &>p{
+                color: #f54b5e;
+            }
+        }
     }
 }

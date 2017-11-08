@@ -28,6 +28,8 @@ $(document).on("click", ".c_ct", function(){
     }
     $(".insidePop").removeClass("hidden");
     $("body").css("overflow","hidden");
+    $(".exp_pop_footer_delete").attr("id",$(this).attr("key"))
+    console.log($(this).attr("key"))
     $(".exp_pop_contents").val(mailing.debugArray[$(".c_ct").index(this)].detail)
 })
 
@@ -36,6 +38,20 @@ $(".exp_pop_footer_mail").click(function(){
     $("body").css("overflow","auto")
     window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id"))
 })
+
+$(".c_header_top_gmail").click(function(){
+    window.open("https://mail.google.com/mail/u/0/#inbox/")
+})
+
+$(".exp_pop_footer_delete").click(function(){
+    let key = $(this).attr("id")
+    console.log(key)
+    firebase.database().ref("exception/"+key).remove();
+    $(".insidePop").addClass("hidden")
+    $("body").css("overflow","auto")
+})
+
+
 
 
 function Mailing(){
@@ -97,6 +113,7 @@ function Mailing(){
                 let dateTime = data[key].date + " " + data[key].time
                 data[key].newdate = Date.parse(dateTime);
                 this.category.total.push(data[key])
+                data[key].key = key
             }
             console.log(this.category.total)
 
@@ -218,7 +235,7 @@ function Mailing(){
             $('.cc_low').html(this.category.agency.length);
             $('.cc_mid').html(this.category.subject.length);
             $('.cc_high').html(this.category.price.length + this.category.time.length + this.category.bus.length + this.category.option.length + this.category.product_closed.length + this.category.product.length + this.category.pickup.length);
-            $('.cc_vhigh').html(this.category.bot.length+this.category.unresponsible.length+this.category.unparsable.length+this.category.network.length+this.category.process.length+this.category.multiple.length +this.category.integrity.length+this.category.type.length);
+            $('.cc_vhigh').html(this.category.bot.length+this.category.unresponsible.length+this.category.unparsable.length+this.category.network.length+this.category.app.length+this.category.multiple.length +this.category.integrity.length+this.category.type.length);
 
             this.show(setfilter)
 
@@ -239,7 +256,7 @@ function Mailing(){
 
         for (var i = 0; i < this.category[filter].length; i++) {
 
-            txt += '<div class="c_ct" id="'+this.category[filter][i].id+'">'
+            txt += '<div class="c_ct" key="'+this.category[filter][i].key+'" id="'+this.category[filter][i].id+'">'
             txt+='<div class="c_ct_type centering_hor"><div class="c_ct_type_circle bgco_'
             txt += this.category[filter][i].color + '"></div></div><p class="c_ct_date">' + this.category[filter][i].date + " " + this.category[filter][i].time
             txt += '</p><p class="c_ct_company">' + this.category[filter][i].err + '</p><p class="c_ct_title">' + this.category[filter][i].detail

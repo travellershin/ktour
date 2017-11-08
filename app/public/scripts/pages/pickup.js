@@ -65,8 +65,8 @@ function add_city(){
     let txt = "";
 
     txt+='<div class="pickup_cityBox"><input class="pickup_cityName" value="" placeholder="City Name" spellcheck="false"/>';
-    txt+='<div class="pickup_placeBox"><input class="pickup_place" value="" placeholder="Pickup Place" spellcheck="false"/><div class="pickup_place_possibleBox">'
-    txt+='<input class="pickup_possible_new"/></div></div><p class="pickup_place_new">+ Add Pickup Place</p></div>'
+    txt+='<div class="pickup_placebox2"><div class="pickup_placeBox"><input class="pickup_place" value="" placeholder="Pickup Place" spellcheck="false"/><div class="pickup_place_possibleBox">'
+    txt+='<div class="pickup_place_possibleBox2"></div><input class="pickup_possible_new"/></div></div><p class="pickup_place_new">+ Add Pickup Place</p></div></div>'
 
     $(".pickup").append(txt)
 }

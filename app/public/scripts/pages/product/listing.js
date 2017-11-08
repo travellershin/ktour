@@ -149,10 +149,6 @@ function inflate_product(pArray){
         let price_child = '32,000'
         let net_adult = '132,000'
         let net_child = '32,000'
-        let agency_total = 0
-        if(data.agency){
-            agency_total = Object.keys(data.agency).length;
-        }
         let agency_ongoing = 0;
         let agency_screening = 0;
         let agency_rejected = 0;
@@ -161,11 +157,11 @@ function inflate_product(pArray){
                 agency_ongoing++
             }else if(data.agency[agency_status] === "Screening"){
                 agency_screening++
-            }else{
+            }else if(data.agency[agency_status] === "Rejected"){
                 agency_rejected++
             }
         }
-
+        let agency_total = agency_ongoing + agency_screening + agency_rejected
         txt+= '<div class="pc" id="'+pArray[i]+'"><div class="pc_status"><div class="bgco_'+bgco+'">'+inf_status.toUpperCase()+'</div></div><p class="pc_area">'+area+'</p><p class="pc_category">'+category+'</p><p class="pc_product">'+name+'</p>'
         txt+= '<p class="pc_start">'+start+'</p><p class="pc_end">'+end+'</p><div class="pc_agency"><p>'+agency_total+'개</p><p class="font_grey">(진행'+agency_ongoing+' 심사'+agency_screening+' 거절'+agency_rejected+')</p></div>'
         if(data.info.memo){

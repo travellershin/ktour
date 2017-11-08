@@ -907,6 +907,13 @@ textarea::-webkit-scrollbar-thumb
             cursor: pointer;
 
         }
+.exp_pop_footer_delete{
+            float: right;
+            margin:20px 10px 0 0 ;
+        }
+.exp_pop_footer_delete>p{
+                color: #f54b5e;
+            }
 .r{
     width:1280px;
     padding-bottom: 80px;
@@ -1131,6 +1138,7 @@ textarea::-webkit-scrollbar-thumb
 .rv_content_memo{
         margin-left: 20px;
         width: 220px;
+        height: 20px !important;
     }
 .rv_content_date{
         width: 100px;

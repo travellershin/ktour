@@ -145,6 +145,60 @@ $(".r_set_chartToggle").click(function(){
         $(this).html("차트 열기")
     }
 })
+$(".r_htop_newReservation").click(function(){
+    $(".r_add_wrapper").removeClass("hidden")
+    $(".r_add_input>input").val("")
+    $(".r_add_input_date").val(datestring.tomorrow())
+    $(".r_add_input_date").data('daterangepicker').setStartDate(datestring.tomorrow());
+    $(".r_add_input_date").data('daterangepicker').setEndDate(datestring.tomorrow());
+})
+$(".r_add_footer_cancel").click(function(){
+    $(".r_add_wrapper").addClass("hidden")
+})
+$(".r_add_footer_save").click(function(){
+    let rdata = {
+        date:"",
+        product:"",
+        pickupPlace:"",
+        people:0,
+        name:"Unknown",
+        nationality:"Unknown",
+        agency:"Unknown",
+        tel:"Unknown",
+        email:"Unknown",
+        messenger:"Unknown",
+        option:"",
+        chinese:"",
+        agencyCode:"Unknown",
+        memo:"",
+    }
+    if($(".r_add_input_product").val()===""||$(".r_add_input_pickupPlace").val()===""||$(".r_add_input_people").val()===""){
+        toast("필수정보가 다 입력되지 않았습니다")
+        return false
+    }
+    for (let key in rdata) {
+        if($(".r_add_input_"+key).val()!==""){
+            rdata[key] = $(".r_add_input_"+key).val()
+        }
+    }
+    let key = firebase.database().ref().push().key
+    rdata.reservedDate = datestring.today();
+    rdata.reservedTime = "00:00"
+    rdata.people = rdata.people*1
+    rdata.area = rdata.product.split("_")[0];
+    rdata.id = "NM_"+key
+    if(rdata.memo===""){
+        rdata.memo==="N/A"
+    }
+    console.log(rdata)
+
+    firebase.database().ref("reservation/NM_"+key).set(rdata);
+
+})
+function myCallback(data){
+    alert(data)
+}
+
 
 function collect_rev(){
     firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
@@ -192,7 +246,6 @@ function filterOut_rev(){
 
 function inflate_rev(reservation){
     let domTxt = ""
-    console.log(reservation)
 
     for (let i = 0; i < reservation.length; i++) {
         domTxt += '<div class="rv_content" id="'+reservation[i].id+'">'
@@ -201,7 +254,7 @@ function inflate_rev(reservation){
         }else{
             domTxt+='<div class="rv_content_star"></div>'
         }
-
+        if(reservation[i].memo==="N/A"){reservation[i].memo="-"}
         domTxt += '<p class="rv_content_memo" title="'+reservation[i].memo+'">'+reservation[i].memo+'</p><p class="rv_content_date">'
         domTxt += reservation[i].date + '</p><p class="rv_content_product">'
         domTxt += reservation[i].product.split("_")[2] + '</p><p class="rv_content_pickup">'
@@ -342,7 +395,8 @@ function datepicker_init(){
     $('.r_add_input_date').daterangepicker({
         "autoApply": true,
         singleDatePicker: true,
-        locale: { format: 'YYYY-MM-DD'}
+        locale: { format: 'YYYY-MM-DD'},
+        startDate:datestring.tomorrow()
     })
 }
 
@@ -403,20 +457,58 @@ function collect_pickupPlace(){
 }
 
 function draw_chart(rv){
+
+
     let cdata = {
         agency:{},
         product:{},
         nationality:{}
     }
+    let sub = 0
     for (let keys in cdata) {
         for (let i = 0; i < rv.length; i++) {
             if(cdata[keys][rv[i][keys]]){
-                cdata[keys][rv[i][keys]]+= rv[i].people
+                cdata[keys][rv[i][keys]]+= rv[i].people*1
             }else{
-                cdata[keys][rv[i][keys]] = rv[i].people
+                cdata[keys][rv[i][keys]] = rv[i].people*1
+            }
+            sub+=rv[i].people*1
+        }
+    }
+
+    sub = sub/3
+
+    let etc = {
+        agency:0,
+        product:0,
+        nationality:0
+    }
+    for (let keys in cdata) {
+        for (let yolo in cdata[keys]) {
+            if(cdata[keys][yolo]/sub<0.05){
+                etc[keys]+=cdata[keys][yolo];
+                delete  cdata[keys][yolo]
             }
         }
     }
+
+    let sort = {agency:[],product:[],nationality:[]};
+    for (let keys in cdata) {
+        for (let yolo in cdata[keys]) {
+            sort[keys].push([yolo,cdata[keys][yolo]])
+        }
+        sort[keys].sort(function(a, b) {
+            return b[1] - a[1];
+        });
+    }
+    for (let key in etc) {
+        if(etc[key]>0){
+            sort[key].push(["etc",etc[key]])
+        }
+    }
+
+
+
     chartist = { //자료구조 명시를 위해 열어놓음
         agency:{
             labels:[],
@@ -431,18 +523,22 @@ function draw_chart(rv){
             series:[]
         }
     };
+    for (let i = 0; i < sort.agency.length; i++) {
+        chartist.agency.labels.push(sort.agency[i][0]);
+        chartist.agency.series.push(sort.agency[i][1])
+    }
+    for (let i = 0; i < sort.nationality.length; i++) {
+        chartist.nationality.labels.push(sort.nationality[i][0]);
+        chartist.nationality.series.push(sort.nationality[i][1])
+    }
+    for (let i = 0; i < sort.product.length; i++) {
+        if(sort.product[i][0]==="etc"){
+            chartist.product.labels.push("etc");
+        }else{
+            chartist.product.labels.push(sort.product[i][0].split("_")[2]);
+        }
 
-    for (let keys in cdata.agency) {
-        chartist.agency.labels.push(keys);
-        chartist.agency.series.push(cdata.agency[keys])
-    }
-    for (let keys in cdata.nationality) {
-        chartist.nationality.labels.push(keys);
-        chartist.nationality.series.push(cdata.nationality[keys])
-    }
-    for (let keys in cdata.product) {
-        chartist.product.labels.push(keys.split("_")[2]);
-        chartist.product.series.push(cdata.product[keys])
+        chartist.product.series.push(sort.product[i][1])
     }
 
     new Chartist.Pie('#chart_product', chartist.product);

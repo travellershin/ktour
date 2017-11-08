@@ -19,6 +19,8 @@ let account_filtered = { //사용자가 선택한 필터에 맞는 product들 �
 }
 let inflateArray = []; //필터링 완료된 product
 
+let acc_obj = {};
+
 
 console.log(datestring.yesterday())
 
@@ -70,7 +72,7 @@ $(".a_hbot").on("click",".drop_item",function(){ //드롭다운 하위 선택지
 function delete_account(){
     let aid = $(".a_edit").attr("aid");
     if(confirm("정말로 정보를 삭제하시겠습니까?")){
-        delete rev_obj[aid];
+        delete acc_obj[aid];
         firebase.database().ref("account/"+aid).remove();
         $(".lightBox_shadow").addClass("hidden");
         $("body").css("overflow","auto")
@@ -104,7 +106,8 @@ function save_account(){
         if($(".a_edit_input_cashexp").val()>0){
             data.cash = -$(".a_edit_input_cashexp").val()
         }
-        rev_obj[aid] = data;
+        console.log(acc_obj)
+        acc_obj[aid] = data;
 
         firebase.database().ref("account/"+aid).set(data)
         $(".lightBox_shadow").addClass("hidden")
@@ -118,7 +121,7 @@ function show_account(aid){
     $(".a_edit_footer_delete").removeClass("hidden")
     $(".lightBox_shadow").removeClass("hidden")
     $("body").css("overflow","hidden")
-    let data = rev_obj[aid]
+    let data = acc_obj[aid]
     console.log(data)
     $(".a_edit_input_date").val(data.date);
     $(".a_edit_input_category").val(data.category);
@@ -162,7 +165,10 @@ function collect_data(){
             temp.id = child.key
             account_NF.push(temp)
         })
-        rev_obj = snap.val();
+        acc_obj = snap.val();
+        if(!acc_obj){
+            acc_obj = {}
+        }
         console.log(account_NF)
         filter_account();
     })

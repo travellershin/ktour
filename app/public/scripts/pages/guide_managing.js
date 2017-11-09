@@ -171,11 +171,13 @@ function Guide(){
                 }).then(function(){
                     isEditing = false;
                     firebase.database().ref("guide/"+key).set(guide)
+                    console.log("사진 변경")
                 })
             });
         }else{
             isEditing = false;
             firebase.database().ref("guide/"+key).set(guide)
+            console.log("사진 변경하지 않음")
         }
 
 
@@ -222,14 +224,19 @@ function Guide(){
 
             let lang = data.language;
             let day = data.preferDay;
-            for (let i = 0; i < lang.length; i++) {
-                let language = lang[i].trim();
-                $("#gie_"+language).prop('checked', true) ;
+            if(lang){
+                for (let i = 0; i < lang.length; i++) {
+                    let language = lang[i].trim();
+                    $("#gie_"+language).prop('checked', true) ;
+                }
             }
-            for (let i = 0; i < day.length; i++) {
-                let dayin = day[i].trim()
-                $("#gie_"+dayin).prop('checked', true) ;
+            if(day){
+                for (let i = 0; i < day.length; i++) {
+                    let dayin = day[i].trim()
+                    $("#gie_"+dayin).prop('checked', true) ;
+                }
             }
+
 
             $('.gie_face').attr('src',data.imgUrl )
             $(".pop_blackScreen").removeClass('hidden')

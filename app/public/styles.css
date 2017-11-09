@@ -1024,8 +1024,9 @@ textarea::-webkit-scrollbar-thumb
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    overflow: hidden;
     letter-spacing: -0.3px;
+    overflow: visible;
+    position: relative;
 }
 .r_hbot>p{
         margin-right: 14px;
@@ -1058,10 +1059,11 @@ textarea::-webkit-scrollbar-thumb
     }
 .r_hbot_product{
         width: 110px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        padding-left: 16px;
+        padding-right: 5px;
     }
-.r_hbot_product>p{
-            margin-left: 17px;
-        }
 .r_hbot_pickup{
         width:120px;
         margin-right: 15px !important;
@@ -1075,6 +1077,14 @@ textarea::-webkit-scrollbar-thumb
 .r_hbot_option>p{
             margin-left: 10px;
         }
+.r_hbot_hasdrop{
+        background-position: right;
+        background-image: url("./assets/icon-filter.svg");
+        background-repeat: no-repeat;
+        background-origin: content-box;
+        cursor: pointer;
+        font-size: 14px;
+    }
 .r_hbot_name{
         width: 170px;
     }
@@ -1083,10 +1093,11 @@ textarea::-webkit-scrollbar-thumb
     }
 .r_hbot_agency{
         width:100px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        padding-left: 13px;
+        padding-right: 4px;
     }
-.r_hbot_agency>p{
-            margin-left: 12px;
-        }
 .r_hbot .dropbox{
         border-top: solid 1px #e0e0e0;
     }
@@ -1236,6 +1247,67 @@ textarea::-webkit-scrollbar-thumb
 .ct-series-g .ct-slice-pie{
     fill:#E256AE !important;
 }
+.r_drop{
+    position: absolute;
+    top: 40px;
+    background-color: grey;
+    overflow: hidden;
+    line-height: 40px;
+    background-color: white;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 8px 0;
+    z-index: 999;
+    border:solid 1px #e0e0e0;
+    border-radius:5px;
+    max-height: 250px;
+    overflow-y: auto !important;
+    -webkit-box-shadow: 0 2px 3px 0 #e0e0e0;
+            box-shadow: 0 2px 3px 0 #e0e0e0;
+}
+.r_drop::-webkit-scrollbar-track
+    {
+        border-radius: 10px;
+    }
+.r_drop::-webkit-scrollbar
+    {
+        width: 3px;
+    }
+.r_drop::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: #e0e0e0;
+    }
+.r_drop_product{
+        left: 370px;
+    }
+.r_drop_pickupPlace{
+        left: 520px;
+    }
+.r_drop_nationality{
+        left: 1030px;
+    }
+.r_drop_agency{
+        left: 1150px;
+    }
+.r_drop>p{
+        float: none !important;
+        cursor: pointer;
+        padding: 4px 12px 4px 32px;
+        font-size: 14px;
+        float: none !important;
+    }
+.r_drop>p:hover{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+.r_drop>p:active{
+            background-color: rgba(224, 224, 224, 0.4);
+        }
+.r_drop>p.rf_selected{
+            background-image: url("./assets/icon-input-check.svg");
+            background-repeat: no-repeat;
+            background-position: left 6px top 3px;
+        }
 /*예약 데이터 클릭시 상세정보*/
 .ri{
     background-color: white;

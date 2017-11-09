@@ -61,7 +61,9 @@ function dynamicDrop(div,item){
 
     let appendTxt = "<div class='dropbox display_none' id='drop_"+did+"'>"
     for (var i = 0; i < item.length; i++) {
-        item[i] = item[i].trim();
+        if(item[i]){
+            item[i] = item[i].trim();
+        }
         appendTxt+="<p class='drop_item' did='"+did+"'>"+item[i]+"</p>"
     }
     appendTxt+="</div>"

@@ -234,8 +234,8 @@ function Mailing(){
 
             $('.cc_low').html(this.category.agency.length);
             $('.cc_mid').html(this.category.subject.length);
-            $('.cc_high').html(this.category.price.length + this.category.time.length + this.category.bus.length + this.category.option.length + this.category.product_closed.length + this.category.product.length + this.category.pickup.length);
-            $('.cc_vhigh').html(this.category.bot.length+this.category.unresponsible.length+this.category.unparsable.length+this.category.network.length+this.category.app.length+this.category.multiple.length +this.category.integrity.length+this.category.type.length);
+            $('.cc_high').html(this.category.orange_all.length);
+            $('.cc_vhigh').html(this.category.red_all.length);
 
             this.show(setfilter)
 

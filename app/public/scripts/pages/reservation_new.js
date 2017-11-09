@@ -70,12 +70,14 @@ $(document).on("click",".drp_quick_tomorrow",function(){
 })
 $(document).on("click",".rv_content",function(){
     rev_detail($(this).attr("id"));
-    $(".re_footer_save").attr("id",$(this).attr("id"))
+    $(".re_footer_save").attr("id",$(this).attr("id"));
+    $("body").css("overflow","hidden");
 })
 $(document).on("click", ".ri_header_close", function(){
     $('.popUp').addClass('hidden');
     $('.ri').removeClass('hidden');
     $('.re').addClass('hidden');
+    $("body").css("overflow","auto");
 })
 $(".r_hbot").on("click",".drop_item",function(event){
     event.stopPropagation();
@@ -91,6 +93,7 @@ $(document).on("click", ".re_header_close", function(){
     $('.popUp').addClass('hidden');
     $('.ri').removeClass('hidden');
     $('.re').addClass('hidden');
+    $("body").css("overflow","auto");
 })
 $(document).on("click", ".ri_footer_edit", function(){
     $('.ri').addClass('hidden');
@@ -98,10 +101,14 @@ $(document).on("click", ".ri_footer_edit", function(){
 
     // TODO: edit을 위한 세팅
 })
+$(".ri_footer_cancel").click(function(){
+    toast("예약을 취소합니다")
+})
 
 $(document).on("click", ".re_footer_save", function(){
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
+    $("body").css("overflow","auto");
 
     re_save($(this).attr("id"));
 
@@ -156,48 +163,45 @@ $(".r_add_footer_cancel").click(function(){
     $(".r_add_wrapper").addClass("hidden")
 })
 $(".r_add_footer_save").click(function(){
-    let rdata = {
-        date:"",
-        product:"",
-        pickupPlace:"",
-        people:0,
-        name:"Unknown",
-        nationality:"Unknown",
-        agency:"Unknown",
-        tel:"Unknown",
-        email:"Unknown",
-        messenger:"Unknown",
-        option:"",
-        chinese:"",
-        agencyCode:"Unknown",
-        memo:"",
-    }
-    if($(".r_add_input_product").val()===""||$(".r_add_input_pickupPlace").val()===""||$(".r_add_input_people").val()===""){
-        toast("필수정보가 다 입력되지 않았습니다")
-        return false
-    }
-    for (let key in rdata) {
-        if($(".r_add_input_"+key).val()!==""){
-            rdata[key] = $(".r_add_input_"+key).val()
+    let required = ["date","product","people","pickupPlace"];
+    let additional = ["name","nationality","agency","tel","email","messenger","option","chinese","agencyCode","memo"]
+    let rdata = {}
+    let durl = "https://intranet-64851.appspot.com/v1/reservation?"
+    for (let i = 0; i < required.length; i++) {
+        if($(".r_add_input_"+required[i]).val()===""){
+            toast(required[i]+" 는 필수 정보입니다.")
+        }else{
+            rdata[required[i]] = $(".r_add_input_"+required[i]).val()
+            durl+=required[i]+"="+$(".r_add_input_"+required[i]).val()+"&"
         }
     }
-    let key = firebase.database().ref().push().key
-    rdata.reservedDate = datestring.today();
-    rdata.reservedTime = "00:00"
-    rdata.people = rdata.people*1
-    rdata.area = rdata.product.split("_")[0];
-    rdata.id = "NM_"+key
-    if(rdata.memo===""){
-        rdata.memo==="N/A"
+    for (let i = 0; i < additional.length; i++) {
+        if($(".r_add_input_"+additional[i]).val() !== ""){
+            rdata[additional[i]] = $(".r_add_input_"+additional[i]).val();
+            durl+=additional[i]+"="+$(".r_add_input_"+additional[i]).val()+"&"
+        }
     }
-    console.log(rdata)
+    durl = durl.slice(0,-1);
+    console.log(durl)
 
-    firebase.database().ref("reservation/NM_"+key).set(rdata);
+    // Using YQL and JSONP
+$.ajax({
+    url: durl,
+    // Tell jQuery we're expecting JSONP
+    dataType: "jsonp",
+    // Work with the response
+    success: function( response ) {
+        console.log( response ); // server response
+    },
+    error: function(xhr) {
+      console.log('실패 - ', xhr);
+    }
+});
+
+
+
 
 })
-function myCallback(data){
-    alert(data)
-}
 
 
 function collect_rev(){

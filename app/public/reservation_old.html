@@ -72,35 +72,26 @@
     </div>
 
     <!--헤더 - 아랫부분(예약정보 분류명) CSS pages/reservation/main-->
-    <div class="r_hbot clearfix">
+    <div class="r_hbot">
         <p class="r_hbot_memo">MEMO</p>
         <p class="r_hbot_date">DATE</p>
-        <div class="r_hbot_product r_hbot_hasdrop" fid="product">PRODUCT</div>
-        <div class="r_hbot_pickup r_hbot_hasdrop" fid="pickupPlace">PICKUP PLACE</div>
+        <div class="r_hbot_product dw_dndropdown multiselect" id="r_filter_product">
+            <p>PRODUCT</p>
+        </div>
+        <div class="r_hbot_pickup dw_dndropdown multiselect" id="r_filter_pickupPlace">
+            <p>PICKUP PLACE</p>
+        </div>
         <p class="r_hbot_people">PEOPLE</p>
         <div class="r_hbot_option">
             <p>OPTION</p>
             <img src="./assets/icon-filter.svg"/>
         </div>
         <p class="r_hbot_name">CLIENT NAME</p>
-        <div class="r_hbot_nationality r_hbot_hasdrop" fid="nationality">NATIONALITY</div>
-        <div class="r_hbot_agency r_hbot_hasdrop" fid="agency">AGENCY</div>
-        <div class="r_drop r_drop_product hidden">
-            <p class="rf_selected">Seoul_Regular_태감송해</p>
-            <p>Seoul_Regular_남쁘</p>
-            <p>Seoul_Regular_남쁘</p>
+        <div class="r_hbot_nationality dw_dndropdown multiselect" id="r_filter_nationality">
+            <p>NATIONALITY</p>
         </div>
-        <div class="r_drop r_drop_pickupPlace hidden">
-            <p>Dongdaemoon</p>
-            <p>Myungdong</p>
-        </div>
-        <div class="r_drop r_drop_nationality hidden">
-            <p>Philiphin</p>
-            <p>China</p>
-        </div>
-        <div class="r_drop r_drop_agency hidden">
-            <p>Klook</p>
-            <p>Godaddy</p>
+        <div class="r_hbot_agency dw_dndropdown multiselect" id="r_filter_agency">
+            <p>AGENCY</p>
         </div>
     </div>
 
@@ -317,6 +308,7 @@
                 <p class="r_add_title_messenger">MESSENGER</p>
                 <p class="r_add_title_option">OPTION</p>
                 <p class="r_add_title_chinese">CHINESE</p>
+                <p class="r_add_title_code">CODE</p>
                 <p class="r_add_title_agencyCode">AGENCY CODE</p>
                 <p class="r_add_title_memo">MEMO</p>
             </div>
@@ -336,6 +328,7 @@
                 <input class="r_add_input_messenger" placeholder="Unknown">
                 <input class="r_add_input_option" placeholder="Unknown">
                 <input class="r_add_input_chinese" placeholder="Unknown">
+                <input class="r_add_input_code" placeholder="Unknown">
                 <input class="r_add_input_agencyCode" placeholder="Unknown">
                 <textarea class="r_add_input_memo" spellcheck="false"></textarea>
             </div>
@@ -359,9 +352,7 @@
     <script src='./scripts/module/global.js'></script>
     <script src='./scripts/module/toast.js'></script>
     <script src='./scripts/module/date.js'></script>
-    <!--<script src='./scripts/pages/reservation_new.js'></script>-->
+    <script src='./scripts/pages/reservation_new.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
-    <script src='./scripts/pages/reservation/dataCollect.js'></script>
-    <script src='./scripts/pages/reservation/filter.js'></script>
 
 </body>

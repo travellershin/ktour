@@ -319,10 +319,121 @@
 
 .r_stat{
     height: 330px;
-    width: 980px;
+    width: 1080px;
     margin:0 auto;
     margin-top: 40px;
     overflow: hidden;
+
+    &_second{
+        margin-top:10px;
+        height: 620px;
+    }
+
+    &_total{
+        line-height: 40px;
+        height: 40px;
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        user-select: text;
+        margin:40px 0 30px 0;
+        font-weight: bold;
+    }
+
+    &_pyo{
+        overflow: hidden;
+        width: 100%;
+
+        &_crit{
+            width: 300px;
+            text-align: center;
+            line-height: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 17px;
+            padding-bottom: 8px;
+        }
+
+        &_div{
+            width: 310px;
+            height: 610px;
+            margin-right: 75px;
+            float: left;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar-track
+            {
+                border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar
+            {
+                width: 3px;
+            }
+
+            &::-webkit-scrollbar-thumb
+            {
+                border-radius: 10px;
+                background-color: #e0e0e0;
+            }
+
+            &:last-child{
+                margin-right:0;
+            }
+        }
+
+        &_title{
+            width: 300px;
+            overflow: hidden;
+            &>p{
+                float: left;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: 20px;
+                height: 38px;
+                padding-bottom: 8px;
+                padding-top: 10px;
+            }
+        }
+
+        &_line{
+            width: 300px;
+            overflow: hidden;
+            &:last-child{border-bottom: 1px solid #e0e0e0;}
+            &>p{
+                float: left;
+                font-size: 14px;
+                line-height: 20px;
+                height: 28px;
+                padding-bottom: 8px;
+            }
+
+        }
+
+        &_name{
+            width: 130px;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            border-left: 1px solid #e0e0e0;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            word-wrap:normal;
+
+        }
+        &_r{
+            width: 80px;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+        }
+        &_p{
+            width: 90px;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+        }
+
+
+    }
 }
 
 /*차트*/
@@ -330,7 +441,7 @@
     width: 300px;
     height: 300px;
     float: left;
-    margin-right: 40px;
+    margin-right: 90px;
 
     &:last-child{
         margin-right:0;

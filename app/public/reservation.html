@@ -40,7 +40,7 @@
             <p class="drp_quick_today drp_quick--selected">TODAY</p>
             <p class="drp_quick_tomorrow">TOMORROW</p>
         </div>
-        <p class="r_set_chartToggle btn">차트 닫기</p>
+        <p class="r_set_chartToggle btn">표로 보기</p>
         <div class="r_set_trash longbtn">
             <img src="./assets/icon-trash.svg"/>
             <p>CANCELED</p>
@@ -53,10 +53,52 @@
     </div>
 
     <!--차트 CSS pages/reservation/main-->
-    <div class="r_stat">
+    <p class="r_stat_total"></p>
+
+    <div class="r_stat r_stat_pie">
         <div class="chartsquare" id="div_product"><div id="chart_product"></div></div>
         <div class="chartsquare" id="div_agency"><div id="chart_agency"></div></div>
         <div class="chartsquare" id="div_nationality"><div id="chart_nationality"></div></div>
+    </div>
+    <div class="r_stat r_stat_second hidden">
+
+        <div class="r_stat_pyo">
+            <div class="r_stat_pyo_div">
+                <p class="r_stat_pyo_crit">PRODUCT별 예약</p>
+                <div class="r_stat_pyo_title">
+                    <p class="r_stat_pyo_name">상품명</p>
+                    <p class="r_stat_pyo_r">예약(건)</p>
+                    <p class="r_stat_pyo_p">인원(명)</p>
+                </div>
+                <div class="r_stat_pyo_product">
+                    <!--
+                    <div class="r_stat_pyo_line">
+                        <p class="r_stat_pyo_name">남쁘아</p>
+                        <p class="r_stat_pyo_r">23</p>
+                        <p class="r_stat_pyo_p">144</p>
+                    </div>
+                    -->
+                </div>
+            </div>
+            <div class="r_stat_pyo_div">
+                <p class="r_stat_pyo_crit">AGENCY별 예약</p>
+                <div class="r_stat_pyo_title">
+                    <p class="r_stat_pyo_name">상품명</p>
+                    <p class="r_stat_pyo_r">예약(건)</p>
+                    <p class="r_stat_pyo_p">인원(명)</p>
+                </div>
+                <div class="r_stat_pyo_agency"></div>
+            </div>
+            <div class="r_stat_pyo_div">
+                <p class="r_stat_pyo_crit">NATIONALITY별 예약</p>
+                <div class="r_stat_pyo_title">
+                    <p class="r_stat_pyo_name">상품명</p>
+                    <p class="r_stat_pyo_r">예약(건)</p>
+                    <p class="r_stat_pyo_p">인원(명)</p>
+                </div>
+                <div class="r_stat_pyo_agency r_stat_pyo_nationality"></div>
+            </div>
+        </div>
     </div>
     <!--예약 통계 그래프는 모듈로 빼는 것이 좋을듯-->
 
@@ -85,22 +127,13 @@
         <p class="r_hbot_name">CLIENT NAME</p>
         <div class="r_hbot_nationality r_hbot_hasdrop" fid="nationality">NATIONALITY</div>
         <div class="r_hbot_agency r_hbot_hasdrop" fid="agency">AGENCY</div>
-        <div class="r_drop r_drop_product hidden">
-            <p class="rf_selected">Seoul_Regular_태감송해</p>
-            <p>Seoul_Regular_남쁘</p>
-            <p>Seoul_Regular_남쁘</p>
+        <div class="r_drop r_drop_product hidden" fid="product">
         </div>
-        <div class="r_drop r_drop_pickupPlace hidden">
-            <p>Dongdaemoon</p>
-            <p>Myungdong</p>
+        <div class="r_drop r_drop_pickupPlace hidden" fid="pickupPlace">
         </div>
-        <div class="r_drop r_drop_nationality hidden">
-            <p>Philiphin</p>
-            <p>China</p>
+        <div class="r_drop r_drop_nationality hidden" fid="nationality">
         </div>
-        <div class="r_drop r_drop_agency hidden">
-            <p>Klook</p>
-            <p>Godaddy</p>
+        <div class="r_drop r_drop_agency hidden" fid="agency">
         </div>
     </div>
 
@@ -363,5 +396,7 @@
     <script src='./scripts/module/dropdown.js'></script>
     <script src='./scripts/pages/reservation/dataCollect.js'></script>
     <script src='./scripts/pages/reservation/filter.js'></script>
+    <script src='./scripts/pages/reservation/inflate.js'></script>
+    <script src='./scripts/pages/reservation/chart.js'></script>
 
 </body>

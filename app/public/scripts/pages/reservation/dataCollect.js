@@ -1,8 +1,25 @@
 let rData = [];
 let r_total = {}; //total:[6,12] - 예약 6개, 인원 12명 요런식. product : 남쁘아 : [6,12]
-let fArray = ["product","pickupPlace","nationality","agency"]
+let fArray = ["product","pickupPlace","nationality","agency"];
+let r_obj = {};
+let cityData = {};
+let pNameArray = [];
+let searchArray = [];
+let filter = {
+    product:[],
+    agency:[],
+    pickupPlace:[],
+    nationality:[]
+}
+
 $(document).ready(function(){
     datepicker_init();
+})
+
+$(".r_set_quick>p").click(function(){
+    r_quick($(this).attr("id"))
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
 })
 
 function datepicker_init(){
@@ -10,6 +27,21 @@ function datepicker_init(){
     dateArray = [datestring.today()]; // ../../module/date.js에 명시
 
     collect_reservation();
+    collect_pickupPlace();
+
+    for (let i = 0; i < $('.drp_quick>p').length; i++) {
+
+        let index = $('.drp_quick>p').eq(i).attr("id").split("_")[2]
+        if(index.length === 1){
+            $('.drp_quick>p').eq(i).html(datestring.add(index*1).split("-")[2])
+        }else if(index === "today"){
+            $('.drp_quick>p').eq(i).html(datestring.today().split("-")[1]+"/"+datestring.today().split("-")[2])
+        }else if(index === "yesterday"){
+            $('.drp_quick>p').eq(i).html(datestring.yesterday().split("-")[2])
+        }else{
+            $('.drp_quick>p').eq(i).html(datestring.tomorrow().split("-")[2])
+        }
+    }
 
     $(".r_set_date_txt").daterangepicker(drp_config,function(start,end,label){
         //기존에 달려있던 드롭다운들을 제거한다
@@ -21,6 +53,7 @@ function datepicker_init(){
         $('.drp_quick>p').removeClass('drp_quick--selected');
         $('.drp_txt').html(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));
 
+
         if(start.format('YYYY-MM-DD') === end.format('YYYY-MM-DD')){
             if(end.format('YYYY-MM-DD')===datestring.yesterday()){
                 $('.drp_quick_yesterday').addClass('drp_quick--selected')
@@ -31,13 +64,35 @@ function datepicker_init(){
             if(end.format('YYYY-MM-DD')===datestring.tomorrow()){
                 $('.drp_quick_tomorrow').addClass('drp_quick--selected')
             }
+            if(end.format('YYYY-MM-DD')===datestring.add(2)){
+                $('#drp_quick_2').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(3)){
+                $('#drp_quick_3').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(4)){
+                $('#drp_quick_4').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(5)){
+                $('#drp_quick_5').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(6)){
+                $('#drp_quick_6').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(7)){
+                $('#drp_quick_7').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(8)){
+                $('#drp_quick_8').addClass('drp_quick--selected')
+            }
+            if(end.format('YYYY-MM-DD')===datestring.add(9)){
+                $('#drp_quick_9').addClass('drp_quick--selected')
+            }
 
             dateArray = [start.format('YYYY-MM-DD')] //dateArray에는 선택한 하루만이 들어간다
         }else{
             getDateRange(start.format('YYYY-MM-DD') , end.format('YYYY-MM-DD'), dateArray); //이 함수는 global.js에 명시
         }
-
-        filter = {}
 
         collect_reservation();
     })
@@ -52,8 +107,10 @@ function datepicker_init(){
 
 
 function collect_reservation(){
+    console.log(dateArray[0])
     firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
-        rData = []
+        rData.length = 0;
+        r_obj = snap.val();
         snap.forEach(function(child){
             rData.push(child.val())
         })
@@ -70,6 +127,13 @@ function generate_filter(){
         nationality:{}
     };
     $(".r_drop").html("")
+
+    filter = {
+        agency:Array.from(filterMap.agency.keys()),
+        product:Array.from(filterMap.product.keys()),
+        pickupPlace:Array.from(filterMap.pickupPlace.keys()),
+        nationality:Array.from(filterMap.nationality.keys())
+    }
 
     for (let i = 0; i < rData.length; i++) {
         if(r_total.product[rData[i].product]){
@@ -110,11 +174,87 @@ function generate_filter(){
     }
 
     for (let i = 0; i < fArray.length; i++) {
-        if(!filter[fArray[i]]){
+        if(filter[fArray[i]].length<1){
             filter[fArray[i]] = Object.keys(r_total[fArray[i]])
         }
     }
-
-
     inflate_reservation();
+}
+
+
+function collect_pickupPlace(){
+    firebase.database().ref("place/city").on("value",snap=>{
+        cityData = snap.val();
+        let cityArray = []
+        for (let city in cityData) {
+            cityArray.push(city)
+        }
+        dynamicDrop($("#rev_areadrop"),cityArray)
+    });
+    firebase.database().ref("product").on("value",snap=>{
+        pdata = snap.val();
+        let pOriginArray = []
+        pNameArray = [];
+        pShortArray = [];
+        let firstArray = ["Seoul_Regular_남쁘","Seoul_Regular_남쁘아","Seoul_Regular_에버","Seoul_Regular_레남아","Seoul_Regular_레남쁘","Seoul_Regular_쁘남레아"]
+
+        for (let key in pdata) {
+            if(pdata[key].id.indexOf("_")>0){
+                pOriginArray.push(pdata[key].id);
+
+            }
+        }
+
+        for (let i = 0; i < firstArray.length; i++) {
+            for (let j = 0; j < pOriginArray.length; j++) {
+                if(pOriginArray[j] === firstArray[i]){
+                    pNameArray.push(firstArray[i]);;
+                    pOriginArray.splice(pOriginArray.indexOf(firstArray[i]),1);
+                }
+            }
+        }
+        for (let i = 0; i < pOriginArray.length; i++) {
+            pNameArray.push(pOriginArray[i])
+        }
+
+        let droptxt = ""
+
+        for (let i = 0; i < pNameArray.length; i++) {
+            droptxt += '<p class="r_add_pitem">'+pNameArray[i]+'</p>'
+        }
+        $(".r_add_productDrop").html(droptxt)
+    });
+}
+
+$(document).on("click",".drp_quick_yesterday",function(){
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+    $(".r_set_date_txt").html(datestring.yesterday()+" ~ "+datestring.yesterday())
+    dateArray = [datestring.yesterday()];
+    collect_reservation();
+})
+$(document).on("click",".drp_quick_today",function(){
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+    $(".r_set_date_txt").html(datestring.today()+" ~ "+datestring.today())
+    dateArray = [datestring.today()];
+    collect_reservation();
+})
+$(document).on("click",".drp_quick_tomorrow",function(){
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+    $(".r_set_date_txt").html(datestring.tomorrow()+" ~ "+datestring.tomorrow())
+    dateArray = [datestring.tomorrow()];
+    collect_reservation();
+})
+
+
+function r_quick(index){
+    if(index.split("_")[2].length === 1){
+        let no = index.split("_")[2]*1
+        console.log(no)
+        $(".r_set_date_txt").html(datestring.add(no)+" ~ "+datestring.add(no))
+        dateArray = [datestring.add(no)];
+        collect_reservation();
+    }
 }

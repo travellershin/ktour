@@ -113,6 +113,22 @@ function DateString(){
             }
             return  year +"-"+ month +"-"+ day;
         }
+        this.add = function(no){
+            let nowDate = new Date();
+            let yesterDate = nowDate.getTime() + (1 * 24 * 60 * 60 * 1000)*no;
+            nowDate.setTime(yesterDate);
+
+            let year = nowDate.getFullYear();
+            let month = String(nowDate.getMonth() + 1);
+            if((month+"").length===1){
+                month = "0" + month;
+            }
+            let day = nowDate.getDate();
+            if((day+"").length===1){
+                day = "0" + day;
+            }
+            return  year +"-"+ month +"-"+ day;
+        }
 
         this.today_uni = function(){
             let date = new Date();

@@ -1,6 +1,6 @@
 let reservation_NF = []; //not filtered reservation
 let filter = {}
-let rev_obj = {}
+let r_obj = {}
 let adjusted = {
     product : [],
     pickupPlace : [],
@@ -185,22 +185,18 @@ $(".r_add_footer_save").click(function(){
     console.log(durl)
 
     // Using YQL and JSONP
-$.ajax({
-    url: durl,
-    // Tell jQuery we're expecting JSONP
-    dataType: "jsonp",
-    // Work with the response
-    success: function( response ) {
-        console.log( response ); // server response
-    },
-    error: function(xhr) {
-      console.log('실패 - ', xhr);
-    }
-});
-
-
-
-
+    $.ajax({
+        url: durl,
+        // Tell jQuery we're expecting JSONP
+        dataType: "jsonp",
+        // Work with the response
+        success: function( response ) {
+            console.log( response ); // server response
+        },
+        error: function(xhr) {
+          console.log('실패 - ', xhr);
+        }
+    });
 })
 
 
@@ -211,7 +207,7 @@ function collect_rev(){
             reservation_NF.push(child.val())
         })
         reservation = snap.val()
-        rev_obj = snap.val();
+        r_obj = snap.val();
         filterOut_rev();
     })
 }
@@ -326,7 +322,7 @@ function filter_set(div){
 }
 
 function rev_detail(id){
-    let data = rev_obj[id]
+    let data = r_obj[id]
     console.log(data)
     if(data.star){
         $(".ri_header_star").addClass("ri_header_star--on")

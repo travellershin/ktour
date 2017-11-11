@@ -1,9 +1,7 @@
 let operationData = {};
 let opForInflate = {};
 let date = ""
-let guidedata = {};
 let isEditing = false;
-let reservation = {}
 let viewing = ""
 let teamlist = []
 let op_rev = []
@@ -13,23 +11,10 @@ let adjusted = {
     agency : []
 }
 
-$(document).ready(function(){
-    date = datestring.today();
-    init_op_datepicker();
-    getOperationData(datestring.today())
-    firebase.database().ref("guide").on("value",snap => {
-        guidedata = snap.val();
-    })
-    firebase.database().ref("reservation").orderByChild("date").equalTo(datestring.today()).on("value",snap => {
-        reservation[datestring.today()] = snap.val();
-    })
-})
+
 
 $(document).on("click",".omp_team",function(){ //팀 상세정보 보기
     teamPop($(this));
-})
-$(".omp_edit").click(function(){
-    editTeam($(this));
 })
 
 $(document).on("click", ".obe_header_close",function(){
@@ -57,9 +42,6 @@ $(document).on("click",".drop_item",function(){
         $(".ol_bus_box").removeClass("ol_bus_box--selected")
         $(".ol_bus_total").addClass("ol_bus_box--selected")
     }
-})
-$(document).on("click",".obe_footer_save",function(){
-    saveTeam($(this));
 })
 $(document).on("click",".omp_list",function(){
     showList($(this).attr("pid"));
@@ -189,84 +171,8 @@ $(document).on("click",".ol_bus_add",function(){
 })
 
 
-function getOperationData(date){
-    if(operationData[date]){
-        inflate_data()
-    }else{
-        firebase.database().ref("operation/"+date).on("value",snap => {
-            operationData[date] = snap.val();
-            inflate_data();
-        });
-    }
-}
-
-function inflate_data(){
-    for (let product in operationData[date]) {
-
-        let productPeople = 0
-        operationData[date][product].teamArgArray = []
-        for (let team in operationData[date][product].teams) {
-
-            operationData[date][product].teamArgArray.push({name:team,time:operationData[date][product].teams[team].time})
-            //전체 상품, 팀의 인원을 합산한다.
-            let teamPeople = 0
-            for (let reservation in operationData[date][product].teams[team].reservations) {
-                teamPeople+=operationData[date][product].teams[team].reservations[reservation].people
-                productPeople+=operationData[date][product].teams[team].reservations[reservation].people
-            }
-            operationData[date][product].teams[team].people = teamPeople
-        }
-
-        operationData[date][product].teamArgArray.sort(function(a, b) {
-            return a.time - b.time;
-        });
-        for (let i = 0; i < operationData[date][product].teamArgArray.length; i++) {
-            operationData[date][product].teamArgArray[i] = operationData[date][product].teamArgArray[i].name
-        }
-        operationData[date][product].people = productPeople
-
-    }
-
-    let txt = ""
 
 
-    for (let product in operationData[date]) {
-        let domdata = operationData[date][product]
-        if(domdata.teams){//터짐방지를 위한 임시 null처리
-            txt+='<div class="om_box_pd" pid="'+product+'"><p class="omp_name">'+product.split("_")[2]+'</p>'
-            txt+='<div class="omp_people"><p class="omp_people_txt">PEOPLE</p><p class="omp_people_number">'+domdata.people+'</p></div>'
-            txt+='<div class="omp_bus"><p class="omp_bus_txt">BUS</p><p class="omp_bus_number">'+Object.keys(domdata.teams).length+'</p></div><div class="omp_box">'
-
-                for (let i = 0; i < operationData[date][product].teamArgArray.length; i++) {
-                    let tid = operationData[date][product].teamArgArray[i]
-
-                    txt+='<div class="omp_team" pid="'+product+'" tid="'+tid+'"><div class="omp_team_names"><p class="omp_team_names_bus">BUS '+(i+1)+'</p>'
-                    if(domdata.teams[tid].guide){
-                        txt+='<p class="omp_team_names_guide">'+domdata.teams[tid].guide.toString()+'</p></div>'
-                    }else{
-                        txt+='<p class="omp_team_names_guide">Unassigned</p></div>'
-                    }
-
-                    txt+='<p class="omp_team_people">'+domdata.teams[tid].people+'</p></div>'
-
-                }
-
-            txt+='</div><div class="omp_list" pid="'+product+'"><img src="./assets/icon-list.svg"/><p>VIEW LIST</p></div></div>'
-        }
-    }
-
-    $(".om").html(txt)
-    for (let product in operationData[date]) {
-        firebase.database().ref("operation/"+date+"/"+product+"/people").set(operationData[date][product].people);
-        for (let team in operationData[date][product].teams) {
-            firebase.database().ref("operation/"+date+"/"+product+"/teams/"+team+"/people").set(operationData[date][product].teams[team].people);
-        }
-    }
-
-    if(viewing.length>0){
-        showList(viewing)
-    }
-}
 
 function teamPop(div){
     let tid = div.attr("tid");
@@ -281,82 +187,12 @@ function teamPop(div){
     $(".om_pop_people").html(teamObj.people);
     $(".om_pop_cost").html(teamObj.bus_cost);
     $(".om_pop_message").html(teamObj.message);
-    if(teamObj.guide){
-        $(".om_pop_guide").html(teamObj.guide.toString());
-    }else{
-        $(".om_pop_guide").html("Unassigned");
-    }
+    $(".om_pop_guide").html($(div).find(".omp_team_names_guide").html());
     $(".omp_edit").attr("tid",tid);
     $(".omp_edit").attr("pid",pid);
     $(".omp_edit").attr("busno",busno+1);
 }
 
-
-function editTeam(div){
-    $(".dw_dropdown").removeClass("drop_appended")
-    let tid = div.attr("tid");
-    let pid = div.attr("pid");
-    let busno = div.attr("busno");
-    let teamdata = operationData[date][pid].teams[tid];
-    firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
-        let data = snap.val();
-        let productdata = {}
-        for (let key in data) {
-            productdata = data[key]
-        }
-        let busnameArray = []
-        let bussizeno = 0;
-        for (let i = 0; i < productdata.cost.bus.length; i++) {
-            busnameArray.push(productdata.cost.bus[i].name);
-            if($("#op_bus_company").val() === productdata.cost.bus[i].name){
-                bussizeno = i
-            }
-        }
-        let bussizeArray = []
-        for (let i = 0; i < productdata.cost.bus[bussizeno].size.length; i++) {
-            bussizeArray.push(productdata.cost.bus[bussizeno].size[i].max + "인승(" + productdata.cost.bus[bussizeno].size[i].cost+"원)")
-        }
-        $("#op_bus_company").attr("dropitem",busnameArray.toString())
-        $("#op_bus_size").attr("dropitem",bussizeArray.toString())
-        $(".om_pop").addClass("hidden")
-        $(".pop_blackScreen").removeClass("hidden");
-        $(".obe").removeClass("hidden");
-        $(".obe_footer_save").attr("tid",tid);
-        $(".obe_footer_save").attr("pid",pid);
-        $(".obe_header_title").html([pid.split("_")[2]]+" "+busno);
-        $("#op_bus_company").val(teamdata.bus_name);
-        if(teamdata.bus_size){
-            $("#op_bus_size").val(teamdata.bus_size + "인승(" + teamdata.bus_cost + "원)");
-        }else{
-            $("#op_bus_size").val("Unknown Bus Size")
-        }
-        let guidetxt = "";
-        if(teamdata.guide){
-            let guidenumber = 0
-            for (let i = 0; i < teamdata.guide.length; i++) {
-                guidetxt+='<input class="obe_body_input dw_dropdown op_guide'+i+'" value="'+teamdata.guide[i]+'" id="op_guide'+i+'" readonly/>'
-                guidenumber++
-            }
-            guidetxt+='<input class="obe_body_input dw_dropdown op_guide'+(guidenumber)+'" value="Unassigned" id="op_guide'+(guidenumber)+'" readonly/>'
-
-        }else{
-            guidetxt+='<input class="obe_body_input dw_dropdown op_guide0" value="Unassigned" id="op_guide0" readonly/>'
-            $("#op_guide").val("Unassigned");
-        }
-        $(".obe_body_guide").html(guidetxt);
-
-        $("#op_message").val(teamdata.message);
-        let guidenameArray = []
-        guidenameArray.push("Unassigned")
-        for (let guidekey in guidedata) {
-            guidenameArray.push(guidedata[guidekey].name)
-        }
-        op_revdata = teamdata.reservations
-
-        $(".obe_body_guide>input").attr("dropitem",guidenameArray.toString())
-
-    })
-}
 
 function changeBusCompany(busname){
     let pid = $(".omp_edit").attr("pid");
@@ -386,36 +222,7 @@ function changeBusCompany(busname){
     })
 }
 
-function saveTeam(div){
-    let tid = div.attr("tid");
-    let pid = div.attr("pid");
-    let busname = $("#op_bus_company").val();
-    let bussize = ""
-    let buscost = ""
-    if($("#op_bus_size").val().indexOf("인승")>0){
-        bussize = $("#op_bus_size").val().split("인승(")[0]*1;
-        buscost = $("#op_bus_size").val().split("인승(")[1].slice(0,-2)*1;
-    }
 
-    let guidef = [];
-    for (var i = 0; i < $(".obe_body_guide>input").length; i++) {
-        if($(".obe_body_guide>input").eq(i).val() !== "Unassigned"){
-            guidef.push($(".obe_body_guide>input").eq(i).val())
-        }
-    }
-    let messagef = $("#op_message").val()
-    opteamdata = {
-        bus_name:busname,
-        bus_size:bussize,
-        bus_cost:buscost,
-        guide:guidef,
-        message:messagef,
-        reservations:op_revdata
-    }
-    firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid).set(opteamdata)
-    $(".pop_blackScreen").addClass("hidden");
-    $(".obe").addClass("hidden");
-}
 
 function init_op_datepicker(){
     $('.o_header_date_txt').daterangepicker({
@@ -493,7 +300,16 @@ function showList(pid){
 
         bustxt+='<div class="ol_bus_team ol_bus_box" tid="'+data.teamArgArray[i]+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+(i+1)+'</p>'
         if(data.teams[data.teamArgArray[i]].guide){
-            bustxt+='<p class="ol_bus_team_guide" title="'+data.teams[data.teamArgArray[i]].guide.toString()+'">'+data.teams[data.teamArgArray[i]].guide.toString()+'</p></div>'
+            console.log(data.teams[data.teamArgArray[i]].guide)
+            bustxt+='<p class="ol_bus_team_guide" title="'
+            for (let j = 0; j < data.teams[data.teamArgArray[i]].guide.length; j++) {
+                bustxt+=guidedata[data.teams[data.teamArgArray[i]].guide[j]].name + ", "
+            }
+            bustxt = bustxt.slice(0,-2) +'">'
+            for (let j = 0; j < data.teams[data.teamArgArray[i]].guide.length; j++) {
+                bustxt+=guidedata[data.teams[data.teamArgArray[i]].guide[j]].name + ", "
+            }
+            bustxt = bustxt.slice(0,-2) +'</p></div>'
         }else{
             bustxt+='<p class="ol_bus_team_guide">Unassigned</p></div>'
         }

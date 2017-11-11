@@ -7,11 +7,13 @@ $(".r_set_chartToggle").click(function(){
         $(".r_stat_pie").removeClass("hidden");
         $(".r_stat_second").addClass("hidden");
         $(this).html("표로 보기")
+        document.querySelector('#chart_product').__chartist__.update()
+        document.querySelector('#chart_agency').__chartist__.update()
+        document.querySelector('#chart_nationality').__chartist__.update()
     }
 })
 
 function draw_chart(){
-    console.log(r_chart)
 
     let sort = {agency:[],product:[],nationality:[]};
     let sort_etc = {agency:[],product:[],nationality:[]};
@@ -65,20 +67,27 @@ function draw_chart(){
 
     for (let i = 0; i < sort_etc.agency.length; i++) {
         chartist.agency.labels.push(sort_etc.agency[i][0]+"("+Math.round(sort_etc.agency[i][2]*100/sum.agency)+"%)");
-        chartist.agency.series.push(sort_etc.agency[i][2])
+        if(sort_etc.agency[i][2]*100/sum.agency>1){
+            chartist.agency.series.push(sort_etc.agency[i][2])
+        }
     }
     for (let i = 0; i < sort_etc.nationality.length; i++) {
         chartist.nationality.labels.push(sort_etc.nationality[i][0]+"("+Math.round(sort_etc.nationality[i][2]*100/sum.nationality)+"%)");
-        chartist.nationality.series.push(sort_etc.nationality[i][2])
+        if(sort_etc.nationality[i][2]*100/sum.nationality>1){
+            chartist.nationality.series.push(sort_etc.nationality[i][2])
+        }
     }
     for (let i = 0; i < sort_etc.product.length; i++) {
         if(sort_etc.product[i][0]==="etc"){
-            chartist.product.labels.push("etc"+"("+Math.round(sort_etc.product[i][2]*100/sum.product)+"%)");
+            if(sort_etc.product[i][2]*100/sum.product>1){
+                chartist.product.labels.push("etc"+"("+Math.round(sort_etc.product[i][2]*100/sum.product)+"%)");
+            }
         }else{
             chartist.product.labels.push(sort_etc.product[i][0].split("_")[2]+"("+Math.round(sort_etc.product[i][2]*100/sum.product)+"%)");
         }
-
-        chartist.product.series.push(sort_etc.product[i][2])
+        if(sort_etc.product[i][2]*100/sum.product>1){
+            chartist.product.series.push(sort_etc.product[i][2])
+        }
     }
 
     new Chartist.Pie('#chart_product', chartist.product);
@@ -87,7 +96,6 @@ function draw_chart(){
 
     $(".r_stat_total").html("TOTAL "+sumrev+"건 "+sum.product+"명")
 
-    console.log(sort)
     for (let key in sort) {
         let txt=""
         for (let i = 0; i < sort[key].length; i++) {

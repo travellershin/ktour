@@ -4,12 +4,22 @@ let r_chart = {
     agency:{},
     nationality:{}
 }
+let inflate_r = []
+$(document).on("click", ".rv_content_star", function(event){
+    if($(this).hasClass("rv_content_star--on")){
+        $(this).removeClass("rv_content_star--on")
+        firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(false)
+    }else{
+        $(this).addClass("rv_content_star--on")
+        firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(true)
+    }
+    event.stopPropagation();
+})
 
 function inflate_reservation(){
-    inflate_r = []
+    inflate_r.length = 0
     $('.rv_box').html("")
     let txt = ""
-
     r_chart = {
         product:{},
         pickupPlace:{},
@@ -21,7 +31,7 @@ function inflate_reservation(){
         let draw = true
 
         for (let j = 0; j < fArray.length; j++) {
-            if(!filter[fArray[j]].includes(rData[i][fArray[j]])){
+            if(filter[fArray[j]].indexOf(rData[i][fArray[j]])===-1){
                 draw = false
             }
         }
@@ -59,6 +69,8 @@ function inflate_reservation(){
             txt += rData[i].clientName + '</p><p class="rv_content_nationality">'
             txt += rData[i].nationality + '</p><p class="rv_content_agency">'
             txt += rData[i].agency + '</p></div>'
+        }else{
+            //console.log(rData[i])
         }
     }
     $('.rv_box').html(txt)

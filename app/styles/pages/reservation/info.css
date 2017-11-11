@@ -96,6 +96,7 @@
             margin:9px 0 9px 0;
             text-align: left;
             color: $hint_grey;
+            height: 24px;
 
         }
     }
@@ -113,6 +114,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            height: 24px;
         }
 
 

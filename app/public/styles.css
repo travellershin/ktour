@@ -1498,6 +1498,7 @@ textarea::-webkit-scrollbar-thumb
             margin:9px 0 9px 0;
             text-align: left;
             color: #7c8495;
+            height: 24px;
 
         }
 .ric_co{
@@ -1515,6 +1516,7 @@ textarea::-webkit-scrollbar-thumb
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            height: 24px;
         }
 .ric_verticalLine{
         float: left;
@@ -1997,7 +1999,7 @@ textarea::-webkit-scrollbar-thumb
 /*버스정보(팀) 수정*/
 .obe{
     height:640px;
-    width: 440px;
+    width: 445px;
     background-color: white;
     margin: 0 auto;
     margin-top: 150px;
@@ -2030,6 +2032,17 @@ textarea::-webkit-scrollbar-thumb
         height: 450px;
         overflow-y: auto;
     }
+.obe_body::-webkit-scrollbar-track{
+            background-color: #ffffff;
+        }
+.obe_body::-webkit-scrollbar{
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+.obe_body::-webkit-scrollbar-thumb{
+            background-color: #e0e0e0;
+        }
 .obe_body_line{
             padding: 0 30px;
             margin-top: 20px;
@@ -2254,6 +2267,7 @@ textarea::-webkit-scrollbar-thumb
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        height: 20px;
     }
 .ol_editBus{
     float: right;

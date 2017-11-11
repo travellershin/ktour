@@ -4,9 +4,6 @@ let filterMap = {
     nationality : new Map(),
     agency : new Map()
 }
-let filter = {}
-
-
 
 $(".r_hbot_hasdrop").click(function(event){
     toggle_filterbox($(this).attr("fid"));
@@ -36,6 +33,8 @@ $(".r_drop").on("click","p",function(){
     }else{
         filterMap[fid].set(fitem)
     }
+
+    console.log(filterMap)
     filter[fid] = Array.from(filterMap[fid].keys())
     if(filter[fid].length === 0){
         filter[fid] = Object.keys(r_total[fid])

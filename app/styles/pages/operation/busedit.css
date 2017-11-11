@@ -1,7 +1,7 @@
 /*버스정보(팀) 수정*/
 .obe{
     height:640px;
-    width: 440px;
+    width: 445px;
     background-color: white;
     margin: 0 auto;
     margin-top: 150px;
@@ -36,6 +36,20 @@
         margin-bottom: 30px;
         height: 450px;
         overflow-y: auto;
+
+        &::-webkit-scrollbar-track{
+            background-color: #ffffff;
+        }
+
+        &::-webkit-scrollbar{
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+
+        &::-webkit-scrollbar-thumb{
+            background-color: #e0e0e0;
+        }
 
         &_line{
             padding: 0 30px;

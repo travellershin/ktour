@@ -1,0 +1,14 @@
+.toggleGuide{
+    float: right;
+    background-color: white;
+    margin-right: 10px;
+}
+.g_wrapper_asset{
+    width: 1312px;
+    padding-bottom: 200px;
+    min-height: 500px;
+    margin-left:calc(50% - 640px);
+    margin-top: 20px;;
+    overflow: hidden;
+    background-color: white;
+}

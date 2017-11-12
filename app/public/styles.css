@@ -2514,6 +2514,72 @@ However, delay the fade out process for 2.5 seconds */
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+.alert_background{
+        position: fixed;
+        left:0;
+        top:0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(38, 46, 62, 0.7);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+    }
+.alert_pop{
+        padding: 40px 30px 20px 30px;
+        background-color: white;
+        min-width: 320px;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+                box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+        border: solid 1px #e0e0e0;
+        border-radius: 5px;
+    }
+.alert_footer{
+        width: 100%;
+        overflow: hidden;
+        height: 40px;
+        margin-top: 40px;
+    }
+.alert_footer>div{
+            width:90px;
+            height: 40px;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            border-radius: 5px;
+            float: right;
+            line-height: 38px;
+            text-align: center;
+            cursor: pointer;
+        }
+.alert_footer_yes{
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            color: #ffffff;
+        }
+.alert_footer_yes:hover{
+                -webkit-filter: brightness(0.95);
+                        filter: brightness(0.95);
+            }
+.alert_footer_yes:active{
+                -webkit-filter: brightness(1.05);
+                        filter: brightness(1.05);
+            }
+.alert_footer_no{
+            border: solid 1px #e0e0e0;
+            margin-right: 10px;
+        }
+.alert_footer_no:hover{
+                background-color: rgba(224, 224, 224, 0.1);
+            }
+.alert_footer_no:active{
+                background-color: rgba(224, 224, 224, 0.2);
+            }
 .o_header{
     overflow: hidden;
     height: 100px;
@@ -5363,6 +5429,20 @@ textarea.pi_content:focus {
                 margin-left: 10px;
                 width: 110px;
             }
+.toggleGuide{
+    float: right;
+    background-color: white;
+    margin-right: 10px;
+}
+.g_wrapper_asset{
+    width: 1312px;
+    padding-bottom: 200px;
+    min-height: 500px;
+    margin-left:calc(50% - 640px);
+    margin-top: 20px;;
+    overflow: hidden;
+    background-color: white;
+}
 .account_wrapper{
     width:1280px;
     padding-bottom: 80px;

@@ -34,11 +34,11 @@ $(".r_drop").on("click","p",function(){
         filterMap[fid].set(fitem)
     }
 
-    console.log(filterMap)
     filter[fid] = Array.from(filterMap[fid].keys())
     if(filter[fid].length === 0){
         filter[fid] = Object.keys(r_total[fid])
     }
+    console.log(filter)
     inflate_reservation()
 
     return false

@@ -71,15 +71,21 @@
                 </div>
             </div>
         </div>
-
         <div class="g_wrapper">
             <div class="g_add_div">
                 <div class="longbtn g_add">
                     <img src="./assets/icon-add.svg" />
                     <p>ADD NEW GUIDE</p>
                 </div>
+                <div class="toggleGuide btn">VIEW ASSET</div>
             </div>
-            <div class="g_guide_div">
+            <div class="g_wrapper_asset hidden">
+                <div class="ga_div">
+                    <p class="ga_name">김도형</p>
+                    <p class="ga_asset">남이섬 17/100</p>
+                </div>
+            </div>
+            <div class="g_guide_div g_wrapper_info">
                 <!--아래는 dom 구조 확인을 위한 예제 guide임-->
                 <div class="g_guide hidden">
                     <div class="g_pop hidden">
@@ -286,4 +292,5 @@
     <script type="text/javascript" src="./libraries/daterangepicker.js"></script>
     <script src='./libraries/jquery-ui.min.js'></script>
     <script src='./scripts/pages/guide_managing.js'></script>
+    <script src='./scripts/pages/guide/asset.js'></script>
 </body>

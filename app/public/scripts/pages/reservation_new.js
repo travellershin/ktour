@@ -101,9 +101,6 @@ $(document).on("click", ".ri_footer_edit", function(){
 
     // TODO: edit을 위한 세팅
 })
-$(".ri_footer_cancel").click(function(){
-    toast("예약을 취소합니다")
-})
 
 $(document).on("click", ".re_footer_save", function(){
     $('.re').addClass('hidden');

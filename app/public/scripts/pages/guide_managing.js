@@ -68,7 +68,6 @@ function Guide(){
 
         firebase.database().ref("guide").on("value", snap => {
             let gdata = snap.val();
-            console.log(gdata)
 
             //DB key를 가지고 for문을 돌지 않은 이유는 DB는 자동 알파벳순으로 쌓이기 때문!
             let guideInfoArray = ['start','end','email','phone','language','driver','account','address','bonus','preferDay','card','memo']
@@ -88,6 +87,9 @@ function Guide(){
                 }
                 txt+= '</div>'
             }
+
+            draw_guide_asset(gdata);
+
             $('.g_guide_div').html(txt)
 
         });

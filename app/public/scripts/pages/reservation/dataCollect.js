@@ -48,7 +48,7 @@ function datepicker_init(){
         $(".dw_dropdown").removeClass("drop_appended");
         $(".dropbox").remove();
 
-        dateArray = [] //dateArray를 초기화한다
+        dateArray.length = 0 //dateArray를 초기화한다
 
         $('.drp_quick>p').removeClass('drp_quick--selected');
         $('.drp_txt').html(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));
@@ -93,6 +93,8 @@ function datepicker_init(){
         }else{
             getDateRange(start.format('YYYY-MM-DD') , end.format('YYYY-MM-DD'), dateArray); //이 함수는 global.js에 명시
         }
+        console.log("아래 직힌 녀석은 dateArray")
+        console.log(dateArray)
 
         collect_reservation();
     })
@@ -105,15 +107,16 @@ function datepicker_init(){
     })
 }
 
-
+let callback;
 function collect_reservation(){
-    console.log(dateArray[0])
+    firebase.database().ref("reservation").off("value");
     firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
         rData.length = 0;
         r_obj = snap.val();
         snap.forEach(function(child){
             rData.push(child.val())
         })
+
         generate_filter();
     })
 }
@@ -231,6 +234,8 @@ $(document).on("click",".drp_quick_yesterday",function(){
     $(this).addClass("drp_quick--selected")
     $(".r_set_date_txt").html(datestring.yesterday()+" ~ "+datestring.yesterday())
     dateArray = [datestring.yesterday()];
+    $(".r_set_date_txt").data('daterangepicker').setStartDate(datestring.yesterday());
+    $(".r_set_date_txt").data('daterangepicker').setEndDate(datestring.yesterday());
     collect_reservation();
 })
 $(document).on("click",".drp_quick_today",function(){
@@ -238,6 +243,8 @@ $(document).on("click",".drp_quick_today",function(){
     $(this).addClass("drp_quick--selected")
     $(".r_set_date_txt").html(datestring.today()+" ~ "+datestring.today())
     dateArray = [datestring.today()];
+    $(".r_set_date_txt").data('daterangepicker').setStartDate(datestring.today());
+    $(".r_set_date_txt").data('daterangepicker').setEndDate(datestring.today());
     collect_reservation();
 })
 $(document).on("click",".drp_quick_tomorrow",function(){
@@ -245,6 +252,8 @@ $(document).on("click",".drp_quick_tomorrow",function(){
     $(this).addClass("drp_quick--selected")
     $(".r_set_date_txt").html(datestring.tomorrow()+" ~ "+datestring.tomorrow())
     dateArray = [datestring.tomorrow()];
+    $(".r_set_date_txt").data('daterangepicker').setStartDate(datestring.tomorrow());
+    $(".r_set_date_txt").data('daterangepicker').setEndDate(datestring.tomorrow());
     collect_reservation();
 })
 
@@ -252,9 +261,11 @@ $(document).on("click",".drp_quick_tomorrow",function(){
 function r_quick(index){
     if(index.split("_")[2].length === 1){
         let no = index.split("_")[2]*1
-        console.log(no)
         $(".r_set_date_txt").html(datestring.add(no)+" ~ "+datestring.add(no))
         dateArray = [datestring.add(no)];
+        console.log(dateArray)
         collect_reservation();
+        $(".r_set_date_txt").data('daterangepicker').setStartDate(datestring.add(no));
+        $(".r_set_date_txt").data('daterangepicker').setEndDate(datestring.add(no));
     }
 }

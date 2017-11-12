@@ -4,12 +4,10 @@ $(document).on("click",".rv_content",function(){
 $(document).on("click", ".ri_header_close", function(){
     r_close();
 })
-$(".ri_footer_cancel").click(function(){
-    toast("예약을 취소합니다")
-})
 
 function r_detail(id){
     $(".re_footer_save").attr("id",id);
+    $(".alert_footer_yes").attr("id",id);
     $("body").css("overflow","hidden");
 
     let data = r_obj[id]
@@ -30,6 +28,16 @@ function r_detail(id){
             $('.rv_info_'+key).val(data[key]);
         }
     }
+    if(data.option){
+        let txt = ""
+        for (let i = 0; i < data.option.length; i++) {
+            txt+=data.option[i].option+" : "
+            txt+=data.option[i].people +"<br>"
+        }
+        txt = txt.slice(0,-4);
+        $(".rv_info_option").html(txt)
+    }
+
 
     console.log(cityData)
 

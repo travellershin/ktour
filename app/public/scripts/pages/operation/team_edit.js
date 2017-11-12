@@ -4,6 +4,9 @@ let new_guide = [];
 $(".omp_edit").click(function(){
     editTeam($(this));
 })
+$("body").click(function(){
+    $(".om_pop").addClass("hidden");
+})
 
 
 function editTeam(div){

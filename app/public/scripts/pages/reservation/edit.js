@@ -15,19 +15,20 @@ function r_save(id){
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
     $("body").css("overflow","auto");
+    $(".popUp").addClass("hidden")
 
     let iArray = ["date","product","area","pickupPlace","pickupTime","option","chinese","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
     for (let i = 0; i < iArray.length; i++) {
-        reservation[id][iArray[i]] = $(".rec .rv_info_"+iArray[i]).val();
-        if(typeof reservation[id][iArray[i]] == "undefined"){
-            reservation[id][iArray[i]] = ""
+        r_obj[id][iArray[i]] = $(".rec .rv_info_"+iArray[i]).val();
+        if(typeof r_obj[id][iArray[i]] == "undefined"){
+            r_obj[id][iArray[i]] = ""
         }
     }
     let numberArray = ["people","adult","infant","kid"];
     for (let i = 0; i < numberArray.length; i++) {
-        reservation[id][numberArray[i]] = reservation[id][numberArray[i]]*1
+        r_obj[id][numberArray[i]] = r_obj[id][numberArray[i]]*1
     }
-    firebase.database().ref("reservation/"+id).set(reservation[id])
+    firebase.database().ref("reservation/"+id).set(r_obj[id])
     toast("저장되었습니다")
 }
 

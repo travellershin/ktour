@@ -12,3 +12,20 @@
     overflow: hidden;
     background-color: white;
 }
+
+.ga{
+    &_div{
+        overflow: hidden;
+        margin:20px 0 0 20px;
+        height: 40px;
+        width: 1200px;
+        box-sizing: border-box;
+        border: 1px solid #e0e0e0;
+    }
+    &_name{
+        float: left;
+    }
+    &_asset{
+        float: left;
+    }
+}

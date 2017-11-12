@@ -73,7 +73,7 @@ function r_new(){
 
 function r_new_save(){
     let required = ["date","product","people","pickupPlace"];
-    let additional = ["name","nationality","agency","tel","email","messenger","option","chinese","agencyCode","memo"]
+    let additional = ["name","nationality","agency","tel","email","messenger","option","agencyCode","memo"]
     let rdata = {}
     let durl = "https://intranet-64851.appspot.com/v1/reservation?"
     for (let i = 0; i < required.length; i++) {

@@ -75,7 +75,14 @@
             margin-right: 10px;
             &>p{color:$alert_red;}
         }
+        &_gmail{
+            margin-right: 10px;
+        }
     }
+}
+
+.rv_info_option{
+    overflow: visible !important;
 }
 
 .ric{

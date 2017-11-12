@@ -4,11 +4,15 @@ $(document).on("click",".rv_content",function(){
 $(document).on("click", ".ri_header_close", function(){
     r_close();
 })
+$(".ri_footer_gmail").click(function(){
+    window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id"))
+})
 
 function r_detail(id){
     $(".re_footer_save").attr("id",id);
     $(".alert_footer_yes").attr("id",id);
     $("body").css("overflow","hidden");
+    $(".ri_footer_gmail").attr("id",id);
 
     let data = r_obj[id]
     console.log(data)

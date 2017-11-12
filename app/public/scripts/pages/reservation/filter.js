@@ -12,7 +12,12 @@ $(".r_hbot_hasdrop").click(function(event){
 $("body").click(function(){
     $(".r_drop").addClass("hidden");
 })
-
+$(".r_htop_filterRemove").click(function(){
+    for (let i = 0; i < fArray.length; i++) {
+        filter[fArray[i]] = Object.keys(r_total[fArray[i]])
+    }
+    inflate_reservation();
+})
 
 function toggle_filterbox(name){
     if(!$(".r_drop_"+name).hasClass("hidden")){

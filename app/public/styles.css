@@ -1480,6 +1480,12 @@ textarea::-webkit-scrollbar-thumb
             margin-right: 10px;
         }
 .ri_footer_cancel>p{color:#f54b5e;}
+.ri_footer_gmail{
+            margin-right: 10px;
+        }
+.rv_info_option{
+    overflow: visible !important;
+}
 .ric{
     margin:20px 30px 40px 30px;
     padding: 10px 30px 10px 30px;
@@ -5443,6 +5449,21 @@ textarea.pi_content:focus {
     overflow: hidden;
     background-color: white;
 }
+.ga_div{
+        overflow: hidden;
+        margin:20px 0 0 20px;
+        height: 40px;
+        width: 1200px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        border: 1px solid #e0e0e0;
+    }
+.ga_name{
+        float: left;
+    }
+.ga_asset{
+        float: left;
+    }
 .account_wrapper{
     width:1280px;
     padding-bottom: 80px;

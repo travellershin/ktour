@@ -17,7 +17,16 @@ $(".toggleGuide").click(function(){
 
 function draw_guide_asset(data){
     console.log(data)
-    for (let variable in data) {
-
+    let txt = ""
+    for (let key in data) {
+        let guideName = data[key].name
+        txt+='<div class="ga_div"><p class="ga_name">'+guideName+'</p><p class="ga_asset">'
+        if(data[key].asset){
+            for (let assetName in data[key].asset) {
+                txt+=assetName+" "+data[key].asset[assetName].left+"/"+data[key].asset[assetName].got+" "
+            }
+        }
+        txt+='</p></div>'
     }
+    $(".g_wrapper_asset").html(txt)
 }

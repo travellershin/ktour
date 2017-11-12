@@ -335,6 +335,9 @@ function inflate_reservation(rev){
         }else{
             domTxt += 'src="./assets/icon-star-off.svg"/>'
         }
+        if(rev[i].memo){
+            if(rev[i].memo==="N/A"){rev[i].memo=""}
+        }
         domTxt += '<p class="op_content_bus">'+rev[i].busNumber+'</p><p class="rv_content_date">';
         domTxt += '<p class="op_content_memo">'+rev[i].memo+'</p><p class="rv_content_pickup">';
         domTxt += rev[i].pickupPlace + '</p><p class="rv_content_people">';

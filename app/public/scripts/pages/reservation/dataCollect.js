@@ -109,6 +109,21 @@ function datepicker_init(){
 
 let callback;
 function collect_reservation(){
+    filterMap = {
+        product : new Map(),
+        pickupPlace : new Map(),
+        nationality : new Map(),
+        agency : new Map()
+    }
+
+    filter = {
+        agency:Array.from(filterMap.agency.keys()),
+        product:Array.from(filterMap.product.keys()),
+        pickupPlace:Array.from(filterMap.pickupPlace.keys()),
+        nationality:Array.from(filterMap.nationality.keys())
+    }
+
+
     firebase.database().ref("reservation").off("value");
     firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
         rData.length = 0;
@@ -148,7 +163,12 @@ function generate_filter(){
             r_total.product[rData[i].product] = [1,rData[i].people]
             r_total.total[0]++
             r_total.total[1]+=rData[i].people
-            $(".r_drop_product").append("<p>"+rData[i].product+"</p>")
+            if(filter.product.includes(rData[i].product)){
+                $(".r_drop_product").append("<p class='rf_selected'>"+rData[i].product+"</p>")
+            }else{
+                $(".r_drop_product").append("<p>"+rData[i].product+"</p>")
+            }
+
         }
 
         if(r_total.agency[rData[i].agency]){

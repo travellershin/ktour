@@ -27,6 +27,8 @@ function inflate_reservation(){
         nationality:{}
     };
 
+    console.log(filter)
+
     for (let i = 0; i < rData.length; i++) {
         let draw = true
 
@@ -62,9 +64,26 @@ function inflate_reservation(){
             txt += rData[i].date + '</p><p class="rv_content_product">'
             txt += rData[i].product.split("_")[2] + '</p><p class="rv_content_pickup">'
             txt += rData[i].pickupPlace + '</p><p class="rv_content_people">'
-            txt += rData[i].people +'</p><p class="rv_content_option">'
+
+            let title = ""
             //옵션여부를 검사하는 곳
-            txt += 'OPTION' +'</p><p class="rv_content_name" title="'
+            if(rData[i].option){
+                for (let j = 0; j < rData[i].option.length; j++) {
+                    title+=rData[i].option[j].option+" : "
+                    title+=rData[i].option[j].people +" / "
+                }
+                title = title.slice(0,-3);
+            }
+
+            txt += rData[i].people +'</p><p class="rv_content_option" title="'+title+'">'
+
+            if(rData[i].option){
+                txt+='O'
+            }else{
+                txt+='X'
+            }
+
+            txt += '</p><p class="rv_content_name" title="'
             txt += rData[i].clientName + '">'
             txt += rData[i].clientName + '</p><p class="rv_content_nationality">'
             txt += rData[i].nationality + '</p><p class="rv_content_agency">'

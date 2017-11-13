@@ -31,9 +31,30 @@ $(document).on("click",".r_add_pitem",function(event){
 
     let picktxt = ""
 
-    for (let place in cityData[city]) {
-        picktxt+='<p class="r_add_placeItem">'+place+'</p>'
-    };
+    let firstPlaceSeoul = ["Myungdong","Dongdaemoon","Hongdae"];
+    let firstPlaceBusan = ["Busan Station","Seomyun","Haeundae"]
+
+    if(city="Seoul"){
+        for (let i = 0; i < firstPlaceSeoul.length; i++) {
+            picktxt+='<p class="r_add_placeItem">'+firstPlaceSeoul[i]+'</p>'
+        }
+        for (let place in cityData[city]) {
+            if(!firstPlaceSeoul.includes(place)){
+                picktxt+='<p class="r_add_placeItem">'+place+'</p>'
+            }
+        };
+    }else if(city="Busan"){
+        for (let i = 0; i < firstPlaceBusan.length; i++) {
+            picktxt+='<p class="r_add_placeItem">'+firstPlaceBusan[i]+'</p>'
+        }
+        for (let place in cityData[city]) {
+            if(!firstPlaceBusan.includes(place)){
+                picktxt+='<p class="r_add_placeItem">'+place+'</p>'
+            }
+        };
+    }
+
+
 
     $(".r_add_pickDrop").html(picktxt)
 })

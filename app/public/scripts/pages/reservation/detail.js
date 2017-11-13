@@ -40,6 +40,8 @@ function r_detail(id){
         }
         txt = txt.slice(0,-4);
         $(".rv_info_option").html(txt)
+    }else{
+        $(".rv_info_option").html("")
     }
 
 

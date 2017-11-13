@@ -4,6 +4,8 @@ function toast(txt){
     }
     $("body").append('<div class="snackbar">'+txt+'</div>');
     $(".snackbar").addClass("show");
+    $(".snackbar").css("animation")
+
     setTimeout(function () {
         $(".snackbar").removeClass("show")
     }, 3000);

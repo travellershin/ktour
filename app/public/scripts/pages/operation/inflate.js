@@ -28,7 +28,8 @@ function inflate_data(){
 
     let txt = ""
 
-
+    guideTotal = [];
+    guideTeam = {};
     for (let product in operationData[date]) {
         let domdata = operationData[date][product]
         if(domdata.teams){//터짐방지를 위한 임시 null처리
@@ -42,10 +43,10 @@ function inflate_data(){
                     txt+='<div class="omp_team" pid="'+product+'" tid="'+tid+'"><div class="omp_team_names"><p class="omp_team_names_bus">BUS '+(i+1)+'</p>'
                     if(domdata.teams[tid].guide){
                         txt+='<p class="omp_team_names_guide">'
-                        for (let i = 0; i < domdata.teams[tid].guide.length; i++) {
-                            console.log(guidedata)
-                            console.log(domdata.teams[tid].guide[i])
-                            txt += guidedata[domdata.teams[tid].guide[i]].name +", "
+                        for (let j = 0; j < domdata.teams[tid].guide.length; j++) {
+                            txt += guidedata[domdata.teams[tid].guide[j]].name +", ";
+                            guideTotal.push(domdata.teams[tid].guide[j]);
+                            guideTeam[domdata.teams[tid].guide[j]] = [product,tid,i+1,j]
                         }
                         txt = txt.slice(0, -2)
                         txt+='</p></div>'
@@ -61,6 +62,8 @@ function inflate_data(){
             txt+='</div><div class="omp_list" pid="'+product+'"><img src="./assets/icon-list.svg"/><p>VIEW LIST</p></div></div>'
         }
     }
+    console.log(guideTotal)
+    console.log(guideTeam)
 
     $(".om").html(txt)
     for (let product in operationData[date]) {

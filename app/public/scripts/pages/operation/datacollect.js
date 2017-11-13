@@ -14,6 +14,7 @@ $(document).ready(function(){
         init_op_datepicker();
         getOperationData(datestring.today())
     })
+    firebase.database().ref("reservation").off("value")
     firebase.database().ref("reservation").orderByChild("date").equalTo(datestring.today()).on("value",snap => {
         reservation[datestring.today()] = snap.val();
     })

@@ -1491,7 +1491,7 @@ textarea::-webkit-scrollbar-thumb
     padding: 10px 30px 10px 30px;
     border-radius: 5px;
     border: solid 1px #d7d7d7;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 .ric_ti{
         margin-right: 20px;
@@ -2634,13 +2634,10 @@ However, delay the fade out process for 2.5 seconds */
             background-color: #3f55d2;
             color: white;
         }
-.o_header_trash{
+.o_header_change{
         float: right;
+
     }
-.o_header_trash_no{
-            margin-left: 16px;
-            font-weight: bold;
-        }
 .o_header_print{
         float: right;
         margin-right: 10px;

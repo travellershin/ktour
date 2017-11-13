@@ -51,13 +51,9 @@
         }
     }
 
-    &_trash{
+    &_change{
         float: right;
 
-        &_no{
-            margin-left: 16px;
-            font-weight: bold;
-        }
     }
 
     &_print{

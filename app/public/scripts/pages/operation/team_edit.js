@@ -1,6 +1,9 @@
 let old_guide = [];
 let new_guide = [];
 
+let guideTotal = [];//guide 중복 배치를 체크하기 위한 array. 안의 키는 inflate.js에서 데이터를 불러오며 담김
+let guideTeam = {} //{key:[product,teamID, team넘버, guide Array 몇번째인지] 형태}. 중복배치를 하면 product team에서 제거합니다가 뜰것이다
+
 $(".omp_edit").click(function(){
     editTeam($(this));
 })

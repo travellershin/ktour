@@ -101,18 +101,7 @@ $(".ol_editBus").click(function(){
     $(".rv_box").css("padding-bottom","200px")
     selectArray = []
 })
-$(".o_header_quick_yesterday").click(function(){
-    date = datestring.yesterday();
-    quickSelectOpdata($(this));
-})
-$(".o_header_quick_today").click(function(){
-    date = datestring.today();
-    quickSelectOpdata($(this));
-})
-$(".o_header_quick_tomorrow").click(function(){
-    date = datestring.tomorrow();
-    quickSelectOpdata($(this));
-})
+
 $(document).on("click",".rv_content",function(){
     if(isEditing){
         selectArray = []
@@ -225,6 +214,21 @@ function changeBusCompany(busname){
 
 
 function init_op_datepicker(){
+    for (let i = 0; i < $('.o_header_quick>p').length; i++) {
+
+        let index = $('.o_header_quick>p').eq(i).attr("id").split("_")[2]
+        if(index.length === 1){
+            $('.o_header_quick>p').eq(i).html(datestring.add(index*1).split("-")[2])
+        }else if(index === "today"){
+            $('.o_header_quick>p').eq(i).html(datestring.today().split("-")[1]+"/"+datestring.today().split("-")[2])
+        }else if(index === "yesterday"){
+            $('.o_header_quick>p').eq(i).html(datestring.yesterday().split("-")[2])
+        }else{
+            $('.o_header_quick>p').eq(i).html(datestring.tomorrow().split("-")[2])
+        }
+    }
+    $(".o_header_quick").removeClass("hidden")
+
     $('.o_header_date_txt').daterangepicker({
         "autoApply": true,
         singleDatePicker: true,
@@ -242,6 +246,33 @@ function init_op_datepicker(){
         if(start.format('YYYY-MM-DD') === datestring.tomorrow()){
             $(".o_header_quick_tomorrow").addClass("drp_quick--selected")
         }
+        if(start.format('YYYY-MM-DD')===datestring.add(2)){
+            $('#drp_quick_2').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(3)){
+            $('#drp_quick_3').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(4)){
+            $('#drp_quick_4').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(5)){
+            $('#drp_quick_5').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(6)){
+            $('#drp_quick_6').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(7)){
+            $('#drp_quick_7').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(8)){
+            $('#drp_quick_8').addClass('drp_quick--selected')
+        }
+        if(start.format('YYYY-MM-DD')===datestring.add(9)){
+            $('#drp_quick_9').addClass('drp_quick--selected')
+        }
+
+
+        firebase.database().ref("reservation").off("value")
         firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
             reservation[date] = snap.val();
         })
@@ -480,16 +511,6 @@ function addbus(){
         showList(pid);
     });
 }
-function quickSelectOpdata(div){
-    getOperationData(date);
-    $(".o_header_quick>p").removeClass("drp_quick--selected");
-    div.addClass("drp_quick--selected")
-    $(".o_header_date_txt").data('daterangepicker').setStartDate(date)
-    $(".o_header_date_txt").data('daterangepicker').setEndDate(date)
-    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
-        reservation[date] = snap.val();
-    })
-}
 
 function filter_init(){
     $(".drop_item").removeClass("drop_item--selected")
@@ -533,4 +554,66 @@ function rev_detail(id){
     $('.ric_option').height($('.rv_info_option').height())
     $('.ric_pick').height($('.rv_info_pickupPlace').height())
     $('.rv_info_memo').width($('.ric').width())
+}
+
+$(".o_header_quick>p").click(function(){
+    o_quick($(this).attr("id"))
+    $(".o_header_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+})
+
+$(".o_header_quick_yesterday").click(function(){
+    date = datestring.yesterday();
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+    $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
+    $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
+    $(".o_header_date_txt").val(date)
+    firebase.database().ref("reservation").off("value")
+    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
+        reservation[date] = snap.val();
+    })
+    getOperationData(date);
+})
+$(".o_header_quick_today").click(function(){
+    date = datestring.today();
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+    $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
+    $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
+    $(".o_header_date_txt").val(date)
+    firebase.database().ref("reservation").off("value")
+    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
+        reservation[date] = snap.val();
+    })
+    getOperationData(date);
+})
+$(".o_header_quick_tomorrow").click(function(){
+    date = datestring.tomorrow();
+    $(".drp_quick>p").removeClass("drp_quick--selected");
+    $(this).addClass("drp_quick--selected")
+    $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
+    $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
+    $(".o_header_date_txt").val(date)
+    firebase.database().ref("reservation").off("value")
+    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
+        reservation[date] = snap.val();
+    })
+    getOperationData(date);
+})
+
+function o_quick(index){
+    if(index.split("_")[2].length === 1){
+        let no = index.split("_")[2]*1
+        $(".o_header_date_txt").val(datestring.add(no))
+        date = datestring.add(no);
+        $(".o_header_date_txt").data('daterangepicker').setStartDate(datestring.add(no));
+        $(".o_header_date_txt").data('daterangepicker').setEndDate(datestring.add(no));
+    }
+
+    firebase.database().ref("reservation").off("value")
+    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
+        reservation[date] = snap.val();
+    })
+    getOperationData(date);
 }

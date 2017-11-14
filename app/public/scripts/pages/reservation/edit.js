@@ -11,6 +11,7 @@ $(document).on("click", ".re_footer_save", function(){
 
 
 function r_save(id){
+    console.log("얌마")
 
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
@@ -28,7 +29,7 @@ function r_save(id){
     for (let i = 0; i < numberArray.length; i++) {
         r_obj[id][numberArray[i]] = r_obj[id][numberArray[i]]*1
     }
-    firebase.database().ref("reservation/"+id).set(r_obj[id])
+    firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
     toast("저장되었습니다")
 }
 

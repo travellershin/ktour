@@ -123,17 +123,27 @@ function collect_reservation(){
         nationality:Array.from(filterMap.nationality.keys())
     }
 
-
-    firebase.database().ref("reservation").off("value");
-    firebase.database().ref("reservation").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
+    firebase.database().ref("operation").off("value");
+    firebase.database().ref("operation").orderByKey().startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
         rData.length = 0;
-        r_obj = snap.val();
-        snap.forEach(function(child){
-            rData.push(child.val())
-        })
+        let oprev = snap.val();
+        r_obj = {}
 
+        for (let date in oprev) {
+            for (let pd in oprev[date]) {
+                for (let team in oprev[date][pd].teams) {
+                    for (let rev in oprev[date][pd].teams[team].reservations) {
+                        oprev[date][pd].teams[team].reservations[rev].team = team
+                        rData.push(oprev[date][pd].teams[team].reservations[rev])
+                        r_obj[rev] = oprev[date][pd].teams[team].reservations[rev]
+                    }
+                }
+            }
+        }
         generate_filter();
     })
+
+
 }
 
 function generate_filter(){

@@ -13,8 +13,13 @@ let adjusted = {
 
 
 
-$(document).on("click",".omp_team",function(){ //팀 상세정보 보기
-    teamPop($(this));
+$(document).on("click",".omp_team",function(){
+    if($(".o_header_change").html() === "팀 이동"){
+        teamPop($(this));//팀 상세정보 보기
+    }else{
+        selectTeamForMove($(this)); //팀 옮기기 위해 선택(teamArrange.js에 있음)
+    }
+
 })
 
 $(document).on("click", ".obe_header_close",function(){
@@ -358,6 +363,7 @@ function showList(pid){
 }
 
 function inflate_reservation(rev){
+    console.log(rev)
     let domTxt = ""
     for (let i = 0; i < rev.length; i++) {
         domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'"><img class="rv_content_star" '
@@ -541,7 +547,6 @@ function rev_detail(id){
     if(data.agency){$('.rv_info_agency').html(data.agency)}
 
     if(data.adult === 0){ //db에 adult 항목이 비어있으면 people을 adult로 간주해 db에 넣음
-        firebase.database().ref("reservation/"+data.date+"/"+id+"/adult").set(data.people)
         $('.rv_info_people').html(data.people+" (adult "+data.people+" / child 0)")
     }else{
         $('.rv_info_people').html(data.people+" (adult "+data.adult+" / child "+data.kid+")")

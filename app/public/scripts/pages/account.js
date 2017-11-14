@@ -86,28 +86,26 @@ function save_account(){
         alert("현금 항목의 Income과 Expenditure가 동시에 입력되었습니다.")
     }else{
         let aid = $(".a_edit").attr("aid");
-        let data = {
-            date:$(".a_edit_input_date").val(),
-            card:0,
-            cash:0,
-            category:$(".a_edit_input_category").val(),
-            detail:$(".a_edit_input_contents").val(),
-            writer:$(".a_edit_input_writer").val()
-        };
+        let data = acc_obj[aid]
+        data.date = $(".a_edit_input_date").val();
+        data.card = 0;
+        data.cash = 0;
+        data.category = $(".a_edit_input_category").val();
+        data.detail = $(".a_edit_input_contents").val();
+        data.writer = $(".a_edit_input_writer").val();
+
         if($(".a_edit_input_cardincome").val()>0){
-            data.card = $(".a_edit_input_cardincome").val()
+            data.card = $(".a_edit_input_cardincome").val()*1
         }
         if($(".a_edit_input_cardexp").val()>0){
-            data.card = -$(".a_edit_input_cardexp").val()
+            data.card = -$(".a_edit_input_cardexp").val()*1
         }
         if($(".a_edit_input_cashincome").val()>0){
-            data.cash = $(".a_edit_input_cashincome").val()
+            data.cash = $(".a_edit_input_cashincome").val()*1
         }
         if($(".a_edit_input_cashexp").val()>0){
-            data.cash = -$(".a_edit_input_cashexp").val()
+            data.cash = -$(".a_edit_input_cashexp").val()*1
         }
-        console.log(acc_obj)
-        acc_obj[aid] = data;
 
         firebase.database().ref("account/"+aid).set(data)
         $(".lightBox_shadow").addClass("hidden")
@@ -158,6 +156,7 @@ function add_account(){
 }
 
 function collect_data(){
+    firebase.database().ref("account").off("value")
     firebase.database().ref("account").orderByChild("date").startAt(dateArray[0]).endAt(dateArray[dateArray.length - 1]).on("value",snap=>{
         account_NF = []
         snap.forEach(function(child){
@@ -232,25 +231,23 @@ function set_filter(div){
 
 function inflate_data(array){
     let txt = ""
+    console.log(array)
     for (let i = 0; i < array.length; i++) {
         let cardIncome = '-';
         let cardExpenditure = '-';
         let cashIncome = '-';
         let cashExpenditure = '-';
-        if(account_NF[i].card>0){
+        if(array[i].card>0){
             cardIncome = comma(array[i].card)
         }
-        if(account_NF[i].card<0){
+        if(array[i].card<0){
             cardExpenditure = comma(-array[i].card)
         }
-        if(account_NF[i].cash>0){
+        if(array[i].cash>0){
             cashIncome = comma(array[i].cash)
         }
-        if(account_NF[i].cash<0){
+        if(array[i].cash<0){
             cashExpenditure = comma(-array[i].cash)
-        }
-        if(account_NF[i].amount>0){
-            cardIncome = comma(array[i].amount)
         }
 
         txt+='<div class="a_item" aid="'+array[i].id+'"><p class="a_item_date">'+array[i].date+'</p><p class="a_item_category">'+array[i].category+'</p>'

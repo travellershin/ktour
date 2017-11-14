@@ -2677,6 +2677,9 @@ However, delay the fade out process for 2.5 seconds */
             margin-bottom: 20px;
             position: relative;
         }
+.om_box_pd--changeMode{
+                border: solid 1px #0079e9;
+            }
 .om_pop{
         width: 400px;
         height: 300px;
@@ -2747,6 +2750,10 @@ However, delay the fade out process for 2.5 seconds */
         line-height: 20px;
         height: 20px;
     }
+.omp_name--blueColor{
+            color:#0079e9;
+            cursor: pointer;
+        }
 .omp_box{
         height: 310px;
         overflow-y: scroll;
@@ -2823,6 +2830,10 @@ However, delay the fade out process for 2.5 seconds */
             background-color: rgba(0, 132, 255, 0.2);
             border: solid 1px #0084ff;
         }
+.omp_team--selected{
+            background-color: rgba(0, 132, 255, 0.2);
+            border: solid 1px #0084ff;
+        }
 .omp_team_names{
             float: left;
             width: 130px;
@@ -2881,6 +2892,19 @@ However, delay the fade out process for 2.5 seconds */
 .omp_list:active{
             background-color: rgba(224, 224, 224, 0.4);
         }
+.o_cityBox{
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+.o_cityBox_cityName{
+        width: 100%;
+        height: 40px;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 40px;
+        color: #343c4b;
+        margin-bottom: 10px;
+    }
 .g_filter{
     width:1280px;
     margin: 0 auto;

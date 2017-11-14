@@ -5,7 +5,7 @@ $(document).on("click", ".ri_header_close", function(){
     r_close();
 })
 $(".ri_footer_gmail").click(function(){
-    window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id"))
+    window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id").split("-")[0])
 })
 
 function r_detail(id){

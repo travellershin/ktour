@@ -22,7 +22,7 @@ function cancel_reservation(id){
     $("body").css("overflow","auto")
     $(".popUp").addClass("hidden");
     firebase.database().ref("canceled/"+id).set(r_obj[id]);
-    firebase.database().ref("reservation/"+id).remove();
+    firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).remove()
 }
 
 function cancel_cancel(){

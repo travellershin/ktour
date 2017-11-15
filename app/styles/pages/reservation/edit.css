@@ -165,6 +165,55 @@
             }
         }
 
+        &_option{
+            height: 240px;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar-track{
+            	border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar{
+            	width: 3px;
+            }
+
+            &::-webkit-scrollbar-thumb{
+            	border-radius: 10px;
+            	background-color: #e0e0e0;
+            }
+
+            &_box{
+                height: 40px;
+                width: 240px;
+                overflow: hidden;
+                margin-bottom: 8px;
+            }
+
+            &_name{
+                float: left;
+                width: 177px;
+                border: 1px solid #e0e0e0;
+                height: 40px;
+                box-sizing: border-box;
+                font-size: 13px;
+                margin-right: 12px;
+                border-radius: 5px;
+                padding-left: 8px;
+            }
+            &_people{
+                float: left;
+                width: 50px;
+                border: 1px solid #e0e0e0;
+                height: 40px;
+                box-sizing: border-box;
+                font-size: 13px;
+                text-align: right;
+                padding-right: 8px;
+                border-radius: 5px;
+            }
+        }
+
         &_midinput{
             width: 130px;
             & input{width: 82px;}

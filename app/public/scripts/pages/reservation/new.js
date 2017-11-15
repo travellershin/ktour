@@ -27,27 +27,30 @@ $(".r_add_footer_save").click(function(){
 $(document).on("click",".r_add_pitem",function(event){
     event.stopPropagation();
     $(".r_add_input_product").val($(this).html());
-    let city = $(this).html().split("_")[0];
+    let rcity = $(this).html().split("_")[0];
+    console.log(rcity)
 
     let picktxt = ""
 
     let firstPlaceSeoul = ["Myungdong","Dongdaemoon","Hongdae"];
     let firstPlaceBusan = ["Busan Station","Seomyun","Haeundae"]
 
-    if(city="Seoul"){
+    if(rcity==="Seoul"){
+        console.log("서울가자")
         for (let i = 0; i < firstPlaceSeoul.length; i++) {
             picktxt+='<p class="r_add_placeItem">'+firstPlaceSeoul[i]+'</p>'
         }
-        for (let place in cityData[city]) {
+        for (let place in cityData[rcity]) {
             if(!firstPlaceSeoul.includes(place)){
                 picktxt+='<p class="r_add_placeItem">'+place+'</p>'
             }
         };
-    }else if(city="Busan"){
+    }else if(rcity==="Busan"){
+        console.log("부산가자")
         for (let i = 0; i < firstPlaceBusan.length; i++) {
             picktxt+='<p class="r_add_placeItem">'+firstPlaceBusan[i]+'</p>'
         }
-        for (let place in cityData[city]) {
+        for (let place in cityData[rcity]) {
             if(!firstPlaceBusan.includes(place)){
                 picktxt+='<p class="r_add_placeItem">'+place+'</p>'
             }
@@ -127,4 +130,7 @@ function r_new_save(){
           console.log('실패 - ', xhr);
         }
     });
+    $("body").css("overflow","auto");
+    $(".r_add_wrapper").addClass("hidden")
+    toast("저장되었습니다")
 }

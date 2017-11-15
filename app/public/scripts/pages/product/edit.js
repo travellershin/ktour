@@ -129,6 +129,9 @@ $(document).on("click",".pep_p_tab_remove",function(){
 $(document).on("click",".pei_forall",function(){
     $(this).toggleClass("cb_checked")
 })
+$(document).on("click",".pep_p_as_pre_cb",function(){
+    $(this).toggleClass("cb_checked")
+})
 
 let apg = {
     unassigned:[],
@@ -395,7 +398,8 @@ function show_detail(pid){
     if(data.cost){
         if(cost.item){
             for (let i = 0; i < cost.item.length; i++) {
-                costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><input class="pep_p_as_title"/><table class="pep_p_as_price">'
+                costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><div class="ov_hidden"><input class="pep_p_as_title" placeholder="New Item"/><div class="pep_p_as_pre">'
+                costTxt += '<checkbox class="pep_p_as_pre_cb"></checkbox><p>PURCHASE IN ADVANCE</p></div></div><table class="pep_p_as_price">'
                 costTxt+='<tr><th></th><th>ADULT</th><th>YOUNG</th><th>KID</th><th>BABY</th></tr><tr><td>AGE</td>'
                 costTxt+='<td><input class="pei_age_adult_'+i+'"/></td><td><input class="pei_age_young_'+i+'"/></td>'
                 costTxt+='<td><input class="pei_age_kid_'+i+'"/></td><td><input class="pei_age_free_'+i+'"/></td>'
@@ -411,6 +415,9 @@ function show_detail(pid){
     if(data.cost){
         if(cost.item){
             for (let i = 0; i < cost.item.length; i++) {
+                if(cost.item[i].pre){
+                    $(".pep_p_as_pre_cb").eq(i).addClass("cb_checked")
+                }
                 $(".pep_p_as_title").eq(i).val(cost.item[i].item)
                 $(".pei_age_adult_"+i).val(cost.item[i].adultAge_min+"-"+cost.item[i].adultAge_max)
                 $(".pei_age_young_"+i).val(cost.item[i].youngAge_min+"-"+cost.item[i].youngAge_max)
@@ -684,7 +691,8 @@ function addAsset(){
     let costTxt = '';
     let i = $(".pep_p_as").length
 
-    costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><input class="pep_p_as_title" value="asset_name"/><table class="pep_p_as_price">'
+    costTxt +='<div class="pep_p_as"><img class="pep_p_as_remove" src="./assets/icon-close.svg" /><div class="ov_hidden"><input class="pep_p_as_title" placeholder="New Item"/><div class="pep_p_as_pre">'
+    costTxt += '<checkbox class="pep_p_as_pre_cb cb_checked"></checkbox><p>PURCHASE IN ADVANCE</p></div></div><table class="pep_p_as_price">'
     costTxt+='<tr><th></th><th>ADULT</th><th>YOUNG</th><th>KID</th><th>BABY</th></tr><tr><td>AGE</td>'
     costTxt+='<td><input class="pei_age_adult_'+i+'" value="19-65"/></td><td><input class="pei_age_young_'+i+'" value="9-18"/></td>'
     costTxt+='<td><input class="pei_age_kid_'+i+'" value="3-8"/></td><td><input class="pei_age_free_'+i+'" value="-"/></td>'

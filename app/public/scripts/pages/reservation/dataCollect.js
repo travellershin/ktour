@@ -142,8 +142,6 @@ function collect_reservation(){
         }
         generate_filter();
     })
-
-
 }
 
 function generate_filter(){

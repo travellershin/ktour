@@ -215,25 +215,31 @@
     </div>
 
     <div class="om_pop hidden">
-        <div class="om_pop_line">
-            <p class="om_pop_line_title">BUS COMPANY</p>
-            <p class="om_pop_line_txt om_pop_company">Company_A</p>
-        </div>
-        <div class="om_pop_line">
-            <p class="om_pop_line_title">CUSTOMERS</p>
-            <p class="om_pop_line_txt om_pop_people">Company_A</p>
-        </div>
-        <div class="om_pop_line om_pop_line--border">
-            <p class="om_pop_line_title">BUS COST</p>
-            <p class="om_pop_line_txt om_pop_cost">Company_A</p>
-        </div>
-        <div class="om_pop_line">
-            <p class="om_pop_line_title">GUIDE</p>
-            <p class="om_pop_line_txt om_pop_guide">Company_A</p>
-        </div>
-        <div class="om_pop_line om_pop_line--deep">
-            <p class="om_pop_line_title">MESSAGE</p>
-            <p class="om_pop_message">HEllo </p>
+        <div class="om_pop_scroll">
+            <div class="om_pop_line">
+                <p class="om_pop_line_title">BUS COMPANY</p>
+                <p class="om_pop_line_txt om_pop_company">Company_A</p>
+            </div>
+            <div class="om_pop_line">
+                <p class="om_pop_line_title">CUSTOMERS</p>
+                <p class="om_pop_line_txt om_pop_people">Company_A</p>
+            </div>
+            <div class="om_pop_line om_pop_line--border">
+                <p class="om_pop_line_title">BUS COST</p>
+                <p class="om_pop_line_txt om_pop_cost">Company_A</p>
+            </div>
+            <div class="om_pop_line">
+                <p class="om_pop_line_title">GUIDE</p>
+                <p class="om_pop_line_txt om_pop_guide">Company_A</p>
+            </div>
+            <div class="om_pop_line om_pop_line--deep">
+                <p class="om_pop_line_title">MEMO(to)</p>
+                <p class="om_pop_message"></p>
+            </div>
+            <div class="om_pop_line om_pop_line--deep">
+                <p class="om_pop_line_title">MEMO(from)</p>
+                <p class="om_pop_memofrom"></p>
+            </div>
         </div>
         <div class="om_pop_bottom">
             <div class="longbtn omp_edit">
@@ -269,8 +275,12 @@
 
                 </div>
                 <div class="obe_body_deepline">
-                    <p class="obe_body_title">MESSAGE</p>
+                    <p class="obe_body_title">MEMO(to)</p>
                     <textarea class="obe_body_message" id="op_message"></textarea>
+                </div>
+                <div class="obe_body_deepline">
+                    <p class="obe_body_title">MEMO(from)</p>
+                    <textarea class="obe_body_message" id="op_memofrom" readonly></textarea>
                 </div>
             </div>
             <div class="obe_footer">
@@ -279,12 +289,12 @@
         </div>
     </div>
 
-    <div class="lightBox_shadow centering hidden">
+    <div class="lightBox_shadow hidden centering">
 
         <!-- 예약 데이터 클릭시 상세정보 CSS pages/reservation/info-->
         <div class="ri">
             <div class="ri_header">
-                <img class="ri_header_star" src="./assets/icon-star-off.svg"/>
+                <div class="ri_header_star"></div>
                 <p class="ri_header_title">RESERVATION INFO</p>
                 <img class="ri_header_close" src="./assets/icon-close.svg">
             </div>
@@ -296,10 +306,8 @@
                         <p>AREA</p>
                         <p class="ric_pick">PICKUP PLACE</p>
                         <p>PICKUP TIME</p>
-                        <p>PEOPLE</p>
                         <p>AGENCY</p>
                         <p class="ric_option">OPTION</p>
-                        <p>CHINESE</p>
                     </div>
                     <div class="ric_co">
                         <p class="rv_info_date">-</p>
@@ -307,10 +315,8 @@
                         <p class="rv_info_area">-</p>
                         <p class="rv_info_pickupPlace">-</p>
                         <p class="rv_info_pickupTime">-</p>
-                        <p class="rv_info_people">-</p>
                         <p class="rv_info_agency">-</p>
                         <p class="rv_info_option">-</p>
-                        <p class="rv_info_chinese">-</p>
                     </div>
 
                     <div class="ric_verticalLine"></div>
@@ -318,27 +324,136 @@
                     <div class="ric_ti">
                         <p class="ric_name">NAME</p>
                         <p>NATIONALITY</p>
+                        <p>PEOPLE</p>
                         <p>TEL</p>
                         <p>MESSENGER</p>
                         <p>E-MAIL</p>
-                        <p>CODE</p>
                         <p>AGENCY CODE</p>
                     </div>
                     <div class="ric_co">
                         <p class="rv_info_clientName">-</p>
                         <p class="rv_info_nationality">-</p>
+                        <p class="rv_info_people">-</p>
                         <p class="rv_info_tel">-</p>
                         <p class="rv_info_messenger">-</p>
                         <p class="rv_info_email">-</p>
-                        <p class="rv_info_code">-</p>
                         <p class="rv_info_agencyCode">-</p>
                     </div>
 
                 </div>
-
                 <p class="ri_smallTitle">MEMO</p>
                 <p class="rv_info_memo">-</p>
             </div>
+            <div class="ri_footer">
+                <div class="ri_footer_edit longbtn">
+                    <img src="./assets/icon-edit.svg" />
+                    <p>EDIT</p>
+                </div>
+                <div class="ri_footer_cancel longbtn">
+                    <img src="./assets/icon-trash.svg" />
+                    <p>CANCEL RESERVATION</p>
+                </div>
+                <div class="ri_footer_gmail longbtn">
+                    <img src="./assets/icon-gmail.png"/>
+                    <p>GO TO GMAIL</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 예약 데이터 수정 CSS pages/reservation/edit-->
+        <div class="re hidden">
+            <div class="re_header">
+                <p class="re_header_title">RESERVATION EDIT</p>
+                <img class="re_header_close" src="./assets/icon-close.svg">
+            </div>
+
+            <div class="re_content">
+                <div class="rec">
+                    <div class="rec_ti">
+                        <p>DATE</p>
+                        <p>PRODUCT</p>
+                        <p>AREA</p>
+                        <p>PICKUP PLACE</p>
+                        <p>PICKUP TIME</p>
+                        <p>AGENCY</p>
+                        <p>OPTION</p>
+                    </div>
+                    <div class="rec_co">
+
+                        <div id="singleDateBox" class="rec_co_midinput input">
+                            <input id="singleDate" class="rv_info_date">
+                            <img src="./assets/icon-filter.svg" />
+                        </div>
+                        <input class="rec_co_longinput input input_disabled rv_info_product" readonly/>
+                        <input class="rv_info_area rec_co_longinput input dw_dndropdown" readonly id="rev_areadrop"/>
+                        <div><input class="rec_co_longinput input rv_info_pickupPlace dw_dndropdown" readonly id="rev_placedrop"></div>
+                        <div class="rec_co_midinput input">
+                            <input class="rv_info_pickupTime" type="time">
+                        </div>
+
+                        <div class="rec_co_longinput input input_disabled rv_info_agency"></div>
+                        <div class="rec_co_longinput input">
+                            <input class="rv_info_option">
+                        </div>
+                    </div>
+
+                    <div class="rec_verticalLine"></div>
+
+                    <div class="rec_ti">
+                        <p>NAME</p>
+                        <p>NATIONALITY</p>
+                        <p class="rec_ti_people">PEOPLE</p>
+                        <p>TEL</p>
+                        <p>MESSENGER</p>
+                        <p>E-MAIL</p>
+                        <p>AGENCY CODE</p>
+                    </div>
+                    <div class="rec_co">
+
+                        <div class="rec_co_full input">
+                            <input class="rv_info_clientName">
+                        </div>
+                        <div class="rec_co_longinput input">
+                            <input class="rv_info_nationality">
+                        </div>
+                        <div class="rec_co_box">
+                            <input class="rv_info_people" type="number">
+                            <div class="rec_co_box_mini">
+                                <p class="rec_co_box_mini_txt">Adult</p>
+                                <input type="number" class="rv_info_adult rec_co_shortinput input">
+                            </div>
+                            <div class="rec_co_box_mini">
+                                <p class="rec_co_box_mini_txt">Child</p>
+                                <input type="number" class="rv_info_kid rec_co_shortinput input">
+                            </div>
+                            <div class="rec_co_box_mini">
+                                <p class="rec_co_box_mini_txt">Baby</p>
+                                <input type="number" class="rv_info_infant rec_co_shortinput input">
+                            </div>
+                        </div>
+                        <div class="rec_co_full input">
+                            <input class="rv_info_tel">
+                        </div>
+                        <div class="rec_co_full input">
+                            <input class="rv_info_messenger">
+                        </div>
+                        <div class="rec_co_full input">
+                            <input class="rv_info_email">
+                        </div>
+                        <input class="rec_co_longinput input input_disabled rv_info_agencyCode" readonly spellcheck="false"/>
+                    </div>
+                </div>
+
+                <p class="rec_memo">MEMO</p>
+                <textarea class="rec_memo_txt rv_info_memo"></textarea>
+
+            </div>
+            <div class="re_footer">
+                <div class="re_footer_save">SAVE</div>
+            </div>
+
         </div>
     </div>
 
@@ -353,9 +468,12 @@
     <script src='./scripts/pages/operation_new.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
     <script src='./libraries/jquery-ui.min.js'></script>
+
     <script src='./scripts/pages/operation/datacollect.js'></script>
     <script src='./scripts/pages/operation/inflate.js'></script>
     <script src='./scripts/pages/operation/team_edit.js'></script>
     <script src='./scripts/pages/operation/team_save.js'></script>
     <script src='./scripts/pages/operation/teamArrange.js'></script>
+
+    <script src='./scripts/pages/operation/reservation/inflation.js'></script>
 </body>

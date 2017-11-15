@@ -11,14 +11,13 @@ $(document).on("click", ".re_footer_save", function(){
 
 
 function r_save(id){
-    console.log("얌마")
 
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
     $("body").css("overflow","auto");
     $(".popUp").addClass("hidden")
 
-    let iArray = ["date","product","area","pickupPlace","pickupTime","option","chinese","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
+    let iArray = ["date","product","area","pickupPlace","pickupTime","chinese","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
     for (let i = 0; i < iArray.length; i++) {
         r_obj[id][iArray[i]] = $(".rec .rv_info_"+iArray[i]).val();
         if(typeof r_obj[id][iArray[i]] == "undefined"){
@@ -29,8 +28,21 @@ function r_save(id){
     for (let i = 0; i < numberArray.length; i++) {
         r_obj[id][numberArray[i]] = r_obj[id][numberArray[i]]*1
     }
-    firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
+
+    r_obj[id].option = []
+
+    for (let i = 0; i < $(".rec_co_option_name").length; i++) {
+        let optdata = {
+            option:$(".rec_co_option_name").eq(i).val(),
+            people:$(".rec_co_option_people").eq(i).val()*1
+        }
+        r_obj[id].option.push(optdata)
+    }
+
+
     toast("저장되었습니다")
+    firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
+
 }
 
 function re_close(){

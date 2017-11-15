@@ -44,7 +44,45 @@
         </div>
 
         <div class="a_stat">
-            <div id="account_chart"></div>
+            <div class="a_stat_total">
+                <p class="a_stat_total_title">TOTAL</p>
+                <p class="a_stat_total_value">0</p>
+            </div>
+            <div class="a_stat_card">
+                <div class="a_stat_card_total">
+                    <p class="a_stat_card_total_title">CARD</p>
+                    <p class="a_stat_card_total_value">0</p>
+                </div>
+                <div class="a_stat_card_indi">
+                    <div class="a_stat_card_indi_in">
+                        <p class="a_stat_card_indi_in_title">INCOME</p>
+                        <p class="a_stat_card_indi_in_value">0</p>
+                    </div>
+                    <div class="a_stat_card_indi_ex">
+                        <p class="a_stat_card_indi_ex_title">EXPENDITURE</p>
+                        <p class="a_stat_card_indi_ex_value">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a_stat_cash">
+                <div class="a_stat_card_total">
+                    <p class="a_stat_card_total_title">CASH</p>
+                    <p class="a_stat_cash_total_value">0</p>
+                </div>
+                <div class="a_stat_card_indi">
+                    <div class="a_stat_card_indi_in">
+                        <p class="a_stat_card_indi_in_title">INCOME</p>
+                        <p class="a_stat_cash_indi_in_value">0</p>
+                    </div>
+                    <div class="a_stat_card_indi_ex">
+                        <p class="a_stat_card_indi_ex_title">EXPENDITURE</p>
+                        <p class="a_stat_cash_indi_ex_value">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a_stat_cash">
+
+            </div>
         </div>
 
         <div class="a_htop">
@@ -60,10 +98,10 @@
             <p class="a_htop_filterRemove btn">모든 필터 해제</p>
         </div>
 
-        <div class="a_hbot">
+        <div class="a_hbot clearfix">
             <p class="a_hbot_date">DATE</p>
-            <div class="a_hbot_category dw_dndropdown multiselect" id="a_filter_category">CATEGORY</div>
-            <div class="a_hbot_writer dw_dndropdown multiselect" id="a_filter_writer">WRITER</div>
+            <div class="a_hbot_category" fid="category">CATEGORY</div>
+            <div class="a_hbot_writer" fid="writer">WRITER</div>
             <p class="a_hbot_contents">CONTENTS</p>
             <div class="a_hbot_card">
                 <p>CARD</p>
@@ -78,6 +116,10 @@
                     <p>INCOME</p>
                     <p>EXPENDITURE</p>
                 </div>
+            </div>
+            <div class="a_drop a_drop_category hidden" fid="category">
+            </div>
+            <div class="a_drop a_drop_writer hidden" fid="writer">
             </div>
         </div>
 
@@ -108,7 +150,7 @@
 
     </div>
 
-    <div class="lightBox_shadow hidden centering">
+    <div class="lightBox_shadow addnewbox hidden centering">
         <div class="a_edit">
             <div class="a_edit_header">
                 <p class="a_edit_header_title">ACCOUNT ITEM</p>
@@ -124,8 +166,12 @@
                     <input id="categorydrop" readonly class="a_edit_input dw_dropdown a_edit_input_category" dropitem="reservation,tour,office,etc" />
                 </div>
                 <div class="a_edit_line">
-                    <p class="a_edit_sTitle">Writer</p>
+                    <p class="a_edit_sTitle">WRITER</p>
                     <input class="a_edit_input a_edit_input_writer"/>
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">CURRENCY</p>
+                    <input class="a_edit_input a_edit_input_currency dw_dropdown" id="a_edit_input_currency" dropitem="KRW,USD,CNY" spellcheck="false"/>
                 </div>
                 <div class="a_edit_line a_edit_line--contents">
                     <p class="a_edit_sTitle">CONTENTS</p>
@@ -164,6 +210,30 @@
         </div>
     </div>
 
+    <div class="lightBox_shadow hidden exchangebox centering">
+        <div class="a_ex_box">
+            <div class="a_ex_header">
+                <p>EXCHANGE RATE</p>
+                <img class="a_ex_header_close" src="./assets/icon-close.svg">
+            </div>
+            <div class="a_ex_body">
+                <div class="a_ex_body_line">
+                    <p class="a_ex_body_frontTxt">1 USD</p>
+                    <input type="number" class="a_ex_body_money a_ex_input_usd"/>
+                    <p class="a_ex_body_endTxt">WON</p>
+                </div>
+                <div class="a_ex_body_line">
+                    <p class="a_ex_body_frontTxt">1 CNY</p>
+                    <input type="number" class="a_ex_body_money a_ex_input_cny"/>
+                    <p class="a_ex_body_endTxt">WON</p>
+                </div>
+            </div>
+            <div class="a_ex_footer">
+                <div class="a_ex_footer_save">SAVE</div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -183,6 +253,10 @@
     <script src='./scripts/module/firebase.js'></script>
     <script src='./scripts/module/global.js'></script>
     <script src='./scripts/module/date.js'></script>
-    <script src='./scripts/pages/account.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
+
+    <script src='./scripts/pages/account.js'></script>
+    <script src='./scripts/pages/account/datacollect.js'></script>
+    <script src='./scripts/pages/account/filter.js'></script>
+    <script src='./scripts/pages/account/inflate.js'></script>
 </body>

@@ -188,6 +188,9 @@ function save_product(){
         itemData.item = $(".pep_p_as_title").eq(i).val();
         itemData.free_cost = 0;
         itemData.pre = false;
+        if($(".pep_p_as_pre_cb").eq(i).hasClass("cb_checked")){
+            itemData.pre = true;
+        }
 
         data.cost.item.push(itemData)
     }

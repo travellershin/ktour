@@ -34,14 +34,20 @@ function r_detail(id){
     }
     if(data.option){
         let txt = ""
+        let edittxt = ""
         for (let i = 0; i < data.option.length; i++) {
             txt+=data.option[i].option+" : "
             txt+=data.option[i].people +"<br>"
+
+            edittxt+='<div class="rec_co_option_box"><p class="rec_co_option_name">'+data.option[i].option+'</p>'
+            edittxt+='<input type="number" value='+data.option[i].people+' class="rec_co_option_people" placeholder="people"/></div>'
         }
         txt = txt.slice(0,-4);
         $(".rv_info_option").html(txt)
+        $(".rec_co_option").html(edittxt)
     }else{
         $(".rv_info_option").html("")
+        $(".rec_co_option").html("")
     }
 
 

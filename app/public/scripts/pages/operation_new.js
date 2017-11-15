@@ -176,7 +176,6 @@ function teamPop(div){
     $(".om_pop").css("left",event.pageX +10 + "px")
                 .css("top",event.pageY -120 + "px");
     $(".om_pop").toggleClass("hidden");
-
     $(".om_pop_company").html(teamObj.bus_name);
     $(".om_pop_people").html(teamObj.people);
     $(".om_pop_cost").html(teamObj.bus_cost);
@@ -185,6 +184,17 @@ function teamPop(div){
     $(".omp_edit").attr("tid",tid);
     $(".omp_edit").attr("pid",pid);
     $(".omp_edit").attr("busno",busno+1);
+
+    let memotxt = ""
+    if(teamObj.memo){
+        for (let guidekey in teamObj.memo) {
+            memotxt+=guidedata[guidekey].name+" : " + teamObj.memo[guidekey] +"<br>"
+        }
+        memotxt = memotxt.slice(0,-4)
+    }
+
+    $(".om_pop_memofrom").html(memotxt)
+
 }
 
 
@@ -359,7 +369,6 @@ function showList(pid){
 
     filterOut_rev(op_rev);
     inflate_reservation(op_rev);
-
 }
 
 function inflate_reservation(rev){
@@ -529,7 +538,6 @@ function filter_init(){
     }
 }
 
-
 function rev_detail(id){
     let data = reservation[date][id]
 
@@ -574,10 +582,6 @@ $(".o_header_quick_yesterday").click(function(){
     $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
     $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
     $(".o_header_date_txt").val(date)
-    firebase.database().ref("reservation").off("value")
-    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
-        reservation[date] = snap.val();
-    })
     getOperationData(date);
 })
 $(".o_header_quick_today").click(function(){
@@ -587,10 +591,6 @@ $(".o_header_quick_today").click(function(){
     $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
     $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
     $(".o_header_date_txt").val(date)
-    firebase.database().ref("reservation").off("value")
-    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
-        reservation[date] = snap.val();
-    })
     getOperationData(date);
 })
 $(".o_header_quick_tomorrow").click(function(){
@@ -600,10 +600,6 @@ $(".o_header_quick_tomorrow").click(function(){
     $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
     $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
     $(".o_header_date_txt").val(date)
-    firebase.database().ref("reservation").off("value")
-    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
-        reservation[date] = snap.val();
-    })
     getOperationData(date);
 })
 
@@ -616,9 +612,5 @@ function o_quick(index){
         $(".o_header_date_txt").data('daterangepicker').setEndDate(datestring.add(no));
     }
 
-    firebase.database().ref("reservation").off("value")
-    firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
-        reservation[date] = snap.val();
-    })
     getOperationData(date);
 }

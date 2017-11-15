@@ -10,6 +10,12 @@ $(".omp_edit").click(function(){
 $("body").click(function(){
     $(".om_pop").addClass("hidden");
 })
+$(".ol_selectAll").click(function(){
+    $(".rv_content").addClass("rev--selected")
+})
+$(".ol_unSelect").click(function(){
+    $(".rv_content").removeClass("rev--selected")
+})
 
 
 function editTeam(div){

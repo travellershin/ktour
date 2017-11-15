@@ -10,6 +10,8 @@ let key = ""
 let file = {}
 let isPhotoChanged = false;
 
+let gAsset = {}
+
 function uploadGuide(files) {
     isPhotoChanged = true;
     file = files[0];
@@ -62,6 +64,25 @@ $(document).on("click", ".g_pop_edit", function(){
 function Guide(){
 
     this.show = function(){
+
+        firebase.database().ref("product").on("value", snap => {
+            let pdata = snap.val();
+
+            for (let pkey in pdata) {
+                if(pdata[pkey].cost.item){
+                    gAsset[pdata[pkey].id] = []
+                    for (let i = 0; i < pdata[pkey].cost.item.length; i++) {
+                        if(pdata[pkey].cost.item[i].pre){
+                            gAsset[pdata[pkey].id].push(pdata[pkey].cost.item[i].item)
+                        }
+
+                    }
+                }
+            }
+
+            console.log(gAsset)
+
+        })
 
         window.localStorage["guideFaceUrl"] = "";
         window.localStorage["guideFaceCode"] = "";
@@ -182,6 +203,8 @@ function Guide(){
             console.log("사진 변경하지 않음")
         }
 
+        $(".pop_blackScreen").addClass("hidden")
+        toast("저장되었습니다")
 
 
     }

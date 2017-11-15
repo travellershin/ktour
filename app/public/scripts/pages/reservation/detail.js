@@ -23,15 +23,18 @@ function r_detail(id){
         $(".ri_header_star").removeClass("ri_header_star--on")
     }
 
-    for (var key in data) {
-        if(data[key] == "N/A"){
-            $('.rv_info_'+key).html("-");
-            $('.rv_info_'+key).val("-");
+    let field = ["date","product","people","pickupPlace","area","clientName","nationality","agency","tel","email","messenger","agencyCode","pickupTime","memo"];
+
+    for (let i = 0; i < field.length; i++) {
+        if(!data[field[i]]||data[field[i]] == "N/A"){
+            $('.rv_info_'+field[i]).html("-");
+            $('.rv_info_'+field[i]).val("-");
         }else{
-            $('.rv_info_'+key).html(data[key]);
-            $('.rv_info_'+key).val(data[key]);
+            $('.rv_info_'+field[i]).html(data[field[i]]);
+            $('.rv_info_'+field[i]).val(data[field[i]]);
         }
     }
+
     if(data.option){
         let txt = ""
         let edittxt = ""

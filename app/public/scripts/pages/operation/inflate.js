@@ -57,9 +57,12 @@ function inflate_data(){
                 if(domdata.teams[tid].guide){
                     cityTxt[domdata.area]+='<p class="omp_team_names_guide">'
                     for (let j = 0; j < domdata.teams[tid].guide.length; j++) {
-                        cityTxt[domdata.area] += guidedata[domdata.teams[tid].guide[j]].name +", ";
-                        guideTotal.push(domdata.teams[tid].guide[j]);
-                        guideTeam[domdata.teams[tid].guide[j]] = [product,tid,i+1,j]
+                        console.log(domdata.teams[tid].guide[j])
+                        if(guidedata[domdata.teams[tid].guide[j]]){
+                            cityTxt[domdata.area] += guidedata[domdata.teams[tid].guide[j]].name +", ";
+                            guideTotal.push(domdata.teams[tid].guide[j]);
+                            guideTeam[domdata.teams[tid].guide[j]] = [product,tid,i+1,j]
+                        }
                     }
                     cityTxt[domdata.area] = cityTxt[domdata.area].slice(0, -2)
                     cityTxt[domdata.area]+='</p></div>'

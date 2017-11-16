@@ -134,16 +134,33 @@
 .op_hbot{
     &_bus{
         float: left;
-        margin-left: 60px;
+        margin-left: 140px;
         width: 60px;
     }
     &_memo{
         float: left;
-        width: 380px;
+        width: 280px;
     }
 }
 
+
+
 .op_content{
+    &_oCheck{
+        margin-top: -5px;
+        width: 30px;
+        height: 30px;
+        background-image: url("./assets/checkboxes-default.svg");
+        background-size: contain;
+    }
+    &_gCheck{
+        margin-top: -5px;
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+        background-image: url("./assets/checkboxes-default.svg");
+        background-size: contain;
+    }
     &_bus{
         margin-left: 20px;
         width: 60px;
@@ -152,12 +169,21 @@
         font-weight: bold;
     }
     &_memo{
-        width: 380px;
+        width: 280px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         height: 20px;
     }
+}
+
+.gCkeck--checked{
+    background-image: url("./assets/checkboxes-active.svg");
+    background-size: contain;
+}
+.oCkeck--checked{
+    background-image: url("./assets/checkboxes-active.svg");
+    background-size: contain;
 }
 
 .ol_editBus{

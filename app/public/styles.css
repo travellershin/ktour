@@ -2299,12 +2299,27 @@ textarea::-webkit-scrollbar-thumb
             }
 .op_hbot_bus{
         float: left;
-        margin-left: 60px;
+        margin-left: 140px;
         width: 60px;
     }
 .op_hbot_memo{
         float: left;
-        width: 380px;
+        width: 280px;
+    }
+.op_content_oCheck{
+        margin-top: -5px;
+        width: 30px;
+        height: 30px;
+        background-image: url("./assets/checkboxes-default.svg");
+        background-size: contain;
+    }
+.op_content_gCheck{
+        margin-top: -5px;
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+        background-image: url("./assets/checkboxes-default.svg");
+        background-size: contain;
     }
 .op_content_bus{
         margin-left: 20px;
@@ -2314,12 +2329,20 @@ textarea::-webkit-scrollbar-thumb
         font-weight: bold;
     }
 .op_content_memo{
-        width: 380px;
+        width: 280px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         height: 20px;
     }
+.gCkeck--checked{
+    background-image: url("./assets/checkboxes-active.svg");
+    background-size: contain;
+}
+.oCkeck--checked{
+    background-image: url("./assets/checkboxes-active.svg");
+    background-size: contain;
+}
 .ol_editBus{
     float: right;
     margin-right: 20px;

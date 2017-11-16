@@ -21,6 +21,7 @@ function cancel_reservation(id){
     $(".alert_background").addClass("hidden");
     $("body").css("overflow","auto")
     $(".popUp").addClass("hidden");
+    $(".lightBox_shadow").addClass("hidden");
     firebase.database().ref("canceled/"+id).set(r_obj[id]);
     firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).remove()
 }

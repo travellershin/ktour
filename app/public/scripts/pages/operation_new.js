@@ -10,8 +10,63 @@ let adjusted = {
     nationality : [],
     agency : []
 }
+let o_order = {
+    name:false, //false = 내림차순
+    bus:false,
+    people:false
+}
+let r_obj = {}
 
+$(".r_hbot_name").click(function(){
+    sortByName();
+})
+$(".op_hbot_bus").click(function(){
+    sortByBus();
+})
+$(".r_hbot_people").click(function(){
+    sortByPeople()
+})
 
+$(".ri_footer_gmail").click(function(){
+    window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id").split("-")[0])
+})
+
+$(document).on("click",".op_content_oCheck",function(){
+    $(this).toggleClass("oCkeck--checked");
+    let pid = $(".ol_title").html()
+    let tid = $(this).parent().attr("tid")
+    let id = $(this).parent().attr("id")
+    if($(this).hasClass("oCkeck--checked")){
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/oCheck").set(true)
+    }else{
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/oCheck").set(false)
+    }
+    return false
+})
+$(".ol").on("click",".rv_content_star",function(){
+    $(this).parent().children(".rv_content_star").toggleClass("rv_content_star--on");
+    let pid = $(".ol_title").html()
+    let tid = $(this).parent().attr("tid")
+    let id = $(this).parent().attr("id")
+    if($(this).parent().children(".rv_content_star").hasClass("rv_content_star--on")){
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/star").set(true)
+    }else{
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/star").set(false)
+    }
+    return false
+})
+$(document).on("click",".op_content_gCheck",function(){
+    $(this).parent().children(".op_content_oCheck").toggleClass("oCkeck--checked");
+    let pid = $(".ol_title").html()
+    let tid = $(this).parent().attr("tid")
+    let id = $(this).parent().attr("id")
+    if($(this).parent().children(".op_content_oCheck").hasClass("oCkeck--checked")){
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/oCheck").set(true)
+    }else{
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/oCheck").set(false)
+    }
+    return false
+})
 
 $(document).on("click",".omp_team",function(){
     if($(".o_header_change").html() === "팀 이동"){
@@ -119,7 +174,9 @@ $(document).on("click",".rv_content",function(){
         }
         $(".ol_busEdit_number_txt").html(selectArray.length)
     }else{
-        rev_detail($(this).attr("id"))
+        rev_detail($(".rv_content").index(this))
+        $(".ri_footer_gmail").attr("id",$(this).attr("id"));
+        $(".re_footer_save").attr("id",$(this).attr("id"));
     }
 })
 
@@ -316,25 +373,16 @@ function showList(pid){
         busEditTxt += '<p class="ol_busEdit_bus" tid="'+data.teamArgArray[i]+'">BUS '+(i+1)+'</p>'
 
         for (let revkey in data.teams[data.teamArgArray[i]].reservations) {
+            let reservation_data = data.teams[data.teamArgArray[i]].reservations[revkey];
+            reservation_data.team = data.teamArgArray[i];
+            reservation_data.busNumber = i+1;
 
-            let reservation_data = {
-                id:revkey,
-                pickupPlace:data.teams[data.teamArgArray[i]].reservations[revkey].pickupPlace,
-                people:data.teams[data.teamArgArray[i]].reservations[revkey].people,
-                option:data.teams[data.teamArgArray[i]].reservations[revkey].option,
-                clientName:data.teams[data.teamArgArray[i]].reservations[revkey].clientName,
-                nationality:"",
-                agency:data.teams[data.teamArgArray[i]].reservations[revkey].agency,
-                busNumber:(i+1),
-                memo:data.teams[data.teamArgArray[i]].reservations[revkey].memo,
-                team:data.teamArgArray[i]
-            }
             if(data.teams[data.teamArgArray[i]].reservations[revkey].nationality){
                 reservation_data.nationality = data.teams[data.teamArgArray[i]].reservations[revkey].nationality
             }else{
                 reservation_data.nationality = "Unknown"
             }
-
+            r_obj[revkey] = reservation_data
             op_rev.push(reservation_data)
 
             if(teamlist[i]){
@@ -375,11 +423,23 @@ function inflate_reservation(rev){
     console.log(rev)
     let domTxt = ""
     for (let i = 0; i < rev.length; i++) {
-        domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'"><img class="rv_content_star" '
-        if(rev[i].star){
-            domTxt += 'src="./assets/icon-star-on.svg"/>'
+        domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'">'
+        if(rev[i].oCheck){
+            domTxt += '<div class="op_content_oCheck oCkeck--checked"></div>'
         }else{
-            domTxt += 'src="./assets/icon-star-off.svg"/>'
+            domTxt += '<div class="op_content_oCheck"></div>'
+        }
+
+        if(rev[i].gCheck){
+            domTxt += '<div class="op_content_gCheck gCkeck--checked"></div>'
+        }else{
+            domTxt += '<div class="op_content_gCheck"></div>'
+        }
+
+        if(rev[i].star){
+            domTxt += '<div class="rv_content_star rv_content_star--on"></div>'
+        }else{
+            domTxt += '<div class="rv_content_star"></div>'
         }
         if(rev[i].memo){
             if(rev[i].memo==="N/A"){rev[i].memo=""}
@@ -387,7 +447,7 @@ function inflate_reservation(rev){
         domTxt += '<p class="op_content_bus">'+rev[i].busNumber+'</p><p class="rv_content_date">';
         domTxt += '<p class="op_content_memo">'+rev[i].memo+'</p><p class="rv_content_pickup">';
         domTxt += rev[i].pickupPlace + '</p><p class="rv_content_people">';
-        domTxt += rev[i].people +'</p><p class="rv_content_option">'
+        domTxt += rev[i].people+' ('+rev[i].adult+'/'+rev[i].kid+')' +'</p><p class="rv_content_option">'
         //옵션여부를 검사하는 곳
         domTxt += 'OPTION' +'</p><p class="rv_content_name" title="'
         domTxt += rev[i].clientName + '">'
@@ -538,9 +598,11 @@ function filter_init(){
     }
 }
 
-function rev_detail(id){
-    let data = reservation[date][id]
-
+function rev_detail(index){
+    console.log(op_rev)
+    console.log(index)
+    let data = op_rev[index]
+    console.log(data)
     for (var key in data) {
         if(data[key] == "N/A"){
             $('.rv_info_'+key).html("-");
@@ -550,6 +612,7 @@ function rev_detail(id){
             $('.rv_info_'+key).val(data[key]);
         }
     }
+    console.log(data)
     if(data.agencyCode){$('.rv_info_agencyCode').html(data.agencyCode)}
     if(data.code){$('.rv_info_code').html(data.code)}
     if(data.agency){$('.rv_info_agency').html(data.agency)}
@@ -613,4 +676,50 @@ function o_quick(index){
     }
 
     getOperationData(date);
+}
+
+function sortByName(){
+    if(o_order.name){
+        o_order.name = false;
+        op_rev.sort(function(a, b) {
+            return a.clientName.toLowerCase().trim() < b.clientName.toLowerCase().trim() ? 1 : a.clientName.toLowerCase().trim() > b.clientName.toLowerCase().trim() ? -1 : 0;
+        });
+    }else{
+        o_order.name = true;
+        op_rev.sort(function(a, b) {
+            return a.clientName.toLowerCase().trim() < b.clientName.toLowerCase().trim() ? -1 : a.clientName.toLowerCase().trim() > b.clientName.toLowerCase().trim() ? 1 : 0;
+        });
+    }
+
+    inflate_reservation(op_rev);
+}
+
+function sortByBus(){
+    if(o_order.bus){
+        o_order.bus = false;
+        op_rev.sort(function(a, b) {
+            return a.busNumber < b.busNumber ? 1 : a.busNumber > b.busNumber ? -1 : 0;
+        });
+    }else{
+        o_order.bus = true;
+        op_rev.sort(function(a, b) {
+            return a.busNumber < b.busNumber ? -1 : a.busNumber > b.busNumber ? 1 : 0;
+        });
+    }
+    inflate_reservation(op_rev);
+}
+
+function sortByPeople(){
+    if(o_order.people){
+        o_order.people = false;
+        op_rev.sort(function(a, b) {
+            return a.people < b.people ? 1 : a.people > b.people ? -1 : 0;
+        });
+    }else{
+        o_order.people = true;
+        op_rev.sort(function(a, b) {
+            return a.people < b.people ? -1 : a.people > b.people ? 1 : 0;
+        });
+    }
+    inflate_reservation(op_rev);
 }

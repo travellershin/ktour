@@ -6,13 +6,20 @@ let r_chart = {
 }
 let inflate_r = []
 $(document).on("click", ".rv_content_star", function(event){
+    let pid = r_obj[$(this).parent().attr("id")].product
+    let tid = r_obj[$(this).parent().attr("id")].team
+    let id = $(this).parent().attr("id")
+    let date = r_obj[$(this).parent().attr("id")].date
+
+
     if($(this).hasClass("rv_content_star--on")){
         $(this).removeClass("rv_content_star--on")
-        firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(false)
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/star").set(false)
     }else{
         $(this).addClass("rv_content_star--on")
-        firebase.database().ref("reservation/"+$(this).parent().attr("id")+"/star").set(true)
+        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/star").set(true)
     }
+
     event.stopPropagation();
 })
 
@@ -75,7 +82,7 @@ function inflate_reservation(){
                 title = title.slice(0,-3);
             }
 
-            txt += rData[i].people +'</p><p class="rv_content_option" title="'+title+'">'
+            txt += rData[i].people+' ('+rData[i].adult+'/'+rData[i].kid+')' +'</p><p class="rv_content_option" title="'+title+'">'
 
             if(rData[i].option){
                 txt+='O'

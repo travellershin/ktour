@@ -4,7 +4,8 @@ let fArray = ["product","pickupPlace","nationality","agency"];
 let r_obj = {};
 let cityData = {};
 let pNameArray = [];
-let searchArray = [];
+let nationalityArray = [];
+let agencyNameArray = [];
 let filter = {
     product:[],
     agency:[],
@@ -28,6 +29,7 @@ function datepicker_init(){
 
     collect_reservation();
     collect_pickupPlace();
+    collect_agency();
 
     for (let i = 0; i < $('.drp_quick>p').length; i++) {
 
@@ -214,13 +216,31 @@ function generate_filter(){
 
 
 function collect_pickupPlace(){
-    firebase.database().ref("place/city").on("value",snap=>{
-        cityData = snap.val();
+    firebase.database().ref("place").on("value",snap=>{
+        let data = snap.val();
+        let nationalityData = data.nationality
+        cityData = data.city;
         let cityArray = []
         for (let city in cityData) {
             cityArray.push(city)
         }
-        dynamicDrop($("#rev_areadrop"),cityArray)
+        dynamicDrop($("#rev_areadrop"),cityArray);
+
+        nationalityArray = ["PHILIPPINES","SINGAPORE","MALAYSIA","INDONESIA","HONG KONG","TAIWAN","UNITED STATES","VIET NAM"]
+
+        for (let nat in nationalityData) {
+            if(!nationalityArray.includes(nationalityData[nat].place)){
+                nationalityArray.push(nationalityData[nat].place)
+            }
+        }
+
+        let droptxt = ""
+
+        for (let i = 0; i < nationalityArray.length; i++) {
+            droptxt += '<p class="r_add_nitem">'+nationalityArray[i]+'</p>'
+        }
+        $(".r_add_natDrop").html(droptxt)
+        console.log(nationalityArray)
     });
     firebase.database().ref("product").on("value",snap=>{
         pdata = snap.val();
@@ -255,6 +275,20 @@ function collect_pickupPlace(){
         }
         $(".r_add_productDrop").html(droptxt)
     });
+}
+
+function collect_agency(){
+    firebase.database().ref("agency").on("value",snap => {
+        let data = snap.val();
+        agencyNameArray.length = 0
+
+        let droptxt = ""
+        for (let key in data) {
+            droptxt += '<p class="r_add_aitem">'+data[key].name+'</p>'
+            agencyNameArray.push(data[key].name)
+        }
+        $(".r_add_agencyDrop").html(droptxt)
+    })
 }
 
 $(document).on("click",".drp_quick_yesterday",function(){

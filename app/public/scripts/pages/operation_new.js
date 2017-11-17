@@ -68,6 +68,19 @@ $(document).on("click",".op_content_gCheck",function(){
     return false
 })
 
+$(".ri_header_close").click(function(){
+    $(".lightBox_shadow").addClass("hidden")
+})
+$(".lightBox_shadow").click(function(){
+    if($(".re").hasClass("hidden")){
+        $(".lightBox_shadow").addClass("hidden")
+    }
+})
+$(".ri").click(function(event){
+    console.log("니가막고있냐")
+    event.stopPropagation();
+})
+
 $(document).on("click",".omp_team",function(){
     if($(".o_header_change").html() === "팀 이동"){
         teamPop($(this));//팀 상세정보 보기
@@ -149,6 +162,7 @@ $(".ol_return").click(function(){
     $(".ol_editBus").removeClass("hidden");
     $(".o_header_date").removeClass("hidden");
     $(".o_header_quick").removeClass("hidden");
+    $(".o_header_change").removeClass("hidden")
     isEditing = false;
     viewing = ""
 })
@@ -300,6 +314,7 @@ function init_op_datepicker(){
         }
     }
     $(".o_header_quick").removeClass("hidden")
+    $(".o_header_change").removeClass("hidden")
 
     $('.o_header_date_txt').daterangepicker({
         "autoApply": true,
@@ -358,6 +373,7 @@ function showList(pid){
     $(".ol_title").html(pid)
     $(".o_header_date").addClass("hidden");
     $(".o_header_quick").addClass("hidden");
+    $(".o_header_change").addClass("hidden")
     viewing = pid;
 
     let data = operationData[date][pid]
@@ -447,10 +463,28 @@ function inflate_reservation(rev){
         domTxt += '<p class="op_content_bus">'+rev[i].busNumber+'</p><p class="rv_content_date">';
         domTxt += '<p class="op_content_memo">'+rev[i].memo+'</p><p class="rv_content_pickup">';
         domTxt += rev[i].pickupPlace + '</p><p class="rv_content_people">';
-        domTxt += rev[i].people+' ('+rev[i].adult+'/'+rev[i].kid+')' +'</p><p class="rv_content_option">'
+
+        let title = ""
         //옵션여부를 검사하는 곳
-        domTxt += 'OPTION' +'</p><p class="rv_content_name" title="'
+        if(rev[i].option){
+            for (let j = 0; j < rev[i].option.length; j++) {
+                title+=rev[i].option[j].option+" : "
+                title+=rev[i].option[j].people +" / "
+            }
+            title = title.slice(0,-3);
+        }
+
+        domTxt += rev[i].people+' ('+rev[i].adult+'/'+rev[i].kid+')' +'</p><p class="rv_content_option" title="'+title+'">'
+
+        if(rev[i].option){
+            domTxt+='O'
+        }else{
+            domTxt+='X'
+        }
+
+        domTxt += '</p><p class="rv_content_name" title="'
         domTxt += rev[i].clientName + '">'
+
         domTxt += rev[i].clientName + '</p><p class="rv_content_nationality">'
         domTxt += rev[i].nationality + '</p><p class="rv_content_agency">'
         domTxt += rev[i].agency + '</p></div>'
@@ -621,6 +655,24 @@ function rev_detail(index){
         $('.rv_info_people').html(data.people+" (adult "+data.people+" / child 0)")
     }else{
         $('.rv_info_people').html(data.people+" (adult "+data.adult+" / child "+data.kid+")")
+    }
+
+    if(data.option){
+        let txt = ""
+        let edittxt = ""
+        for (let i = 0; i < data.option.length; i++) {
+            txt+=data.option[i].option+" : "
+            txt+=data.option[i].people +"<br>"
+
+            edittxt+='<div class="rec_co_option_box"><input class="rec_co_option_name" value="'+data.option[i].option+'" readonly>'
+            edittxt+='<input type="number" value='+data.option[i].people+' class="rec_co_option_people" placeholder="people"/></div>'
+        }
+        txt = txt.slice(0,-4);
+        $(".rv_info_option").html(txt)
+        $(".rec_co_option").html(edittxt)
+    }else{
+        $(".rv_info_option").html("")
+        $(".rec_co_option").html("")
     }
 
     //팝업창을 띄우고 높이를 조정

@@ -1814,7 +1814,6 @@ textarea::-webkit-scrollbar-thumb
     height: 90vh;
     max-height: 702px;
     background-color: white;
-
 }
 .r_add_wrapper{
         position: fixed;
@@ -1971,82 +1970,55 @@ textarea::-webkit-scrollbar-thumb
             padding: 10px;
             margin-bottom: 20px;
         }
+.r_add_drop{
+        width: 225px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        border: solid 1px #e0e0e0;
+        border-top: none;
+        position: absolute;
+        z-index: 50;
+        background-color: white;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+.r_add_drop::-webkit-scrollbar-track{
+            background-color: #ffffff;
+        }
+.r_add_drop::-webkit-scrollbar{
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+.r_add_drop::-webkit-scrollbar-thumb{
+            background-color: #e0e0e0;
+        }
+.r_add_drop>p{
+            height: 30px;
+            line-height: 30px;
+            font-size: 13px;
+            margin: 5px 0;
+            padding-left: 12px;
+            cursor: pointer;
+        }
+.r_add_drop>p:hover{
+                background-color:rgba(225,225,225,0.2);
+            }
+.r_add_drop>p:active{
+                background-color:rgba(225,225,225,0.4);
+            }
 .r_add_productDrop{
-        width: 225px;
-        -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-        border: solid 1px #e0e0e0;
-        border-top: none;
-        position: absolute;
         top: 100px;
-        z-index: 50;
-        background-color: white;
-        max-height: 200px;
-        overflow-y: auto;
     }
-.r_add_productDrop::-webkit-scrollbar-track{
-            background-color: #ffffff;
-        }
-.r_add_productDrop::-webkit-scrollbar{
-            width: 3px;
-            background-color: #e0e0e0;
-
-        }
-.r_add_productDrop::-webkit-scrollbar-thumb{
-            background-color: #e0e0e0;
-        }
-.r_add_productDrop>p{
-            height: 30px;
-            line-height: 30px;
-            font-size: 13px;
-            margin: 5px 0;
-            padding-left: 12px;
-            cursor: pointer;
-        }
-.r_add_productDrop>p:hover{
-                background-color:rgba(225,225,225,0.2);
-            }
-.r_add_productDrop>p:active{
-                background-color:rgba(225,225,225,0.4);
-            }
 .r_add_pickDrop{
-        width: 225px;
-        -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-        border: solid 1px #e0e0e0;
-        border-top: none;
-        position: absolute;
         top: 163px;
-        z-index: 50;
-        background-color: white;
-        max-height: 200px;
-        overflow-y: auto;
     }
-.r_add_pickDrop::-webkit-scrollbar-track{
-            background-color: #ffffff;
-        }
-.r_add_pickDrop::-webkit-scrollbar{
-            width: 3px;
-            background-color: #e0e0e0;
-
-        }
-.r_add_pickDrop::-webkit-scrollbar-thumb{
-            background-color: #e0e0e0;
-        }
-.r_add_pickDrop>p{
-            height: 30px;
-            line-height: 30px;
-            font-size: 13px;
-            margin: 5px 0;
-            padding-left: 12px;
-            cursor: pointer;
-        }
-.r_add_pickDrop>p:hover{
-                background-color:rgba(225,225,225,0.2);
-            }
-.r_add_pickDrop>p:active{
-                background-color:rgba(225,225,225,0.4);
-            }
+.r_add_natDrop{
+        top: 383px;
+    }
+.r_add_agencyDrop{
+        top: 443px;
+    }
 /*버스정보(팀) 수정*/
 .obe{
     height:640px;
@@ -2665,8 +2637,8 @@ However, delay the fade out process for 2.5 seconds */
 }
 .o_header_date{
         float: left;
-        width: 136px;
-        padding-right: 48px;
+        width: 130px;
+        padding-right: 38px;
         background-image: url("./assets/icon-filter.svg");
         background-repeat: no-repeat;
         background-position: right 9px top 9px;
@@ -2680,7 +2652,6 @@ However, delay the fade out process for 2.5 seconds */
             margin-top: -1px;
             float: left;
             margin-left:6px;
-            width: 85px;
             background-color: inherit;
         }
 .o_header_quick{

@@ -9,8 +9,8 @@
 
     &_date{
         float: left;
-        width: 136px;
-        padding-right: 48px;
+        width: 130px;
+        padding-right: 38px;
         background-image: url("./assets/icon-filter.svg");
         background-repeat: no-repeat;
         background-position: right 9px top 9px;
@@ -24,7 +24,6 @@
             margin-top: -1px;
             float: left;
             margin-left:6px;
-            width: 85px;
             background-color: inherit;
         }
     }

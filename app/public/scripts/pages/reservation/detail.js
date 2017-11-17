@@ -1,9 +1,18 @@
 $(document).on("click",".rv_content",function(){
     r_detail($(this).attr("id"));
 })
-$(document).on("click", ".ri_header_close", function(){
+$(".ri_header_close").click(function(){
     r_close();
 })
+$(".lightBox_shadow").click(function(){
+    if($(".re").hasClass("hidden")){
+        r_close();
+    }
+})
+$(".ri").click(function(event){
+    event.stopPropagation();
+})
+
 $(".ri_footer_gmail").click(function(){
     window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id").split("-")[0])
 })
@@ -13,6 +22,7 @@ function r_detail(id){
     $(".alert_footer_yes").attr("id",id);
     $("body").css("overflow","hidden");
     $(".ri_footer_gmail").attr("id",id);
+    $(".lightBox_shadow").removeClass("hidden")
 
     let data = r_obj[id]
     console.log(data)
@@ -42,7 +52,7 @@ function r_detail(id){
             txt+=data.option[i].option+" : "
             txt+=data.option[i].people +"<br>"
 
-            edittxt+='<div class="rec_co_option_box"><p class="rec_co_option_name">'+data.option[i].option+'</p>'
+            edittxt+='<div class="rec_co_option_box"><input class="rec_co_option_name" value="'+data.option[i].option+'" readonly>'
             edittxt+='<input type="number" value='+data.option[i].people+' class="rec_co_option_people" placeholder="people"/></div>'
         }
         txt = txt.slice(0,-4);

@@ -1,4 +1,5 @@
-$(document).on("click", ".ri_footer_edit", function(){
+
+$(".ri_footer_edit").click(function(){
     $('.ri').addClass('hidden');
     $('.re').removeClass('hidden');
 })
@@ -21,13 +22,15 @@ $(".alert_footer_no").click(function(){
 })
 
 function r_save(id){
-    console.log(r_obj)
-    console.log(id)
+    console.log(r_obj);
+    console.log(id);
 
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
     $("body").css("overflow","auto");
-    $(".popUp").addClass("hidden")
+    $(".popUp").addClass("hidden");
+    $('.lightBox_shadow').addClass('hidden');
+
 
     let iArray = ["date","product","area","pickupPlace","pickupTime","chinese","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
     for (let i = 0; i < iArray.length; i++) {
@@ -50,6 +53,7 @@ function r_save(id){
             people:$(".rec_co_option_people").eq(i).val()*1
         }
         r_obj[id].option.push(optdata)
+        console.log(optdata)
     }
 
 

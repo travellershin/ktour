@@ -1,4 +1,5 @@
-$(document).on("click", ".ri_footer_edit", function(){
+
+$(".ri_footer_edit").click(function(){
     $('.ri').addClass('hidden');
     $('.re').removeClass('hidden');
 })

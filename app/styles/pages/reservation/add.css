@@ -165,88 +165,57 @@
         }
     }
 
+    &_drop{
+        width: 225px;
+        box-sizing: border-box;
+        border: solid 1px #e0e0e0;
+        border-top: none;
+        position: absolute;
+        z-index: 50;
+        background-color: white;
+        max-height: 200px;
+        overflow-y: auto;
+        &::-webkit-scrollbar-track{
+            background-color: #ffffff;
+        }
+
+        &::-webkit-scrollbar{
+            width: 3px;
+            background-color: #e0e0e0;
+
+        }
+
+        &::-webkit-scrollbar-thumb{
+            background-color: #e0e0e0;
+        }
+
+        &>p{
+            height: 30px;
+            line-height: 30px;
+            font-size: 13px;
+            margin: 5px 0;
+            padding-left: 12px;
+            cursor: pointer;
+
+            &:hover{
+                background-color:rgba(225,225,225,0.2);
+            }
+            &:active{
+                background-color:rgba(225,225,225,0.4);
+            }
+        }
+    }
+
     &_productDrop{
-        width: 225px;
-        box-sizing: border-box;
-        border: solid 1px #e0e0e0;
-        border-top: none;
-        position: absolute;
         top: 100px;
-        z-index: 50;
-        background-color: white;
-        max-height: 200px;
-        overflow-y: auto;
-        &::-webkit-scrollbar-track{
-            background-color: #ffffff;
-        }
-
-        &::-webkit-scrollbar{
-            width: 3px;
-            background-color: #e0e0e0;
-
-        }
-
-        &::-webkit-scrollbar-thumb{
-            background-color: #e0e0e0;
-        }
-
-        &>p{
-            height: 30px;
-            line-height: 30px;
-            font-size: 13px;
-            margin: 5px 0;
-            padding-left: 12px;
-            cursor: pointer;
-
-            &:hover{
-                background-color:rgba(225,225,225,0.2);
-            }
-            &:active{
-                background-color:rgba(225,225,225,0.4);
-            }
-        }
     }
-
     &_pickDrop{
-        width: 225px;
-        box-sizing: border-box;
-        border: solid 1px #e0e0e0;
-        border-top: none;
-        position: absolute;
         top: 163px;
-        z-index: 50;
-        background-color: white;
-        max-height: 200px;
-        overflow-y: auto;
-        &::-webkit-scrollbar-track{
-            background-color: #ffffff;
-        }
-
-        &::-webkit-scrollbar{
-            width: 3px;
-            background-color: #e0e0e0;
-
-        }
-
-        &::-webkit-scrollbar-thumb{
-            background-color: #e0e0e0;
-        }
-
-        &>p{
-            height: 30px;
-            line-height: 30px;
-            font-size: 13px;
-            margin: 5px 0;
-            padding-left: 12px;
-            cursor: pointer;
-
-            &:hover{
-                background-color:rgba(225,225,225,0.2);
-            }
-            &:active{
-                background-color:rgba(225,225,225,0.4);
-            }
-        }
     }
-
+    &_natDrop{
+        top: 383px;
+    }
+    &_agencyDrop{
+        top: 443px;
+    }
 }

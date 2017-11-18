@@ -33,9 +33,9 @@
             <img class="ol_return hidden" src="./assets/icon-back.svg" />
             <input class="o_header_date input o_header_date_txt">
             <div class="o_header_quick input hidden">
-                <p id="drp_quick_yesterday" class="o_header_quick_yesterday"></p>
-                <p id="drp_quick_today" class="o_header_quick_today drp_quick--selected"></p>
-                <p id="drp_quick_tomorrow" class="o_header_quick_tomorrow"></p>
+                <p id="drp_quick_-1"></p>
+                <p id="drp_quick_0" class="drp_quick--selected"></p>
+                <p id="drp_quick_1"></p>
                 <p id="drp_quick_2"></p>
                 <p id="drp_quick_3"></p>
                 <p id="drp_quick_4"></p>
@@ -79,20 +79,20 @@
             <div class="r_hbot">
                 <p class="op_hbot_bus">BUS</p>
                 <p class="op_hbot_memo">MEMO</p>
-                <div class="r_hbot_pickup dw_dndropdown multiselect" id="r_filter_pickupPlace">
-                    <p>PICKUP PLACE</p>
-                </div>
+                <div class="r_hbot_pickup r_hbot_hasdrop" fid="pickupPlace">PICKUP PLACE</div>
                 <p class="r_hbot_people">PEOPLE</p>
                 <div class="r_hbot_option">
                     <p>OPTION</p>
                     <img src="./assets/icon-filter.svg"/>
                 </div>
                 <p class="r_hbot_name">CLIENT NAME</p>
-                <div class="r_hbot_nationality dw_dndropdown multiselect" id="r_filter_nationality">
-                    <p>NATIONALITY</p>
+                <div class="r_hbot_nationality r_hbot_hasdrop" fid="nationality">NATIONALITY</div>
+                <div class="r_hbot_agency r_hbot_hasdrop" fid="agency">AGENCY</div>
+                <div class="r_drop r_drop_pickupPlace hidden" fid="pickupPlace">
                 </div>
-                <div class="r_hbot_agency dw_dndropdown multiselect" id="r_filter_agency">
-                    <p>AGENCY</p>
+                <div class="r_drop r_drop_nationality hidden" fid="nationality">
+                </div>
+                <div class="r_drop r_drop_agency hidden" fid="agency">
                 </div>
             </div>
             <div class="rv_box"></div>
@@ -485,10 +485,14 @@
     <script src='./scripts/pages/operation/reservation/edit.js'></script>
 
     <script src='./scripts/pages/operation/datacollect.js'></script>
-    <script src='./scripts/pages/operation/inflate.js'></script>
+    <script src='./scripts/pages/operation/generate.js'></script>
+    <script src='./scripts/pages/operation/inflate_listTop.js'></script>
+    <script src='./scripts/pages/operation/listener.js'></script>
+    <script src='./scripts/pages/operation/filter.js'></script>
+
     <script src='./scripts/pages/operation/team_edit.js'></script>
     <script src='./scripts/pages/operation/team_save.js'></script>
     <script src='./scripts/pages/operation/teamArrange.js'></script>
 
-    <script src='./scripts/pages/operation/reservation/inflation.js'></script>
+    <script src='./scripts/pages/operation/generate_filter.js'></script>
 </body>

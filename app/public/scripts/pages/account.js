@@ -66,6 +66,8 @@ function save_account(){
     }else{
         let aid = $(".a_edit").attr("aid");
         let data = acc_obj[aid]
+        console.log(data)
+        if(!acc_obj[aid]){acc_obj[aid]={}}
         data.date = $(".a_edit_input_date").val();
         data.card = 0;
         data.cash = 0;

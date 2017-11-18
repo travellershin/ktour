@@ -37,9 +37,9 @@ function moveTeam(pid_to){
     for (let i = 0; i < $(".omp_team--selected").length; i++) {
         let pid_from = $(".omp_team--selected").eq(i).attr("pid")
         let tid = $(".omp_team--selected").eq(i).attr("tid")
-        let teamData = operationData[date][pid_from].teams[tid]
-        delete operationData[date][pid_from].teams[tid]
-        operationData[date][pid_from].teamArgArray.splice(operationData[date][pid_from].teamArgArray.indexOf(tid),1)
+        let teamData = operationData[pid_from].teams[tid]
+        delete operationData[pid_from].teams[tid]
+        operationData[pid_from].teamArgArray.splice(operationData[pid_from].teamArgArray.indexOf(tid),1)
         console.log(operationData)
         firebase.database().ref("operation/"+date+"/"+pid_from+"/teams/"+tid).remove();
         firebase.database().ref("operation/"+date+"/"+pid_to+"/teams/"+tid).set(teamData);

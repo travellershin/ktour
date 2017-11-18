@@ -15,7 +15,12 @@ let o_order = {
     bus:false,
     people:false
 }
-let r_obj = {}
+let filteredRev = {
+    pickupPlace : [],
+    nationality : [],
+    agency : [],
+    total : []
+}
 
 $(".r_hbot_name").click(function(){
     sortByName();
@@ -117,7 +122,7 @@ $(document).on("click",".drop_item",function(){
     }
 })
 $(document).on("click",".omp_list",function(){
-    showList($(this).attr("pid"));
+    inflate_listTop($(this).attr("pid"));
     $(".ol_bus_total").addClass("ol_bus_box--selected");
 })
 $(document).on("click",".ol_bus_total",function(){
@@ -202,30 +207,30 @@ $(document).on("click",".ol_busEdit_bus",function(){
         let s_team = selectArray[i][0];  //원 소속 팀
         let s_rev = selectArray[i][1];  //reservation id
 
-        reservationData = operationData[date][s_product].teams[s_team].reservations[s_rev] //복사해둠
-        delete operationData[date][s_product].teams[s_team].reservations[s_rev] // 지움
-        if(operationData[date][s_product].teams[target_team].reservations){
-            operationData[date][s_product].teams[target_team].reservations[s_rev] = reservationData //붙여넣기
+        reservationData = operationData[s_product].teams[s_team].reservations[s_rev] //복사해둠
+        delete operationData[s_product].teams[s_team].reservations[s_rev] // 지움
+        if(operationData[s_product].teams[target_team].reservations){
+            operationData[s_product].teams[target_team].reservations[s_rev] = reservationData //붙여넣기
         }else{
-            operationData[date][s_product].teams[target_team].reservations = {};
-            operationData[date][s_product].teams[target_team].reservations[s_rev] = reservationData;
+            operationData[s_product].teams[target_team].reservations = {};
+            operationData[s_product].teams[target_team].reservations[s_rev] = reservationData;
         }
     }
     toast("예약을 이동했습니다")
-    firebase.database().ref("operation/"+date+"/"+s_product).set(operationData[date][s_product])
-    showList(s_product)
+    firebase.database().ref("operation/"+date+"/"+s_product).set(operationData[s_product])
+    inflate_listTop(s_product)
 })
 
 $(".ol_busEdit_done").click(function(){
-    let dataset = operationData[date][$(".ol_title").html()]
+    let dataset = operationData[$(".ol_title").html()]
     for (let team in dataset.teams) {
         if(dataset.teams[team].people === 0){
-            delete operationData[date][$(".ol_title").html()].teams[team];
-            operationData[date][$(".ol_title").html()].teamArgArray.splice(operationData[date][$(".ol_title").html()].teamArgArray.indexOf(team),1)
+            delete operationData[$(".ol_title").html()].teams[team];
+            operationData[$(".ol_title").html()].teamArgArray.splice(operationData[$(".ol_title").html()].teamArgArray.indexOf(team),1)
         }
     }
-    firebase.database().ref("operation/"+date+"/"+$(".ol_title").html()).set(operationData[date][$(".ol_title").html()])
-    showList($(".ol_title").html())
+    firebase.database().ref("operation/"+date+"/"+$(".ol_title").html()).set(operationData[$(".ol_title").html()])
+    inflate_listTop($(".ol_title").html())
 })
 
 $(document).on("click",".ol_bus_add",function(){
@@ -242,8 +247,8 @@ $(document).on("click",".ol_bus_add",function(){
 function teamPop(div){
     let tid = div.attr("tid");
     let pid = div.attr("pid");
-    let teamObj = operationData[date][pid].teams[tid]
-    let busno = operationData[date][pid].teamArgArray.indexOf(tid)
+    let teamObj = operationData[pid].teams[tid]
+    let busno = operationData[pid].teamArgArray.indexOf(tid)
     $(".om_pop").css("left",event.pageX +10 + "px")
                 .css("top",event.pageY -120 + "px");
     $(".om_pop").toggleClass("hidden");
@@ -295,144 +300,6 @@ function changeBusCompany(busname){
         $("#op_bus_size").attr("dropitem",bussizeArray.toString());
         $("#drop_op_bus_size").html(ditemtxt)
     })
-}
-
-
-
-function init_op_datepicker(){
-    for (let i = 0; i < $('.o_header_quick>p').length; i++) {
-
-        let index = $('.o_header_quick>p').eq(i).attr("id").split("_")[2]
-        if(index.length === 1){
-            $('.o_header_quick>p').eq(i).html(datestring.add(index*1).split("-")[2])
-        }else if(index === "today"){
-            $('.o_header_quick>p').eq(i).html(datestring.today().split("-")[1]+"/"+datestring.today().split("-")[2])
-        }else if(index === "yesterday"){
-            $('.o_header_quick>p').eq(i).html(datestring.yesterday().split("-")[2])
-        }else{
-            $('.o_header_quick>p').eq(i).html(datestring.tomorrow().split("-")[2])
-        }
-    }
-    $(".o_header_quick").removeClass("hidden")
-    $(".o_header_change").removeClass("hidden")
-
-    $('.o_header_date_txt').daterangepicker({
-        "autoApply": true,
-        singleDatePicker: true,
-        locale: { format: 'YYYY-MM-DD'}
-    },function(start,end,label){
-        date = start.format('YYYY-MM-DD');
-        getOperationData(start.format('YYYY-MM-DD'));
-        $(".o_header_quick>p").removeClass("drp_quick--selected");
-        if(start.format('YYYY-MM-DD') === datestring.today()){
-            $(".o_header_quick_today").addClass("drp_quick--selected")
-        };
-        if(start.format('YYYY-MM-DD') === datestring.yesterday()){
-            $(".o_header_quick_yesterday").addClass("drp_quick--selected")
-        }
-        if(start.format('YYYY-MM-DD') === datestring.tomorrow()){
-            $(".o_header_quick_tomorrow").addClass("drp_quick--selected")
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(2)){
-            $('#drp_quick_2').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(3)){
-            $('#drp_quick_3').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(4)){
-            $('#drp_quick_4').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(5)){
-            $('#drp_quick_5').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(6)){
-            $('#drp_quick_6').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(7)){
-            $('#drp_quick_7').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(8)){
-            $('#drp_quick_8').addClass('drp_quick--selected')
-        }
-        if(start.format('YYYY-MM-DD')===datestring.add(9)){
-            $('#drp_quick_9').addClass('drp_quick--selected')
-        }
-
-
-        firebase.database().ref("reservation").off("value")
-        firebase.database().ref("reservation").orderByChild("date").equalTo(date).on("value",snap => {
-            reservation[date] = snap.val();
-        })
-    })
-}
-
-function showList(pid){
-    $(".om").addClass("hidden");
-    $(".ol_return").removeClass("hidden")
-    $(".ol").removeClass("hidden")
-    $(".ol_title").html(pid)
-    $(".o_header_date").addClass("hidden");
-    $(".o_header_quick").addClass("hidden");
-    $(".o_header_change").addClass("hidden")
-    viewing = pid;
-
-    let data = operationData[date][pid]
-    let bustxt = "";
-    let busEditTxt = "";
-
-    teamlist = []
-    op_rev = []
-
-    bustxt+='<div class="ol_bus_total ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
-
-    for (let i = 0; i < data.teamArgArray.length; i++) {
-        busEditTxt += '<p class="ol_busEdit_bus" tid="'+data.teamArgArray[i]+'">BUS '+(i+1)+'</p>'
-
-        for (let revkey in data.teams[data.teamArgArray[i]].reservations) {
-            let reservation_data = data.teams[data.teamArgArray[i]].reservations[revkey];
-            reservation_data.team = data.teamArgArray[i];
-            reservation_data.busNumber = i+1;
-
-            if(data.teams[data.teamArgArray[i]].reservations[revkey].nationality){
-                reservation_data.nationality = data.teams[data.teamArgArray[i]].reservations[revkey].nationality
-            }else{
-                reservation_data.nationality = "Unknown"
-            }
-            r_obj[revkey] = reservation_data
-            op_rev.push(reservation_data)
-
-            if(teamlist[i]){
-                teamlist[i].push(reservation_data)
-            }else{
-                teamlist[i] = [reservation_data]
-            }
-        }
-
-        bustxt+='<div class="ol_bus_team ol_bus_box" tid="'+data.teamArgArray[i]+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+(i+1)+'</p>'
-        if(data.teams[data.teamArgArray[i]].guide){
-            console.log(data.teams[data.teamArgArray[i]].guide)
-            bustxt+='<p class="ol_bus_team_guide" title="'
-            for (let j = 0; j < data.teams[data.teamArgArray[i]].guide.length; j++) {
-                bustxt+=guidedata[data.teams[data.teamArgArray[i]].guide[j]].name + ", "
-            }
-            bustxt = bustxt.slice(0,-2) +'">'
-            for (let j = 0; j < data.teams[data.teamArgArray[i]].guide.length; j++) {
-                bustxt+=guidedata[data.teams[data.teamArgArray[i]].guide[j]].name + ", "
-            }
-            bustxt = bustxt.slice(0,-2) +'</p></div>'
-        }else{
-            bustxt+='<p class="ol_bus_team_guide">Unassigned</p></div>'
-        }
-        bustxt+='<p class="ol_bus_team_number">'+data.teams[data.teamArgArray[i]].people+"/"+data.teams[data.teamArgArray[i]].bus_size+'</p></div>'
-    }
-
-    $(".ol_busEdit_busbox_box").html(busEditTxt)
-
-    bustxt+='<div class="ol_bus_add ol_bus_box"><img src="./assets/icon-add.svg"/><p>ADD NEW BUS</p></div>'
-    $(".ol_bus").html(bustxt)
-
-    filterOut_rev(op_rev);
-    inflate_reservation(op_rev);
 }
 
 function inflate_reservation(rev){
@@ -522,7 +389,7 @@ function filterOut_rev(rev){
 }
 
 function filter_set(div){
-    let filteredRev = {
+    filteredRev = {
         pickupPlace : [],
         nationality : [],
         agency : [],
@@ -617,7 +484,7 @@ function addbus(){
 
         $(".obe_body_guide>input").attr("dropitem",guidenameArray.toString())
 
-        showList(pid);
+        inflate_listTop(pid);
     });
 }
 
@@ -701,15 +568,6 @@ $(".o_header_quick_yesterday").click(function(){
 })
 $(".o_header_quick_today").click(function(){
     date = datestring.today();
-    $(".drp_quick>p").removeClass("drp_quick--selected");
-    $(this).addClass("drp_quick--selected")
-    $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
-    $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
-    $(".o_header_date_txt").val(date)
-    getOperationData(date);
-})
-$(".o_header_quick_tomorrow").click(function(){
-    date = datestring.tomorrow();
     $(".drp_quick>p").removeClass("drp_quick--selected");
     $(this).addClass("drp_quick--selected")
     $(".o_header_date_txt").data('daterangepicker').setStartDate(date);

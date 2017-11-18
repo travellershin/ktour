@@ -186,7 +186,11 @@ function generate_filter(){
             r_total.agency[rData[i].agency][1]+=rData[i].people
         }else{
             r_total.agency[rData[i].agency] = [1,rData[i].people]
-            $(".r_drop_agency").append("<p>"+rData[i].agency+"</p>")
+            if(filter.agency.includes(rData[i].agency)){
+                $(".r_drop_agency").append("<p class='rf_selected'>"+rData[i].agency+"</p>")
+            }else{
+                $(".r_drop_agency").append("<p>"+rData[i].agency+"</p>")
+            }
         }
 
         if(r_total.nationality[rData[i].nationality]){
@@ -194,7 +198,12 @@ function generate_filter(){
             r_total.nationality[rData[i].nationality][1]+=rData[i].people
         }else{
             r_total.nationality[rData[i].nationality] = [1,rData[i].people]
-            $(".r_drop_nationality").append("<p>"+rData[i].nationality+"</p>")
+
+            if(filter.nationality.includes(rData[i].nationality)){
+                $(".r_drop_nationality").append("<p class='rf_selected'>"+rData[i].nationality+"</p>")
+            }else{
+                $(".r_drop_nationality").append("<p>"+rData[i].nationality+"</p>")
+            }
         }
 
         if(r_total.pickupPlace[rData[i].pickupPlace]){
@@ -202,7 +211,12 @@ function generate_filter(){
             r_total.pickupPlace[rData[i].pickupPlace][1]+=rData[i].people
         }else{
             r_total.pickupPlace[rData[i].pickupPlace] = [1,rData[i].people]
-            $(".r_drop_pickupPlace").append("<p>"+rData[i].pickupPlace+"</p>")
+
+            if(filter.pickupPlace.includes(rData[i].pickupPlace)){
+                $(".r_drop_pickupPlace").append("<p class='rf_selected'>"+rData[i].pickupPlace+"</p>")
+            }else{
+                $(".r_drop_pickupPlace").append("<p>"+rData[i].pickupPlace+"</p>")
+            }
         }
     }
 

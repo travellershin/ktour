@@ -2965,59 +2965,41 @@ However, delay the fade out process for 2.5 seconds */
         color: #343c4b;
         margin-bottom: 10px;
     }
-.g_filter{
-    width:1280px;
-    margin: 0 auto;
-    padding: 30px 0 40px 0;
-    margin-bottom: 1px;
-    background-color: white;
-}
-.g_filter_wrapper{
-        -webkit-box-shadow: 0 1px 0 0 #e0e0e0;
-                box-shadow: 0 1px 0 0 #e0e0e0;
-    }
-.g_filter_top{
-        overflow: hidden;
-        width: 1280px;
-        height: 40px;
-        margin-bottom: 10px;
-        display: inline-block;
-    }
-.g_filter_top>p{
-            float: left;
-            margin-top: 10px;
-            font-size: 24px;
-            line-height: 25px;
-        }
-.g_filter_top_filtered{
-            padding-right: 24px;
-            border-right: solid 1px #e0e0e0;
-            color: #7c8495;
-        }
-.g_filter_top_total{
-            color: #3f55d2;
-            margin-left: 24px;
-        }
-.g_filter_top_print{
-            float: right;
-        }
-.g_filter_title{
-        margin-top: 30px;
-        height: 25px;
-        font-size: 16px;
-        line-height: 25px;
-        color: #696969;
-    }
-.g_filter input{
-        width: 16px;
-        height: 16px;
-        border-radius: 2px;
-        background: #ffffff;
-        border: solid 1px #e0e0e0;
-    }
 .g_wrapper{
+    width: 1312px;
+    margin-left:calc(50% - 640px);
+    padding-top: 30px;
+}
+.g_filter_top{
     width: 100%;
+    overflow: hidden;
+    height: 40px;
+}
+.g_filter_top_filtered{
+        float: left;
+        line-height: 40px;
+        font-size: 20px;
+        color:#0084ff;
+        font-weight: bold;
+    }
+.g_filter_top_total{
+        float: left;
+        line-height: 40px;
+        font-size: 20px;
+        margin-right: 20px;
+    }
+.g_filter_top_button{
+        float: left;
+        background-color: white;
+    }
+.g_add{
+    margin-right: 32px;
+}
+.g{
     background-color: #f8f8f8;
+    min-height: calc(100% - 70px);
+    overflow: hidden;
+    padding-bottom: 100px;
 }
 .g_pop{
         position: absolute;
@@ -3089,10 +3071,9 @@ However, delay the fade out process for 2.5 seconds */
 
     }
 .g_guide_div{
-            width: 1312px;
+            width: 100%;
             padding-bottom: 200px;
             min-height: 500px;
-            margin-left:calc(50% - 640px);
             margin-top: 20px;;
             overflow: hidden;
         }
@@ -5544,6 +5525,80 @@ textarea.pi_content:focus {
     }
 .ga_asset{
         float: left;
+    }
+.g_card{
+    width: 420px;
+    height: 250px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin: 0 10px 10px 0;
+    padding: 30px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    float: left;
+}
+.g_card_box{
+        margin-top: 20px;
+    }
+.g_card_top{
+        height: 60px;
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+.g_card_face{
+        width: 60px;
+        height: auto;
+    }
+.g_card_face_wrapper{
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            border-radius: 8px;
+            float: left;
+        }
+.g_card_name{
+        float: left;
+        height: 60px;
+        width: 270px;
+        line-height: 60px;
+        font-size: 24px;
+        margin-left: 20px;
+        overflow: hidden;
+    }
+.g_card_line{
+        margin-top: 10px;
+        height: 25px;
+        width: 100%;
+        overflow: hidden;
+        line-height: 25px;
+    }
+.g_card_line--bottom{
+            margin-top: 13px;
+            line-height: 20px;
+        }
+.g_card_title{
+        color: #7c8495;
+        font-weight: bold;
+        font-size: 13px;
+        float: left;
+        width: 78px;
+        margin-right: 20px;
+    }
+.g_card_contents{
+        font-family: Lato;
+        font-size: 14px;
+        font-weight: bold;
+        float: left;
+        width: 252px;
+        height: 25px;
+        overflow: hidden;
+    }
+.g_card_info_memo{
+        height: 40px;
+        line-height: 20px;
     }
 .account_wrapper{
     width:1280px;

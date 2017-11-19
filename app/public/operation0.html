@@ -1,0 +1,491 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="./libraries/jquery-ui.min.css">
+
+</head>
+<body>
+    <header class="header">
+        <h1><a href="#"><img class="header_logo" src="./assets/img-menu-logo.svg" alt="ktourstory home" /></a></h1>
+        <ul>
+            <li class="header_pageLinks header_singlelink">EXCEPTION</li>
+            <li class="header_pageLinks header_singlelink">RESERVATION</li>
+            <li class="header_pageLinks header_singlelink header_pageLinks--selected">OPERATION</li>
+            <li class="header_pageLinks header_singlelink">PRODUCT</li>
+            <li class="header_pageLinks header_singlelink">GUIDE</li>
+            <li class="header_pageLinks header_singlelink">ACCOUNT</li>
+            <li class="header_pageLinks header_pageLinks_setting">SETTING</li>
+        </ul>
+    </header>
+    <!--아래 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+    <div class="header_setting header_drop">
+        <p class="header_setting_agency">AGENCY</p>
+        <p class="header_setting_pickup">PICKUP</p>
+        <p class="header_setting_nationality">NATIONALITY</p>
+    </div>
+    <div class="o">
+        <div class="o_header">
+            <img class="ol_return hidden" src="./assets/icon-back.svg" />
+            <input class="o_header_date input o_header_date_txt">
+            <div class="o_header_quick input hidden">
+                <p id="drp_quick_-1"></p>
+                <p id="drp_quick_0" class="drp_quick--selected"></p>
+                <p id="drp_quick_1"></p>
+                <p id="drp_quick_2"></p>
+                <p id="drp_quick_3"></p>
+                <p id="drp_quick_4"></p>
+                <p id="drp_quick_5"></p>
+                <p id="drp_quick_6"></p>
+                <p id="drp_quick_7"></p>
+                <p id="drp_quick_8"></p>
+                <p id="drp_quick_9"></p>
+            </div>
+            <div class="o_header_change hidden btn">팀 이동</div>
+        </div>
+
+        <div class="ol hidden">
+            <p class="ol_title">남쁘아상품명</p>
+            <div class="ol_bus">
+                <div class="ol_bus_total ol_bus_box">
+                    <p class="ol_bus_total_txt">TOTAL</p>
+                    <p class="ol_bus_total_number">440</p>
+                </div>
+                <div class="ol_bus_team ol_bus_box">
+                    <div class="ol_bus_team_left">
+                        <p class="ol_bus_team_busno">BUS 1</p>
+                        <p class="ol_bus_team_guide">남수정</p>
+                    </div>
+                    <p class="ol_bus_team_number">24</p>
+                </div>
+                <div class="ol_bus_add ol_bus_box">
+                    <img src="./assets/icon-add.svg"/>
+                    <p>ADD NEW BUS</p>
+                </div>
+            </div>
+
+            <div class="r_htop">
+                <p class="r_htop_numbList"></p>
+                <p class="ol_editBus btn">배차</p>
+                <p class="ol_unSelect btn hidden">UNSELECT</p>
+                <p class="ol_selectAll btn hidden">SELECT ALL</p>
+            </div>
+
+            <!--헤더 - 아랫부분(예약정보 분류명) CSS pages/reservation/main-->
+            <div class="r_hbot">
+                <p class="op_hbot_bus">BUS</p>
+                <p class="op_hbot_memo">MEMO</p>
+                <div class="r_hbot_pickup r_hbot_hasdrop" fid="pickupPlace">PICKUP PLACE</div>
+                <p class="r_hbot_people">PEOPLE</p>
+                <div class="r_hbot_option">
+                    <p>OPTION</p>
+                    <img src="./assets/icon-filter.svg"/>
+                </div>
+                <p class="r_hbot_name">CLIENT NAME</p>
+                <div class="r_hbot_nationality r_hbot_hasdrop" fid="nationality">NATIONALITY</div>
+                <div class="r_hbot_agency r_hbot_hasdrop" fid="agency">AGENCY</div>
+                <div class="r_drop r_drop_pickupPlace hidden" fid="pickupPlace">
+                </div>
+                <div class="r_drop r_drop_nationality hidden" fid="nationality">
+                </div>
+                <div class="r_drop r_drop_agency hidden" fid="agency">
+                </div>
+            </div>
+            <div class="rv_box"></div>
+        </div>
+        <div class="ol_busEdit hidden">
+            <div class="ol_busEdit_wrapper">
+                <div class="ol_busEdit_number">
+                    <p>SELECTED</p>
+                    <p class="ol_busEdit_number_txt">0</p>
+                </div>
+                <div class="ol_busEdit_busbox">
+                    <p class="ol_busEdit_busbox_inst">선택한 예약을 이동할 버스를 선택하세요</p>
+                    <div class="ol_busEdit_busbox_box">
+                        <!--
+                        <p class="ol_busEdit_bus">BUS 1</p>
+                        <p class="ol_busEdit_bus">BUS 2</p>
+                        <p class="ol_busEdit_bus">BUS 3</p>
+                    -->
+                    </div>
+                </div>
+                <p class="ol_busEdit_done">배차 끝내기</p>
+            </div>
+        </div>
+
+
+
+        <div class="om">
+
+                <div class="om_box">
+                    <!--
+                    <div class="om_box_pd">
+                        <p class="omp_name">남쁘아</p>
+                        <div class="omp_people">
+                            <p class="omp_people_txt">PEOPLE</p>
+                            <p class="omp_people_number">120</p>
+                        </div>
+                        <div class="omp_bus">
+                            <p class="omp_bus_txt">BUS</p>
+                            <p class="omp_bus_number">5</p>
+                        </div>
+                        <div class="omp_team">
+                            <div class="omp_team_names">
+                                <p class="omp_team_names_bus">BUS 01</p>
+                                <p class="omp_team_names_guide">Christal Nam</p>
+                            </div>
+                            <p class="omp_team_people">22</p>
+                        </div>
+                        <div class="omp_list">
+                            <img src="./assets/icon-list.svg"/>
+                            <p>VIEW LIST</p>
+                        </div>
+                    </div>
+
+                -->
+                </div>
+
+<!--
+            <p class="om_cityName">SEOUL</p>
+            <div class="om_box om_seoul">
+
+                <div class="om_box_product">
+                    <p class="om_private_private_product">남쁘아상품명</p>
+                    <div class="om_private_bus">
+                        <div class="om_private_bus_names">
+                            <p class="om_private_bus_names_bus">BUS 01</p>
+                            <p class="om_private_bus_names_guide om_private_guide">Christal Nam</p>
+                        </div>
+                        <p class="om_box_product_bus_countPeople om_private_people">22</p>
+                    </div>
+                    <div class="om_private_date omw">
+                        <p class="omw_title">DATE</p>
+                        <p class="omw_content">2017-08-16</p>
+                    </div>
+                    <div class="om_private_city omw">
+                        <p class="omw_title">PLACE</p>
+                        <p class="omw_content">Seoul</p>
+                    </div>
+                    <div class="om_private_pickupPlace omw">
+                        <p class="omw_title">PICKUP PLACE</p>
+                        <p class="omw_content">Dongdaemoon Exit 5</p>
+                    </div>
+                    <div class="om_private_pickupTime omw">
+                        <p class="omw_title">PICKUP TIME</p>
+                        <p class="omw_content">8:00 am</p>
+                    </div>
+                    <div class="om_private_agency omw">
+                        <p class="omw_title">AGENCY</p>
+                        <p class="omw_content">funtastickorea</p>
+                    </div>
+                    <div class="om_private_option omw">
+                        <p class="omw_title">OPTION</p>
+                        <p class="omw_content">Ski</p>
+                    </div>
+                    <div class="om_private_chinese omw">
+                        <p class="omw_title">CHINESE</p>
+                        <p class="omw_content">X</p>
+                    </div>
+                    <div class="om_private_clientName omw">
+                        <p class="omw_title">NAME</p>
+                        <p class="omw_content">Christal.Nam</p>
+                    </div>
+                    <div class="om_private_natioinality omw">
+                        <p class="omw_title">NATIONALITY</p>
+                        <p class="omw_content">CHINA</p>
+                    </div>
+                    <div class="om_private_tel omw">
+                        <p class="omw_title">TEL</p>
+                        <p class="omw_content">+82-10-2878-6221</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="om_cityName">SEOUL</p>
+
+        -->
+
+        </div>
+    </div>
+
+    <div class="om_pop hidden">
+        <div class="om_pop_scroll">
+            <div class="om_pop_line">
+                <p class="om_pop_line_title">BUS COMPANY</p>
+                <p class="om_pop_line_txt om_pop_company">Company_A</p>
+            </div>
+            <div class="om_pop_line">
+                <p class="om_pop_line_title">CUSTOMERS</p>
+                <p class="om_pop_line_txt om_pop_people">Company_A</p>
+            </div>
+            <div class="om_pop_line om_pop_line--border">
+                <p class="om_pop_line_title">BUS COST</p>
+                <p class="om_pop_line_txt om_pop_cost">Company_A</p>
+            </div>
+            <div class="om_pop_line">
+                <p class="om_pop_line_title">GUIDE</p>
+                <p class="om_pop_line_txt om_pop_guide">Company_A</p>
+            </div>
+            <div class="om_pop_line om_pop_line--deep">
+                <p class="om_pop_line_title">MEMO(to)</p>
+                <p class="om_pop_message"></p>
+            </div>
+            <div class="om_pop_line om_pop_line--deep">
+                <p class="om_pop_line_title">MEMO(from)</p>
+                <p class="om_pop_memofrom"></p>
+            </div>
+        </div>
+        <div class="om_pop_bottom">
+            <div class="longbtn omp_edit">
+                <img src="./assets/icon-edit.svg"/>
+                <p>EDIT</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pop_blackScreen hidden">
+        <!--버스정보(팀) 수정 CSS pages/operation/busedit-->
+        <div class="obe hidden">
+            <div class="obe_header">
+                <p class="obe_header_title">남쁘아 BUS 1</p>
+                <img class="obe_header_close" src="./assets/icon-close.svg"/>
+            </div>
+            <div class="obe_body">
+                <div class="obe_body_line clearfix">
+                    <p class="obe_body_title">BUS COMPANY</p>
+                    <input class="obe_body_input dw_dropdown op_bus_company" id="op_bus_company" value="서울버스" readonly dropitem="대한통운,고양운수"/>
+                </div>
+                <div class="obe_body_line clearfix">
+                    <p class="obe_body_title">BUS TYPE</p>
+                    <input class="obe_body_input dw_dropdown op_bus_size" id="op_bus_size" readonly dropitem="8인승,16인승,25인승,45인승"/>
+                </div>
+                <div class="obe_body_line clearfix">
+                    <p class="obe_body_title">GUIDE</p>
+                    <div class="obe_body_guide">
+                        <!--
+                        <input class="obe_body_input dw_dropdown op_guide" id="op_guide" readonly dropitem="김도형, 남수정"/>
+                    -->
+                    </div>
+
+                </div>
+                <div class="obe_body_deepline">
+                    <p class="obe_body_title">MEMO(to)</p>
+                    <textarea class="obe_body_message" id="op_message"></textarea>
+                </div>
+                <div class="obe_body_deepline">
+                    <p class="obe_body_title">MEMO(from)</p>
+                    <textarea class="obe_body_message" id="op_memofrom" readonly></textarea>
+                </div>
+            </div>
+            <div class="obe_footer">
+                <p class="obe_footer_save">SAVE</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightBox_shadow hidden centering">
+
+        <!-- 예약 데이터 클릭시 상세정보 CSS pages/reservation/info-->
+        <div class="ri">
+            <div class="ri_header">
+                <div class="ri_header_star"></div>
+                <p class="ri_header_title">RESERVATION INFO</p>
+                <img class="ri_header_close" src="./assets/icon-close.svg">
+            </div>
+            <div class="ri_contents">
+                <div class="ric">
+                    <div class="ric_ti">
+                        <p>DATE</p>
+                        <p class="ric_product">PRODUCT</p>
+                        <p>AREA</p>
+                        <p class="ric_pick">PICKUP PLACE</p>
+                        <p>PICKUP TIME</p>
+                        <p>AGENCY</p>
+                        <p class="ric_option">OPTION</p>
+                    </div>
+                    <div class="ric_co">
+                        <p class="rv_info_date">-</p>
+                        <p class="rv_info_product">-</p>
+                        <p class="rv_info_area">-</p>
+                        <p class="rv_info_pickupPlace">-</p>
+                        <p class="rv_info_pickupTime">-</p>
+                        <p class="rv_info_agency">-</p>
+                        <p class="rv_info_option">-</p>
+                    </div>
+
+                    <div class="ric_verticalLine"></div>
+
+                    <div class="ric_ti">
+                        <p class="ric_name">NAME</p>
+                        <p>NATIONALITY</p>
+                        <p>PEOPLE</p>
+                        <p>TEL</p>
+                        <p>MESSENGER</p>
+                        <p>E-MAIL</p>
+                        <p>AGENCY CODE</p>
+                    </div>
+                    <div class="ric_co">
+                        <p class="rv_info_clientName">-</p>
+                        <p class="rv_info_nationality">-</p>
+                        <p class="rv_info_people">-</p>
+                        <p class="rv_info_tel">-</p>
+                        <p class="rv_info_messenger">-</p>
+                        <p class="rv_info_email">-</p>
+                        <p class="rv_info_agencyCode">-</p>
+                    </div>
+
+                </div>
+                <p class="ri_smallTitle">MEMO</p>
+                <p class="rv_info_memo">-</p>
+            </div>
+            <div class="ri_footer">
+                <div class="ri_footer_edit longbtn">
+                    <img src="./assets/icon-edit.svg" />
+                    <p>EDIT</p>
+                </div>
+                <div class="ri_footer_cancel longbtn">
+                    <img src="./assets/icon-trash.svg" />
+                    <p>CANCEL RESERVATION</p>
+                </div>
+                <div class="ri_footer_gmail longbtn">
+                    <img src="./assets/icon-gmail.png"/>
+                    <p>GO TO GMAIL</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 예약 데이터 수정 CSS pages/reservation/edit-->
+        <div class="re hidden">
+            <div class="re_header">
+                <p class="re_header_title">RESERVATION EDIT</p>
+                <img class="re_header_close" src="./assets/icon-close.svg">
+            </div>
+
+            <div class="re_content">
+                <div class="rec">
+                    <div class="rec_ti">
+                        <p>DATE</p>
+                        <p>PRODUCT</p>
+                        <p>AREA</p>
+                        <p>PICKUP PLACE</p>
+                        <p>PICKUP TIME</p>
+                        <p>AGENCY</p>
+                        <p>OPTION</p>
+                    </div>
+                    <div class="rec_co">
+
+                        <div id="singleDateBox" class="rec_co_midinput input">
+                            <input id="singleDate" class="rv_info_date">
+                            <img src="./assets/icon-filter.svg" />
+                        </div>
+                        <input class="rec_co_longinput input input_disabled rv_info_product" readonly/>
+                        <input class="rv_info_area rec_co_longinput input dw_dndropdown" readonly id="rev_areadrop"/>
+                        <div><input class="rec_co_longinput input rv_info_pickupPlace dw_dndropdown" readonly id="rev_placedrop"></div>
+                        <div class="rec_co_midinput input">
+                            <input class="rv_info_pickupTime" type="time">
+                        </div>
+
+                        <div class="rec_co_longinput input input_disabled rv_info_agency"></div>
+                        <div class="rec_co_option">
+                            <div class="rec_co_option_box">
+                                <p class="rec_co_option_name"></p>
+                                <input type="number" class="rec_co_option_people" placeholder="people"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="rec_verticalLine"></div>
+
+                    <div class="rec_ti">
+                        <p>NAME</p>
+                        <p>NATIONALITY</p>
+                        <p class="rec_ti_people">PEOPLE</p>
+                        <p>TEL</p>
+                        <p>MESSENGER</p>
+                        <p>E-MAIL</p>
+                        <p>AGENCY CODE</p>
+                    </div>
+                    <div class="rec_co">
+
+                        <div class="rec_co_full input">
+                            <input class="rv_info_clientName">
+                        </div>
+                        <div class="rec_co_longinput input">
+                            <input class="rv_info_nationality">
+                        </div>
+                        <div class="rec_co_box">
+                            <input class="rv_info_people" type="number">
+                            <div class="rec_co_box_mini">
+                                <p class="rec_co_box_mini_txt">Adult</p>
+                                <input type="number" class="rv_info_adult rec_co_shortinput input">
+                            </div>
+                            <div class="rec_co_box_mini">
+                                <p class="rec_co_box_mini_txt">Child</p>
+                                <input type="number" class="rv_info_kid rec_co_shortinput input">
+                            </div>
+                            <div class="rec_co_box_mini">
+                                <p class="rec_co_box_mini_txt">Baby</p>
+                                <input type="number" class="rv_info_infant rec_co_shortinput input">
+                            </div>
+                        </div>
+                        <div class="rec_co_full input">
+                            <input class="rv_info_tel">
+                        </div>
+                        <div class="rec_co_full input">
+                            <input class="rv_info_messenger">
+                        </div>
+                        <div class="rec_co_full input">
+                            <input class="rv_info_email">
+                        </div>
+                        <input class="rec_co_longinput input input_disabled rv_info_agencyCode" readonly spellcheck="false"/>
+                    </div>
+                </div>
+
+                <p class="rec_memo">MEMO</p>
+                <textarea class="rec_memo_txt rv_info_memo"></textarea>
+
+            </div>
+            <div class="re_footer">
+                <div class="re_footer_save">SAVE</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="alert_background hidden">
+        <div class="alert_pop">
+            <div class="alert_contents">
+
+            </div>
+            <div class="alert_footer">
+                <div class="alert_footer_yes">OK</div>
+                <div class="alert_footer_no">NO</div>
+            </div>
+        </div>
+    </div>
+
+    <script src='./libraries/jquery.js'></script>
+    <script src='./libraries/moment.js'></script>
+    <script type="text/javascript" src="./libraries/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="./libraries/daterangepicker.css" />
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/module/toast.js'></script>
+    <script src='./scripts/module/dropdown.js'></script>
+    <script src='./libraries/jquery-ui.min.js'></script>
+
+    <script src='./scripts/pages/new_operation/datacollect.js'></script>
+    <script src='./scripts/pages/new_operation/listener.js'></script>
+    <script src='./scripts/pages/new_operation/operation_generate.js'></script>
+    <script src='./scripts/pages/new_operation/teamManage.js'></script>
+    <script src='./scripts/pages/new_operation/list_init.js'></script>
+    <script src='./scripts/pages/new_operation/allocation.js'></script>
+    <script src='./scripts/pages/new_operation/list_inflate.js'></script>
+</body>

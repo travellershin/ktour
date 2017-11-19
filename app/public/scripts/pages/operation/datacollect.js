@@ -23,14 +23,13 @@ $(document).ready(function(){
 
 
 function getOperationData(date){
-
+    //기존 다른 날짜에 달려있던 콜백을 제거한다
     firebase.database().ref("operation").off("value")
     firebase.database().ref("operation/"+date).on("value",snap => {
         operationData = snap.val();
         //o_r_filter_clear();
         generate_overview();
     });
-
 }
 
 

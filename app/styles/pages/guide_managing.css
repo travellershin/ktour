@@ -1,66 +1,42 @@
-.g_filter{
-    width:1280px;
-    margin: 0 auto;
-    padding: 30px 0 40px 0;
-    margin-bottom: 1px;
-    background-color: white;
+.g_wrapper{
+    width: 1312px;
+    margin-left:calc(50% - 640px);
+    padding-top: 30px;
+}
+.g_filter_top{
+    width: 100%;
+    overflow: hidden;
+    height: 40px;
 
-    &_wrapper{
-        box-shadow: 0 1px 0 0 #e0e0e0;
+    &_filtered{
+        float: left;
+        line-height: 40px;
+        font-size: 20px;
+        color:#0084ff;
+        font-weight: bold;
     }
-
-    &_top{
-        overflow: hidden;
-        width: 1280px;
-        height: 40px;
-        margin-bottom: 10px;
-        display: inline-block;
-
-        &>p{
-            float: left;
-            margin-top: 10px;
-            font-size: 24px;
-            line-height: 25px;
-        }
-
-        &_filtered{
-            padding-right: 24px;
-            border-right: solid 1px #e0e0e0;
-            color: $hint_grey;
-        }
-        &_total{
-            color: $key_blue;
-            margin-left: 24px;
-        }
-        &_print{
-            float: right;
-        }
+    &_total{
+        float: left;
+        line-height: 40px;
+        font-size: 20px;
+        margin-right: 20px;
     }
-
-    &_title{
-        margin-top: 30px;
-        height: 25px;
-        font-size: 16px;
-        line-height: 25px;
-        color: #696969;
-    }
-
-    & input{
-        width: 16px;
-        height: 16px;
-        border-radius: 2px;
-        background: #ffffff;
-        border: solid 1px #e0e0e0;
+    &_button{
+        float: left;
+        background-color: white;
     }
 }
 
-.g_wrapper{
-    width: 100%;
-    background-color: #f8f8f8;
+.g_add{
+    margin-right: 32px;
 }
 
 
 .g{
+    background-color: #f8f8f8;
+    min-height: calc(100% - 70px);
+    overflow: hidden;
+    padding-bottom: 100px;
 
     &_pop{
         position: absolute;
@@ -139,10 +115,9 @@
 
 
         &_div{
-            width: 1312px;
+            width: 100%;
             padding-bottom: 200px;
             min-height: 500px;
-            margin-left:calc(50% - 640px);
             margin-top: 20px;;
             overflow: hidden;
         }

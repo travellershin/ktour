@@ -82,7 +82,6 @@ $(".lightBox_shadow").click(function(){
     }
 })
 $(".ri").click(function(event){
-    console.log("니가막고있냐")
     event.stopPropagation();
 })
 
@@ -92,39 +91,9 @@ $(document).on("click",".omp_team",function(){
     }else{
         selectTeamForMove($(this)); //팀 옮기기 위해 선택(teamArrange.js에 있음)
     }
-
 })
 
-$(document).on("click", ".obe_header_close",function(){
-    $(".pop_blackScreen").addClass("hidden");
-    $(".obe").addClass("hidden");
-})
-$(document).on("click",".drop_item",function(){
-    if($(this).attr("did") === "op_bus_company"){
-        changeBusCompany($(this).html())
-    }
-    if($(this).attr("did").slice(0,-1) === "op_guide"){
-        let length = $(".obe_body_guide>input").length;
-        let selectedNo = $(this).attr("did").charAt($(this).attr("did").length-1)*1+1
-        let guidenameArray = []
-        guidenameArray.push("Unassigned")
-        for (let guidekey in guidedata) {
-            guidenameArray.push(guidedata[guidekey].name)
-        }
-        if(length ===selectedNo){
-            $(".obe_body_guide").append('<input class="obe_body_input dw_dropdown" id="op_guide'+length+'" value="Unassigned" readonly dropitem="'+guidenameArray.toString()+'"/>')
-        }
-    }
-    if($(this).attr("did").split("_")[0] === "r"){
-        filter_set($(this))
-        $(".ol_bus_box").removeClass("ol_bus_box--selected")
-        $(".ol_bus_total").addClass("ol_bus_box--selected")
-    }
-})
-$(document).on("click",".omp_list",function(){
-    inflate_listTop($(this).attr("pid"));
-    $(".ol_bus_total").addClass("ol_bus_box--selected");
-})
+
 $(document).on("click",".ol_bus_total",function(){
     filter_init();
     inflate_reservation(op_rev)
@@ -143,8 +112,8 @@ $(document).on("click",".ol_bus_team",function(){
         $(".ol_bus_box").removeClass("ol_bus_box--selected")
         $(this).addClass("ol_bus_box--selected")
     }
-
 })
+
 $(".ri_header_close").click(function(){
     $(".lightBox_shadow").addClass("hidden")
 })
@@ -157,20 +126,7 @@ $(".ol_busEdit_done").click(function(){
     $(".rv_box").css("padding-bottom","200px")
     selectArray = []
 })
-$(".ol_return").click(function(){
-    $(this).addClass("hidden");
-    $(".ol").addClass("hidden");
-    $(".om").removeClass("hidden");
-    $(".ol_busEdit").addClass("hidden");
-    $(".ol_unSelect").addClass("hidden");
-    $(".ol_selectAll").addClass("hidden");
-    $(".ol_editBus").removeClass("hidden");
-    $(".o_header_date").removeClass("hidden");
-    $(".o_header_quick").removeClass("hidden");
-    $(".o_header_change").removeClass("hidden")
-    isEditing = false;
-    viewing = ""
-})
+
 $(".ol_editBus").click(function(){
     isEditing = true;
     $(this).addClass("hidden");
@@ -264,7 +220,7 @@ function teamPop(div){
     let memotxt = ""
     if(teamObj.memo){
         for (let guidekey in teamObj.memo) {
-            memotxt+=guidedata[guidekey].name+" : " + teamObj.memo[guidekey] +"<br>"
+            memotxt+=guideData[guidekey].name+" : " + teamObj.memo[guidekey] +"<br>"
         }
         memotxt = memotxt.slice(0,-4)
     }
@@ -274,33 +230,7 @@ function teamPop(div){
 }
 
 
-function changeBusCompany(busname){
-    let pid = $(".omp_edit").attr("pid");
-    firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
-        let data = snap.val();
-        let productdata = {}
-        for (let key in data) {
-            productdata = data[key]
-        }
-        let bussizeno = 0;
-        let busnameArray = [];
-        let bussizeArray = [];
-        for (let i = 0; i < productdata.cost.bus.length; i++) {
-            if(busname === productdata.cost.bus[i].name){
-                bussizeno = i
-            }
-        }
-        let ditemtxt = ""
-        for (let i = 0; i < productdata.cost.bus[bussizeno].size.length; i++) {
-            bussizeArray.push(productdata.cost.bus[bussizeno].size[i].max + "인승(" + productdata.cost.bus[bussizeno].size[i].cost+"원)")
-            ditemtxt+='<p class="drop_item" did="op_bus_size">'+productdata.cost.bus[bussizeno].size[i].max + '인승(' + productdata.cost.bus[bussizeno].size[i].cost+'원)<p>'
-        }
 
-
-        $("#op_bus_size").attr("dropitem",bussizeArray.toString());
-        $("#drop_op_bus_size").html(ditemtxt)
-    })
-}
 
 function inflate_reservation(rev){
     console.log(rev)
@@ -474,8 +404,8 @@ function addbus(){
         $("#op_message").val(teamdata.message);
         let guidenameArray = []
         guidenameArray.push("Unassigned")
-        for (let guidekey in guidedata) {
-            guidenameArray.push(guidedata[guidekey].name)
+        for (let guidekey in guideData) {
+            guidenameArray.push(guideData[guidekey].name)
         }
         op_revdata = {}
         let guidetxt = '<input class="obe_body_input dw_dropdown op_guide0" value="Unassigned" id="op_guide0" readonly/>'
@@ -551,42 +481,6 @@ function rev_detail(index){
     $('.rv_info_memo').width($('.ric').width())
 }
 
-$(".o_header_quick>p").click(function(){
-    o_quick($(this).attr("id"))
-    $(".o_header_quick>p").removeClass("drp_quick--selected");
-    $(this).addClass("drp_quick--selected")
-})
-
-$(".o_header_quick_yesterday").click(function(){
-    date = datestring.yesterday();
-    $(".drp_quick>p").removeClass("drp_quick--selected");
-    $(this).addClass("drp_quick--selected")
-    $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
-    $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
-    $(".o_header_date_txt").val(date)
-    getOperationData(date);
-})
-$(".o_header_quick_today").click(function(){
-    date = datestring.today();
-    $(".drp_quick>p").removeClass("drp_quick--selected");
-    $(this).addClass("drp_quick--selected")
-    $(".o_header_date_txt").data('daterangepicker').setStartDate(date);
-    $(".o_header_date_txt").data('daterangepicker').setEndDate(date);
-    $(".o_header_date_txt").val(date)
-    getOperationData(date);
-})
-
-function o_quick(index){
-    if(index.split("_")[2].length === 1){
-        let no = index.split("_")[2]*1
-        $(".o_header_date_txt").val(datestring.add(no))
-        date = datestring.add(no);
-        $(".o_header_date_txt").data('daterangepicker').setStartDate(datestring.add(no));
-        $(".o_header_date_txt").data('daterangepicker').setEndDate(datestring.add(no));
-    }
-
-    getOperationData(date);
-}
 
 function sortByName(){
     if(o_order.name){

@@ -1,0 +1,81 @@
+.g_card{
+    width: 420px;
+    height: 250px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin: 0 10px 10px 0;
+    padding: 30px;
+    box-sizing: border-box;
+    float: left;
+
+    &_box{
+        margin-top: 20px;
+    }
+    &_top{
+        height: 60px;
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    &_face{
+        width: 60px;
+        height: auto;
+
+        &_wrapper{
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            border-radius: 8px;
+            float: left;
+        }
+    }
+
+    &_name{
+        float: left;
+        height: 60px;
+        width: 270px;
+        line-height: 60px;
+        font-size: 24px;
+        margin-left: 20px;
+        overflow: hidden;
+    }
+
+    &_line{
+        margin-top: 10px;
+        height: 25px;
+        width: 100%;
+        overflow: hidden;
+        line-height: 25px;
+
+        &--bottom{
+            margin-top: 13px;
+            line-height: 20px;
+        }
+    }
+
+    &_title{
+        color: #7c8495;
+        font-weight: bold;
+        font-size: 13px;
+        float: left;
+        width: 78px;
+        margin-right: 20px;
+    }
+
+    &_contents{
+        font-family: Lato;
+        font-size: 14px;
+        font-weight: bold;
+        float: left;
+        width: 252px;
+        height: 25px;
+        overflow: hidden;
+    }
+
+    &_info_memo{
+        height: 40px;
+        line-height: 20px;
+    }
+}

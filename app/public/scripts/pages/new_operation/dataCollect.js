@@ -42,11 +42,11 @@ $(document).ready(function(){
         for (let key in guideData) {
             guideViaName[guideData[key].name] = key
         }
-
-        init_datepicker();
-        init_quickDate();
-        getOperationData(datestring.today())
     })
+
+    init_datepicker();
+    init_quickDate();
+    getOperationData(datestring.today())
 })
 
 function getOperationData(inputDate){
@@ -54,10 +54,10 @@ function getOperationData(inputDate){
     date = inputDate;
     firebase.database().ref("operation/"+formerDate).off("value")
     console.log(formerDate + "에 달려있던 callback을 삭제합니다")
+    lastRendering.product = ""
     firebase.database().ref("operation/"+inputDate).on("value",snap => {
         operation = snap.val();
         operation_generate(inputDate);
-        //list_inflate();
     });
 }
 

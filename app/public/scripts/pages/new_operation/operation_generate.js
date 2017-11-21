@@ -4,8 +4,8 @@ function operation_generate(date){
     r_obj = {}
 
     for (let product in operation) {
-        reservation[product] = []
-        r_obj[product] = {}
+        reservation[product] = [];
+        r_obj[product] = {};
 
         let productPeople = 0
         operation[product].teamArgArray = []
@@ -34,8 +34,12 @@ function operation_generate(date){
         }
         operation[product].people = productPeople
 
+        reservation[product].sort(function(a,b){
+            return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+        })
     }
 
+    console.log(reservation)
 
     let txt = ""
 

@@ -181,14 +181,25 @@ function saveTeam(div){
         }
     }
     let messagef = $("#op_message").val()
-    opteamdata = {
-        bus_name:busname,
-        bus_size:bussize,
-        bus_cost:buscost,
-        guide:guidef,
-        message:messagef,
-        reservations:op_revdata
+    if(operation[pid].teams[tid]){
+        opteamdata = {
+            bus_name:busname,
+            bus_size:bussize,
+            bus_cost:buscost,
+            guide:guidef,
+            message:messagef,
+            reservations:operation[pid].teams[tid].reservations
+        }
+    }else{
+        opteamdata = {
+            bus_name:busname,
+            bus_size:bussize,
+            bus_cost:buscost,
+            guide:guidef,
+            message:messagef
+        }
     }
+
     for (let i = 0; i < old_guide.length; i++) {
         if(!guidef.includes(old_guide[i])){
             firebase.database().ref("guide/"+old_guide[i]+"/schedule/"+date).remove();
@@ -226,4 +237,6 @@ function saveTeam(div){
     $(".pop_blackScreen").addClass("hidden");
     $(".obe").addClass("hidden");
     $("body").css("overflow","auto")
+
+    inflate_listTop()
 }

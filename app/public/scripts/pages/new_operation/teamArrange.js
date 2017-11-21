@@ -34,6 +34,9 @@ function selectTeamForMove(div){
 }
 
 function moveTeam(pid_to){
+
+    let moveData = []
+
     for (let i = 0; i < $(".omp_team--selected").length; i++) {
         let pid_from = $(".omp_team--selected").eq(i).attr("pid")
         let tid = $(".omp_team--selected").eq(i).attr("tid")
@@ -41,8 +44,18 @@ function moveTeam(pid_to){
         delete operation[pid_from].teams[tid]
         operation[pid_from].teamArgArray.splice(operation[pid_from].teamArgArray.indexOf(tid),1)
         console.log(operation)
+
+        moveData.push([pid_from,tid,teamData])
+    }
+
+    for (let i = 0; i < moveData.length; i++) {
+        let pid_from = moveData[i][0]
+        let tid = moveData[i][1]
+        let teamData = moveData[i][2]
+
         firebase.database().ref("operation/"+date+"/"+pid_from+"/teams/"+tid).remove();
         firebase.database().ref("operation/"+date+"/"+pid_to+"/teams/"+tid).set(teamData);
-        normalMode()
     }
+
+    normalMode()
 }

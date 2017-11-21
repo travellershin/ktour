@@ -155,46 +155,7 @@ $(document).on("click",".rv_content",function(){
     }
 })
 
-$(document).on("click",".ol_busEdit_bus",function(){
-    let target_team = $(this).attr("tid") // 선택된(옮겨질) team id
-    let s_product = $(".ol_title").html(); // 프로덕트명
-    let reservationData = {}
-    for (let i = 0; i < selectArray.length; i++) {
-        let s_team = selectArray[i][0];  //원 소속 팀
-        let s_rev = selectArray[i][1];  //reservation id
 
-        reservationData = operationData[s_product].teams[s_team].reservations[s_rev] //복사해둠
-        delete operationData[s_product].teams[s_team].reservations[s_rev] // 지움
-        if(operationData[s_product].teams[target_team].reservations){
-            operationData[s_product].teams[target_team].reservations[s_rev] = reservationData //붙여넣기
-        }else{
-            operationData[s_product].teams[target_team].reservations = {};
-            operationData[s_product].teams[target_team].reservations[s_rev] = reservationData;
-        }
-    }
-    toast("예약을 이동했습니다")
-    firebase.database().ref("operation/"+date+"/"+s_product).set(operationData[s_product])
-    inflate_listTop(s_product)
-})
-
-$(".ol_busEdit_done").click(function(){
-    let dataset = operationData[$(".ol_title").html()]
-    for (let team in dataset.teams) {
-        if(dataset.teams[team].people === 0){
-            delete operationData[$(".ol_title").html()].teams[team];
-            operationData[$(".ol_title").html()].teamArgArray.splice(operationData[$(".ol_title").html()].teamArgArray.indexOf(team),1)
-        }
-    }
-    firebase.database().ref("operation/"+date+"/"+$(".ol_title").html()).set(operationData[$(".ol_title").html()])
-    inflate_listTop($(".ol_title").html())
-})
-
-$(document).on("click",".ol_bus_add",function(){
-    let date = new Date();
-    date = date.getTime()
-    addbus();
-
-})
 
 
 
@@ -359,64 +320,7 @@ function filter_set(div){
     inflate_reservation(filteredRev.total)
 }
 
-function addbus(){
-    $(".pop_blackScreen").removeClass("hidden");
-    $(".obe").removeClass("hidden");
-    $(".obe_header_title").html($(".ol_title").html().split("_")[2])
 
-    let pid = $(".ol_title").html();
-    let tid = firebase.database().ref("operation/"+date+"/"+pid+"/teams").push().key;
-    let time = new Date();
-    time = time.getTime()
-    $(".omp_edit").attr("pid",pid);
-
-
-    let teamdata = {};
-    firebase.database().ref("product").orderByChild("id").equalTo(pid).on("value",snap => {
-        let data = snap.val();
-        let productdata = {}
-        for (let key in data) {
-            productdata = data[key]
-        }
-        let busno = $(".ol_bus_team").length + 1
-        let busnameArray = []
-        let bussizeno = 0;
-        for (let i = 0; i < productdata.cost.bus.length; i++) {
-            busnameArray.push(productdata.cost.bus[i].name);
-            if($("#op_bus_company").val() === productdata.cost.bus[i].name){
-                bussizeno = i
-            }
-        }
-        let bussizeArray = []
-        for (let i = 0; i < productdata.cost.bus[bussizeno].size.length; i++) {
-            bussizeArray.push(productdata.cost.bus[bussizeno].size[i].max + "인승(" + productdata.cost.bus[bussizeno].size[i].cost+"원)")
-        }
-        $(".obe_footer_save").attr("tid",tid);
-        $(".obe_footer_save").attr("pid",pid);
-        $("#op_bus_company").attr("dropitem",busnameArray.toString())
-        $("#op_bus_size").attr("dropitem",bussizeArray.toString())
-        $(".pop_blackScreen").removeClass("hidden");
-        $(".obe").removeClass("hidden");
-        $(".obe_header_title").html([pid.split("_")[2]]+" "+busno);
-        $("#op_bus_company").val("Not Selected Yet");
-        $("#op_bus_size").val("Not Selected Yet")
-        $("#op_guide").val("Unassigned");
-        $("#op_message").val(teamdata.message);
-        let guidenameArray = []
-        guidenameArray.push("Unassigned")
-        for (let guidekey in guideData) {
-            guidenameArray.push(guideData[guidekey].name)
-        }
-        op_revdata = {}
-        let guidetxt = '<input class="obe_body_input dw_dropdown op_guide0" value="Unassigned" id="op_guide0" readonly/>'
-        $("#op_guide").val("Unassigned");
-        $(".obe_body_guide").html(guidetxt);
-
-        $(".obe_body_guide>input").attr("dropitem",guidenameArray.toString())
-
-        inflate_listTop(pid);
-    });
-}
 
 function filter_init(){
     $(".drop_item").removeClass("drop_item--selected")

@@ -1,8 +1,10 @@
 function show_list(pid){
     lastRendering.product = pid
-    console.log(lastRendering)
     lastRendering.order = []
     lastRendering.bus = 0
+
+    console.log(operation)
+    console.log(lastRendering)
 
     $(".om").addClass("hidden");
     $(".ol_return").removeClass("hidden")
@@ -28,17 +30,23 @@ function show_list(pid){
 }
 
 
+
 function inflate_listTop(){
 
-    let pid = lastRendering.product
+    let pid = $(".ol_title").html()
 
     // TODO: 어떤 버스를 보고있었는지에 따라 선택하기
 
     let data = operation[pid]
     let bustxt = "";
     let busEditTxt = "";
+    console.log(data)
+    if(lastRendering.bus===0){
+        bustxt+='<div class="ol_bus_total ol_bus_box--selected ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
+    }else{
+        bustxt+='<div class="ol_bus_total ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
+    }
 
-    bustxt+='<div class="ol_bus_total ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
 
     let filter_pickupPlace = new Set(); //필터 이름
     let filter_nationality = new Set(); //필터 이름
@@ -58,7 +66,13 @@ function inflate_listTop(){
             filter_agency.add(reservation_data.agency)
         }
 
-        bustxt+='<div class="ol_bus_team ol_bus_box" tid="'+data.teamArgArray[i]+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+(i+1)+'</p>'
+        if(lastRendering.bus===i+1){
+            bustxt+='<div class="ol_bus_team ol_bus_box ol_bus_box--selected" tid="'+data.teamArgArray[i]+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+(i+1)+'</p>'
+        }else{
+            bustxt+='<div class="ol_bus_team ol_bus_box" tid="'+data.teamArgArray[i]+'"><div class="ol_bus_team_left"><p class="ol_bus_team_busno">BUS '+(i+1)+'</p>'
+        }
+
+
         if(data.teams[data.teamArgArray[i]].guide){
             bustxt+='<p class="ol_bus_team_guide" title="'
             for (let j = 0; j < data.teams[data.teamArgArray[i]].guide.length; j++) {
@@ -99,8 +113,6 @@ function inflate_listTop(){
         $(".r_drop_"+kind).html(txt[kind])
     }
 
-
-
     $(".ol_busEdit_busbox_box").html(busEditTxt)
 
     bustxt+='<div class="ol_bus_add ol_bus_box"><img src="./assets/icon-add.svg"/><p>ADD NEW BUS</p></div>'
@@ -121,6 +133,7 @@ function viewOperationMain(){
     $(".o_header_quick").removeClass("hidden");
     $(".o_header_change").removeClass("hidden")
     $(".ol_bus_total").addClass("ol_bus_box--selected");
+    $(".ol_return").addClass("hidden");
     isEditing = false;
     viewing = ""
 }

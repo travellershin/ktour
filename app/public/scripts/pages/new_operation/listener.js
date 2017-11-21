@@ -1,4 +1,25 @@
 //Operation Main Page 상단부터//
+let isEditing = false;
+
+$(".ol_busEdit_done").click(function(){
+    isEditing = false;
+    $(".ol_editBus").removeClass("hidden");
+    $(".ol_unSelect").addClass("hidden");
+    $(".ol_selectAll").addClass("hidden");
+    $(".ol_busEdit").addClass("hidden")
+    $(".rv_box").css("padding-bottom","200px")
+    selectArray = []
+})
+
+$(".ol_editBus").click(function(){
+    isEditing = true;
+    $(this).addClass("hidden");
+    $(".ol_unSelect").removeClass("hidden");
+    $(".ol_selectAll").removeClass("hidden");
+    $(".ol_busEdit").removeClass("hidden")
+    $(".rv_box").css("padding-bottom","200px")
+    selectArray = []
+})
 
 $(".o_header_quick>p").click(function(){ //date quick select
     getQuickDate($(this).attr("id"),$(this)) //dataCollect.js

@@ -1,15 +1,15 @@
 function inflate_reservation(){
-
+    console.log(lastRendering)
     let pid = lastRendering.product
+
+    reservation[pid].sort(function(a,b){
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+    })
 
     for (let i = 0; i < lastRendering.order.length; i++) {
         orderGuide[lastRendering.order[i]](pid)
     }
-
-
     let rev = reservation[pid]
-    console.log(rev)
-
 
     for (let fid in filter_selected) {
         if(filter_selected[fid].length === 0){

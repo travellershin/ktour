@@ -37,5 +37,6 @@
 
 @import "pages/guide/asset";
 @import "pages/guide/card";
+@import "pages/guide/edit";
 
 @import "pages/account";

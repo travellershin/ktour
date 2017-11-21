@@ -32,27 +32,68 @@
     <div class="g">
         <div class="g_wrapper">
             <div class="g_filter_top">
-                <p class="g_filter_top_filtered">FILTERED 72</p>
-                <p class="g_filter_top_total">&nbsp;/ TOTAL 72</p>
-                <div class="longbtn g_filter_top_button">
-                    <img src="./assets/icon-filter--deep.svg" />
-                    <p>FILTER</p>
+                <div class="g_filter">
+                    <p class="g_filter_top_filtered">FILTERED 72</p>
+                    <p class="g_filter_top_total">&nbsp;/ TOTAL 72</p>
+                    <div class="longbtn g_filter_top_button">
+                        <img src="./assets/icon-filter--deep.svg" />
+                        <p>FILTER</p>
+                    </div>
                 </div>
+                <div class="ga_filter hidden">
+                    <p class="sort_cash btn">ORDER BY CASH</p>
+                    <p class="sort_asset btn">ORDER BY ASSET</p>
+                    <p class="sort_name btn">ORDER BY NAME</p>
+                </div>
+
                 <div class="longbtn g_add">
                     <img src="./assets/icon-add.svg" />
                     <p>ADD NEW GUIDE</p>
                 </div>
                 <div class="toggleGuide btn">VIEW ASSET</div>
             </div>
-            <div class="g_wrapper_asset hidden">
-                <div class="ga_div">
-                    <p class="ga_name">김도형</p>
-                    <p class="ga_asset">남이섬 17/100</p>
+
+            <div class="ga_box hidden">
+
+                <!--아래는 dom 구조 확인을 위한 예제 guide임-->
+                <div class="ga hidden">
+                    <div class="g_card_top">
+                        <div class="g_card_face_wrapper">
+                            <img class="g_card_face" src="./guides/0.jpg"/>
+                        </div>
+                        <p class="g_card_name">Matt</p>
+                    </div>
+                    <div class="ga_asset_box">
+                        <div class="ga_asset_top">
+                            <p class="ga_asset_top_title">ASSET</p>
+                            <p class="ga_asset_top_number">13</p>
+                        </div>
+                        <div class="ga_asset_body">
+                            <div class="ga_asset">
+                                <p class="ga_asset_name">쁘띠 프랑스</p>
+                                <p class="ga_asset_number">150</p>
+                            </div>
+                            <div class="ga_asset">
+                                <p class="ga_asset_name">쁘띠 프랑스</p>
+                                <p class="ga_asset_number">150</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ga_cash_box">
+                        <p class="ga_cash_title">CASH</p>
+                        <div class="ga_cash">
+                            <p class="ga_cash_name">현금</p>
+                            <p class="ga_cash_number">34,000원</p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+
+
             <div class="g_card_box">
                 <!--아래는 dom 구조 확인을 위한 예제 guide임-->
-                <div class="g_card">
+                <div class="g_card hidden">
                     <div class="g_card_top">
                         <div class="g_card_face_wrapper">
                             <img class="g_card_face" src="./guides/0.jpg"/>
@@ -79,123 +120,100 @@
     </div>
 
     <div class="pop_blackScreen centering hidden">
-        <div class="pop_background gie">
-            <form onsubmit="return false;">
-                <div class="gie_header">
-                    <p>GUIDE INFO_EDIT</p>
-                    <button type="reset"><img src="./assets/icon-close.svg"/></button>
+        <div class="g_e">
+            <div class="g_e_header">
+                <p class="g_e_header_title">EDIT GUIDE INFO</p>
+                <img class="g_e_header_close" src="./assets/icon-close.svg">
+            </div>
+            <div class="g_e_body">
+                <div class="g_e_face_div">
+                    <label for="g_e_face_upload" id="gie_upload_photo_label"></label>
+                    <img class="g_e_face">
+                    <input type="file" accept="image/*" id="g_e_face_upload" onchange="uploadGuide(this.files)"></input>
                 </div>
-                <div class="gie_div">
-                    <div class="gie_face_wrapper">
-                        <label for="gie_upload_photo" id="gie_upload_photo_label"></label>
-                        <div id="gie_wwwraper">
-                            <img class="gie_face" src=""/>
-                        </div>
-                        <input type="file" accept="image/*" id="gie_upload_photo" onchange="uploadGuide(this.files)"></input>
+                <input class="g_e_name g_e_input_name" placeholder="GUIDE NAME" spellcheck="false"/>
+                <div class="g_e_box">
+                    <div class="g_e_line">
+                        <p class="g_e_title">START DATE</p>
+                        <input class="g_e_input g_e_input--drop g_e_input--mid g_e_input_start">
                     </div>
-
-                    <input class="gie_name gge_name" value="GUIDE NAME"></input>
-                    <div class="gie_boxWrapper">
-                        <div class="gie_box">
-                            <p class="gie_title">START DATE</p>
-                            <input class="gie_edit input midinput startDatePicker gge_start" value="2017-08-23"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">END DATE</p>
-                            <input class="gie_edit input midinput endDatePicker gge_end" value="2017-08-23"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">E-MAIL</p>
-                            <div class="ov_hidden">
-                                <input class="gie_edit input midinput gge_email"></input>
-                                <p class="gie_mail_gmail">@gmail.com</p>
-                            </div>
-
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">PHONE</p>
-                            <input class="gie_edit input fullinput gge_phone"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">LANGUAGE</p>
-                            <div class="clearBoth gie_languageBox">
-                                <input type="checkbox" name="language" id="gie_korean"></input>
-                                <label for="gie_korean">KOREAN</label>
-                                <input type="checkbox" name="language" id="gie_english"></input>
-                                <label for="gie_english">ENGLISH</label>
-                                <input type="checkbox" name="language" id="gie_chinese"></input>
-                                <label for="gie_chinese">CHINESE</label>
-                                <input type="checkbox" name="language" id="gie_cantonese"></input>
-                                <label for="gie_cantonese">CANTONESE</label>
-                                <input type="checkbox" name="language" id="gie_japanese"></input>
-                                <label for="gie_japanese">JAPANESE</label>
-                                <input type="checkbox" name="language" id="gie_indonesian"></input>
-                                <label for="gie_indonesian">INDONESIAN</label>
-                                <input type="checkbox" name="language" id="gie_thai"></input>
-                                <label for="gie_thai">THAI</label>
-                                <input type="checkbox" name="language" id="gie_vietnamese"></input>
-                                <label for="gie_vietnamese">VIETNAMESE</label>
-                                <input type="checkbox" name="language" id="gie_tagalog"></input>
-                                <label for="gie_tagalog">TAGALOG</label>
-                                <input type="checkbox" name="language" id="gie_french"></input>
-                                <label for="gie_french">FRENCH</label>
-                                <input type="checkbox" name="language" id="gie_spanish"></input>
-                                <label for="gie_spanish">SPANISH</label>
-                                <input type="checkbox" name="language" id="gie_german"></input>
-                                <label for="gie_german">GERMAN</label>
-                            </div>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">DRIVE</p>
-                            <input class="gie_drive gge_drive dw_dropdown" readonly id="gge_driverz" dropitem="O, X"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">ACCOUNT</p>
-                            <input class="gie_edit input fullinput gge_account"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">ADDRESS</p>
-                            <input class="gie_edit input fullinput gge_address"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">BONUS</p>
-                            <input class="gie_edit input midinput gge_bonus"></input>
-                        </div>
-                        <div class="gie_box">
-                            <p class="gie_title">PREFER DAY</p>
-                            <div class="clearBoth gie_preferBox">
-                                <input type="checkbox" id="gie_Mon"></input>
-                                <label for="gie_Mon">MON</label>
-                                <input type="checkbox" id="gie_Tue"></input>
-                                <label for="gie_Tue">TUE</label>
-                                <input type="checkbox" id="gie_Wed"></input>
-                                <label for="gie_Wed">WED</label>
-                                <input type="checkbox" id="gie_Thu"></input>
-                                <label for="gie_Thu">THU</label>
-                                <input type="checkbox" id="gie_Fri"></input>
-                                <label for="gie_Fri">FRI</label>
-                                <input type="checkbox" id="gie_Sat"></input>
-                                <label for="gie_Sat">SAT</label>
-                                <input type="checkbox" id="gie_Sun"></input>
-                                <label for="gie_Sun">SUN</label>
-                            </div>
-                        </div>
-
-                        <div class="gie_box">
-                            <p class="gie_title gge_card">CARD NUMBER</p>
-                            <input class="gie_edit input fullinput"></input>
-                        </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">END DATE</p>
+                        <input class="g_e_input g_e_input--drop g_e_input--mid g_e_input_end">
                     </div>
-
-                    <p class="gie_memo_title">MEMO</p>
-                    <textarea class="gie_memo_txt gge_memo"></textarea>
+                    <div class="g_e_line">
+                        <p class="g_e_title">E_MAIL</p>
+                        <input class="g_e_input g_e_input_email">
+                    </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">PHONE</p>
+                        <input class="g_e_input g_e_input_phone">
+                    </div>
+                    <p class="g_e_title">LANGUAGE</p>
+                    <div class="g_e_lang_box">
+                        <div class="g_e_lang" id="gel_Korean">KOREAN</div>
+                        <div class="g_e_lang" id="gel_English">ENGLISH</div>
+                        <div class="g_e_lang" id="gel_Chinese">CHINESE</div>
+                    </div>
+                    <div class="g_e_lang_box">
+                        <div class="g_e_lang" id="gel_Cantonese">CANTONESE</div>
+                        <div class="g_e_lang" id="gel_Japanese">JAPANESE</div>
+                        <div class="g_e_lang" id="gel_Indonesian">INDONESIAN</div>
+                    </div>
+                    <div class="g_e_lang_box">
+                        <div class="g_e_lang" id="gel_Thai">THAI</div>
+                        <div class="g_e_lang" id="gel_Vietnamese">VIETNAMESE</div>
+                        <div class="g_e_lang" id="gel_Tagalog">TAGALOG</div>
+                    </div>
+                    <div class="g_e_lang_box g_e_lang_box--last">
+                        <div class="g_e_lang" id="gel_French">FRENCH</div>
+                        <div class="g_e_lang" id="gel_Spanish">SPANISH</div>
+                        <div class="g_e_lang" id="gel_German">GERMAN</div>
+                    </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">DRIVE</p>
+                        <input class="g_e_input g_e_input--short g_e_input_driver dw_dropdown" id="drop_driver" dropitem="O,X" readonly>
+                    </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">ACCOUNT</p>
+                        <input class="g_e_input g_e_input_account">
+                    </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">ADDRESS</p>
+                        <input class="g_e_input g_e_input_address">
+                    </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">BONUS</p>
+                        <input class="g_e_input g_e_input--mid g_e_input_bonus">
+                    </div>
+                    <p class="g_e_title">PREFER DAY</p>
+                    <div class="g_e_prefer_box">
+                        <div class="g_e_prefer" id="gep_Mon">Mon</div>
+                        <div class="g_e_prefer" id="gep_Tue">Tue</div>
+                        <div class="g_e_prefer" id="gep_Wed">Wed</div>
+                        <div class="g_e_prefer" id="gep_Thu">Thu</div>
+                        <div class="g_e_prefer" id="gep_Fri">Fri</div>
+                        <div class="g_e_prefer" id="gep_Sat">Sat</div>
+                        <div class="g_e_prefer" id="gep_Sun">Sun</div>
+                    </div>
+                    <div class="g_e_line">
+                        <p class="g_e_title">CARD NUMBER</p>
+                        <input class="g_e_input g_e_input_card">
+                    </div>
                 </div>
-                <div class="gie_save_div">
-                    <button type="submit" class="gie_save">SAVE</button>
+                <div class="g_e_memo_div">
+                    <img class="g_e_memo_icon" src="./assets/icon-memo-on.svg"/>
+                    <p class="g_e_memo_title">MEMO</p>
                 </div>
-
-            </form>
+                <textarea class="g_e_memo g_e_input_memo" spellcheck="false"></textarea>
+            </div>
+            <div class="g_e_footer">
+                <div class="g_e_footer_save">SAVE</div>
+                <div class="g_e_footer_delete">DELETE</div>
+            </div>
         </div>
+
+
     </div>
 
 
@@ -210,4 +228,5 @@
     <script src='./libraries/jquery-ui.min.js'></script>
     <script src='./scripts/module/toast.js'></script>
     <script src='./scripts/pages/guide/datacollect.js'></script>
+    <script src='./scripts/pages/guide/info.js'></script>
 </body>

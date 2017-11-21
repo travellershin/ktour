@@ -1,10 +1,3 @@
-let filterMap = {
-    product : new Map(),
-    pickupPlace : new Map(),
-    nationality : new Map(),
-    agency : new Map()
-}
-
 $(".r_hbot_hasdrop").click(function(event){
     toggle_filterbox($(this).attr("fid"));
     return false
@@ -33,18 +26,13 @@ $(".r_drop").on("click","p",function(){
     let fitem = $(this).html()
     let fid = $(this).parent().attr("fid")
 
-    if(filterMap[fid].has(fitem)){
-        filterMap[fid].delete(fitem)
+    if(filter_selected[fid].includes(fitem)){
+        filter_selected[fid].splice(filter_selected[fid].indexOf(fitem),1)
     }else{
-        filterMap[fid].set(fitem)
+        filter_selected[fid].push(fitem)
     }
 
-    filter[fid] = Array.from(filterMap[fid].keys())
-    if(filter[fid].length === 0){
-        filter[fid] = Object.keys(r_total[fid])
-    }
-    console.log(filter)
-    //inflate_reservation()
+    inflate_reservation()
 
     return false
 })

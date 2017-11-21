@@ -5,17 +5,34 @@ let formerDate = datestring.today() //기존 등록되어 있던 콜백을 삭�
 let operation = {} //전체 operation data를 담고 있는 전역 객체
 
 let lastRendering = {//무엇을 그리고 있었나
-    product:"어떤 product를 그리고 있었는지",
+    product:"",
     bus:0, //어떤 bus를 보고 있었는지. 0일 경우 total
-    inflateArray:["마지막에 보던 reservation의 순서 배열"],
-    orderMethod:"마지막 정렬 방식"
+    order:[] //정렬 순서
 }
 
 let date = ""; //firebase database에 접근할 때 반드시 필요
 
+let reservation = {} //product별 reservation
+
 
 let r_obj = {} //reservation을 담을 객체
 let r_totalArray = [] //해당일 전체 reservation Array
+
+let filter = {
+    agency:[],
+    pickupPlace:[],
+    nationality:[]
+}
+let filter_selected = {
+    agency:[],
+    pickupPlace:[],
+    nationality:[]
+}
+let filter_adjusted = {
+    agency:[],
+    pickupPlace:[],
+    nationality:[]
+}
 
 $(document).ready(function(){
 
@@ -29,7 +46,6 @@ $(document).ready(function(){
         init_datepicker();
         init_quickDate();
         getOperationData(datestring.today())
-
     })
 })
 

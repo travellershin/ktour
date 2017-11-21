@@ -9,6 +9,14 @@
     padding: 30px;
     box-sizing: border-box;
     float: left;
+    cursor: pointer;
+
+    &:hover{
+        border: solid 1px #0084ff;
+    }
+    &:active{
+        background-color: rgba(252,253,255,0.95)
+    }
 
     &_box{
         margin-top: 20px;
@@ -20,7 +28,7 @@
         margin-bottom: 15px;
     }
     &_face{
-        width: 60px;
+        width: 58px;
         height: auto;
 
         &_wrapper{
@@ -29,6 +37,9 @@
             overflow: hidden;
             border-radius: 8px;
             float: left;
+            background-color:#fafafa;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
         }
     }
 
@@ -78,4 +89,9 @@
         height: 40px;
         line-height: 20px;
     }
+}
+.toggleGuide{
+    float: right;
+    background-color: white;
+    margin-right: 10px;
 }

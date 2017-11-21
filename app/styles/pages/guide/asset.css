@@ -1,31 +1,144 @@
-.toggleGuide{
-    float: right;
-    background-color: white;
-    margin-right: 10px;
-}
-.g_wrapper_asset{
-    width: 1312px;
-    padding-bottom: 200px;
-    min-height: 500px;
-    margin-left:calc(50% - 640px);
-    margin-top: 20px;;
+.ga{
+    width: 420px;
+    height: 552px;
     overflow: hidden;
     background-color: white;
-}
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin: 0 10px 10px 0;
+    padding: 30px;
+    box-sizing: border-box;
+    float: left;
+    cursor: pointer;
 
-.ga{
-    &_div{
-        overflow: hidden;
-        margin:20px 0 0 20px;
-        height: 40px;
-        width: 1200px;
-        box-sizing: border-box;
-        border: 1px solid #e0e0e0;
+    &:hover{
+        border: solid 1px #0084ff;
     }
-    &_name{
-        float: left;
+    &:active{
+        background-color: rgba(252,253,255,0.95)
     }
+
+    &_box{
+        margin-top: 20px;
+    }
+
     &_asset{
-        float: left;
+
+        width: 360px;
+        height: 45px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        margin-bottom: 10px;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        &_name{
+            float: left;
+            font-size: 16px;
+            line-height: 43px;
+            color: #323232;
+            margin-left: 20px;
+        }
+
+        &_number{
+            float: right;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 20px;
+            line-height: 43px;
+        }
+
+        &_top{
+            overflow: hidden;
+            height: 25px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 25px;
+
+            &_title{
+                font-weight: bold;
+                color: #7c8495;
+                float: left;
+            }
+
+            &_number{
+                font-weight: bold;
+                float: left;
+                margin-left: 8px;
+            }
+        }
+
+        &_box{
+            box-sizing: border-box;
+            height: 330px;
+            padding-bottom: 20px;
+            overflow-x: hidden;
+            margin-right: -25px;
+
+            &::-webkit-scrollbar-track{
+            	border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar{
+            	width: 3px;
+            }
+
+            &::-webkit-scrollbar-thumb{
+            	border-radius: 10px;
+            	background-color: #e0e0e0;
+            }
+
+        }
+
+        &:hover{
+            background-color: rgba(0, 132, 255, 0.1);
+            border: solid 1px #0084ff;
+        }
+
+        &:active{
+            background-color: rgba(0, 132, 255, 0.2);
+            border: solid 1px #0084ff;
+        }
     }
+
+    &_cash{
+
+        width: 360px;
+        height: 45px;
+        border-radius: 5px;
+        border: solid 1px #e0e0e0;
+        margin-bottom: 10px;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        &_box{
+            padding-top: 10px;
+            margin-top: 10px;
+            border-top: solid 1px #e3e3e3;
+        }
+
+        &_title{
+            font-weight: bold;
+            color: #7c8495;
+        }
+
+        &_name{
+            float: left;
+            font-size: 16px;
+            line-height: 43px;
+            color: #323232;
+            margin-left: 20px;
+        }
+
+        &_number{
+            float: right;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 20px;
+            line-height: 43px;
+        }
+
+    }
+
+
 }

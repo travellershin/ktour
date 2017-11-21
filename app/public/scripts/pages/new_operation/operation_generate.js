@@ -1,10 +1,20 @@
 
 function operation_generate(date){
+    reservation = {}
+    r_obj = {}
+
     for (let product in operation) {
+        reservation[product] = []
+        r_obj[product] = {}
 
         let productPeople = 0
         operation[product].teamArgArray = []
         for (let team in operation[product].teams) {
+
+            for (let id in operation[product].teams[team].reservations) {
+                reservation[product].push(operation[product].teams[team].reservations[id])
+                r_obj[product][id] = operation[product].teams[team].reservations[id]
+            }
 
             operation[product].teamArgArray.push({name:team,time:operation[product].teams[team].time})
             //전체 상품, 팀의 인원을 합산한다.
@@ -25,6 +35,7 @@ function operation_generate(date){
         operation[product].people = productPeople
 
     }
+
 
     let txt = ""
 
@@ -114,4 +125,9 @@ function operation_generate(date){
             }
         }
     }
+    if(lastRendering.product.length>0){
+        inflate_listTop()
+        inflate_reservation()
+    }
+
 }

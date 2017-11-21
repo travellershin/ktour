@@ -43,8 +43,9 @@ $(document).on("click",".drop_item",function(){
 })
 
 
+
 $(".om").on("click",".omp_list",function(){ //product list 보러가기(배차화면)
-    init_list($(this).attr("pid")); //list_init.js (함수명과 파일명 앞뒤가 달라서 유감)
+    show_list($(this).attr("pid")); //list_init.js (함수명과 파일명 앞뒤가 달라서 유감)
 })
 
 
@@ -62,10 +63,36 @@ $(".ol_bus").on("click",".ol_bus_team",function(){
         $(this).attr("busno",$(".ol_bus_team").index($(this))+1)
         editTeam($(this))
     }else{
+        lastRendering.bus = $(".ol_bus_team").index($(this))+1
         allocation_show_indi($(this)); //개별 팀의 예약정보 보기
     }
 })
 
+//정렬 클릭
+$(".r_hbot_people").click(function(){
+    if(lastRendering.order[lastRendering.order.length-1]==="peopleAsc"){
+        lastRendering.order.push("peopleDes")
+    }else{
+        lastRendering.order.push("peopleAsc")
+    }
+    inflate_reservation()
+})
+$(".r_hbot_name").click(function(){
+    if(lastRendering.order[lastRendering.order.length-1]==="nameAsc"){
+        lastRendering.order.push("nameDes")
+    }else{
+        lastRendering.order.push("nameAsc")
+    }
+    inflate_reservation()
+})
+$(".op_hbot_bus").click(function(){
+    if(lastRendering.order[lastRendering.order.length-1]==="busAsc"){
+        lastRendering.order.push("busDes")
+    }else{
+        lastRendering.order.push("busAsc")
+    }
+    inflate_reservation()
+})
 
 
 

@@ -1,5 +1,4 @@
 
-
 $(document).on("click", ".pc", function(){ //개별 프로덕트 클릭 -> Edit창 열기
     show_detail($(this).attr('id'));
 })
@@ -479,7 +478,7 @@ function show_detail(pid){
     }
 
     $(".pep_p_op_box").html(optionTxt)
-
+    $("body").css("overflow","hidden")
     open_product("info");
 }
 
@@ -497,6 +496,7 @@ function open_product(tabName){
 function close_detail(){
     $(".lightBox_shadow").addClass("hidden");
     $(".pe").addClass("hidden");
+    $("body").css("overflow","auto")
 }
 
 function setPickDrop(area){

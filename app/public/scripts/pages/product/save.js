@@ -230,11 +230,14 @@ function save_product(){
     for (let i = 0; i < data.possibles.length; i++) {
         data.possibles[i] = data.possibles[i].trim();
     }
-
-    console.log(product[key])
+    let afterArray = [];
+    for (let i = 0; i < data.possibles.length; i++) {
+        if(!afterArray.includes(data.possibles[i])&&data.possibles[i] !== ""){
+            afterArray.push(data.possibles[i])
+        }
+    }
+    data.possibles = afterArray;
     console.log(data)
-
-
 
     firebase.database().ref("product/"+key).set(data)
 

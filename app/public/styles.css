@@ -363,6 +363,9 @@ h1,h2,h3,h4,h5,h6,p{
 img{
     vertical-align:top !important;
 }
+textarea{
+    overflow-x: hidden;
+}
 textarea::-webkit-scrollbar-track
 {
     border-radius: 10px;
@@ -3791,7 +3794,7 @@ However, delay the fade out process for 2.5 seconds */
             background-image: url("./assets/checkboxes-default.svg");
         }
 .pei_possibles{
-        height: 70px !important;
+        height: 140px !important;
     }
 .pei_available{
         float: left;

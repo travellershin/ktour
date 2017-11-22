@@ -168,6 +168,7 @@ function r_new_save(){
     for (let i = 0; i < required.length; i++) {
         if($(".r_add_input_"+required[i]).val()===""){
             toast(required[i]+" 는 필수 정보입니다.")
+            return false
         }else{
             rdata[required[i]] = $(".r_add_input_"+required[i]).val()
             durl+=required[i]+"="+$(".r_add_input_"+required[i]).val()+"&"

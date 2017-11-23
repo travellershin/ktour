@@ -1,0 +1,246 @@
+.cancel_memo{
+    width: 250px;
+    margin-left: 0;
+}
+.c_canceledDate{
+    width: 110px;
+    margin-left: 10px;
+    color:#f54b5e;
+    font-weight: bold;
+}
+
+.c_content{
+    width: 1280px;
+    height: 48px;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin-top: 8px;
+    box-sizing: border-box;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    cursor: pointer;
+    &:hover{
+        background-color: rgba(0, 132, 255, 0.1);
+        border: solid 1px #0084ff;
+    }
+    &:active{
+        background-color: rgba(0, 132, 255, 0.2);
+        border: solid 1px #0084ff;
+    }
+
+    &>*{
+        float: left;
+    }
+
+    &_star{
+        background-image: url("./assets/icon-star-off.svg");
+        width: 20px;
+        height: 20px;
+
+        &--on{
+            background-image: url("./assets/icon-star-on.svg");
+        }
+    }
+
+    &>p{
+        line-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        margin-right: 14px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &_memo{
+        margin-left: 20px;
+        width: 220px;
+        height: 20px !important;
+    }
+
+    &_date{
+        width: 100px;
+    }
+    &_product{
+        width: 110px;
+    }
+    &_pickup{
+        width: 120px;
+    }
+    &_people{
+        width: 65px;
+    }
+    &_option{
+        width: 90px;
+    }
+    &_name{
+        width: 170px;
+    }
+    &_nationality{
+        width: 110px;
+    }
+    &_agency{
+        width: 100px;
+    }
+}
+
+.c_hbot{
+    height:42px;
+    box-sizing: border-box;
+    border-top:solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    width: 1280px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    letter-spacing: -0.3px;
+    overflow: visible;
+    position: relative;
+
+    &>p{
+        margin-right: 14px;
+        line-height: 20px;
+        text-align: center;
+        float: left;
+        font-size: 14px;
+    }
+
+    &>div{
+        float: left;
+        margin-right: 14px;
+        overflow: hidden;
+
+        &>img{
+            float: left;
+            width: 20px;
+        }
+
+        &>p{
+            line-height: 20px;
+            float: left;
+            margin-right: 2px;
+            font-size: 14px;
+        }
+    }
+    &_cdate{
+        margin-left: 30px;
+        width: 110px;
+    }
+    &_memo{
+        width: 250px;
+    }
+    &_date{
+        width: 100px;
+    }
+    &_product{
+        width: 110px;
+        box-sizing: border-box;
+    }
+
+    &_people{
+        width: 65px;
+    }
+
+    &_option{
+        width:90px;
+        &>p{
+            margin-left: 10px;
+        }
+    }
+
+    &_name{
+        width: 170px;
+    }
+
+    &_nationality{
+        width: 110px;
+    }
+    &_agency{
+        width:100px;
+        box-sizing: border-box;
+        padding-left: 13px;
+        padding-right: 4px;
+    }
+}
+
+.alert_why{
+    border: 1px solid #e0e0e0;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 13px;
+}
+
+
+
+.permanent{
+    &_background{
+        position: fixed;
+        left:0;
+        top:0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(38, 46, 62, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &_pop{
+        padding: 40px 30px 20px 30px;
+        background-color: white;
+        min-width: 320px;
+        box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+        border: solid 1px #e0e0e0;
+        border-radius: 5px;
+    }
+
+    &_footer{
+        width: 100%;
+        overflow: hidden;
+        height: 40px;
+        margin-top: 40px;
+
+        &>div{
+            width:90px;
+            height: 40px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            float: right;
+            line-height: 38px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        &_yes{
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            color: #ffffff;
+
+            &:hover{
+                filter: brightness(0.95);
+            }
+
+            &:active{
+                filter: brightness(1.05);
+            }
+        }
+
+        &_no{
+            border: solid 1px #e0e0e0;
+            margin-right: 10px;
+
+            &:hover{
+                background-color: rgba(224, 224, 224, 0.1);
+            }
+
+            &:active{
+                background-color: rgba(224, 224, 224, 0.2);
+            }
+        }
+    }
+}

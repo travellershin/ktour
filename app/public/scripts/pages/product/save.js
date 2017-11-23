@@ -33,12 +33,13 @@ function save_product(){
         option:[],
         id:""
     };
-    let info = ["name","area","category","status","description","deadline","itinerary",
+    let info = ["name","area","category","status","description","itinerary",
                 "cancellation","include","exclude","others"];
 
     for (let i = 0; i < info.length; i++) {
         data.info[info[i]] = $(".input_info_"+info[i]).val()
     }
+    data.info.deadline = $(".input_info_deadline").val()*1
     for (let i = 0; i < $(".pei_available_cb").length; i++) {
         data.info.available.push($(".pei_available_cb").eq(i).hasClass('cb_checked'))
     }
@@ -130,12 +131,12 @@ function save_product(){
                 kidAge_max:age_kid[1].trim()*1,
                 infantAge_min:age_infant[0].trim()*1,
                 infantAge_max:age_infant[1].trim()*1,
-                adult_gross:$("."+tid+"_pei_price_gross_adult_"+j).val(),
-                kid_gross:$("."+tid+"_pei_price_gross_kid_"+j).val(),
-                infant_gross:$("."+tid+"_pei_price_gross_infant_"+j).val(),
-                adult_net:$("."+tid+"_pei_price_net_adult_"+j).val(),
-                kid_net:$("."+tid+"_pei_price_net_kid_"+j).val(),
-                infant_net:$("."+tid+"_pei_price_net_infant_"+j).val(),
+                adult_gross:$("."+tid+"_pei_price_gross_adult_"+j).val()*1,
+                kid_gross:$("."+tid+"_pei_price_gross_kid_"+j).val()*1,
+                infant_gross:$("."+tid+"_pei_price_gross_infant_"+j).val()*1,
+                adult_net:$("."+tid+"_pei_price_net_adult_"+j).val()*1,
+                kid_net:$("."+tid+"_pei_price_net_kid_"+j).val()*1,
+                infant_net:$("."+tid+"_pei_price_net_infant_"+j).val()*1,
                 agency:agencyArray,
                 currency:$(".pep_currency_"+tid+"_"+j).attr("rstat")
             })
@@ -146,7 +147,7 @@ function save_product(){
 
     for (let i = 0; i < $(".pep_p_op").length; i++) {
         let optname = $(".pep_p_op_name").eq(i).val()
-        let optprice = $(".pep_p_op_price").eq(i).val()
+        let optprice = $(".pep_p_op_price").eq(i).val()*1
         let optpossibles = $(".pep_p_op_possibles").eq(i).val().split(";")
 
         for (let j = 0; j < optpossibles.length; j++) {
@@ -208,7 +209,7 @@ function save_product(){
             let people = $(".pei_bus_"+i+"_people_"+j).val().split("-");
             indata.max = people[1].trim()*1;
             indata.min = people[0].trim()*1;
-            indata.cost = $(".pei_bus_"+i+"_price_"+j).val();
+            indata.cost = $(".pei_bus_"+i+"_price_"+j).val()*1;
             busData.size.push(indata)
         }
         let maxArray = []

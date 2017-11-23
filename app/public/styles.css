@@ -800,7 +800,6 @@ textarea::-webkit-scrollbar-thumb
     border-radius: 5px;
     border: solid 1px #e0e0e0;
     margin-bottom: 8px;
-    padding-top: 14px;
     padding-bottom: 14px;
 }
 .c_ct:hover{
@@ -811,7 +810,10 @@ textarea::-webkit-scrollbar-thumb
         background-color: rgba(0, 132, 255, 0.2);
         border: solid 1px #0084ff;
     }
-.c_ct>*{float: left;}
+.c_ct>*{
+        float: left;
+        margin-top: 14px;
+    }
 .c_ct_type{
         width:110px;
     }
@@ -824,6 +826,7 @@ textarea::-webkit-scrollbar-thumb
 .c_ct_date{
         width:130px;
         text-align: center;
+        margin-top: 7px;
     }
 .c_ct_company{
         width: 250px;
@@ -1486,6 +1489,11 @@ textarea::-webkit-scrollbar-thumb
 .ri_footer_gmail{
             margin-right: 10px;
         }
+.ri_footer_permanent{
+            margin-right: 10px;
+            float: right;
+            color: #f54b5e;
+        }
 .rv_info_option{
     overflow: visible !important;
 }
@@ -2022,6 +2030,236 @@ textarea::-webkit-scrollbar-thumb
 .r_add_agencyDrop{
         top: 443px;
     }
+.cancel_memo{
+    width: 250px;
+    margin-left: 0;
+}
+.c_canceledDate{
+    width: 110px;
+    margin-left: 10px;
+    color:#f54b5e;
+    font-weight: bold;
+}
+.c_content{
+    width: 1280px;
+    height: 48px;
+    border-radius: 5px;
+    border: solid 1px #e0e0e0;
+    margin-top: 8px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.c_content:hover{
+        background-color: rgba(0, 132, 255, 0.1);
+        border: solid 1px #0084ff;
+    }
+.c_content:active{
+        background-color: rgba(0, 132, 255, 0.2);
+        border: solid 1px #0084ff;
+    }
+.c_content>*{
+        float: left;
+    }
+.c_content_star{
+        background-image: url("./assets/icon-star-off.svg");
+        width: 20px;
+        height: 20px;
+    }
+.c_content_star--on{
+            background-image: url("./assets/icon-star-on.svg");
+        }
+.c_content>p{
+        line-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        margin-right: 14px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+.c_content_memo{
+        margin-left: 20px;
+        width: 220px;
+        height: 20px !important;
+    }
+.c_content_date{
+        width: 100px;
+    }
+.c_content_product{
+        width: 110px;
+    }
+.c_content_pickup{
+        width: 120px;
+    }
+.c_content_people{
+        width: 65px;
+    }
+.c_content_option{
+        width: 90px;
+    }
+.c_content_name{
+        width: 170px;
+    }
+.c_content_nationality{
+        width: 110px;
+    }
+.c_content_agency{
+        width: 100px;
+    }
+.c_hbot{
+    height:42px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-top:solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    width: 1280px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    letter-spacing: -0.3px;
+    overflow: visible;
+    position: relative;
+}
+.c_hbot>p{
+        margin-right: 14px;
+        line-height: 20px;
+        text-align: center;
+        float: left;
+        font-size: 14px;
+    }
+.c_hbot>div{
+        float: left;
+        margin-right: 14px;
+        overflow: hidden;
+    }
+.c_hbot>div>img{
+            float: left;
+            width: 20px;
+        }
+.c_hbot>div>p{
+            line-height: 20px;
+            float: left;
+            margin-right: 2px;
+            font-size: 14px;
+        }
+.c_hbot_cdate{
+        margin-left: 30px;
+        width: 110px;
+    }
+.c_hbot_memo{
+        width: 250px;
+    }
+.c_hbot_date{
+        width: 100px;
+    }
+.c_hbot_product{
+        width: 110px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+    }
+.c_hbot_people{
+        width: 65px;
+    }
+.c_hbot_option{
+        width:90px;
+    }
+.c_hbot_option>p{
+            margin-left: 10px;
+        }
+.c_hbot_name{
+        width: 170px;
+    }
+.c_hbot_nationality{
+        width: 110px;
+    }
+.c_hbot_agency{
+        width:100px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        padding-left: 13px;
+        padding-right: 4px;
+    }
+.alert_why{
+    border: 1px solid #e0e0e0;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 13px;
+}
+.permanent_background{
+        position: fixed;
+        left:0;
+        top:0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(38, 46, 62, 0.7);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+    }
+.permanent_pop{
+        padding: 40px 30px 20px 30px;
+        background-color: white;
+        min-width: 320px;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+                box-shadow: 0 2px 4px 0 rgba(105, 105, 105, 0.2);
+        border: solid 1px #e0e0e0;
+        border-radius: 5px;
+    }
+.permanent_footer{
+        width: 100%;
+        overflow: hidden;
+        height: 40px;
+        margin-top: 40px;
+    }
+.permanent_footer>div{
+            width:90px;
+            height: 40px;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            border-radius: 5px;
+            float: right;
+            line-height: 38px;
+            text-align: center;
+            cursor: pointer;
+        }
+.permanent_footer_yes{
+            background-color: #0084ff;
+            border: solid 1px #0079e9;
+            color: #ffffff;
+        }
+.permanent_footer_yes:hover{
+                -webkit-filter: brightness(0.95);
+                        filter: brightness(0.95);
+            }
+.permanent_footer_yes:active{
+                -webkit-filter: brightness(1.05);
+                        filter: brightness(1.05);
+            }
+.permanent_footer_no{
+            border: solid 1px #e0e0e0;
+            margin-right: 10px;
+        }
+.permanent_footer_no:hover{
+                background-color: rgba(224, 224, 224, 0.1);
+            }
+.permanent_footer_no:active{
+                background-color: rgba(224, 224, 224, 0.2);
+            }
 /*버스정보(팀) 수정*/
 .obe{
     height:640px;

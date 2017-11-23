@@ -95,8 +95,6 @@ function datepicker_init(){
         }else{
             getDateRange(start.format('YYYY-MM-DD') , end.format('YYYY-MM-DD'), dateArray); //이 함수는 global.js에 명시
         }
-        console.log("아래 직힌 녀석은 dateArray")
-        console.log(dateArray)
 
         collect_reservation();
     })
@@ -143,6 +141,7 @@ function collect_reservation(){
             }
         }
         generate_filter();
+        cancel_dataCollect();
     })
 }
 
@@ -254,7 +253,6 @@ function collect_pickupPlace(){
             droptxt += '<p class="r_add_nitem">'+nationalityArray[i]+'</p>'
         }
         $(".r_add_natDrop").html(droptxt)
-        console.log(nationalityArray)
     });
     firebase.database().ref("product").on("value",snap=>{
         pdata = snap.val();
@@ -339,7 +337,6 @@ function r_quick(index){
         let no = index.split("_")[2]*1
         $(".r_set_date_txt").html(datestring.add(no)+" ~ "+datestring.add(no))
         dateArray = [datestring.add(no)];
-        console.log(dateArray)
         collect_reservation();
         $(".r_set_date_txt").data('daterangepicker').setStartDate(datestring.add(no));
         $(".r_set_date_txt").data('daterangepicker').setEndDate(datestring.add(no));

@@ -379,9 +379,22 @@ function show_detail(pid){
 
             let info = price[priceCode].byAgencies[i];
 
-            $("."+priceCode+"_pei_price_commision_adult_"+i).val((Math.round((info.adult_gross - info.adult_net)*1000/info.adult_gross)/10)+'%');
-            $("."+priceCode+"_pei_price_commision_kid_"+i).val((Math.round((info.kid_gross - info.kid_net)*1000/info.kid_gross)/10)+'%')
-            $("."+priceCode+"_pei_price_commision_infant_"+i).val((Math.round((info.infant_gross - info.infant_net)*1000/info.infant_gross)/10)+'%')
+            let commision_adult = "0"
+            if(info.adult_gross*1 > 0){
+                commision_adult = (Math.round((info.adult_gross - info.adult_net)*1000/info.adult_gross)/10)+'%';
+            }
+            let commision_kid = "0"
+            if(info.kid_gross*1 > 0){
+                commision_kid = (Math.round((info.kid_gross - info.kid_net)*1000/info.kid_gross)/10)+'%';
+            }
+            let commision_infant = "0"
+            if(info.infant_gross*1 > 0){
+                commision_infant = (Math.round((info.infant_gross - info.infant_net)*1000/info.infant_gross)/10)+'%';
+            }
+
+            $("."+priceCode+"_pei_price_commision_adult_"+i).val(commision_adult);
+            $("."+priceCode+"_pei_price_commision_kid_"+i).val(commision_kid)
+            $("."+priceCode+"_pei_price_commision_infant_"+i).val(commision_infant)
 
         }
     }

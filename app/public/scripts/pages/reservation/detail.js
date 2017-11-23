@@ -18,6 +18,10 @@ $(".ri_footer_gmail").click(function(){
 })
 
 function r_detail(id){
+    $(".ri_footer_cancel").removeClass("hidden")
+    $(".ri_footer_edit").removeClass("hidden")
+    $(".ri_footer_permanent").addClass("hidden")
+
     $(".re_footer_save").attr("id",id);
     $(".alert_footer_yes").attr("id",id);
     $("body").css("overflow","hidden");

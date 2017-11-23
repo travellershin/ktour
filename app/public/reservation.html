@@ -52,7 +52,7 @@
         <div class="r_set_trash longbtn">
             <img src="./assets/icon-trash.svg"/>
             <p>CANCELED</p>
-            <p class="r_set_trash_no">123</p>
+            <p class="r_set_trash_no">0</p>
         </div>
     </div>
 
@@ -159,6 +159,22 @@
         -->
     </div>
 
+    <div class="c_hbot hidden">
+        <p class="c_hbot_cdate">C-DATE</p>
+        <p class="c_hbot_memo">REASON</p>
+        <p class="c_hbot_date">R-DATE</p>
+        <p class="c_hbot_product">PRODUCT</p>
+        <p class="c_hbot_people">PEOPLE</p>
+        <p class="c_hbot_option">OPTION</p>
+        <p class="c_hbot_name">CLIENT NAME</p>
+        <p class="c_hbot_nationality">NATIONALITY</p>
+        <p class="c_hbot_agency">AGENCY</p>
+    </div>
+    <div class="cancel_box hidden"></div>
+</div>
+
+
+
     <!--예약정보 팝업-->
     <div class="popUp hidden">
         <div class="lightBox_shadow centering">
@@ -229,6 +245,7 @@
                         <img src="./assets/icon-gmail.png"/>
                         <p>GO TO GMAIL</p>
                     </div>
+                    <p class="btn ri_footer_permanent hidden">PERMANENTLY DELETE</p>
                 </div>
 
             </div>
@@ -389,9 +406,20 @@
         <div class="alert_contents">
 
         </div>
+        <input class="alert_why" spellcheck="false" placeholder="취소 사유" autofocus/>
         <div class="alert_footer">
             <div class="alert_footer_yes">OK</div>
             <div class="alert_footer_no">NO</div>
+        </div>
+    </div>
+</div>
+
+<div class="permanent_background hidden">
+    <div class="permanent_pop">
+        <div class="permanent_contents">Are you sure to remove this permanently?</div>
+        <div class="permanent_footer">
+            <div class="permanent_footer_yes">OK</div>
+            <div class="permanent_footer_no">NO</div>
         </div>
     </div>
 </div>

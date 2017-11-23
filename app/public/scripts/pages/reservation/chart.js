@@ -3,10 +3,17 @@ $(".r_set_chartToggle").click(function(){
         $(".r_stat_pie").addClass("hidden");
         $(".r_stat_second").removeClass("hidden");
         $(this).html("차트로 보기")
-    }else{
+    }else if($(this).html()==="차트로 보기"){
         $(".r_stat_pie").removeClass("hidden");
         $(".r_stat_second").addClass("hidden");
         $(this).html("표로 보기")
+        document.querySelector('#chart_product').__chartist__.update()
+        document.querySelector('#chart_agency').__chartist__.update()
+        document.querySelector('#chart_nationality').__chartist__.update()
+    }else if($(this).html()==="예약현황 보기"){
+        close_canceled();
+        $(".r_stat_pie").removeClass("hidden");
+        $(".r_stat_second").addClass("hidden");
         document.querySelector('#chart_product').__chartist__.update()
         document.querySelector('#chart_agency').__chartist__.update()
         document.querySelector('#chart_nationality').__chartist__.update()

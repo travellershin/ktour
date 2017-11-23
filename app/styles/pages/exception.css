@@ -245,7 +245,6 @@
     border-radius: 5px;
     border: solid 1px #e0e0e0;
     margin-bottom: 8px;
-    padding-top: 14px;
     padding-bottom: 14px;
 
     &:hover{
@@ -257,7 +256,10 @@
         border: solid 1px #0084ff;
     }
 
-    &>*{float: left;}
+    &>*{
+        float: left;
+        margin-top: 14px;
+    }
 
     &_type{
         width:110px;
@@ -273,6 +275,7 @@
     &_date{
         width:130px;
         text-align: center;
+        margin-top: 7px;
     }
     &_company{
         width: 250px;

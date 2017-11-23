@@ -78,6 +78,11 @@
         &_gmail{
             margin-right: 10px;
         }
+        &_permanent{
+            margin-right: 10px;
+            float: right;
+            color: #f54b5e;
+        }
     }
 }
 

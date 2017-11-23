@@ -17,6 +17,35 @@ $(document).ready(function(){
     datepicker_init();
 })
 
+$(".r_htop_gmail").click(function(){
+    export_reservation()
+})
+
+function export_reservation(){
+
+    let startDate = dateArray[0]
+    let endDate = dateArray[dateArray.length - 1]
+    let durl = "https://intranet-64851.appspot.com/v1/excel/reservation?startAt="+startDate+"&endAt="+endDate
+
+    console.log(durl)
+
+    // Using YQL and JSONP
+    $.ajax({
+        url: durl,
+        // Tell jQuery we're expecting JSONP
+        dataType: "jsonp",
+        // Work with the response
+        success: function( response ) {
+            console.log( response ); // server response
+        },
+        error: function(xhr) {
+          console.log('실패 - ', xhr);
+        }
+    });
+
+}
+
+
 $(".r_set_quick>p").click(function(){
     r_quick($(this).attr("id"))
     $(".drp_quick>p").removeClass("drp_quick--selected");

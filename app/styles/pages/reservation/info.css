@@ -45,6 +45,7 @@
         height:80vh;
         padding-bottom: 40px;
         overflow-y: scroll;
+        user-select:text;
     }
 
     &_contents::-webkit-scrollbar-track

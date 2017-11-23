@@ -117,6 +117,7 @@
         box-sizing: border-box;
         padding: 20px;
         position: absolute;
+        user-select:text;
 
         &_scroll{
             height: 335px;

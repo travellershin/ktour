@@ -1824,6 +1824,9 @@ textarea::-webkit-scrollbar-thumb
 .rec_cash_box>p.greyTxt{
                     margin-right: 0;
                 }
+.r_add_pitem--Focused{
+    background-color: #fafafa;
+}
 .r_add{
     width: 400px;
     height: 90vh;
@@ -1943,6 +1946,9 @@ textarea::-webkit-scrollbar-thumb
             line-height: 40px;
             color: #7c8495;
         }
+.r_add_title_memo{
+            height: 96px !important;
+        }
 .r_add_input{
         width: 227px;
         float: left;
@@ -1979,11 +1985,11 @@ textarea::-webkit-scrollbar-thumb
             border-radius: 5px;
             margin-top: 10px;
             width: 227px;
-            height: 72px;
+            height: 92px;
             font-size: 14px;
             line-height: 20px;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
 .r_add_drop{
         width: 225px;
@@ -2024,6 +2030,7 @@ textarea::-webkit-scrollbar-thumb
             }
 .r_add_productDrop{
         top: 100px;
+        max-height: 400px;
     }
 .r_add_pickDrop{
         top: 163px;
@@ -2871,6 +2878,23 @@ However, delay the fade out process for 2.5 seconds */
 .alert_footer_no:active{
                 background-color: rgba(224, 224, 224, 0.2);
             }
+.o_rv_clickZone{
+    position: absolute;
+    width: 1152px;
+    height: 47px;
+    right: 0;
+    top: 0;
+}
+.o_rv_guideCheckZone{
+    position: absolute;
+    width: 95px;
+    height: 47px;
+    left: 0;
+    top: 0;
+}
+.o .rv_content{
+    position: relative;
+}
 .o_header{
     overflow: hidden;
     height: 100px;

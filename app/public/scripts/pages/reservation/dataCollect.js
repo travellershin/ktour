@@ -315,6 +315,7 @@ function collect_pickupPlace(){
             droptxt += '<p class="r_add_pitem">'+pNameArray[i]+'</p>'
         }
         $(".r_add_productDrop").html(droptxt)
+        console.log("너냐")
     });
 }
 

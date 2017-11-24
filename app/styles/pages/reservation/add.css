@@ -1,3 +1,7 @@
+.r_add_pitem--Focused{
+    background-color: #fafafa;
+}
+
 .r_add{
     width: 400px;
     height: 90vh;
@@ -118,6 +122,10 @@
             color: #7c8495;
         }
 
+        &_memo{
+            height: 96px !important;
+        }
+
     }
     &_input{
         width: 227px;
@@ -157,11 +165,11 @@
             border-radius: 5px;
             margin-top: 10px;
             width: 227px;
-            height: 72px;
+            height: 92px;
             font-size: 14px;
             line-height: 20px;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
     }
 
@@ -208,6 +216,7 @@
 
     &_productDrop{
         top: 100px;
+        max-height: 400px;
     }
     &_pickDrop{
         top: 163px;

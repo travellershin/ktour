@@ -1,45 +1,27 @@
+$(document).bind('keydown', function(e) {
+    if(e.ctrlKey && (e.which == 83)) {
+        if(!$(".r_add_wrapper").hasClass("hidden")){
+            e.preventDefault();
+              r_new_save();
+              return false;
+        }
+    }
+});
+
 $(".r_htop_newReservation").click(function(){
     r_new();
 })
 
-$(".r_add_input_product").keyup(function(){
-    inputSearch($(".r_add_input_product").val().toLowerCase())
-})
-$(".r_add_input_nationality").keyup(function(){
-    natSearch($(".r_add_input_nationality").val().toLowerCase())
-})
-$(".r_add_input_agency").keyup(function(){
-    agencySearch($(".r_add_input_agency").val().toLowerCase())
-})
 $(".r_add_footer_cancel").click(function(){
     $(".r_add_wrapper").addClass("hidden")
     $("body").css("overflow","auto");
 })
-$(".r_add_input_product").click(function(event){
-    event.stopPropagation();
-    $(".r_add_drop").addClass("hidden")
-    $(".r_add_productDrop").removeClass("hidden")
-});
-$(".r_add_input_pickupPlace").click(function(event){
-    event.stopPropagation();
-    $(".r_add_drop").addClass("hidden")
-    $(".r_add_pickDrop").removeClass("hidden")
-});
-$(".r_add_input_agency").click(function(event){
-    event.stopPropagation();
-    $(".r_add_drop").addClass("hidden")
-    $(".r_add_agencyDrop").removeClass("hidden")
-});
+
 $("body").click(function(){
     $(".r_add_drop").addClass("hidden")
 })
 $(".r_add_footer_save").click(function(){
     r_new_save();
-})
-$(".r_add_input_nationality").click(function(event){
-    $(".r_add_drop").addClass("hidden")
-    $(".r_add_natDrop").removeClass("hidden")
-    event.stopPropagation();
 })
 $(document).on("click",".r_add_pitem",function(event){
     event.stopPropagation();
@@ -74,8 +56,6 @@ $(document).on("click",".r_add_pitem",function(event){
         };
     }
 
-
-
     $(".r_add_pickDrop").html(picktxt)
 })
 $(document).on("click",".r_add_placeItem",function(event){
@@ -92,6 +72,7 @@ $(document).on("click",".r_add_aitem",function(event){
 })
 
 function inputSearch(txt){
+    productFocus = -1;
     let searchArray = [];
     if(txt === ""){
         searchArray = pNameArray
@@ -189,14 +170,15 @@ function r_new_save(){
         // Tell jQuery we're expecting JSONP
         dataType: "jsonp",
         // Work with the response
-        success: function( response ) {
-            console.log( response ); // server response
-        },
-        error: function(xhr) {
-          console.log('실패 - ', xhr);
+        error: function(xhr, exception){
+            if( xhr.status === 200|| xhr.status === 201|| xhr.status === 202){
+                console.log("성공인듯")
+            }else{
+                console.log('Error : ' + xhr.responseText)
+            }
         }
     });
     $("body").css("overflow","auto");
     $(".r_add_wrapper").addClass("hidden")
-    toast("저장되었습니다")
+    toast("서버로 예약 정보를 전송합니다")
 }

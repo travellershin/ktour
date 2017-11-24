@@ -1,3 +1,21 @@
+.o_rv_clickZone{
+    position: absolute;
+    width: 1152px;
+    height: 47px;
+    right: 0;
+    top: 0;
+}
+.o_rv_guideCheckZone{
+    position: absolute;
+    width: 95px;
+    height: 47px;
+    left: 0;
+    top: 0;
+}
+.o .rv_content{
+    position: relative;
+}
+
 .o_header{
     overflow: hidden;
     height: 100px;

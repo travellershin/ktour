@@ -85,7 +85,7 @@ function inflate_reservation(){
 
             domTxt += rev[i].clientName + '</p><p class="rv_content_nationality">'
             domTxt += rev[i].nationality + '</p><p class="rv_content_agency">'
-            domTxt += rev[i].agency + '</p></div>'
+            domTxt += rev[i].agency + '</p><div class="o_rv_guideCheckZone"></div><div class="o_rv_clickZone"></div></div>'
         }
     }
 

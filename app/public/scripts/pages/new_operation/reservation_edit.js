@@ -65,11 +65,11 @@ $(document).on("click",".op_content_gCheck",function(){
     return false
 })
 
-$(document).on("click",".rv_content",function(){
+$(document).on("click",".o_rv_clickZone",function(){
     if(isEditing){
         selectArray = []
 
-        $(this).toggleClass("rev--selected");
+        $(this).parent().toggleClass("rev--selected");
         for (let i = 0; i < $(".rv_content").length; i++) {
             if($(".rv_content").eq(i).hasClass("rev--selected")){
                 selectArray.push([$(".rv_content").eq(i).attr("tid"),$(".rv_content").eq(i).attr("id")])
@@ -77,9 +77,9 @@ $(document).on("click",".rv_content",function(){
         }
         $(".ol_busEdit_number_txt").html(selectArray.length)
     }else{
-        rev_detail($(".ol_title").html(),$(this).attr("id"))
-        $(".ri_footer_gmail").attr("id",$(this).attr("id"));
-        $(".re_footer_save").attr("id",$(this).attr("id"));
+        rev_detail($(".ol_title").html(),$(this).parent().attr("id"))
+        $(".ri_footer_gmail").attr("id",$(this).parent().attr("id"));
+        $(".re_footer_save").attr("id",$(this).parent().attr("id"));
     }
 })
 

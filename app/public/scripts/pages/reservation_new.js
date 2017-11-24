@@ -558,23 +558,3 @@ function re_save(id){
     firebase.database().ref("reservation/"+id).set(reservation[id])
     toast("저장되었습니다")
 }
-
-function inputSearch(txt){
-    searchArray = []
-    if(txt === ""){
-        searchArray = pNameArray
-    }else{
-        for (let i = 0; i < pNameArray.length; i++) {
-            if(pNameArray[i].indexOf(txt)>-1){
-                searchArray.push(pNameArray[i])
-            }
-        }
-    }
-    let droptxt = ""
-
-    for (let i = 0; i < searchArray.length; i++) {
-        droptxt += '<p class="r_add_pitem">'+searchArray[i]+'</p>'
-    }
-    $(".r_add_productDrop").html(droptxt)
-
-}

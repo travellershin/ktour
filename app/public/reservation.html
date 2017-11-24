@@ -366,18 +366,18 @@
                 <p class="r_add_title_name">NAME</p>
                 <p class="r_add_title_nationality">NATIONALITY</p>
                 <p class="r_add_title_agency">AGENCY</p>
+                <p class="r_add_title_memo">MEMO</p>
+                <p class="r_add_title_messenger">MESSENGER</p>
                 <p class="r_add_title_tel">TEL</p>
                 <p class="r_add_title_email">E-MAIL</p>
-                <p class="r_add_title_messenger">MESSENGER</p>
                 <p class="r_add_title_option">OPTION</p>
                 <p class="r_add_title_agencyCode">AGENCY CODE</p>
-                <p class="r_add_title_memo">MEMO</p>
             </div>
             <div class="r_add_input">
                 <input class="r_add_input_date r_add_input--drop r_add_input--mid"/>
                 <input class="r_add_input_product r_add_input--drop" value="" spellcheck="false"/>
                 <div class="r_add_productDrop r_add_drop hidden"></div>
-                <input class="r_add_input_pickupPlace r_add_input--drop" readonly/>
+                <input class="r_add_input_pickupPlace r_add_input--drop" />
                 <div class="r_add_pickDrop r_add_drop hidden"></div>
                 <input type="number" class="r_add_input_people r_add_input--short">
                 <hr>
@@ -385,13 +385,13 @@
                 <input class="r_add_input_nationality" placeholder="Unknown">
                 <div class="r_add_natDrop r_add_drop hidden"></div>
                 <input class="r_add_input_agency" placeholder="Unknown">
+                <textarea class="r_add_input_memo" spellcheck="false"></textarea>
+                <input class="r_add_input_messenger" placeholder="Unknown">
                 <div class="r_add_agencyDrop r_add_drop hidden"></div>
                 <input class="r_add_input_tel" placeholder="Unknown">
                 <input class="r_add_input_email" placeholder="Unknown">
-                <input class="r_add_input_messenger" placeholder="Unknown">
                 <input class="r_add_input_option" placeholder="Unknown">
                 <input class="r_add_input_agencyCode" placeholder="Unknown">
-                <textarea class="r_add_input_memo" spellcheck="false"></textarea>
             </div>
         </div>
         <div class="r_add_footer">
@@ -446,5 +446,6 @@
     <script src='./scripts/pages/reservation/edit.js'></script>
     <script src='./scripts/pages/reservation/new.js'></script>
     <script src='./scripts/pages/reservation/cancel.js'></script>
+    <script src='./scripts/pages/reservation/new_search.js'></script>
 
 </body>

@@ -163,6 +163,7 @@ function r_new_save(){
     }
     durl = durl.slice(0,-1);
     console.log(durl)
+    toast("서버로 예약 정보를 전송합니다")
 
     // Using YQL and JSONP
     $.ajax({
@@ -173,12 +174,13 @@ function r_new_save(){
         error: function(xhr, exception){
             if( xhr.status === 200|| xhr.status === 201|| xhr.status === 202){
                 console.log("성공인듯")
+                toast("예약이 정상적으로 잡혔습니다")
             }else{
                 console.log('Error : ' + xhr.responseText)
+                toast("문제가 발생했습니다")
             }
         }
     });
     $("body").css("overflow","auto");
     $(".r_add_wrapper").addClass("hidden")
-    toast("서버로 예약 정보를 전송합니다")
 }

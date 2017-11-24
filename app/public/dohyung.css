@@ -1,0 +1,107 @@
+html{
+    /*-ms-overflow-style: none;*/
+    width:100%;
+    height:100%;
+}
+body{
+    width:100%;
+    height:100%;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+input{
+    border-style:none;
+}
+
+h1,h2,h3,h4,h5,h6,p,ul,li,div,html,body,img,a,input,button{
+  margin:0;
+  padding:0;
+  border: none;
+
+}
+::-webkit-scrollbar {
+    /*display:none;*/
+}
+textarea{
+    resize: none;
+    font-family: 'Lato', sans-serif;
+}
+
+ul,li{
+  list-style:none;
+}
+.displayNone{
+    display: none;
+}
+address{
+    font-style: normal;
+    font-weight: bold;
+    color: #333333;
+}
+
+p,h1 {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    color: #333333;
+}
+*:focus {
+  outline: none;
+}
+
+.wrapper{
+    width: 800px;
+    margin:0 auto;
+}
+
+.logo{
+    height: 300px;
+    width: 300px;
+    margin-bottom: 20.5px;
+}
+
+.texts{
+    margin: 16px 0;
+}
+
+.photoArea{
+    overflow: hidden;
+    padding:20px 0;
+}
+.photoArea>img{
+    float: left;
+}
+.address_phone,.address_messenger{
+    overflow: hidden;
+}
+
+.address_title{
+    float: left;
+    width: 142px;
+}
+.address_title--link{
+    float: left;
+    width: 102px;
+}
+.address_txt{
+    float: left;
+    margin-left: 12px;
+    color: grey;
+}
+.color_blue{
+    color:rgb(70,70,213);
+}
+.address_MessengerList{
+    margin:10px 0 20px 0;
+    color:rgb(160,160,250);
+}
+
+.thankyou{
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: bold;
+}
+a{
+    color: #0079e9;
+}

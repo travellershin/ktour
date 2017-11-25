@@ -35,6 +35,29 @@ let guideTotal = [];//guide 중복 배치를 체크하기 위한 array. 안의 �
 let guideTeam = {} //{key:[product,teamID, team넘버, guide Array 몇번째인지] 형태}. 중복배치를 하면 product team에서 제거합니다가 뜰것이다
 
 
+function editCasset(div){
+    $("body").css("overflow","hidden");
+    let tid = div.attr("tid");
+    let pid = div.attr("pid");
+    let busno = div.attr("busno");
+    $(".casset_header_title").html(pid.split("_")[2]+" BUS "+busno)
+    $(".casset_blackBoard").removeClass("hidden");
+    let teamdata = operation[pid].teams[tid];
+
+    let cashTxt = ""
+    if(teamdata.guide){
+        for (let i = 0; i < teamdata.guide.length; i++) {
+            let gd = guideData[teamdata.guide[i]]
+
+            cashTxt+='<div class="casset_line"><p class="casset_name">'+gd.name+'</p>'
+            cashTxt+='<input class="casset_cash" type="number" value="'+gd.cash+'"/><p class="casset_won">WON</p></div>'
+            console.log(gd)
+        }
+        
+    }
+    $(".casset_cash_div").html(cashTxt)
+    console.log(teamdata)
+}
 
 function editTeam(div){
     $(".dw_dropdown").removeClass("drop_appended")
@@ -114,8 +137,12 @@ function editTeam(div){
     })
 }
 
-function closeTeam(){
+function closeCasset(){
+    $(".casset_blackBoard").addClass("hidden");
+    $("body").css("overflow","auto")
+}
 
+function closeTeam(){
     $(".pop_blackScreen").addClass("hidden");
     $(".obe").addClass("hidden");
     $("body").css("overflow","auto")
@@ -238,5 +265,7 @@ function saveTeam(div){
     $(".obe").addClass("hidden");
     $("body").css("overflow","auto")
 
-    inflate_listTop()
+    if(lastRendering.product.length>0){
+        inflate_listTop()
+    }
 }

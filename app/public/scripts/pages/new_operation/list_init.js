@@ -33,6 +33,8 @@ function show_list(pid){
 
 function inflate_listTop(){
 
+    console.log(lastRendering.product)
+
     let pid = $(".ol_title").html()
 
     // TODO: 어떤 버스를 보고있었는지에 따라 선택하기

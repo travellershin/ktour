@@ -47,7 +47,12 @@
             </div>
             <div class="o_header_change hidden btn">팀 이동</div>
         </div>
-
+        <div class="o_memo_wrapper">
+            <div class="o_memo_wrapper2">
+                <textarea spellcheck="false" placeholder="TEXT MEMO" class="o_memo o_memo_first"></textarea>
+                <textarea spellcheck="false" placeholder="TEXT MEMO" class="o_memo o_memo_second"></textarea>
+            </div>
+            </div>
         <div class="ol hidden">
             <p class="ol_title">남쁘아상품명</p>
             <div class="ol_bus">
@@ -244,6 +249,7 @@
                 <img src="./assets/icon-edit.svg"/>
                 <p>EDIT</p>
             </div>
+            <p class="btn omp_casset">CASH & ASSET</p>
         </div>
     </div>
 
@@ -466,6 +472,44 @@
             <div class="alert_footer">
                 <div class="alert_footer_yes">OK</div>
                 <div class="alert_footer_no">NO</div>
+            </div>
+        </div>
+    </div>
+    <div class="casset_blackBoard hidden">
+        <div class="casset">
+            <div class="casset_header">
+                <p class="casset_header_title"></p>
+                <img src="./assets/icon-close.svg" class="casset_header_close"/>
+            </div>
+            <div class="casset_body">
+                <p class="casset_body_sTitle">CASH</p>
+                <div class="casset_cash_div">
+                    <div class="casset_line">
+                        <p class="casset_name">Nam Sujeong</p>
+                        <input class="casset_cash" type="number"/>
+                        <p class="casset_won">WON</p>
+                    </div>
+                    <div class="casset_line">
+                        <p class="casset_name">Nam Sujeong</p>
+                        <input class="casset_cash" type="number"/>
+                        <p class="casset_won">WON</p>
+                    </div>
+                </div>
+                <p class="casset_body_sTitle">ASSET</p>
+                <div class="casset_asset_div">
+                    <div class="casset_line">
+                        <input class="casset_asset_name" spellcheck="false" placeholder="ASSET NAME"/>
+                        <input class="casset_asset" type="number"/>
+                    </div>
+                    <div class="casset_line">
+                        <input class="casset_asset_name" spellcheck="false" placeholder="ASSET NAME"/>
+                        <input class="casset_asset" type="number"/>
+                    </div>
+                </div>
+                <p class="casset_asset_add">+ADD ASSET</p>
+            </div>
+            <div class="casset_footer">
+                <p class="casset_footer_save">SAVE</p>
             </div>
         </div>
     </div>

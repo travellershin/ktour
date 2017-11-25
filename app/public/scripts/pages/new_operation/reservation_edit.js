@@ -27,18 +27,6 @@ $(".alert_footer_no").click(function(){
     cancel_cancel();
 })
 
-$(document).on("click",".op_content_oCheck",function(){
-    $(this).toggleClass("oCkeck--checked");
-    let pid = $(".ol_title").html()
-    let tid = $(this).parent().attr("tid")
-    let id = $(this).parent().attr("id")
-    if($(this).hasClass("oCkeck--checked")){
-        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/oCheck").set(true)
-    }else{
-        firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/reservations/"+id+"/oCheck").set(false)
-    }
-    return false
-})
 $(".ol").on("click",".rv_content_star",function(){
     $(this).parent().children(".rv_content_star").toggleClass("rv_content_star--on");
     let pid = $(".ol_title").html()
@@ -51,7 +39,7 @@ $(".ol").on("click",".rv_content_star",function(){
     }
     return false
 })
-$(document).on("click",".op_content_gCheck",function(){
+$(document).on("click",".o_rv_guideCheckZone",function(){
 
     $(this).parent().children(".op_content_oCheck").toggleClass("oCkeck--checked");
     let pid = $(".ol_title").html()
@@ -82,6 +70,19 @@ $(document).on("click",".o_rv_clickZone",function(){
         $(".re_footer_save").attr("id",$(this).parent().attr("id"));
     }
 })
+
+$(".rec_co_option").on("click",".rec_co_option--add",function(){
+    r_add_option($(".re_footer_save").attr("id"))
+})
+
+function r_add_option(id){
+    let edittxt = ""
+    edittxt+='<div class="rec_co_option_box"><input class="rec_co_option_name" placeholder="Option Name">'
+    edittxt+='<input type="number" value="0" class="rec_co_option_people"/></div>'
+    $(".rec_co_option--add").before(edittxt)
+}
+
+
 
 function r_save(id){
     console.log(r_obj);
@@ -114,8 +115,9 @@ function r_save(id){
             option:$(".rec_co_option_name").eq(i).val(),
             people:$(".rec_co_option_people").eq(i).val()*1
         }
-        r_obj[$(".ol_title").html()][id].option.push(optdata)
-        console.log(optdata)
+        if(optdata.people>0){
+            r_obj[$(".ol_title").html()][id].option.push(optdata)
+        }
     }
 
 
@@ -176,9 +178,9 @@ function rev_detail(pid,id){
         $('.rv_info_people').html(data.people+" (adult "+data.adult+" / child "+data.kid+")")
     }
 
+    let edittxt = ""
     if(data.option){
         let txt = ""
-        let edittxt = ""
         for (let i = 0; i < data.option.length; i++) {
             txt+=data.option[i].option+" : "
             txt+=data.option[i].people +"<br>"
@@ -188,11 +190,13 @@ function rev_detail(pid,id){
         }
         txt = txt.slice(0,-4);
         $(".rv_info_option").html(txt)
-        $(".rec_co_option").html(edittxt)
     }else{
         $(".rv_info_option").html("")
-        $(".rec_co_option").html("")
     }
+
+    edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'
+
+    $(".rec_co_option").html(edittxt)
 
     //팝업창을 띄우고 높이를 조정
     $('.lightBox_shadow').removeClass('hidden');
@@ -225,7 +229,10 @@ $(document).on("click",".ol_busEdit_bus",function(){
     }
     toast("예약을 이동했습니다")
     firebase.database().ref("operation/"+date+"/"+s_product).set(operation[s_product])
-    inflate_listTop(s_product)
+    if(lastRendering.product.length>0){
+        inflate_listTop(s_product)
+    }
+
 })
 
 $(".ol_busEdit_done").click(function(){
@@ -237,7 +244,11 @@ $(".ol_busEdit_done").click(function(){
         }
     }
     firebase.database().ref("operation/"+date+"/"+$(".ol_title").html()).set(operation[$(".ol_title").html()])
-    inflate_listTop($(".ol_title").html())
+
+    if(lastRendering.product.length>0){
+        inflate_listTop($(".ol_title").html())
+    }
+
 })
 
 $(document).on("click",".ol_bus_add",function(){
@@ -302,6 +313,9 @@ function addbus(){
 
         $(".obe_body_guide>input").attr("dropitem",guidenameArray.toString())
 
-        inflate_listTop();
+        if(lastRendering.product.length>0){
+            inflate_listTop();
+        }
+
     });
 }

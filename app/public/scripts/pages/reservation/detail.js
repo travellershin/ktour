@@ -49,9 +49,10 @@ function r_detail(id){
         }
     }
 
+    let edittxt = ""
+
     if(data.option){
         let txt = ""
-        let edittxt = ""
         for (let i = 0; i < data.option.length; i++) {
             txt+=data.option[i].option+" : "
             txt+=data.option[i].people +"<br>"
@@ -61,11 +62,13 @@ function r_detail(id){
         }
         txt = txt.slice(0,-4);
         $(".rv_info_option").html(txt)
-        $(".rec_co_option").html(edittxt)
     }else{
         $(".rv_info_option").html("")
-        $(".rec_co_option").html("")
     }
+
+    edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'
+
+    $(".rec_co_option").html(edittxt)
 
 
     console.log(cityData)

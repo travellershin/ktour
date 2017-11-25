@@ -1,3 +1,16 @@
+let countO = {
+    Seoul:{
+        Myungdong:0,
+        Dongdaemoon:0,
+        Hongdae:0
+    },
+    Busan:{
+        "Busan Station":0,
+        Haeundae:0,
+        Seomyun:0
+    }
+}
+
 
 function operation_generate(date){
     reservation = {}
@@ -20,8 +33,19 @@ function operation_generate(date){
             //전체 상품, 팀의 인원을 합산한다.
             let teamPeople = 0
             for (let reservation in operation[product].teams[team].reservations) {
-                teamPeople+=operation[product].teams[team].reservations[reservation].people
-                productPeople+=operation[product].teams[team].reservations[reservation].people
+                let rrv = operation[product].teams[team].reservations[reservation];
+                if(countO[rrv.area]){
+                    if(countO[rrv.area][rrv.pickupPlace]){
+                        countO[rrv.area][rrv.pickupPlace]+=rrv.people
+                    }else{
+                        countO[rrv.area][rrv.pickupPlace]=rrv.people
+                    }
+                }else{
+                    countO[rrv.area] = {};
+                    countO[rrv.area][rrv.pickupPlace]=rrv.people
+                }
+                teamPeople+=rrv.people
+                productPeople+=rrv.people
             }
             operation[product].teams[team].people = teamPeople
         }
@@ -96,9 +120,13 @@ function operation_generate(date){
 
     }
 
+    let countT = {
+        Seoul:0,
+        Busan:0
+    }
 
     if(cityTxt.Seoul){
-        txt+='<div class="o_cityBox"><p class="o_cityBox_cityName">Seoul</p>';
+        txt+='<div class="o_cityBox"><div class="ov_hidden"><p class="o_cityBox_cityName fl_left">Seoul</p></div>';
         txt+=cityTxt.Seoul;
         txt+='</div>'
     }
@@ -133,5 +161,7 @@ function operation_generate(date){
         inflate_listTop()
         inflate_reservation()
     }
+
+    console.log(countO)
 
 }

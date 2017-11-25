@@ -9,6 +9,16 @@ $(document).on("click", ".re_header_close", function(){
 $(document).on("click", ".re_footer_save", function(){
     r_save($(this).attr("id"));
 })
+$(".rec_co_option").on("click",".rec_co_option--add",function(){
+    r_add_option($(".re_footer_save").attr("id"))
+})
+
+function r_add_option(id){
+    let edittxt = ""
+    edittxt+='<div class="rec_co_option_box"><input class="rec_co_option_name" placeholder="Option Name">'
+    edittxt+='<input type="number" value="0" class="rec_co_option_people"/></div>'
+    $(".rec_co_option--add").before(edittxt)
+}
 
 
 function r_save(id){
@@ -39,7 +49,9 @@ function r_save(id){
             option:$(".rec_co_option_name").eq(i).val(),
             people:$(".rec_co_option_people").eq(i).val()*1
         }
-        r_obj[id].option.push(optdata)
+        if(optdata.people>0){
+            r_obj[id].option.push(optdata)
+        }
     }
 
 

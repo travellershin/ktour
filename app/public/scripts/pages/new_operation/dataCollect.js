@@ -53,12 +53,17 @@ function getOperationData(inputDate){
     //기존 다른 날짜에 달려있던 콜백을 제거한다
     date = inputDate;
     firebase.database().ref("operation/"+formerDate).off("value")
+    firebase.database().ref("memo/"+formerDate).off("value")
     console.log(formerDate + "에 달려있던 callback을 삭제합니다")
     lastRendering.product = ""
     firebase.database().ref("operation/"+inputDate).on("value",snap => {
         operation = snap.val();
         operation_generate(inputDate);
     });
+    firebase.database().ref("memo/"+inputDate).on("value",snap => {
+        memo = snap.val();
+        inflateMemo(memo);
+    })
 }
 
 function getQuickDate(index,div){

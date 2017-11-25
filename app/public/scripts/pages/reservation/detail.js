@@ -66,6 +66,16 @@ function r_detail(id){
         $(".rv_info_option").html("")
     }
 
+    old_revdata.people = data.people;
+    if(data.option){
+        old_revdata.option = data.option
+    }else{
+        old_revdata.option = []
+    }
+    old_revdata.product = data.product;
+    old_revdata.date = data.date;
+    console.log(old_revdata)
+
     edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'
 
     $(".rec_co_option").html(edittxt)
@@ -86,12 +96,10 @@ function r_detail(id){
     if(data.agency){$('.rv_info_agency').html(data.agency)}
 
     if(data.adult === 0){ //db에 adult 항목이 비어있으면 people을 adult로 간주해 db에 넣음
-        firebase.database().ref("reservation/"+data.date+"/"+id+"/adult").set(data.people)
         $('.rv_info_people').html(data.people+" (adult "+data.people+" / kid 0)")
     }else{
         $('.rv_info_people').html(data.people+" (adult "+data.adult+" / kid "+data.kid+")")
     }
-
     //팝업창을 띄우고 높이를 조정
     $('.popUp').removeClass('hidden');
     $('.ric_name').height($('.rv_info_clientName').height())

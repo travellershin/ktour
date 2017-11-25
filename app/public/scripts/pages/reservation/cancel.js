@@ -32,17 +32,26 @@ function show_cancel_confirm(){
     $(".alert_why").val("")
 }
 
-function cancel_reservation(id){
-    console.log(id)
+function cancel_reservation(sid){
     toast("예약을 취소합니다");
     $(".alert_background").addClass("hidden");
     $("body").css("overflow","auto")
     $(".popUp").addClass("hidden");
     $(".lightBox_shadow").addClass("hidden");
-    r_obj[id].why = $(".alert_why").val()
-    r_obj[id].canceledDate = datestring.today()
-    firebase.database().ref("canceled/"+id).set(r_obj[id]);
-    firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).remove()
+    r_obj[sid].why = $(".alert_why").val()
+    r_obj[sid].canceledDate = datestring.today()
+    firebase.database().ref("canceled/"+sid).set(r_obj[sid]);
+    firebase.database().ref("operation/"+r_obj[sid].date+"/"+r_obj[sid].product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
+
+    let data = {
+        writer : r_obj[sid].writer,
+        card: - r_obj[sid].sales,
+        category:"reservation",
+        currency:r_obj[sid].currency,
+        date:r_obj[sid].date,
+        id:sid
+    }
+    firebase.database().ref("account/"+aid).set(data)
 }
 
 function cancel_cancel(){

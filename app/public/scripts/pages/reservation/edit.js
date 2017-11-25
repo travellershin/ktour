@@ -1,3 +1,15 @@
+let old_revdata = {
+    date:"",
+    product:"",
+    option:[],
+    people:0
+}
+let new_revdata = {
+    date:"",
+    product:"",
+    option:[],
+    people:0
+}
 
 $(".ri_footer_edit").click(function(){
     $('.ri').addClass('hidden');
@@ -55,9 +67,57 @@ function r_save(id){
     }
 
 
-    toast("저장되었습니다")
-    firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
+    new_revdata.people = r_obj[id].people;
+    if(r_obj[id].option){
+        new_revdata.option = r_obj[id].option
+    }else{
+        new_revdata.option = []
+    }
+    new_revdata.product = r_obj[id].product;
+    new_revdata.date = r_obj[id].date;
 
+    console.log(old_revdata)
+    console.log(new_revdata)
+    let remake = false;
+    let remakeArray = []
+    let optionChange = false;
+
+    for (let key in new_revdata) {
+        if(key !== "option"){
+            if(new_revdata[key] !== old_revdata[key]){
+                remake = true;
+                remakeArray.push(key)
+            }
+        }else{
+            for (let i = 0; i < new_revdata.option.length; i++) {
+                if(old_revdata.option.length === new_revdata.option.length){
+                    if(new_revdata.option[i].option !== old_revdata.option[i].option){
+                        remake = true;
+                        optionChange = true;
+                    }
+                    if(new_revdata.option[i].people !== old_revdata.option[i].people){
+                        remake = true;
+                        optionChange = true;
+                    }
+                }else{
+                    remake = true;
+                    optionChange = true;
+                }
+            }
+
+            if(optionChange){
+                remakeArray.push("option")
+            }
+        }
+    }
+
+    if(remake){
+        toast(remakeArray+" 변경으로 인해 예약을 다시잡겠다")
+    }else{
+        toast("단순 예약변경")
+    }
+
+    //firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
 }
 
 function re_close(){

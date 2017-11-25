@@ -45,17 +45,26 @@ function editCasset(div){
     let teamdata = operation[pid].teams[tid];
 
     let cashTxt = ""
-    if(teamdata.guide){
+    if(teamdata.cash){
         for (let i = 0; i < teamdata.guide.length; i++) {
-            let gd = guideData[teamdata.guide[i]]
-
-            cashTxt+='<div class="casset_line"><p class="casset_name">'+gd.name+'</p>'
-            cashTxt+='<input class="casset_cash" type="number" value="'+gd.cash+'"/><p class="casset_won">WON</p></div>'
-            console.log(gd)
+            let gname = guideData[teamdata.guide[i]].name
+            let gcash = teamdata.cash[teamdata.guide[i]]
+            cashTxt+='<div class="casset_line"><p class="casset_name">'+gname+'</p>'
+            cashTxt+='<input class="casset_cash" type="number" value="'+gcash+'"/><p class="casset_won">WON</p></div>'
         }
-        
+
     }
+    let assetTxt = ""
+    if(teamdata.assets){
+        for (let asset in teamdata.assets) {
+            let count = teamdata.assets[asset]
+            assetTxt+='<div class="casset_line"><input class="casset_asset_name" value="'+asset+'" spellcheck="false" placeholder="ASSET NAME"/>';
+            assetTxt+='<input class="casset_asset" type="number" value="'+count+'"/></div>'
+        }
+    }
+
     $(".casset_cash_div").html(cashTxt)
+    $(".casset_asset_div").html(assetTxt)
     console.log(teamdata)
 }
 
@@ -251,7 +260,10 @@ function saveTeam(div){
                 let old_team = guideTeam[guidef[i]][1];
                 let old_no = guideTeam[guidef[i]][3];
 
-                firebase.database().ref("operation/"+date+"/"+old_pid+"/teams/"+old_team+"/guide/"+old_no).remove();
+                console.log(operation[old_pid].teams[old_team])
+
+                operation[old_pid].teams[old_team].guide.splice(old_no,1)
+                firebase.database().ref("operation/"+date+"/"+old_pid+"/teams/"+old_team+"/guide").set(operation[old_pid].teams[old_team].guide);
                 // TODO: 해당 팀에서 제거하기
             }
         }

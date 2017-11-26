@@ -176,12 +176,12 @@ function r_save(id){
 
         let durl = "https://intranet-64851.appspot.com/v1/reservation?"
 
-        for (let key in new_revdata) {
+        for (let key in r_obj[id]) {
             if(key !== "option"){
-                durl+=key+"="+new_revdata[key]+"&"
+                durl+=key+"="+r_obj[id][key]+"&"
             }else{
-                for (let i = 0; i < new_revdata.option.length; i++) {
-                    durl="o"+i+"="+new_revdata.option[i].option+"&"+"p"+i+"="+new_revdata.option[i].people+"&"
+                for (let i = 0; i < r_obj[id].option.length; i++) {
+                    durl="o"+i+"="+r_obj[id].option[i].option+"&"+"p"+i+"="+r_obj[id].option[i].people+"&"
                 }
             }
         }
@@ -239,8 +239,8 @@ function cancel_reservation_viaChange(sid, msg){
         detail:msg+" 변경으로 인한 재예약"
     }
     firebase.database().ref("canceled/"+sid).set(r_obj[sid]);
-    firebase.database().ref("operation/"+old_revdata.date+"/"+r_obj[sid].product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
-
+    firebase.database().ref("operation/"+old_revdata.date+"/"+old_revdata.product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
+    console.log(old_revdata)
     firebase.database().ref("account/"+sid).set(data)
     console.log(data)
 }

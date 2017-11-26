@@ -24,7 +24,7 @@ $(document).on("click", ".re_footer_save", function(){
 $(".rec_co_option").on("click",".rec_co_option--add",function(){
     r_add_option($(".re_footer_save").attr("id"))
 })
-$(".r_add_input--drop").click(function(){
+$(".r_add_input_product").click(function(){
     $(".r_add_productDrop").removeClass("hidden")
     return false;
 })
@@ -39,6 +39,41 @@ $(".rv_info_product").keyup(function(e){
         e.stopImmediatePropagation();
         $(".r_add_productDrop").addClass("hidden")
     }
+})
+$(".r_add_productDrop").on("click",".r_add_pitem",function(){
+    let rcity = $(this).html().split("_")[0];
+
+
+    $(".rv_info_area").val(rcity);
+
+    let picktxt = ""
+
+    let firstPlaceSeoul = ["Myungdong","Dongdaemoon","Hongdae"];
+    let firstPlaceBusan = ["Busan Station","Seomyun","Haeundae"]
+
+    if(rcity==="Seoul"){
+        console.log("서울가자")
+        for (let i = 0; i < firstPlaceSeoul.length; i++) {
+            picktxt+='<p class="drop_item">'+firstPlaceSeoul[i]+'</p>'
+        }
+        for (let place in cityData[rcity]) {
+            if(!firstPlaceSeoul.includes(place)){
+                picktxt+='<p class="drop_item">'+place+'</p>'
+            }
+        };
+    }else if(rcity==="Busan"){
+        console.log("부산가자")
+        for (let i = 0; i < firstPlaceBusan.length; i++) {
+            picktxt+='<p class="drop_item">'+firstPlaceBusan[i]+'</p>'
+        }
+        for (let place in cityData[rcity]) {
+            if(!firstPlaceBusan.includes(place)){
+                picktxt+='<p class="drop_item">'+place+'</p>'
+            }
+        };
+    }
+
+    $("#drop_rev_placedrop").html(picktxt)
 })
 
 function calculate_people(){
@@ -90,7 +125,6 @@ function r_save(id){
         }
     }
 
-
     new_revdata.people = r_obj[id].people;
     if(r_obj[id].option){
         new_revdata.option = r_obj[id].option
@@ -135,13 +169,51 @@ function r_save(id){
         }
     }
 
+    let optTxt
+
     if(remake){
-        toast(remakeArray+" 변경으로 인해 예약을 다시 잡습니다.")
+        toast(remakeArray+" 변경으로 인해 예약을 다시 잡습니다.");
+
+        let durl = "https://intranet-64851.appspot.com/v1/reservation?"
+
+        for (let key in new_revdata) {
+            if(key !== "option"){
+                durl+=key+"="+new_revdata[key]+"&"
+            }else{
+                for (let i = 0; i < new_revdata.option.length; i++) {
+                    durl="o"+i+"="+new_revdata.option[i].option+"&"+"p"+i+"="+new_revdata.option[i].people+"&"
+                }
+            }
+        }
+        durl = durl.slice(0,-1);
+        console.log(durl)
+
+        cancel_reservation_viaChange(id,remakeArray)
+
+        toast("서버로 예약 정보를 전송합니다")
+
+        // Using YQL and JSONP
+        $.ajax({
+            url: durl,
+            // Tell jQuery we're expecting JSONP
+            dataType: "jsonp",
+            // Work with the response
+            error: function(xhr, exception){
+                if( xhr.status === 200|| xhr.status === 201|| xhr.status === 202){
+                    console.log("성공인듯")
+                    toast("예약이 정상적으로 잡혔습니다")
+                }else{
+                    console.log('Error : ' + xhr.responseText)
+                    toast("문제가 발생했습니다")
+                }
+            }
+        });
+
+
     }else{
         toast("단순 예약변경")
+        firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
     }
-
-    //firebase.database().ref("operation/"+r_obj[id].date+"/"+r_obj[id].product+"/teams/"+r_obj[id].team+"/reservations/"+id).set(r_obj[id])
 }
 
 function re_close(){
@@ -149,4 +221,26 @@ function re_close(){
     $('.ri').removeClass('hidden');
     $('.re').addClass('hidden');
     $("body").css("overflow","auto");
+}
+
+function cancel_reservation_viaChange(sid, msg){
+
+    r_obj[sid].why = msg+" 변경으로 인한 재예약";
+    r_obj[sid].canceledDate = datestring.today();
+
+    console.log(r_obj[sid])
+    let data = {
+        writer : r_obj[sid].agency,
+        card: - r_obj[sid].sales,
+        category:"reservation",
+        currency:r_obj[sid].currency,
+        date:r_obj[sid].date,
+        id:sid,
+        detail:msg+" 변경으로 인한 재예약"
+    }
+    firebase.database().ref("canceled/"+sid).set(r_obj[sid]);
+    firebase.database().ref("operation/"+old_revdata.date+"/"+r_obj[sid].product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
+
+    firebase.database().ref("account/"+sid).set(data)
+    console.log(data)
 }

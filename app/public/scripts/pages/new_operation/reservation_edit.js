@@ -42,6 +42,9 @@ $(".rv_info_product").keyup(function(e){
         $(".r_add_productDrop").addClass("hidden")
     }
 })
+$(document).click(function(){
+    $(".r_add_productDrop").addClass("hidden")
+})
 
 function calculate_people(){
     let adult = $(".rec_co_box .rv_info_adult").val();

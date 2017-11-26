@@ -3041,6 +3041,26 @@ However, delay the fade out process for 2.5 seconds */
 .alert_footer_no:active{
                 background-color: rgba(224, 224, 224, 0.2);
             }
+.r_hbot_hasdrop--pickdrop{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+}
+.r_hbot_pickup{
+    position: relative;
+}
+.r_hbot_hasdrop--natdrop{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+}
+.r_hbot_nationality{
+    position: relative;
+}
 .o_rv_clickZone{
     position: absolute;
     width: 1152px;

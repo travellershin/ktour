@@ -1,6 +1,17 @@
-$(".r_hbot_hasdrop").click(function(event){
-    toggle_filterbox($(this).attr("fid"));
+$(".r_hbot_hasdrop--pickdrop").click(function(event){
+    toggle_filterbox("pickupPlace");
     return false
+})
+$(".r_hbot_hasdrop--natdrop").click(function(event){
+    toggle_filterbox("nationality");
+    return false
+})
+
+$(".r_hbot_hasdrop").click(function(event){
+    if(!$(this).hasClass("r_hbot_pickup")&&!$(this).hasClass("r_hbot_nationality")){
+        toggle_filterbox($(this).attr("fid"));
+        return false
+    }
 })
 $("body").click(function(){
     $(".r_drop").addClass("hidden");
@@ -13,6 +24,7 @@ $(".r_htop_filterRemove").click(function(){
 })
 
 function toggle_filterbox(name){
+    console.log("?")
     if(!$(".r_drop_"+name).hasClass("hidden")){
         $(".r_drop").addClass("hidden");
     }else{

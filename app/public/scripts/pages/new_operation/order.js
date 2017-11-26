@@ -31,4 +31,24 @@ function Orderguide(){
             return a.busNumber < b.busNumber ? 1 : a.busNumber > b.busNumber ? -1 : 0;
         })
     }
+    this.pickupAsc = function(pid){
+        reservation[pid].sort(function(a,b){
+            return a.pickupPlace < b.pickupPlace ? 1 : a.pickupPlace > b.pickupPlace ? -1 : 0;
+        })
+    }
+    this.pickupDes = function(pid){
+        reservation[pid].sort(function(a,b){
+            return a.pickupPlace < b.pickupPlace ? -1 : a.pickupPlace > b.pickupPlace ? 1 : 0;
+        })
+    }
+    this.natAsc = function(pid){
+        reservation[pid].sort(function(a,b){
+            return a.nationality < b.nationality ? 1 : a.nationality > b.nationality ? -1 : 0;
+        })
+    }
+    this.natDes = function(pid){
+        reservation[pid].sort(function(a,b){
+            return a.nationality < b.nationality ? -1 : a.nationality > b.nationality ? 1 : 0;
+        })
+    }
 }

@@ -6,7 +6,7 @@ $(".ri_footer_cancel").click(function(){
 })
 
 $(".alert_footer_yes").click(function(){
-    cancel_reservation($(this).attr("id"));
+    cancel_reservation($(this).attr("id"),"Canceled Reservation");
 })
 
 $(".alert_footer_no").click(function(){
@@ -32,7 +32,7 @@ function show_cancel_confirm(){
     $(".alert_why").val("")
 }
 
-function cancel_reservation(sid){
+function cancel_reservation(sid,msg){
     toast("예약을 취소합니다");
     $(".alert_background").addClass("hidden");
     $("body").css("overflow","auto")
@@ -40,18 +40,22 @@ function cancel_reservation(sid){
     $(".lightBox_shadow").addClass("hidden");
     r_obj[sid].why = $(".alert_why").val()
     r_obj[sid].canceledDate = datestring.today()
-    firebase.database().ref("canceled/"+sid).set(r_obj[sid]);
-    firebase.database().ref("operation/"+r_obj[sid].date+"/"+r_obj[sid].product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
-
+    console.log(r_obj[sid])
     let data = {
-        writer : r_obj[sid].writer,
+        writer : r_obj[sid].agency,
         card: - r_obj[sid].sales,
         category:"reservation",
         currency:r_obj[sid].currency,
         date:r_obj[sid].date,
-        id:sid
+        id:sid,
+        detail:msg + ". Reason : "+$(".alert_why").val()
     }
-    firebase.database().ref("account/"+aid).set(data)
+    firebase.database().ref("canceled/"+sid).set(r_obj[sid]);
+    firebase.database().ref("operation/"+r_obj[sid].date+"/"+r_obj[sid].product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
+
+
+    firebase.database().ref("account/"+sid).set(data)
+    console.log(data)
 }
 
 function cancel_cancel(){
@@ -71,7 +75,6 @@ function cancel_dataCollect(){
         }else{
             $(".r_set_trash_no").html(0)
         }
-        console.log(cancelled)
     })
 }
 

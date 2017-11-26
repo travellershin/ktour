@@ -120,6 +120,23 @@ $(".op_hbot_bus").click(function(){
     }
     inflate_reservation()
 })
+$(".r_hbot_pickup").click(function(){
+    if(lastRendering.order[lastRendering.order.length-1]==="pickupAsc"){
+        lastRendering.order.push("pickupDes")
+    }else{
+        lastRendering.order.push("pickupAsc")
+    }
+    inflate_reservation()
+})
+$(".r_hbot_nationality").click(function(){
+    if(lastRendering.order[lastRendering.order.length-1]==="natAsc"){
+        lastRendering.order.push("natDes")
+    }else{
+        lastRendering.order.push("natAsc")
+    }
+    inflate_reservation()
+})
+
 
 
 

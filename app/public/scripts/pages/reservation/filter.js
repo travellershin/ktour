@@ -4,10 +4,18 @@ let filterMap = {
     nationality : new Map(),
     agency : new Map()
 }
-
-$(".r_hbot_hasdrop").click(function(event){
+$(".r_hbot_hasdrop--pickdrop").click(function(event){
+    evnet.stopImmediatePropagation()
     toggle_filterbox($(this).attr("fid"));
     return false
+})
+
+$(".r_hbot_hasdrop").click(function(event){
+    if(!$(this).hasClass("r_hbot_pickup")&&!$(this).hasClass("r_hbot_nationality")){
+        toggle_filterbox($(this).attr("fid"));
+        console.log("너냐")
+        return false
+    }
 })
 $("body").click(function(){
     $(".r_drop").addClass("hidden");

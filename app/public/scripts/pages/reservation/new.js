@@ -143,7 +143,7 @@ function r_new(){
 
 function r_new_save(){
     let required = ["date","product","people","pickupPlace"];
-    let additional = ["clientName","nationality","agency","tel","email","messenger","option","agencyCode","memo"]
+    let additional = ["clientName","nationality","agency","tel","email","messenger","option","agencyCode"]
     let rdata = {}
     let durl = "https://intranet-64851.appspot.com/v1/reservation?"
     for (let i = 0; i < required.length; i++) {
@@ -161,6 +161,12 @@ function r_new_save(){
             durl+=additional[i]+"="+$(".r_add_input_"+additional[i]).val()+"&"
         }
     }
+    if($(".r_add_input_memo").val() !== ""){
+        let memmo = $(".r_add_input_memo").val()
+        memmo = memmo.replace(/(?:\r\n|\r|\n)/g, '<br>')
+        durl += 'memo='+memmo+"&"
+    }
+
     durl = durl.slice(0,-1);
     console.log(durl)
     toast("서버로 예약 정보를 전송합니다")

@@ -270,12 +270,9 @@
                             <p>OPTION</p>
                         </div>
                         <div class="rec_co">
-
-                            <div id="singleDateBox" class="rec_co_midinput input">
-                                <input id="singleDate" class="rv_info_date">
-                                <img src="./assets/icon-filter.svg" />
-                            </div>
-                            <input class="rec_co_longinput input input_disabled rv_info_product" readonly/>
+                            <input class="rec_co_midinput input rv_info_date rv_info_date--picker"/>
+                            <input class="rec_co_longinput input rv_info_product r_add_input_product r_add_input--drop"/>
+                            <div class="r_add_productDrop r_add_drop"></div>
                             <input class="rv_info_area rec_co_longinput input dw_dndropdown" readonly id="rev_areadrop"/>
                             <div><input class="rec_co_longinput input rv_info_pickupPlace dw_dndropdown" readonly id="rev_placedrop"></div>
                             <div class="rec_co_midinput input">
@@ -312,18 +309,18 @@
                                 <input class="rv_info_nationality">
                             </div>
                             <div class="rec_co_box">
-                                <input class="rv_info_people" type="number">
+                                <p class="rv_info_people"></p>
                                 <div class="rec_co_box_mini">
                                     <p class="rec_co_box_mini_txt">Adult</p>
-                                    <input type="number" class="rv_info_adult rec_co_shortinput input">
+                                    <input type="number" class="rv_info_peopleCount rv_info_adult rec_co_shortinput input">
                                 </div>
                                 <div class="rec_co_box_mini">
-                                    <p class="rec_co_box_mini_txt">Child</p>
-                                    <input type="number" class="rv_info_kid rec_co_shortinput input">
+                                    <p class="rec_co_box_mini_txt">Kid</p>
+                                    <input type="number" class="rv_info_peopleCount rv_info_kid rec_co_shortinput input">
                                 </div>
                                 <div class="rec_co_box_mini">
-                                    <p class="rec_co_box_mini_txt">Baby</p>
-                                    <input type="number" class="rv_info_infant rec_co_shortinput input">
+                                    <p class="rec_co_box_mini_txt">Infant</p>
+                                    <input type="number" class="rv_info_peopleCount rv_info_infant rec_co_shortinput input">
                                 </div>
                             </div>
                             <div class="rec_co_full input">

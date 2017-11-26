@@ -48,6 +48,13 @@ function r_detail(id){
             $('.rv_info_'+field[i]).val(data[field[i]]);
         }
     }
+    $(".rv_info_date--picker").data('daterangepicker').setStartDate(data.date);
+    $(".rv_info_date--picker").data('daterangepicker').setEndDate(data.date);
+
+    let infant = data.people*1 - data.adult*1 - data.kid*1;
+    $(".rv_info_adult").val(data.adult*1)
+    $(".rv_info_kid").val(data.kid*1)
+    $(".rv_info_infant").val(infant)
 
     let edittxt = ""
 

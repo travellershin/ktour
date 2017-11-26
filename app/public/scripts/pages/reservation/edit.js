@@ -24,6 +24,28 @@ $(document).on("click", ".re_footer_save", function(){
 $(".rec_co_option").on("click",".rec_co_option--add",function(){
     r_add_option($(".re_footer_save").attr("id"))
 })
+$(".r_add_input--drop").click(function(){
+    $(".r_add_productDrop").removeClass("hidden")
+    return false;
+})
+$(".rec").on("click",".r_add_pitem",function(){
+    $(".r_add_input--drop").val($(this).html());
+})
+$(".rv_info_peopleCount").keyup(function(){
+    calculate_people();
+})
+$(".rv_info_product").keyup(function(e){
+    if(e.keyCode === 13){
+        e.stopImmediatePropagation();
+        $(".r_add_productDrop").addClass("hidden")
+    }
+})
+
+function calculate_people(){
+    let adult = $(".rec_co_box .rv_info_adult").val();
+    let kid = $(".rec_co_box .rv_info_kid").val();
+    $(".rv_info_people").html(adult*1+kid*1+" (adult "+adult+" / kid "+kid+")")
+}
 
 function r_add_option(id){
     let edittxt = ""
@@ -40,7 +62,7 @@ function r_save(id){
     $("body").css("overflow","auto");
     $(".popUp").addClass("hidden")
 
-    let iArray = ["date","product","area","pickupPlace","pickupTime","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
+    let iArray = ["date","product","area","pickupPlace","pickupTime","clientName","nationality","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
 
     for (let i = 0; i < iArray.length; i++) {
         r_obj[id][iArray[i]] = $(".re .rv_info_"+iArray[i]).val();
@@ -49,10 +71,12 @@ function r_save(id){
         }
     }
     console.log(r_obj[id].memo)
-    let numberArray = ["people","adult","infant","kid"];
+    let numberArray = ["adult","infant","kid"];
     for (let i = 0; i < numberArray.length; i++) {
         r_obj[id][numberArray[i]] = r_obj[id][numberArray[i]]*1
     }
+
+    r_obj[id].people = r_obj[id].adult + r_obj[id].infant + r_obj[id].kid
 
     r_obj[id].option = []
 
@@ -112,7 +136,7 @@ function r_save(id){
     }
 
     if(remake){
-        toast(remakeArray+" 변경으로 인해 예약을 다시잡겠다")
+        toast(remakeArray+" 변경으로 인해 예약을 다시 잡습니다.")
     }else{
         toast("단순 예약변경")
     }

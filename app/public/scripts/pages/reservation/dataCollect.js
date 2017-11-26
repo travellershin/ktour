@@ -60,6 +60,14 @@ function datepicker_init(){
     collect_pickupPlace();
     collect_agency();
 
+    $('.rv_info_date--picker').daterangepicker({
+        "autoApply": true,
+        singleDatePicker: true,
+        locale: { format: 'YYYY-MM-DD'},
+        startDate:datestring.tomorrow(),
+        endDate:datestring.tomorrow()
+    })
+
     for (let i = 0; i < $('.drp_quick>p').length; i++) {
 
         let index = $('.drp_quick>p').eq(i).attr("id").split("_")[2]
@@ -134,6 +142,7 @@ function datepicker_init(){
         locale: { format: 'YYYY-MM-DD'},
         startDate:datestring.tomorrow()
     })
+
 }
 
 let callback;

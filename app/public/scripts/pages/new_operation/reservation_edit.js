@@ -26,6 +26,35 @@ $(".alert_footer_yes").click(function(){
 $(".alert_footer_no").click(function(){
     cancel_cancel();
 })
+$(".r_add_input--drop").click(function(){
+    $(".r_add_productDrop").removeClass("hidden")
+    return false;
+})
+$(".rec").on("click",".r_add_pitem",function(){
+    $(".r_add_input--drop").val($(this).html());
+})
+$(".rv_info_peopleCount").keyup(function(){
+    calculate_people();
+})
+$(".rv_info_product").keyup(function(e){
+    if(e.keyCode === 13){
+        e.stopImmediatePropagation();
+        $(".r_add_productDrop").addClass("hidden")
+    }
+})
+
+function calculate_people(){
+    let adult = $(".rec_co_box .rv_info_adult").val();
+    let kid = $(".rec_co_box .rv_info_kid").val();
+    $(".rv_info_people").html(adult*1+kid*1+" (adult "+adult+" / kid "+kid+")")
+}
+
+function r_add_option(id){
+    let edittxt = ""
+    edittxt+='<div class="rec_co_option_box"><input class="rec_co_option_name" placeholder="Option Name">'
+    edittxt+='<input type="number" value="0" class="rec_co_option_people"/></div>'
+    $(".rec_co_option--add").before(edittxt)
+}
 
 $(".ol").on("click",".rv_content_star",function(){
     $(this).parent().children(".rv_content_star").toggleClass("rv_content_star--on");
@@ -172,11 +201,14 @@ function rev_detail(pid,id){
     if(data.code){$('.rv_info_code').html(data.code)}
     if(data.agency){$('.rv_info_agency').html(data.agency)}
 
-    if(data.adult === 0){ //db에 adult 항목이 비어있으면 people을 adult로 간주해 db에 넣음
-        $('.rv_info_people').html(data.people+" (adult "+data.people+" / child 0)")
-    }else{
-        $('.rv_info_people').html(data.people+" (adult "+data.adult+" / child "+data.kid+")")
-    }
+    $(".rv_info_date--picker").data('daterangepicker').setStartDate(data.date);
+    $(".rv_info_date--picker").data('daterangepicker').setEndDate(data.date);
+
+    let infant = data.people*1 - data.adult*1 - data.kid*1;
+    $(".rv_info_adult").val(data.adult*1)
+    $(".rv_info_kid").val(data.kid*1)
+    $(".rv_info_infant").val(infant)
+    $(".rv_info_people").html(data.adult*1+data.kid*1+" (adult "+data.adult+" / kid "+data.kid+")")
 
     let edittxt = ""
     if(data.option){

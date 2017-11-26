@@ -97,7 +97,14 @@ function init_datepicker(){
         getOperationData(start.format('YYYY-MM-DD'));
         colorQuickDate(start.format('YYYY-MM-DD'))
         formerDate = start.format('YYYY-MM-DD');
+    })
 
+    $('.rv_info_date--picker').daterangepicker({
+        "autoApply": true,
+        singleDatePicker: true,
+        locale: { format: 'YYYY-MM-DD'},
+        startDate:datestring.tomorrow(),
+        endDate:datestring.tomorrow()
     })
 }
 

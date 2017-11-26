@@ -13,30 +13,18 @@ input{
     border-style:none;
 }
 
-h1,h2,h3,h4,h5,h6,p,ul,li,div,html,body,img,a,input,button{
+p,div,html,body,img,a{
   margin:0;
   padding:0;
   border: none;
-
-}
-::-webkit-scrollbar {
-    /*display:none;*/
 }
 textarea{
     resize: none;
     font-family: 'Lato', sans-serif;
 }
 
-ul,li{
-  list-style:none;
-}
 .displayNone{
     display: none;
-}
-address{
-    font-style: normal;
-    font-weight: bold;
-    color: #333333;
 }
 
 p,h1 {
@@ -54,11 +42,25 @@ p,h1 {
     width: 800px;
     margin:0 auto;
 }
+.frame{
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+.photo{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    left: -100%;
+    margin-left: 125px;
+}
 
 .logo{
     height: 300px;
     width: 300px;
     margin-bottom: 20.5px;
+    margin-left: 250px;
 }
 
 .texts{
@@ -69,8 +71,9 @@ p,h1 {
     overflow: hidden;
     padding:20px 0;
 }
-.photoArea>img{
+.photoArea>div{
     float: left;
+    margin-left: 10px;
 }
 .address_phone,.address_messenger{
     overflow: hidden;

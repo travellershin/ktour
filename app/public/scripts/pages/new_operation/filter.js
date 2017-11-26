@@ -23,6 +23,14 @@ $(".r_htop_filterRemove").click(function(){
     //inflate_reservation();
 })
 
+$(".ol_filterClear").click(function(){
+    for (let fid in filter_selected) {
+        filter_selected[fid].length = 0
+    }
+    $(".r_drop>p").removeClass("rf_selected")
+    inflate_reservation();
+})
+
 function toggle_filterbox(name){
     console.log("?")
     if(!$(".r_drop_"+name).hasClass("hidden")){

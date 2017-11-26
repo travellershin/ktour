@@ -3041,6 +3041,10 @@ However, delay the fade out process for 2.5 seconds */
 .alert_footer_no:active{
                 background-color: rgba(224, 224, 224, 0.2);
             }
+.ol_filterClear{
+    float: right;
+    margin-right: 10px;
+}
 .r_hbot_hasdrop--pickdrop{
     position: absolute;
     right: 0;

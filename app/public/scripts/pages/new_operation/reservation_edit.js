@@ -85,6 +85,25 @@ $(document).on("click",".o_rv_guideCheckZone",function(){
     return false
 })
 
+$(".ol_selectAll").click(function(){
+    selectArray = []
+
+    $(".rv_content").addClass("rev--selected");
+    for (let i = 0; i < $(".rv_content").length; i++) {
+        if($(".rv_content").eq(i).hasClass("rev--selected")){
+            selectArray.push([$(".rv_content").eq(i).attr("tid"),$(".rv_content").eq(i).attr("id")])
+        }
+    }
+    $(".ol_busEdit_number_txt").html(selectArray.length)
+})
+
+$(".ol_unSelect").click(function(){
+    selectArray = []
+
+    $(".rv_content").removeClass("rev--selected");
+    $(".ol_busEdit_number_txt").html(selectArray.length)
+})
+
 $(document).on("click",".o_rv_clickZone",function(){
     if(isEditing){
         selectArray = []

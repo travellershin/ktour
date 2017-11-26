@@ -1,6 +1,15 @@
 let orderGuide = new Orderguide;
 
 function Orderguide(){
+    let placeMatch = {
+        Hongdae:3,
+        Myungdong:2,
+        Dongdaemoon:1,
+        "Busan Station":6,
+        Seomyun:5,
+        Haeundae:4
+    }
+
     this.peopleDes = function(pid){
         reservation[pid].sort(function(a,b){
             return a.people < b.people ? 1 : a.people > b.people ? -1 : 0;
@@ -33,12 +42,12 @@ function Orderguide(){
     }
     this.pickupAsc = function(pid){
         reservation[pid].sort(function(a,b){
-            return a.pickupPlace < b.pickupPlace ? 1 : a.pickupPlace > b.pickupPlace ? -1 : 0;
+            return placeMatch[a.pickupPlace] < placeMatch[b.pickupPlace] ? 1 : placeMatch[a.pickupPlace] > placeMatch[b.pickupPlace] ? -1 : 0;
         })
     }
     this.pickupDes = function(pid){
         reservation[pid].sort(function(a,b){
-            return a.pickupPlace < b.pickupPlace ? -1 : a.pickupPlace > b.pickupPlace ? 1 : 0;
+            return placeMatch[a.pickupPlace] < placeMatch[b.pickupPlace] ? -1 : placeMatch[a.pickupPlace] > placeMatch[b.pickupPlace] ? 1 : 0;
         })
     }
     this.natAsc = function(pid){

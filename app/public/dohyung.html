@@ -3,11 +3,123 @@
 <meta charset="utf-8">
 <title>Guide Managing / Ktourstory Admin</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="dohyung.css">
+<style>
+html{
+    /*-ms-overflow-style: none;*/
+    width:100%;
+    height:100%;
+}
+body{
+    width:100%;
+    height:100%;
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+input{
+    border-style:none;
+}
+
+p,div,html,body,img,a{
+  margin:0;
+  padding:0;
+  border: none;
+}
+textarea{
+    resize: none;
+    font-family: 'Lato', sans-serif;
+}
+
+.displayNone{
+    display: none;
+}
+
+p,h1 {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    color: #333333;
+}
+*:focus {
+  outline: none;
+}
+
+.wrapper{
+    width: 800px;
+    margin:0 auto;
+}
+.frame{
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+.photo{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    left: -100%;
+    margin-left: 125px;
+}
+
+.logo{
+    height: 300px;
+    width: 300px;
+    margin-bottom: 20.5px;
+    margin-left: 250px;
+}
+
+.texts{
+    margin: 16px 0;
+}
+
+.photoArea{
+    overflow: hidden;
+    padding:20px 0;
+}
+.photoArea>div{
+    float: left;
+    margin-left: 10px;
+}
+.address_phone,.address_messenger{
+    overflow: hidden;
+}
+
+.address_title{
+    float: left;
+    width: 142px;
+}
+.address_title--link{
+    float: left;
+    width: 102px;
+}
+.address_txt{
+    float: left;
+    margin-left: 12px;
+    color: grey;
+}
+.color_blue{
+    color:rgb(70,70,213);
+}
+.address_MessengerList{
+    margin:10px 0 20px 0;
+    color:rgb(160,160,250);
+}
+
+.thankyou{
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: bold;
+}
+a{
+    color: #0079e9;
+}
+</style>
 </head>
 <body>
     <div class="wrapper">
-        <img alt="ktourstory" class="logo"/>
+        <img alt="ktourstory" src="https://firebasestorage.googleapis.com/v0/b/intranet-64851.appspot.com/o/public%2Flogo.jpg?alt=media&token=9523727f-7f8f-4d42-ad3e-be6ad6e8a3ae" class="logo"/>
+
         <p>Dear %clientName%</p>
         <p class="texts">Thank you for joining Ktourstory. We really appreciate your participation. To help us improve, we'd like to request for a little feedback about your experience.</p>
         <p class="texts">How was your tour staff? Is there any compliment/complaint that you would like to share? What can we improve on and was the tour up to your expectations? If you are happy with our services, please like/follow us on our social medias "KTOURSTORY" and recommend us to your family and friends.</p>
@@ -16,7 +128,7 @@
         <p>Best regard, %guideName%</p>
 
         <div class="photoArea">
-            <img src="%img%"/>
+            <div class="frame"><img class="photo" src="%img%"/></div>
         </div>
 
         <address>
@@ -46,6 +158,4 @@
         </address>
         <p class="thankyou">THANK YOU</p>
     </div>
-
-
 </body>

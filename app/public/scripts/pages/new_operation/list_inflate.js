@@ -1,4 +1,11 @@
 function inflate_reservation(){
+
+    let filterNumber = 0;
+    for (let fid in filter_selected) {
+        filterNumber+= filter_selected[fid].length
+    }
+    $(".ol_filterClear").html("모든 필터 해제("+filterNumber+")")
+    
     console.log(lastRendering)
     let pid = lastRendering.product
 

@@ -1,3 +1,7 @@
+.ol_filterClear{
+    float: right;
+    margin-right: 10px;
+}
 .r_hbot_hasdrop--pickdrop{
     position: absolute;
     right: 0;

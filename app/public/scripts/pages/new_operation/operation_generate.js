@@ -95,14 +95,18 @@ function operation_generate(date){
                 cityTxt[domdata.area]+='<div class="omp_team" pid="'+product+'" tid="'+tid+'"><div class="omp_team_names"><p class="omp_team_names_bus">BUS '+(i+1)+'</p>'
                 if(domdata.teams[tid].guide){
                     cityTxt[domdata.area]+='<p class="omp_team_names_guide">'
+                    let guideDeleted = true;
                     for (let j = 0; j < domdata.teams[tid].guide.length; j++) {
-                        if(guideData[domdata.teams[tid].guide[j]]){
+                        if(domdata.teams[tid].guide[j] in guideData){
+                            guideDeleted = false;
                             cityTxt[domdata.area] += guideData[domdata.teams[tid].guide[j]].name +", ";
                             guideTotal.push(domdata.teams[tid].guide[j]);
                             guideTeam[domdata.teams[tid].guide[j]] = [product,tid,i+1,j]
                         }
                     }
-                    cityTxt[domdata.area] = cityTxt[domdata.area].slice(0, -2)
+                    if(!guideDeleted){ //가이드가 딜리트되었다면 위에서 ", " 부분이 입력되지 않을 것이고, 따라서 아무것도 잘라내어서는 안 된다.
+                        cityTxt[domdata.area] = cityTxt[domdata.area].slice(0, -2)
+                    }
                     cityTxt[domdata.area]+='</p></div>'
 
                 }else{

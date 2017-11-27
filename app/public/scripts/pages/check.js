@@ -8,6 +8,9 @@ $(document).ready(function(){
 $('.c_header_bottom_type').click(function(){
     $('.c_filter').toggleClass('hidden');
 })
+$(".exp_pop").click(function(e){
+    return false;
+})
 
 $('.c_filter_btn').click(function(){
     mailing.setFilter($(this).attr("id"), $('.c_filter_btn').index($(this)));
@@ -34,8 +37,6 @@ $(document).on("click", ".c_ct", function(){
 })
 
 $(".exp_pop_footer_mail").click(function(){
-    $(".insidePop").addClass("hidden");
-    $("body").css("overflow","auto")
     window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id"))
 })
 
@@ -48,6 +49,10 @@ $(".exp_pop_footer_delete").click(function(){
     console.log(key)
     firebase.database().ref("exception/"+key).remove();
     $(".insidePop").addClass("hidden")
+    $("body").css("overflow","auto")
+})
+$("body").click(function(){
+    $(".insidePop").addClass("hidden");
     $("body").css("overflow","auto")
 })
 

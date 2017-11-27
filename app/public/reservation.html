@@ -358,7 +358,7 @@
                 <p class="r_add_title_date">DATE</p>
                 <p class="r_add_title_product">PRODUCT</p>
                 <p class="r_add_title_pickupPlace">PICKUP PLACE</p>
-                <p class="r_add_title_people">PEOPLE</p>
+                <p class="r_add_title_people">ADULT / CHILD</p>
                 <hr>
                 <p class="r_add_title_name">NAME</p>
                 <p class="r_add_title_nationality">NATIONALITY</p>
@@ -367,8 +367,8 @@
                 <p class="r_add_title_messenger">MESSENGER</p>
                 <p class="r_add_title_tel">TEL</p>
                 <p class="r_add_title_email">E-MAIL</p>
-                <p class="r_add_title_option">OPTION</p>
                 <p class="r_add_title_agencyCode">AGENCY CODE</p>
+                <p class="r_add_title_option">OPTION</p>
             </div>
             <div class="r_add_input">
                 <input class="r_add_input_date r_add_input--drop r_add_input--mid"/>
@@ -376,7 +376,11 @@
                 <div class="r_add_productDrop r_add_drop hidden"></div>
                 <input class="r_add_input_pickupPlace r_add_input--drop" />
                 <div class="r_add_pickDrop r_add_drop hidden"></div>
-                <input type="number" class="r_add_input_people r_add_input--short">
+                <div class="r_add_input_peopleZone">
+                    <input type="number" class="r_add_input_adult r_add_input--short">
+                    <p class="r_add_input_divider">/</p>
+                    <input type="number" class="r_add_input_kid r_add_input--short">
+                </div>
                 <hr>
                 <input class="r_add_input_clientName" placeholder="Unknown">
                 <input class="r_add_input_nationality" placeholder="Unknown">
@@ -387,8 +391,15 @@
                 <div class="r_add_agencyDrop r_add_drop hidden"></div>
                 <input class="r_add_input_tel" placeholder="Unknown">
                 <input class="r_add_input_email" placeholder="Unknown">
-                <input class="r_add_input_option" placeholder="Unknown">
                 <input class="r_add_input_agencyCode" placeholder="Unknown">
+                <div class="r_add_input_optionZone">
+                    <div class="r_add_input_optionLine">
+                        <input class="r_add_input_option" placeholder="Option Name">
+                        <input class="r_add_input_option_people" value="0">
+                    </div>
+                    <div class="r_add_input_option_add btn">+ ADD OPTION</div>
+                </div>
+
             </div>
         </div>
         <div class="r_add_footer">

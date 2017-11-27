@@ -1954,6 +1954,7 @@ textarea::-webkit-scrollbar-thumb
         float: left;
         margin-top: 20px;
         position: relative;
+
     }
 .r_add_input>input{
             height: 40px;
@@ -1991,6 +1992,67 @@ textarea::-webkit-scrollbar-thumb
             padding: 10px;
             margin-bottom: 8px;
         }
+.r_add_input_peopleZone{
+            overflow: hidden;
+            height: 60px;
+            margin-bottom: 16px;
+        }
+.r_add_input_peopleZone>*{float: left;}
+.r_add_input_peopleZone>input{
+                height: 40px;
+                -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                padding-left: 12px;
+                width: 225px;
+                font-size: 14px;
+                margin: 10px 0;
+            }
+.r_add_input_divider{
+            line-height: 40px;
+            height: 40px;
+            margin:10px;
+        }
+.r_add_input_optionZone{
+            margin-bottom: 30px;
+        }
+.r_add_input_optionLine{
+            margin:10px 0;
+            height: 40px;
+            overflow: hidden;
+        }
+.r_add_input_optionLine>input{
+                height: 40px;
+                -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                padding-left: 12px;
+                font-size: 14px;
+                padding: 11px 9px;
+            }
+.r_add_input_option{
+            float: left;
+            width: 170px;
+        }
+.r_add_input_option_people{
+                float: left;
+                width: 40px;
+                margin-left: 10px;
+                text-align: right;
+            }
+.r_add_input_option_add{
+                height: 40px;
+                -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                width: 225px;
+                font-size: 14px;
+                padding: 11px 9px;
+                line-height: 20px;
+            }
 .r_add_drop{
         width: 225px;
         -webkit-box-sizing: border-box;

@@ -171,6 +171,71 @@
             padding: 10px;
             margin-bottom: 8px;
         }
+
+        &_peopleZone{
+            overflow: hidden;
+            height: 60px;
+            margin-bottom: 16px;
+            &>*{float: left;}
+            &>input{
+                height: 40px;
+                box-sizing: border-box;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                padding-left: 12px;
+                width: 225px;
+                font-size: 14px;
+                margin: 10px 0;
+            }
+        }
+        &_divider{
+            line-height: 40px;
+            height: 40px;
+            margin:10px;
+        }
+
+        &_optionZone{
+            margin-bottom: 30px;
+        }
+
+        &_optionLine{
+            margin:10px 0;
+            height: 40px;
+            overflow: hidden;
+
+            &>input{
+                height: 40px;
+                box-sizing: border-box;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                padding-left: 12px;
+                font-size: 14px;
+                padding: 11px 9px;
+            }
+        }
+        &_option{
+            float: left;
+            width: 170px;
+
+            &_people{
+                float: left;
+                width: 40px;
+                margin-left: 10px;
+                text-align: right;
+            }
+
+            &_add{
+                height: 40px;
+                box-sizing: border-box;
+                border: solid 1px #e0e0e0;
+                border-radius: 5px;
+                width: 225px;
+                font-size: 14px;
+                padding: 11px 9px;
+                line-height: 20px;
+            }
+        }
+
     }
 
     &_drop{

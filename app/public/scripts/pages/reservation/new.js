@@ -70,6 +70,16 @@ $(document).on("click",".r_add_aitem",function(event){
     event.stopPropagation();
     $(".r_add_input_agency").val($(this).html());
 })
+$(".r_add_input_option_add").click(function(){
+    r_add_addOption();
+})
+
+function r_add_addOption(){
+    let edittxt = ""
+    edittxt+='<div class="r_add_input_optionLine"><input class="r_add_input_option" placeholder="Option Name">'
+    edittxt+='<input class="r_add_input_option_people" value="0"></div>'
+    $(".r_add_input_option_add").before(edittxt)
+}
 
 function inputSearch(txt){
     productFocus = -1;
@@ -135,6 +145,10 @@ function r_new(){
     $("body").css("overflow","hidden");
     $(".r_add_wrapper").removeClass("hidden")
     $(".r_add_input>input").val("")
+    $(".r_add_input_adult").val("")
+    $(".r_add_input_option").val("")
+    $(".r_add_input_option_people").val("")
+    $(".r_add_input_kid").val("")
     $(".r_add_input_memo").val("")
     $(".r_add_input_date").val(datestring.tomorrow())
     $(".r_add_input_date").data('daterangepicker').setStartDate(datestring.tomorrow());
@@ -142,8 +156,8 @@ function r_new(){
 }
 
 function r_new_save(){
-    let required = ["date","product","people","pickupPlace"];
-    let additional = ["clientName","nationality","agency","tel","email","messenger","option","agencyCode"]
+    let required = ["date","product","pickupPlace","adult"];
+    let additional = ["clientName","nationality","agency","tel","email","messenger","agencyCode","kid"]
     let rdata = {}
     let durl = "https://intranet-64851.appspot.com/v1/reservation?"
     for (let i = 0; i < required.length; i++) {
@@ -161,6 +175,20 @@ function r_new_save(){
             durl+=additional[i]+"="+$(".r_add_input_"+additional[i]).val()+"&"
         }
     }
+    let adult = $(".r_add_input_adult").val()*1;
+    let kid = $(".r_add_input_kid").val()*1;
+    let people = adult+kid
+
+    durl+="people="+people+"&"
+
+    for (let i = 0; i < $(".r_add_input_option").length; i++) {
+        let o = $(".r_add_input_option").eq(i).val();
+        let p = $(".r_add_input_option_people").eq(i).val()
+        if(o.length>0&&p>0){
+            durl+="o="+o+"&p="+p+"&";
+        }
+    }
+
     if($(".r_add_input_memo").val() !== ""){
         let memmo = $(".r_add_input_memo").val()
         memmo = memmo.replace(/(?:\r\n|\r|\n)/g, '<br>')

@@ -3925,6 +3925,46 @@ However, delay the fade out process for 2.5 seconds */
     background-position: right 8px center;
     cursor: pointer;
 }
+.r_hbot_product{
+    position: relative;
+}
+.r_hbot_product_order{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 20px;
+    width: 85px;
+}
+.r_hbot_product{
+    position: relative;
+}
+.r_hbot_pickup_order{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 20px;
+    width: 95px;
+}
+.r_hbot_nationality{
+    position: relative;
+}
+.r_hbot_nationality_order{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 20px;
+    width: 91px;
+}
+.r_hbot_agency{
+    position: relative;
+}
+.r_hbot_agency_order{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 20px;
+    width: 71px;
+}
 .p_st{
     background-color: #f0f0f0;
     padding: 20px;

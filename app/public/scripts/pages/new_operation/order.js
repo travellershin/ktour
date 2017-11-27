@@ -60,4 +60,14 @@ function Orderguide(){
             return a.nationality < b.nationality ? -1 : a.nationality > b.nationality ? 1 : 0;
         })
     }
+    this.agencyAsc = function(pid){
+        reservation[pid].sort(function(a,b){
+            return a.agency < b.agency ? 1 : a.agency > b.agency ? -1 : 0;
+        })
+    }
+    this.agencyDes = function(pid){
+        reservation[pid].sort(function(a,b){
+            return a.agency < b.agency ? -1 : a.agency > b.agency ? 1 : 0;
+        })
+    }
 }

@@ -130,16 +130,24 @@
     <div class="r_hbot clearfix">
         <p class="r_hbot_memo">MEMO</p>
         <p class="r_hbot_date">DATE</p>
-        <div class="r_hbot_product r_hbot_hasdrop" fid="product">PRODUCT</div>
-        <div class="r_hbot_pickup r_hbot_hasdrop" fid="pickupPlace">PICKUP PLACE</div>
+        <div class="r_hbot_product r_hbot_hasdrop" fid="product">PRODUCT
+            <div class="r_hbot_product_order"></div>
+        </div>
+        <div class="r_hbot_pickup r_hbot_hasdrop r_hbot_hasdrop--pickupdrop" fid="pickupPlace">PICKUP PLACE
+            <div class="r_hbot_pickup_order"></div>
+        </div>
         <p class="r_hbot_people">PEOPLE</p>
         <div class="r_hbot_option">
             <p>OPTION</p>
             <img src="./assets/icon-filter.svg"/>
         </div>
         <p class="r_hbot_name">CLIENT NAME</p>
-        <div class="r_hbot_nationality r_hbot_hasdrop" fid="nationality">NATIONALITY</div>
-        <div class="r_hbot_agency r_hbot_hasdrop" fid="agency">AGENCY</div>
+        <div class="r_hbot_nationality r_hbot_hasdrop r_hbot_hasdrop--nationalitydrop" fid="nationality">NATIONALITY
+            <div class="r_hbot_nationality_order"></div>
+        </div>
+        <div class="r_hbot_agency r_hbot_hasdrop" fid="agency">AGENCY
+            <div class="r_hbot_agency_order"></div>
+        </div>
         <div class="r_drop r_drop_product hidden" fid="product">
         </div>
         <div class="r_drop r_drop_pickupPlace hidden" fid="pickupPlace">
@@ -464,5 +472,6 @@
     <script src='./scripts/pages/reservation/new.js'></script>
     <script src='./scripts/pages/reservation/cancel.js'></script>
     <script src='./scripts/pages/reservation/new_search.js'></script>
+    <script src='./scripts/pages/reservation/order.js'></script>
 
 </body>

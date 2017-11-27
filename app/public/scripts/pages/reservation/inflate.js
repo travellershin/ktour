@@ -35,6 +35,16 @@ function inflate_reservation(){
         nationality:{}
     };
 
+    let filterNumber = 0
+    for (let fid in filterMap) {
+        filterNumber += Array.from(filterMap[fid].keys()).length
+    }
+    $(".r_htop_filterRemove").html("모든 필터 해제("+filterNumber+")")
+
+    for (let i = 0; i < rvOrder.length; i++) {
+        orderGuide[rvOrder[i]]()
+    }
+
     for (let i = 0; i < rData.length; i++) {
         let draw = true
 

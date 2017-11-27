@@ -136,6 +136,15 @@ $(".r_hbot_nationality").click(function(){
     }
     inflate_reservation()
 })
+$(".r_hbot_agency_order").click(function(){
+    if(lastRendering.order[lastRendering.order.length-1]==="agencyAsc"){
+        lastRendering.order.push("agencyDes")
+    }else{
+        lastRendering.order.push("agencyAsc")
+    }
+    inflate_reservation()
+    return false;
+})
 
 
 

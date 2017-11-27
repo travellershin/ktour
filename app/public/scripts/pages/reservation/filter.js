@@ -9,6 +9,14 @@ $(".r_hbot_hasdrop--pickdrop").click(function(event){
     toggle_filterbox($(this).attr("fid"));
     return false
 })
+$(".r_hbot_hasdrop--pickupdrop").click(function(){
+    toggle_filterbox($(this).attr("fid"));
+    return false
+})
+$(".r_hbot_hasdrop--nationalitydrop").click(function(){
+    toggle_filterbox($(this).attr("fid"));
+    return false
+})
 
 $(".r_hbot_hasdrop").click(function(event){
     if(!$(this).hasClass("r_hbot_pickup")&&!$(this).hasClass("r_hbot_nationality")){
@@ -26,6 +34,7 @@ $(".r_htop_filterRemove").click(function(){
     }
     $(".rf_selected").removeClass("rf_selected")
     inflate_reservation();
+    $(".r_htop_filterRemove").html("모든 필터 해제(0)")
 })
 
 function toggle_filterbox(name){

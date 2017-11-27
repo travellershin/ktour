@@ -340,6 +340,31 @@
         font-weight: bold;
     }
 
+    &_byCity{
+        width: 100%;
+        overflow: hidden;
+    }
+
+    &_cityLine{
+        width: calc(50% - 20px);
+        margin:10px 10px;
+        height: 20px;
+        float: left;
+    }
+
+    &_cityName{
+        line-height: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        float: left;
+    }
+    &_placeData{
+        line-height: 20px;
+        font-size: 16px;
+        float: left;
+        margin-left: 12px;
+    }
+
     &_pyo{
         overflow: hidden;
         width: 100%;

@@ -5,6 +5,7 @@ let r_chart = {
     nationality:{}
 }
 let inflate_r = []
+
 $(document).on("click", ".rv_content_star", function(event){
     let pid = r_obj[$(this).parent().attr("id")].product
     let tid = r_obj[$(this).parent().attr("id")].team
@@ -33,8 +34,6 @@ function inflate_reservation(){
         agency:{},
         nationality:{}
     };
-
-    console.log(filter)
 
     for (let i = 0; i < rData.length; i++) {
         let draw = true
@@ -101,4 +100,82 @@ function inflate_reservation(){
     }
     $('.rv_box').html(txt)
     draw_chart();
+}
+
+function inflate_totalPeople(){
+    console.log(countPeople)
+    let cityList = ["Seoul","Busan"];
+    let firstSeoul = ["Myungdong",'Hongdae',"Dongdaemoon"];
+    let firstBusan = ["Busan Station",'Seomyun',"Haeundae"];
+    let inflateSeoul = [];
+    let inflateBusan = [];
+
+    for (let i = 0; i < firstSeoul.length; i++) {
+        if(countPeople.Seoul){
+            if(firstSeoul[i] in countPeople.Seoul){
+                inflateSeoul.push(firstSeoul[i])
+            }
+        }
+    }
+    for (let i = 0; i < firstBusan.length; i++) {
+        if(countPeople.Busan){
+            if(firstBusan[i] in countPeople.Busan){
+                inflateBusan.push(firstBusan[i])
+            }
+        }
+    }
+    if(countPeople.Seoul){
+        for (let place in countPeople.Seoul) {
+            if(!inflateSeoul.includes(place)){
+                inflateSeoul.push(place)
+            }
+        }
+    }
+    if(countPeople.Busan){
+        for (let place in countPeople.Busan) {
+            if(!inflateBusan.includes(place)){
+                inflateBusan.push(place)
+            }
+        }
+    }
+
+    let cityTxt = ''
+
+    if(inflateSeoul.length>0){
+        cityTxt+='<div class="r_stat_cityLine"><p class="r_stat_cityName">Seoul</p>'
+        for (let i = 0; i < inflateSeoul.length; i++) {
+            cityTxt+='<p class="r_stat_placeData">'+inflateSeoul[i]+" "+countPeople.Seoul[inflateSeoul[i]]
+            if(i<inflateSeoul.length-1){
+                cityTxt+=" / "
+            }
+        }
+        cityTxt+='</div>'
+    }
+    if(inflateBusan.length>0){
+        cityTxt+='<div class="r_stat_cityLine"><p class="r_stat_cityName">Busan</p>'
+        for (let i = 0; i < inflateBusan.length; i++) {
+            cityTxt+='<p class="r_stat_placeData">'+inflateBusan[i]+" "+countPeople.Busan[inflateBusan[i]]
+            if(i<inflateBusan.length-1){
+                cityTxt+=" / "
+            }
+        }
+        cityTxt+='</div>'
+    }
+
+    for (let city in countPeople) {
+        if(city !== "Seoul" && city !== "Busan"){
+            cityTxt+='<div class="r_stat_cityLine"><p class="r_stat_cityName">'+city+'</p>'
+
+            for (let place in countPeople[city]) {
+                cityTxt+='<p class="r_stat_placeData">'+place+" "+countPeople[city][place] +" / "
+            }
+            cityTxt.slice(0,-3)
+            cityTxt+='</div>'
+        }
+    }
+
+
+
+    $(".r_stat_byCity").html(cityTxt)
+
 }

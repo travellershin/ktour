@@ -12,6 +12,7 @@ let filter = {
     pickupPlace:[],
     nationality:[]
 }
+let countPeople = {}
 
 $(document).ready(function(){
     datepicker_init();
@@ -167,17 +168,33 @@ function collect_reservation(){
         let oprev = snap.val();
         r_obj = {}
 
+        countPeople = {}
+
         for (let date in oprev) {
             for (let pd in oprev[date]) {
                 for (let team in oprev[date][pd].teams) {
                     for (let rev in oprev[date][pd].teams[team].reservations) {
-                        oprev[date][pd].teams[team].reservations[rev].team = team
-                        rData.push(oprev[date][pd].teams[team].reservations[rev])
-                        r_obj[rev] = oprev[date][pd].teams[team].reservations[rev]
+                        let rddata = oprev[date][pd].teams[team].reservations[rev]
+
+                        rddata.team = team;
+                        rData.push(rddata);
+                        r_obj[rev] = rddata;
+
+                        if(countPeople[rddata.area]){
+                            if(countPeople[rddata.area][rddata.pickupPlace]){
+                                countPeople[rddata.area][rddata.pickupPlace] += rddata.people
+                            }else{
+                                countPeople[rddata.area][rddata.pickupPlace] = rddata.people
+                            }
+                        }else{
+                            countPeople[rddata.area] = {};
+                            countPeople[rddata.area][rddata.pickupPlace] = rddata.people
+                        }
                     }
                 }
             }
         }
+        inflate_totalPeople();
         generate_filter();
         cancel_dataCollect();
     })
@@ -324,7 +341,6 @@ function collect_pickupPlace(){
             droptxt += '<p class="r_add_pitem">'+pNameArray[i]+'</p>'
         }
         $(".r_add_productDrop").html(droptxt)
-        console.log("너냐")
     });
 }
 

@@ -10,6 +10,7 @@ let new_revdata = {
     option:[],
     people:0
 }
+let reReservationSuccess = false;
 
 $(".ri_footer_edit").click(function(){
     $('.ri').addClass('hidden');
@@ -111,7 +112,7 @@ function r_save(id){
         r_obj[id][numberArray[i]] = r_obj[id][numberArray[i]]*1
     }
 
-    r_obj[id].people = r_obj[id].adult + r_obj[id].infant + r_obj[id].kid
+    r_obj[id].people = r_obj[id].adult + r_obj[id].kid
 
     r_obj[id].option = []
 
@@ -172,7 +173,7 @@ function r_save(id){
     let optTxt
 
     if(remake){
-        toast(remakeArray+" 변경으로 인해 예약을 다시 잡습니다.");
+        toast(remakeArray+" 변경으로 예약을 다시 잡습니다.");
 
         let durl = "https://intranet-64851.appspot.com/v1/reservation?"
 
@@ -188,10 +189,6 @@ function r_save(id){
         durl = durl.slice(0,-1);
         console.log(durl)
 
-        cancel_reservation_viaChange(id,remakeArray)
-
-        toast("서버로 예약 정보를 전송합니다")
-
         // Using YQL and JSONP
         $.ajax({
             url: durl,
@@ -200,14 +197,22 @@ function r_save(id){
             // Work with the response
             error: function(xhr, exception){
                 if( xhr.status === 200|| xhr.status === 201|| xhr.status === 202){
-                    console.log("성공인듯")
-                    toast("예약이 정상적으로 잡혔습니다")
+                    toast("예약이 정상적으로 잡혔습니다");
+                    cancel_reservation_viaChange(id,remakeArray);
+                    reReservationSuccess = true;
                 }else{
                     console.log('Error : ' + xhr.responseText)
                     toast("문제가 발생했습니다")
                 }
             }
         });
+
+        setTimeout(function () {
+            if(!reReservationSuccess){
+                toast("예약 변경에 실패했습니다. 문제가 지속되면 개발자를 호출해주세요.")
+                reReservationSuccess = false;
+            }
+        }, 8000);
 
 
     }else{
@@ -240,7 +245,7 @@ function cancel_reservation_viaChange(sid, msg){
     }
     firebase.database().ref("canceled/"+sid).set(r_obj[sid]);
     firebase.database().ref("operation/"+old_revdata.date+"/"+old_revdata.product+"/teams/"+r_obj[sid].team+"/reservations/"+sid).remove();
-    console.log(old_revdata)
+    console.log(old_revdata);
     firebase.database().ref("account/"+sid).set(data)
-    console.log(data)
+    console.log(data);
 }

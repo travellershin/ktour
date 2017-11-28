@@ -43,7 +43,6 @@ function moveTeam(pid_to){
         let teamData = operation[pid_from].teams[tid]
         delete operation[pid_from].teams[tid]
         operation[pid_from].teamArgArray.splice(operation[pid_from].teamArgArray.indexOf(tid),1)
-        console.log(operation)
 
         moveData.push([pid_from,tid,teamData])
     }
@@ -52,6 +51,13 @@ function moveTeam(pid_to){
         let pid_from = moveData[i][0]
         let tid = moveData[i][1]
         let teamData = moveData[i][2]
+
+        console.log(teamData)
+
+        for (let rev in teamData.reservations) {
+            teamData.reservations[rev].memo = "["+pid_from.split("_")[2]+ "] "+ teamData.reservations[rev].memo;
+            teamData.reservations[rev].product = pid_to;
+        }
 
         firebase.database().ref("operation/"+date+"/"+pid_from+"/teams/"+tid).remove();
         firebase.database().ref("operation/"+date+"/"+pid_to+"/teams/"+tid).set(teamData);

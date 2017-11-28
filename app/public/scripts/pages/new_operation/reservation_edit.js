@@ -6,6 +6,9 @@ $(".ri_footer_edit").click(function(){
 $(document).on("click", ".re_header_close", function(){
     re_close();
 })
+$(".ri_footer_gmail").click(function(){
+    window.open("https://mail.google.com/mail/u/0/#inbox/"+$(this).attr("id").split("-")[0])
+})
 $(".ri_header_close").click(function(){
     $('.lightBox_shadow').addClass('hidden');
     $('.ri').removeClass('hidden');

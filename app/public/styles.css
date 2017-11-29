@@ -727,7 +727,7 @@ textarea::-webkit-scrollbar-thumb
 .c_filter{
     position: absolute;
     left: -50px;
-    width: 265px;
+    width: 365px;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     border-radius: 5px;
@@ -772,6 +772,9 @@ textarea::-webkit-scrollbar-thumb
 .c_filter_check{
     margin-right: 38px;
 }
+.c_filter_check--smallMargin{
+        margin-right: 18px;
+    }
 #total>.c_filter_check{
         margin-right: 6px;
     }

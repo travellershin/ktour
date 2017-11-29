@@ -1,5 +1,6 @@
 let mailing = new Mailing
 let setfilter = "total"
+let filterInflated = false;
 
 $(document).ready(function(){
     mailing.init();
@@ -12,7 +13,7 @@ $(".exp_pop").click(function(e){
     return false;
 })
 
-$('.c_filter_btn').click(function(){
+$(".c_filter").on("click",".c_filter_btn",function(){
     mailing.setFilter($(this).attr("id"), $('.c_filter_btn').index($(this)));
     setfilter = $(this).attr("id");
 })
@@ -62,7 +63,7 @@ function Mailing(){
         yellow:["UNKNOWN_SUBJECT","KKDAY"],
         orange:["UNKNOWN_CONTENT_TYPE","COMPLEX_CONTENT_TYPE","FAILED_PARSE_MAIL","PRIVATE_TOUR",
         "NOT_AUTO","FAILED_PARSE_RESERVATION","FAILED_CONFIRM_RESERVATION","FAILED_CHECK_INTEGRITY",
-        "FAILED_CHECK_FUNKO","EMPTY_FUNKO","UNKNOWN_PRODUCT","UNKNOWN_PLACE","UNKNOWN_OPTION",
+        "FAILED_CHECK_FUNKO","EMPTY_FUNKO","UNKNOWN_PRODUCT","UNKNOWN_PICKUP","UNKNOWN_OPTION",
         "CLOSED_PRODUCT","WRONG_PERIOD","WRONG_DAY","LAST_MINUTE","NO_PRICE_INFO","NO_BUS_INFO"],
         red:["UNKNOWN_ERROR_BOT","UNKNOWN_ERROR_SERVER","NETWORK_ERR","GMAIL_LIMIT"]
     }
@@ -90,7 +91,6 @@ function Mailing(){
 
                 this.exception.total.push(data[key]);
                 data[key].key = key;
-                console.log(data[key].err + " 에러가 났습니다")
 
                 for (let color in this.category) {
                     exArray = this.category[color];
@@ -98,14 +98,12 @@ function Mailing(){
                     if(exArray.includes(data[key].err)){
                         data[key].color = color;
                         this.exception[color].push(data[key])
-                        console.log(color+ " 색으로 분류되었습니다")
                     }
-
-                    if(this.exception[data[key].err]){
-                        this.exception[data[key].err].push(data[key])
-                    }else{
-                        this.exception[data[key].err] = [data[key]]
-                    }
+                }
+                if(this.exception[data[key].err]){
+                    this.exception[data[key].err].push(data[key])
+                }else{
+                    this.exception[data[key].err] = [data[key]]
                 }
             }
 
@@ -115,39 +113,73 @@ function Mailing(){
             console.log(this.exception)
 
 
-            //$('.cc_low').html(this.exception.green.length);
-            //$('.cc_mid').html(this.exception.yellow.length);
-            //$('.cc_high').html(this.exception.orange.length);
-            //$('.cc_vhigh').html(this.exception.green.length);
+            $('.cc_low').html(this.exception.green.length);
+            $('.cc_mid').html(this.exception.yellow.length);
+            $('.cc_high').html(this.exception.orange.length);
+            $('.cc_vhigh').html(this.exception.red.length);
+            $('.c_st_box_total_number').html(this.exception.total.length);
 
-            //this.show(setfilter)
-
+            if(!filterInflated){
+                this.inflateFilter();
+            }
+            this.show(setfilter)
         });
         //데이터 분류
     }
 
+    this.inflateFilter = function(){
+        let txt = "";
+        txt+='<div class="c_filter_all c_filter_btn" id="total"><img class="c_filter_all_check c_filter_check" src="./assets/icon-input-check.svg"/><p>All</p></div>'
+        txt+='<div class="c_filter_btn" id="UNKNOWN_ADDRESS"><img class="c_filter_check real_hidden" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_green"></div><p class="c_filter_txt">UNKNOWN_ADDRESS</p></div>'
+        txt+='<div class="c_filter_btn" id="yellow"><img class="c_filter_check real_hidden c_filter_check--smallMargin" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_yellow"></div><p class="c_filter_txt">YELLOW_ALL</p></div>'
+        for (let i = 0; i < this.category.yellow.length; i++) {
+            txt+='<div class="c_filter_btn" id="'+this.category.yellow[i]+'"><img class="c_filter_company_check c_filter_check real_hidden" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_yellow"></div><p class="c_filter_txt">'+this.category.yellow[i]+'</p></div>'
+        }
+        txt+='<div class="c_filter_btn" id="orange"><img class="c_filter_check real_hidden c_filter_check--smallMargin" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_orange"></div><p class="c_filter_txt">ORANGE_ALL</p></div>'
+        for (let i = 0; i < this.category.orange.length; i++) {
+            txt+='<div class="c_filter_btn" id="'+this.category.orange[i]+'"><img class="c_filter_check real_hidden" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_orange"></div><p class="c_filter_txt">'+this.category.orange[i]+'</p></div>'
+        }
+        txt+='<div class="c_filter_btn" id="red"><img class="c_filter_check real_hidden c_filter_check--smallMargin" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_red"></div><p class="c_filter_txt">RED_ALL</p></div>'
+        for (let i = 0; i < this.category.red.length; i++) {
+            txt+='<div class="c_filter_btn" id="'+this.category.red[i]+'"><img class="c_filter_check real_hidden" src="./assets/icon-input-check.svg"/><div class="c_filter_circle bgco_red"></div><p class="c_filter_txt">'+this.category.red[i]+'</p></div>'
+        }
+
+        $(".c_filter").html(txt)
+        filterInflated = true;
+    }
+
     this.setFilter = function(filter, number){
-        $('.c_filter').addClass('hidden');
-        $('.c_filter_check').addClass('real_hidden')
-        $(".c_filter_check").eq(number).removeClass('real_hidden')
-        this.show(filter)
+        if(this.exception[filter]){
+            if(this.exception[filter].length>0){
+                $('.c_filter').addClass('hidden');
+                $('.c_filter_check').addClass('real_hidden')
+                $(".c_filter_check").eq(number).removeClass('real_hidden')
+                this.show(filter)
+            }else{
+                toast(filter+" 관련 Exception은 없습니다")
+            }
+        }else{
+            toast(filter+" 관련 Exception은 없습니다")
+        }
+
+
     }
 
     this.show = function(filter){
         let txt = ""
-        this.debugArray = this.category[filter]
+        this.debugArray = this.exception[filter]
 
-        for (var i = 0; i < this.category[filter].length; i++) {
+        for (var i = 0; i < this.exception[filter].length; i++) {
 
-            txt += '<div class="c_ct" key="'+this.category[filter][i].key+'" id="'+this.category[filter][i].id+'">'
+            txt += '<div class="c_ct" key="'+this.exception[filter][i].key+'" id="'+this.exception[filter][i].id+'">'
             txt+='<div class="c_ct_type centering_hor"><div class="c_ct_type_circle bgco_'
-            txt += this.category[filter][i].color + '"></div></div><p class="c_ct_date">' + this.category[filter][i].date + " " + this.category[filter][i].time
-            txt += '</p><p class="c_ct_company">' + this.category[filter][i].err + '</p><p class="c_ct_title">' + this.category[filter][i].detail
+            txt += this.exception[filter][i].color + '"></div></div><p class="c_ct_date">' + this.exception[filter][i].date + " " + this.exception[filter][i].time
+            txt += '</p><p class="c_ct_company">' + this.exception[filter][i].err + '</p><p class="c_ct_title">' + this.exception[filter][i].detail
             txt += '</p></div>'
         }
         $('.c_contents').html(txt)
-        $(".c_st_box_total_number").html(this.category.total.length)
-        $(".c_header_top_numbList").html("<p class='bold fl_left'>"+$(".c_ct").length + "</p><p class='fl_left'>&nbsp;/ " + this.category.total.length + " Exceptions</p>")
+        $(".c_st_box_total_number").html(this.exception.total.length)
+        $(".c_header_top_numbList").html("<p class='bold fl_left'>"+$(".c_ct").length + "</p><p class='fl_left'>&nbsp;/ " + this.exception.total.length + " Exceptions</p>")
     }
 }
 

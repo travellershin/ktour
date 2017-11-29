@@ -161,7 +161,7 @@
 .c_filter{
     position: absolute;
     left: -50px;
-    width: 265px;
+    width: 365px;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 0 2px 3px 0 #e0e0e0;
@@ -210,6 +210,10 @@
 }
 .c_filter_check{
     margin-right: 38px;
+
+    &--smallMargin{
+        margin-right: 18px;
+    }
 }
 #total{
     &>.c_filter_check{

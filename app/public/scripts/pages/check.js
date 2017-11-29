@@ -56,193 +56,71 @@ $("body").click(function(){
     $("body").css("overflow","auto")
 })
 
-
-
-
 function Mailing(){
-
     this.category = {
-        total : [],
-        agency : [],
-        subject : [],
-        orange_all : [],
-        product : [],
-        product_closed : [],
-        pickup : [],
-        option : [],
-        multiple : [],
-        time : [],
-        price : [],
-        bus : [],
-        red_all : [],
-        process : [],
-        bot : [],
-        integrity : [],
-        unparsable : [],
-        unresponsible : [],
-        network : [],
-        type : []
+        green:["UNKNOWN_ADDRESS"],
+        yellow:["UNKNOWN_SUBJECT","KKDAY"],
+        orange:["UNKNOWN_CONTENT_TYPE","COMPLEX_CONTENT_TYPE","FAILED_PARSE_MAIL","PRIVATE_TOUR",
+        "NOT_AUTO","FAILED_PARSE_RESERVATION","FAILED_CONFIRM_RESERVATION","FAILED_CHECK_INTEGRITY",
+        "FAILED_CHECK_FUNKO","EMPTY_FUNKO","UNKNOWN_PRODUCT","UNKNOWN_PLACE","UNKNOWN_OPTION",
+        "CLOSED_PRODUCT","WRONG_PERIOD","WRONG_DAY","LAST_MINUTE","NO_PRICE_INFO","NO_BUS_INFO"],
+        red:["UNKNOWN_ERROR_BOT","UNKNOWN_ERROR_SERVER","NETWORK_ERR","GMAIL_LIMIT"]
     }
+
+    this.exception = {
+        total:[],
+        green:[],
+        yellow:[],
+        orange:[],
+        red:[]
+    };
 
     this.debugArray = []
 
     this.init = function(){
         //데이터 분류
         firebase.database().ref("exception").on("value", snap => {
-            this.category = {
-                total : [],
-                agency : [],
-                subject : [],
-                orange_all : [],
-                product : [],
-                product_closed : [],
-                pickup : [],
-                option : [],
-                multiple : [],
-                time : [],
-                price : [],
-                manual : [],
-                bus : [],
-                red_all : [],
-                app : [],
-                bot : [],
-                integrity : [],
-                unparsable : [],
-                unresponsible : [],
-                network : [],
-                type : []
-            }
+            this.exception = {total:[],green:[],yellow:[],orange:[],red:[]}
+
             let data = snap.val();
 
             for (var key in data) {
                 let dateTime = data[key].date + " " + data[key].time
                 data[key].newdate = Date.parse(dateTime);
-                this.category.total.push(data[key])
-                data[key].key = key
-            }
-            console.log(this.category.total)
 
-            this.category.total.sort(function(a,b){
-                return a.newdate < b.newdate ? -1 : a.newdate > b.newdate ? 1 : 0;
-            });
+                this.exception.total.push(data[key]);
+                data[key].key = key;
+                console.log(data[key].err + " 에러가 났습니다")
 
-            for (var i = 0; i < this.category.total.length; i++) {
+                for (let color in this.category) {
+                    exArray = this.category[color];
 
-                switch(this.category.total[i].err){
-                    case "UNKNOWN_AGENCY":
-                        this.category.total[i].color = "green"
-                        this.category.agency.push(this.category.total[i]);
-                        break;
-                    case "UNKNOWN_SUBJECT":
-                        this.category.total[i].color = "yellow"
-                        this.category.subject.push(this.category.total[i]);
-                        break;
-                    case "UNKNOWN_PRODUCT":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.product.push(this.category.total[i]);
-                        break;
+                    if(exArray.includes(data[key].err)){
+                        data[key].color = color;
+                        this.exception[color].push(data[key])
+                        console.log(color+ " 색으로 분류되었습니다")
+                    }
 
-                    case "CLOSED_PRODUCT":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.product_closed.push(this.category.total[i]);
-                        break;
-
-                    case "UNKNOWN_PICKUP":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.pickup.push(this.category.total[i]);
-                        break;
-
-                    case "NOT_AUTO":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.manual.push(this.category.total[i]);
-                        break;
-
-                    case "UNKNOWN_OPTION":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.option.push(this.category.total[i]);
-                        break;
-
-                    case "NO_BUS_INFO":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.bus.push(this.category.total[i]);
-                        break;
-
-                    case "LAST_MINUTE":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.time.push(this.category.total[i]);
-                        break;
-
-                    case "NO_PRICE_INFO":
-                        this.category.total[i].color = "orange"
-                        this.category.orange_all.push(this.category.total[i]);
-                        this.category.price.push(this.category.total[i]);
-                        break;
-
-                    case "CANNOT_DETERMINE":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.multiple.push(this.category.total[i]);
-                        break;
-
-                    case "APP_DIED":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.app.push(this.category.total[i]);
-                        break;
-
-                    case "BOT_DIED":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.bot.push(this.category.total[i]);
-                        break;
-
-                    case "FAIL_IN_INTEGRITY":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.integrity.push(this.category.total[i]);
-                        break;
-
-                    case "UNKNOWN_CONTENT_TYPE":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.type.push(this.category.total[i]);
-                        break;
-
-                    case "UNPARSABLE":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.unresponsible.push(this.category.total[i]);
-                        break;
-
-                    case "UNRESPONSIBLE":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.unparsable.push(this.category.total[i]);
-                        break;
-
-                    case "NETWORK_ERR":
-                        this.category.total[i].color = "red"
-                        this.category.red_all.push(this.category.total[i]);
-                        this.category.network.push(this.category.total[i]);
-                        break;
+                    if(this.exception[data[key].err]){
+                        this.exception[data[key].err].push(data[key])
+                    }else{
+                        this.exception[data[key].err] = [data[key]]
+                    }
                 }
             }
 
+            this.exception.total.sort(function(a,b){
+                return a.newdate < b.newdate ? -1 : a.newdate > b.newdate ? 1 : 0;
+            });
+            console.log(this.exception)
 
 
-            $('.cc_low').html(this.category.agency.length);
-            $('.cc_mid').html(this.category.subject.length);
-            $('.cc_high').html(this.category.orange_all.length);
-            $('.cc_vhigh').html(this.category.red_all.length);
+            //$('.cc_low').html(this.exception.green.length);
+            //$('.cc_mid').html(this.exception.yellow.length);
+            //$('.cc_high').html(this.exception.orange.length);
+            //$('.cc_vhigh').html(this.exception.green.length);
 
-            this.show(setfilter)
+            //this.show(setfilter)
 
         });
         //데이터 분류

@@ -135,6 +135,8 @@ function r_save(id){
     new_revdata.product = r_obj[id].product;
     new_revdata.date = r_obj[id].date;
 
+
+
     console.log(old_revdata)
     console.log(new_revdata)
     let remake = false;
@@ -175,18 +177,19 @@ function r_save(id){
     if(remake){
         toast(remakeArray+" 변경으로 예약을 다시 잡습니다.");
 
-        let durl = "https://intranet-64851.appspot.com/v1/reservation?"
+        let durl = "https://intranet-64851.appspot.com/v1/reservation/edit?"
 
         for (let key in r_obj[id]) {
-            if(key !== "option"){
+            if(key !== "option"&&key !== "ref"){
                 durl+=key+"="+r_obj[id][key]+"&"
-            }else{
+            }else if(key === "option"){
                 for (let i = 0; i < r_obj[id].option.length; i++) {
-                    durl="o"+i+"="+r_obj[id].option[i].option+"&"+"p"+i+"="+r_obj[id].option[i].people+"&"
+                    durl+="o"+i+"="+r_obj[id].option[i].option+"&"+"p"+i+"="+r_obj[id].option[i].people+"&"
                 }
             }
         }
-        durl = durl.slice(0,-1);
+
+        durl += `ref=${old_revdata.date}/${old_revdata.product}/teams/${old_revdata.team}/reservations/${old_revdata.id}`;
         console.log(durl)
 
         // Using YQL and JSONP
@@ -198,7 +201,6 @@ function r_save(id){
             error: function(xhr, exception){
                 if( xhr.status === 200|| xhr.status === 201|| xhr.status === 202){
                     toast("예약이 정상적으로 잡혔습니다");
-                    cancel_reservation_viaChange(id,remakeArray);
                     reReservationSuccess = true;
                 }else{
                     console.log('Error : ' + xhr.responseText)

@@ -81,6 +81,8 @@ function r_detail(id){
     }
     old_revdata.product = data.product;
     old_revdata.date = data.date;
+    old_revdata.team = data.team;
+    old_revdata.id = data.id;
     console.log(old_revdata)
 
     edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'

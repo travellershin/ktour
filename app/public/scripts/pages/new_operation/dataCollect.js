@@ -18,52 +18,70 @@ let reservation = {} //product별 reservation
 let r_obj = {} //reservation을 담을 객체
 let r_totalArray = [] //해당일 전체 reservation Array
 
-let filter = {
+let filter = { //reservation들에 맞게 생성된 전체 필터
     agency:[],
     pickupPlace:[],
     nationality:[]
 }
-let filter_selected = {
+let filter_selected = { //사용자가 클릭해 선택한 필터
     agency:[],
     pickupPlace:[],
     nationality:[]
 }
-let filter_adjusted = {
+let filter_adjusted = { //실제 적용된 필터(사용자가 아무것도 선택하지 않은 경우 전체를 선택했다고 간주해야 하기 때문에 필요)
     agency:[],
     pickupPlace:[],
     nationality:[]
 }
+
+let guideCollected = false;
+ //화면 inflate는 operation정보가 다 불러와지면 호출되는데, 그 전에 가이드 정보를 불러오는데 실패했을 경우
+ //화면 inflate를 미루는 로직에 필요. 하지만 이런 일이 발생할 확률은 극히 적음.
 
 $(document).ready(function(){
 
     firebase.database().ref("guide").on("value",snap => {
-        guideData = snap.val();
+        guideData = snap.val(); //화면을 그릴 때 가이드 이름정보가 필요하므로 가이드 정보를 최우선적으로 불러온다
+        guideCollected = true; //가이드 정보가 불러와졌을 경우에만 화면 inflate를 진행한다.
 
         for (let key in guideData) {
-            guideViaName[guideData[key].name] = key
+            guideViaName[guideData[key].name] = key;
+            //사용자가 가이드 이름으로 저장하면 가이드 key값으로 바꾸어 DB에 저장해야 하기 때문에 이 정보가 필요.
         }
     })
 
-    init_datepicker();
-    init_quickDate();
-    getOperationData(datestring.today())
+    init_datepicker(); //datepicker를 초기화하고 collect_pickupPlace, collect_agency를 이어서 진행함
+    init_quickDate(); //quickdate 날짜들을 어제 ~ 오늘+9일 범위로 설정
+    //getOperationData(datestring.today()) //operation data를 DB에서 불러옴.
+    getOperationData("2017-07-11") // TODO: 현재 임시로 예전 데이터를 가지고 노는중
 })
 
 function getOperationData(inputDate){
-    //기존 다른 날짜에 달려있던 콜백을 제거한다
     date = inputDate;
-    firebase.database().ref("operation/"+formerDate).off("value")
-    firebase.database().ref("memo/"+formerDate).off("value")
-    console.log(formerDate + "에 달려있던 callback을 삭제합니다")
+
+    firebase.database().ref("operation/"+formerDate).off("value") //기존 다른 날짜에 달려있던 콜백을 제거
+    firebase.database().ref("memo/"+formerDate).off("value") //기존 다른 날짜에 달려있던 콜백을 제거
+
     lastRendering.product = ""
     firebase.database().ref("operation/"+inputDate).on("value",snap => {
         operation = snap.val();
-        operation_generate(inputDate);
+        readyForGO(inputDate) //OperationData를 불러오기 전에 Guide Data가 다 불러와졌는지 확인하는 로직. 확인되면 operation_generate를 진행.
     });
     firebase.database().ref("memo/"+inputDate).on("value",snap => {
         memo = snap.val();
-        inflateMemo(memo);
+        inflateMemo(memo); //메모를 불러와 표시
     })
+}
+
+function readyForGO(inputDate){
+    if(guideCollected){
+        operation_generate(inputDate);
+    }else{
+        setTimeout(function () {
+            console.log("GuideData가 불러와지지 않아 Operation Generate를 잠시 미룹니다")
+            readyForGO(inputDate);
+        }, 300);
+    }
 }
 
 function getQuickDate(index,div){
@@ -76,6 +94,7 @@ function getQuickDate(index,div){
     $(".o_header_date_txt").data('daterangepicker').setEndDate(datestring.add(no));
     getOperationData(datestring.add(no));
     formerDate = datestring.add(no);
+    toast(datestring.add(no) + " 날짜의 Operation을 확인합니다")
 }
 
 function colorQuickDate(pickDate){
@@ -97,14 +116,13 @@ function init_datepicker(){
         getOperationData(start.format('YYYY-MM-DD'));
         colorQuickDate(start.format('YYYY-MM-DD'))
         formerDate = start.format('YYYY-MM-DD');
+        toast(start.format('YYYY-MM-DD') + " 날짜의 Operation을 확인합니다")
     })
 
-    $('.rv_info_date--picker').daterangepicker({
+    $('.rv_info_date--picker').daterangepicker({ //reservation edit시 나타나는 datepicker -> 초기 startdate,enddate지정 불필요
         "autoApply": true,
         singleDatePicker: true,
-        locale: { format: 'YYYY-MM-DD'},
-        startDate:datestring.tomorrow(),
-        endDate:datestring.tomorrow()
+        locale: { format: 'YYYY-MM-DD'}
     })
 
     collect_pickupPlace();
@@ -112,6 +130,7 @@ function init_datepicker(){
 }
 
 function init_quickDate(){
+    //오늘 날짜만 MM/DD 형식으로 표기하고 나머지 날짜는 DD 형식으로 표기.
     for (let i = 0; i < $('.o_header_quick>p').length; i++) {
         let index = $('.o_header_quick>p').eq(i).attr("id").split("_")[2]
         if(index === "0"){
@@ -137,6 +156,7 @@ function collect_pickupPlace(){
         }
         dynamicDrop($("#rev_areadrop"),cityArray);
 
+        //자주 사용되는 국가는 pickupPlace dropdown 상단에 위치하도록 함.
         nationalityArray = ["PHILIPPINES","SINGAPORE","MALAYSIA","INDONESIA","HONG KONG","TAIWAN","UNITED STATES","VIET NAM"]
 
         for (let nat in nationalityData) {
@@ -152,19 +172,23 @@ function collect_pickupPlace(){
         }
         $(".r_add_natDrop").html(droptxt)
     });
+
     firebase.database().ref("product").on("value",snap=>{
         pdata = snap.val();
         let pOriginArray = []
         pNameArray = [];
         pShortArray = [];
+        //지주 사용되는 상품이 dropdown 상단에 위치하도록 함
         let firstArray = ["Seoul_Regular_남쁘","Seoul_Regular_남쁘아","Seoul_Regular_에버","Seoul_Regular_레남아","Seoul_Regular_레남쁘","Seoul_Regular_쁘남레아"]
 
         for (let key in pdata) {
             if(pdata[key].id.indexOf("_")>0){
                 pOriginArray.push(pdata[key].id);
-
             }
         }
+
+        //최종적으로 표시되는 것은 pNameArray이다. 한 단계 꼬아서 처리하는 이유는, firstArray에 담긴 상품들이 Product에서 추후 제거될 수도 있기 때문.
+        //우선 OriginArray에 모든 상품들을 담은 뒤, originArray에 있는 상품들 중  firstArray에 작성된 product들을 pNameArray에 최우선순위로 담고, 남은 상품들을 이어서 담는다.
 
         for (let i = 0; i < firstArray.length; i++) {
             for (let j = 0; j < pOriginArray.length; j++) {
@@ -184,7 +208,6 @@ function collect_pickupPlace(){
             droptxt += '<p class="r_add_pitem">'+pNameArray[i]+'</p>'
         }
         $(".r_add_productDrop").html(droptxt)
-        console.log("너냐")
     });
 }
 

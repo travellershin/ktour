@@ -1,3 +1,16 @@
+let old_revdata = {
+    date:"",
+    product:"",
+    option:[],
+    people:0
+}
+let new_revdata = {
+    date:"",
+    product:"",
+    option:[],
+    people:0
+}
+
 
 $(".ri_footer_edit").click(function(){
     $('.ri').addClass('hidden');
@@ -141,6 +154,7 @@ function r_add_option(id){
 function r_save(id){
     console.log(r_obj);
     console.log(id);
+    let pid = [$(".ol_title").html()];
 
     $('.re').addClass('hidden');
     $('.ri').removeClass('hidden');
@@ -149,20 +163,23 @@ function r_save(id){
     $('.lightBox_shadow').addClass('hidden');
 
 
-    let iArray = ["date","product","area","pickupPlace","pickupTime","chinese","clientName","nationality","people","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
+    let iArray = ["date","product","area","pickupPlace","pickupTime","clientName","nationality","adult","kid","infant","tel","messenger","email","agencyCode","memo"]
+
     for (let i = 0; i < iArray.length; i++) {
-        r_obj[$(".ol_title").html()][id][iArray[i]] = $(".re .rv_info_"+iArray[i]).val();
-        if(typeof r_obj[$(".ol_title").html()][id][iArray[i]] == "undefined"){
-            r_obj[$(".ol_title").html()][id][iArray[i]] = ""
+        r_obj[pid][id][iArray[i]] = $(".re .rv_info_"+iArray[i]).val();
+        if(typeof r_obj[pid][id][iArray[i]] == "undefined"){
+            r_obj[pid][id][iArray[i]] = ""
         }
     }
-    let numberArray = ["people","adult","infant","kid"];
+    console.log(r_obj[pid][id].memo)
+    let numberArray = ["adult","infant","kid"];
     for (let i = 0; i < numberArray.length; i++) {
-        r_obj[$(".ol_title").html()][id][numberArray[i]] = r_obj[$(".ol_title").html()][id][numberArray[i]]*1
+        r_obj[pid][id][numberArray[i]] = r_obj[pid][id][numberArray[i]]*1
     }
-    console.log(r_obj[$(".ol_title").html()][id].memo)
 
-    r_obj[$(".ol_title").html()][id].option = []
+    r_obj[pid][id].people = r_obj[pid][id].adult + r_obj[pid][id].kid
+
+    r_obj[pid][id].option = []
 
     for (let i = 0; i < $(".rec_co_option_name").length; i++) {
         let optdata = {
@@ -170,14 +187,105 @@ function r_save(id){
             people:$(".rec_co_option_people").eq(i).val()*1
         }
         if(optdata.people>0){
-            r_obj[$(".ol_title").html()][id].option.push(optdata)
+            r_obj[pid][id].option.push(optdata)
         }
     }
 
+    new_revdata.people = r_obj[pid][id].people;
+    if(r_obj[pid][id].option){
+        new_revdata.option = r_obj[pid][id].option
+    }else{
+        new_revdata.option = []
+    }
+    new_revdata.product = r_obj[pid][id].product;
+    new_revdata.date = r_obj[pid][id].date;
 
-    toast("저장되었습니다")
-    firebase.database().ref("operation/"+r_obj[$(".ol_title").html()][id].date+"/"+r_obj[$(".ol_title").html()][id].product+"/teams/"+r_obj[$(".ol_title").html()][id].team+"/reservations/"+id).set(r_obj[$(".ol_title").html()][id])
 
+
+    console.log(old_revdata)
+    console.log(new_revdata)
+    let remake = false;
+    let remakeArray = []
+    let optionChange = false;
+
+    for (let key in new_revdata) {
+        if(key !== "option"){
+            if(new_revdata[key] !== old_revdata[key]){
+                remake = true;
+                remakeArray.push(key)
+            }
+        }else{
+            for (let i = 0; i < new_revdata.option.length; i++) {
+                if(old_revdata.option.length === new_revdata.option.length){
+                    if(new_revdata.option[i].option !== old_revdata.option[i].option){
+                        remake = true;
+                        optionChange = true;
+                    }
+                    if(new_revdata.option[i].people !== old_revdata.option[i].people){
+                        remake = true;
+                        optionChange = true;
+                    }
+                }else{
+                    remake = true;
+                    optionChange = true;
+                }
+            }
+
+            if(optionChange){
+                remakeArray.push("option")
+            }
+        }
+    }
+
+    let optTxt
+
+    if(remake){
+        toast(remakeArray+" 변경으로 예약을 다시 잡습니다.");
+
+        let durl = "https://intranet-64851.appspot.com/v1/reservation/edit?"
+
+        for (let key in r_obj[pid][id]) {
+            if(key !== "option"&&key !== "ref"){
+                durl+=key+"="+r_obj[pid][id][key]+"&"
+            }else if(key === "option"){
+                for (let i = 0; i < r_obj[pid][id].option.length; i++) {
+                    durl+="o"+i+"="+r_obj[pid][id].option[i].option+"&"+"p"+i+"="+r_obj[pid][id].option[i].people+"&"
+                }
+            }
+        }
+
+        durl += `ref=${old_revdata.date}/${old_revdata.product}/teams/${old_revdata.team}/reservations/${old_revdata.id}`;
+        console.log(durl)
+
+        // Using YQL and JSONP
+        $.ajax({
+            url: durl,
+            // Tell jQuery we're expecting JSONP
+            dataType: "jsonp",
+            // Work with the response
+            error: function(xhr, exception){
+                if( xhr.status === 200|| xhr.status === 201|| xhr.status === 202){
+                    toast("예약이 정상적으로 잡혔습니다");
+                    reReservationSuccess = true;
+                }else{
+                    console.log('Error : ' + xhr.responseText)
+                    toast("문제가 발생했습니다")
+                }
+            }
+        });
+
+        setTimeout(function () {
+            if(!reReservationSuccess){
+                toast("예약 변경에 실패했습니다. 문제가 지속되면 개발자를 호출해주세요.")
+                reReservationSuccess = false;
+            }
+        }, 8000);
+
+
+    }else{
+        toast("단순 예약변경")
+        firebase.database().ref("operation/"+r_obj[pid][id].date+"/"+r_obj[pid][id].product+"/teams/"+r_obj[pid][id].team+"/reservations/"+id).set(r_obj[pid][id])
+    }
 }
 
 function re_close(){
@@ -250,6 +358,17 @@ function rev_detail(pid,id){
     }else{
         $(".rv_info_option").html("")
     }
+
+    old_revdata.people = data.people;
+    if(data.option){
+        old_revdata.option = data.option
+    }else{
+        old_revdata.option = []
+    }
+    old_revdata.product = data.product;
+    old_revdata.date = data.date;
+    old_revdata.team = data.team;
+    old_revdata.id = data.id;
 
     edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'
 

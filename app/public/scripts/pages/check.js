@@ -161,8 +161,6 @@ function Mailing(){
         }else{
             toast(filter+" 관련 Exception은 없습니다")
         }
-
-
     }
 
     this.show = function(filter){

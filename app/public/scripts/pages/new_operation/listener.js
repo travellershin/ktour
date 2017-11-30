@@ -44,8 +44,11 @@ $(".obe_header_close").click(function(){
 $(".omp_casset").click(function(){
     editCasset($(this).parent().children(".omp_edit")); //teamManage.js
 })
+$(".casset_footer_save").click(function(){
+    saveCasset(); //teamManage.js
+})
 $(".casset_header_close").click(function(){
-    closeCasset();
+    closeCasset(); //teamManage.js
 })
 $(".obe_body").on("click",".drop_item",function(){
     if($(this).attr("did") === "op_bus_company"){

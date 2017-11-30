@@ -10,6 +10,7 @@ let countO = {
         Seomyun:0
     }
 }
+// TODO: 이 기능은 Reservation에서 먼저 완성되었고, Operation에 아직 제대로 도입되지 않은 기능이다.
 
 
 function operation_generate(date){
@@ -17,14 +18,16 @@ function operation_generate(date){
     r_obj = {}
 
     for (let product in operation) {
-        reservation[product] = [];
+        reservation[product] = [];  //reservation탭에서와 달리 reservation과 r_obj는 product별로 담겨야 한다.
         r_obj[product] = {};
 
-        let productPeople = 0
+        let productPeople = 0 //상품의 총 인원수를 표기하기 위한 변수
         operation[product].teamArgArray = []
+        // Operation에서 team(BUS)는 랜덤 키로 저장되기 때문에 생성된 순서대로 표시된다고 보장할 수 없다. 따라서 배열에 키와 생성시간을 담고,
+        //생성시간 순으로 키를 정렬하는 과정이 필요하다. (아래 for문 끝난 직후 sort 개시)
         for (let team in operation[product].teams) {
 
-            for (let id in operation[product].teams[team].reservations) {
+            for (let id in operation[product].teams[team].reservations) { //각 reservation들을 product별로 구분해 담는다.
                 reservation[product].push(operation[product].teams[team].reservations[id])
                 r_obj[product][id] = operation[product].teams[team].reservations[id]
             }
@@ -34,7 +37,7 @@ function operation_generate(date){
             let teamPeople = 0
             for (let reservation in operation[product].teams[team].reservations) {
                 let rrv = operation[product].teams[team].reservations[reservation];
-                if(countO[rrv.area]){
+                if(countO[rrv.area]){ //인원수를 파악하기 위함
                     if(countO[rrv.area][rrv.pickupPlace]){
                         countO[rrv.area][rrv.pickupPlace]+=rrv.people
                     }else{
@@ -49,28 +52,28 @@ function operation_generate(date){
             }
             operation[product].teams[team].people = teamPeople
         }
-
         operation[product].teamArgArray.sort(function(a, b) {
             return a.time - b.time;
         });
+
         for (let i = 0; i < operation[product].teamArgArray.length; i++) {
-            operation[product].teamArgArray[i] = operation[product].teamArgArray[i].name
+            operation[product].teamArgArray[i] = operation[product].teamArgArray[i].name //teamArgArray에서 생성시간의 역할은 이제 끝났다. 이름만 남기기
         }
         operation[product].people = productPeople
 
-        reservation[product].sort(function(a,b){
+        reservation[product].sort(function(a,b){ //추후 각 필터별로 정렬할 때 정렬 순서를 보장할 수 있도록 id순으로 한 번 정렬해준다.
             return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
         })
     }
 
     console.log(reservation)
 
-    let txt = ""
+
 
     guideTotal = [];
     guideTeam = {};
 
-    let cityTxt = {}
+    let cityTxt = {} //이하에서 operation 메인화면을 inflate한다
 
     for (let product in operation) {
         let domdata = operation[product]
@@ -129,6 +132,8 @@ function operation_generate(date){
         Busan:0
     }
 
+    let txt = ""
+
     if(cityTxt.Seoul){
         txt+='<div class="o_cityBox"><div class="ov_hidden"><p class="o_cityBox_cityName fl_left">Seoul</p></div>';
         txt+=cityTxt.Seoul;
@@ -149,23 +154,36 @@ function operation_generate(date){
 
     $(".om").html(txt)
 
+    cash_guide = []
+
     for (let product in operation) {
         if(operation[product].people>0){
             firebase.database().ref("operation/"+date+"/"+product+"/people").set(operation[product].people);
-
         }
 
         for (let team in operation[product].teams) {
-            if(operation[product].teams[team].people>0){
+            let data = operation[product].teams[team];
+
+            if(data.people>0){
                 firebase.database().ref("operation/"+date+"/"+product+"/teams/"+team+"/people").set(operation[product].teams[team].people);
             }
+
+            if(data.cash){
+                for (let guide in data.cash) {
+                    if(data.cash[guide]>0){
+                        cash_guide.push(guide)
+                    }
+                }
+            }
+
+            // TODO: asset_guide도 이런 식으로 초기화
         }
     }
+
+    console.log(cash_guide)
     if(lastRendering.product.length>0){
-        inflate_listTop()
+        inflate_listTop() //보고 있던 product가 있는 경우 해당 화면을 갱신한다.
         inflate_reservation()
     }
-
-    console.log(countO)
 
 }

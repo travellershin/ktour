@@ -5,7 +5,7 @@ function inflate_reservation(){
         filterNumber+= filter_selected[fid].length
     }
     $(".ol_filterClear").html("모든 필터 해제("+filterNumber+")")
-    
+
     console.log(lastRendering)
     let pid = lastRendering.product
 
@@ -45,19 +45,19 @@ function inflate_reservation(){
 
         if(draw){
             domTxt += '<div class="rv_content" tid="'+rev[i].team+'" id="'+rev[i].id+'">'
-            if(rev[i].oCheck){
+            if(rev[i].oCheck === true){
                 domTxt += '<div class="op_content_oCheck oCkeck--checked"></div>'
             }else{
                 domTxt += '<div class="op_content_oCheck"></div>'
             }
 
-            if(rev[i].gCheck){
+            if(rev[i].gCheck === true){
                 domTxt += '<div class="op_content_gCheck gCkeck--checked"></div>'
             }else{
                 domTxt += '<div class="op_content_gCheck"></div>'
             }
 
-            if(rev[i].star){
+            if(rev[i].star === true){
                 domTxt += '<div class="rv_content_star rv_content_star--on"></div>'
             }else{
                 domTxt += '<div class="rv_content_star"></div>'

@@ -129,6 +129,7 @@ function saveCasset(){
             }
         }
         cash[guideViaName[guideName]] = newCash;
+        firebase.database().ref("guide/"+guide+"/schedule/"+date+"/cash").set(newCash)
     }
 
 
@@ -176,10 +177,10 @@ function cashTransasction(guide,amount){ //어떤 가이드로부터 일정 amou
     if(guideData[guide].cash){ //cash값이 null이 아닌 경우에만 transaction 사용
         firebase.database().ref("guide/"+guide+"/cash").transaction(function(currentCash){
             return currentCash + amount
-        })
+        });
     }else{ //cash값이 null이면 cash 위치에 새로 set함
         firebase.database().ref("guide/"+guide+"/cash").set(amount)
-    }
+    };
 }
 
 function assetTransaction(guide,name,size){
@@ -332,6 +333,19 @@ function arrangeGuide(div){ //edit Team 팝업에서 가이드를 할당했을 �
 }
 
 function saveTeam(div){
+    //한 가이드가 중복으로 들어가는지 여부를 체크
+    let checkArray = []
+    for (let i = 0; i < $(".obe_body_guide>input").length; i++) {
+        console.log($(".obe_body_guide>input").eq(i).val())
+        if(checkArray.includes($(".obe_body_guide>input").eq(i).val())){
+            if($(".obe_body_guide>input").eq(i).val() !== "Unassigned"){
+                toast($(".obe_body_guide>input").eq(i).val() + " 가이드가 중복 배차되었습니다");
+                return false;
+            }
+        }else{
+            checkArray.push($(".obe_body_guide>input").eq(i).val())
+        }
+    }
 
     let tid = div.attr("tid");
     let pid = div.attr("pid");
@@ -420,7 +434,8 @@ function saveTeam(div){
         if(!old_guide.includes(new_guide[i])){ //팀에 원래 존재하던 가이드가 아니라면
             firebase.database().ref("guide/"+new_guide[i]+"/schedule/"+date).set({ //새로운 스케줄이 생겼다는 뜻이니 set해주고
                 product:pid,
-                team:tid
+                team:tid,
+                cash:0
             });
 
             if(!opteamdata.cash){

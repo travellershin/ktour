@@ -6,7 +6,6 @@ function inflate_reservation(){
     }
     $(".ol_filterClear").html("모든 필터 해제("+filterNumber+")")
 
-    console.log(lastRendering)
     let pid = lastRendering.product
 
     reservation[pid].sort(function(a,b){

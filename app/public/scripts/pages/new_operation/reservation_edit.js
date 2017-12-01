@@ -36,7 +36,7 @@ $(".ri_footer_cancel").click(function(){
 })
 
 $(".alert_footer_yes").click(function(){
-    cancel_reservation($(".re_footer_save").attr("id"));
+    cancel_reservation($(this).attr("id"),$(this).attr("pid"),"Canceled Reservation");
 })
 
 $(".alert_footer_no").click(function(){
@@ -299,17 +299,33 @@ function re_close(){
 function show_cancel_confirm(){
     $(".alert_contents").html("<p>Are you sure you want to cancel this reservation?</p>")
     $(".alert_background").removeClass("hidden");
+    $(".alert_why").val("")
 }
 
-function cancel_reservation(id){
-    console.log(id)
+function cancel_reservation(sid,pid,msg){
     toast("예약을 취소합니다");
     $(".alert_background").addClass("hidden");
     $("body").css("overflow","auto")
     $(".popUp").addClass("hidden");
     $(".lightBox_shadow").addClass("hidden");
-    firebase.database().ref("canceled/"+id).set(r_obj[$(".ol_title").html()][id]);
-    firebase.database().ref("operation/"+r_obj[$(".ol_title").html()][id].date+"/"+r_obj[$(".ol_title").html()][id].product+"/teams/"+r_obj[$(".ol_title").html()][id].team+"/reservations/"+id).remove()
+    r_obj[pid][sid].why = $(".alert_why").val()
+    r_obj[pid][sid].canceledDate = datestring.today()
+    console.log(r_obj[pid][sid])
+    let data = {
+        writer : r_obj[pid][sid].agency,
+        card: - r_obj[pid][sid].sales,
+        category:"reservation",
+        currency:r_obj[pid][sid].currency,
+        date:r_obj[pid][sid].date,
+        id:sid,
+        detail:msg + ". Reason : "+$(".alert_why").val()
+    }
+    firebase.database().ref("canceled/"+sid).set(r_obj[pid][sid]);
+    firebase.database().ref("operation/"+r_obj[pid][sid].date+"/"+r_obj[pid][sid].product+"/teams/"+r_obj[pid][sid].team+"/reservations/"+sid).remove();
+
+
+    firebase.database().ref("account/"+sid).set(data)
+    console.log(data)
 }
 
 function cancel_cancel(){
@@ -342,7 +358,8 @@ function rev_detail(pid,id){
     $(".rv_info_kid").val(data.kid*1)
     $(".rv_info_infant").val(infant)
     $(".rv_info_people").html(data.adult*1+data.kid*1+" (adult "+data.adult+" / kid "+data.kid+")")
-
+    $(".alert_footer_yes").attr("id",id);
+    $(".alert_footer_yes").attr("pid",pid);
     let edittxt = ""
     if(data.option){
         let txt = ""

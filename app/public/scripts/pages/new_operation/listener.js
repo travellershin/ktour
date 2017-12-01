@@ -44,6 +44,9 @@ $(".obe_header_close").click(function(){
 $(".omp_casset").click(function(){
     editCasset($(this).parent().children(".omp_edit")); //teamManage.js
 })
+$(".casset_asset_add").click(function(){
+    addAsset();
+})
 $(".casset_footer_save").click(function(){
     saveCasset(); //teamManage.js
 })

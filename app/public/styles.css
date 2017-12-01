@@ -2842,12 +2842,16 @@ textarea::-webkit-scrollbar-thumb
         text-align: right;
         float: right;
         padding: 9px 11px;
+        border-radius: 5px;
     }
 .casset_asset_name{
             text-decoration: underline;
             height: 40px;
             line-height: 40px;
         }
+.casset_asset_name--noUnderLine{
+                text-decoration: none;
+            }
 .casset_asset_add{
             margin-top: 15px;
             font-size: 13px;

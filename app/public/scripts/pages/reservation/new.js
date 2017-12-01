@@ -185,7 +185,7 @@ function r_new_save(){
         let o = $(".r_add_input_option").eq(i).val();
         let p = $(".r_add_input_option_people").eq(i).val()
         if(o.length>0&&p>0){
-            durl+="o="+o+"&p="+p+"&";
+            durl+="o"+i+"="+o+"&p"+i+"="+p+"&";
         }
     }
 

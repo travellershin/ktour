@@ -80,11 +80,16 @@
         text-align: right;
         float: right;
         padding: 9px 11px;
+        border-radius: 5px;
 
         &_name{
             text-decoration: underline;
             height: 40px;
             line-height: 40px;
+
+            &--noUnderLine{
+                text-decoration: none;
+            }
         }
 
         &_add{

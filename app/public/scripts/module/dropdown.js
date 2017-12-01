@@ -9,7 +9,6 @@ $(document).on("click",".dw_dropdown",function(event){
         //dropdown이 달린 경우 - 열었다닫았다만
         if($("#drop_"+did).hasClass("display_none")){
             $("#drop_"+did).toggleClass("display_none")
-            console.log("토글")
         }
 
 
@@ -31,7 +30,6 @@ $(document).on("click",".dw_dropdown",function(event){
         }
         appendTxt+="</div>"
         $(this).after(appendTxt)
-        console.log($(this).position().left)
         $("#drop_"+did).css({
             "left":$(this).position().left +"px",
             "top":$(this).position().top +40 +"px",
@@ -44,7 +42,6 @@ $(document).on("click",".dw_dndropdown",function(){
     event.stopPropagation();
     let did = $(this).attr("id"); //드롭다운에 쭉 쓰일 id값
     $("#drop_"+did).toggleClass("display_none")
-    console.log("토글")
 })
 
 function dynamicDrop(div,item){
@@ -94,7 +91,6 @@ $(document).on("click",".drop_item",function(event){
         $("#drop_"+did).addClass("display_none");
         $("#"+did).val($(this).html());
         $("#"+did).attr("value",$(this).html());
-        console.log($(this).html())
     }
 })
 

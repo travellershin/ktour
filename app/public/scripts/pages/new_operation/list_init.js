@@ -3,9 +3,6 @@ function show_list(pid){
     lastRendering.order = []
     lastRendering.bus = 0
 
-    console.log(operation)
-    console.log(lastRendering)
-
     $(".om").addClass("hidden");
     $(".ol_return").removeClass("hidden")
     $(".ol").removeClass("hidden")
@@ -33,8 +30,6 @@ function show_list(pid){
 
 function inflate_listTop(){
 
-    console.log(lastRendering.product)
-
     let pid = $(".ol_title").html()
 
     // TODO: 어떤 버스를 보고있었는지에 따라 선택하기
@@ -42,7 +37,6 @@ function inflate_listTop(){
     let data = operation[pid]
     let bustxt = "";
     let busEditTxt = "";
-    console.log(data)
     if(lastRendering.bus===0){
         bustxt+='<div class="ol_bus_total ol_bus_box--selected ol_bus_box"><p class="ol_bus_total_txt">TOTAL</p><p class="ol_bus_total_number">'+data.people+'</p></div>'
     }else{

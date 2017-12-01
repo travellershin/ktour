@@ -66,10 +66,6 @@ function operation_generate(date){
         })
     }
 
-    console.log(reservation)
-
-
-
     guideTotal = [];
     guideTeam = {};
 
@@ -151,7 +147,6 @@ function operation_generate(date){
             txt+='</div>'
         }
     }
-
     $(".om").html(txt)
 
     cash_guide = []
@@ -179,8 +174,6 @@ function operation_generate(date){
             // TODO: asset_guide도 이런 식으로 초기화
         }
     }
-
-    console.log(cash_guide)
     if(lastRendering.product.length>0){
         inflate_listTop() //보고 있던 product가 있는 경우 해당 화면을 갱신한다.
         inflate_reservation()

@@ -30,7 +30,7 @@ function teamPop(div,event){
     $(".om_pop_memofrom").html(memotxt);
 }
 
-let old_guide = []; //현재 어디엔가 배치되어 있는 가이드 배열(가이드 팀 내에서 삭제시 배차 해제)
+let old_guide = []; //원래 배차되어 있던 가이드
 // TODO: cash_guide와 asset_guide는 모든 오퍼레이션 불러올 때 가져와야 할 듯
 
 let cash_guide = []; //현재 cash를 들고 있는 가이드 배열(가이드가 팀 내에서 삭제시 cash 회수)
@@ -39,6 +39,9 @@ let new_guide = [];
 
 let guideTotal = [];//guide 중복 배치를 체크하기 위한 array. 안의 키는 inflate.js에서 데이터를 불러오며 담김
 let guideTeam = {} //{key:[product,teamID, team넘버, guide Array 몇번째인지] 형태}. 중복배치를 하면 product team에서 제거합니다가 뜰것이다
+
+let old_asset_list = [];
+let old_asset_obj = {};
 
 
 function editCasset(div){
@@ -58,12 +61,23 @@ function editCasset(div){
         $(".casset_blackBoard").removeClass("hidden");
         let cashTxt = ""
 
-        if(teamdata.cash){
-            for (let guide in teamdata.cash) {
-                cashTxt+='<div class="casset_line"><p class="casset_name">'+guideData[guide].name+'</p>'
-                cashTxt+='<input class="casset_cash" type="number" value="'+teamdata.cash[guide]+'"/><p class="casset_won">WON</p></div>'
+        for (let guide in teamdata.cash) {
+            cashTxt+='<div class="casset_line"><p class="casset_name">'+guideData[guide].name+'</p>'
+            cashTxt+='<input class="casset_cash" type="number" value="'+teamdata.cash[guide]+'"/><p class="casset_won">WON</p></div>'
+        }
+
+        let assetTxt = ''
+        old_asset_obj = {};
+        old_asset_list = [];
+        if(teamdata.asset){
+            for (let name in teamdata.asset) {
+                let size = teamdata.asset[name]
+                old_asset_list.push(name);
+                old_asset_obj[name] = size;
+                assetTxt+='<div class="casset_line"><input class="casset_asset_name casset_asset_name--noUnderLine" spellcheck="false" value="'+name+'" readonly><input class="casset_asset" type="number" value="'+size+'"></div>'
             }
         }
+        $(".casset_asset_div").html(assetTxt)
         $(".casset_cash_div").html(cashTxt)
     }else{
         toast("가이드가 배정되지 않아 Cash, Asset을 분배할 수 없습니다")
@@ -72,6 +86,7 @@ function editCasset(div){
 
 function saveCasset(){
     let cash = {}; //team data의 cash 항목에 저장될 객체
+    let asset = {}; //team data의 asset 항목에 저장될 객체
     let pid = $(".casset_footer_save").attr("pid");
     let tid = $(".casset_footer_save").attr("tid");
     let teamdata = operation[pid].teams[tid];
@@ -85,10 +100,10 @@ function saveCasset(){
             if(!cash_guide.includes(guide)){ //원래 cash를 안 가지고 있었던 경우
                 cash_guide.push(guide); //신규 분배
                 cashTransasction(guide, newCash)
-            }
-
-            if(newCash !== teamdata.cash[guide]){ //cash 양이 달라진 경우
-                cashTransasction(guide, (newCash - teamdata.cash[guide]))
+            }else{
+                if(newCash !== teamdata.cash[guide]){ //가지고 있던 cash 양이 달라진 경우
+                    cashTransasction(guide, (newCash - teamdata.cash[guide]))
+                }
             }
 
         }else if(newCash < 0){ //분배된 캐시에 음수를 입력한 경우
@@ -101,17 +116,54 @@ function saveCasset(){
                 cash_guide.splice(cash_guide.indexOf(guide,1));  //cash를 가지고 있던 가이드 배열에서 제거
                 cashTransasction(guide, -teamdata.cash[guide]) //가이드가 보유한 cash transaction으로 제거
 
-                // TODO: 팀정보 - cash 배열에서 해당 가이드 제거!!!!!!!!!!!!!!!!!!!(object - delete로)
+                teamdata.cash[guide] = 0
             }
         }
         cash[guideViaName[guideName]] = newCash;
     }
-    firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/cash").set(cash)
+
+
+    for (let i = 0; i < $(".casset_asset_name").length; i++) {
+        let name = $(".casset_asset_name").eq(i).val();
+        let size = $(".casset_asset").eq(i).val()*1
+        let guide = guideViaName[$(".casset_name").eq(0).html()] //Asset에서 말하는 guide는 대장 가이드
+
+        if(old_asset_list.length === 0){ //아무것도 없었다가 새로 Asset을 부여하는 경우
+            asset_guide.push(guide) //대장 가이드를 Asset 보유자로 신규 지정한다!
+        }
+
+        if(size > 0){ //분배된 Asset이 있는 경우
+            if(!old_asset_list.includes(name)){ //원래 안 가지고 있었던 Asset이다.
+                assetTransaction(guide, name, size)
+            }else{ //가지고 있던 Asset이더라도
+                if(size !== teamdata.asset[name]){ //양이 달라진 경우
+                    assetTransaction(guide, name, size - teamdata.asset[name])
+                }
+            }
+
+        }else if(size < 0){ //분배된 Asset이에 음수를 입력한 경우
+            toast("Asset은 음수로 입력할 수 없습니다")
+            return false;
+        }else{ //그 외 이상한 것을 입력했거나 아무것도 입력하지 않은 경우, 분배된 캐시가 0인 경우
+            $(".casset_asset").eq(i).val(0) //입력된 값을 0으로 통일(이상한 값을 입력했거나 아무것도 입력하지 않았을 경우 대비)
+            size = 0
+
+            if(old_asset_list.includes(name)){ //원래 기지고 있었던 Asset이라면.
+                assetTransaction(guide, name, - teamdata.asset[name])
+                delete teamdata.asset[name] //없애버리자
+            }
+        }
+        if(size>0){
+            asset[name] = size
+        }
+    }
+
+    firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/cash").set(cash);
+    firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/asset").set(asset);
 }
 
 
 function cashTransasction(guide,amount){ //어떤 가이드로부터 일정 amount의 cash를 더하거나 빼는 작업
-
     if(guideData[guide].cash){ //cash값이 null이 아닌 경우에만 transaction 사용
         firebase.database().ref("guide/"+guide+"/cash").transaction(function(currentCash){
             return currentCash + amount
@@ -119,7 +171,30 @@ function cashTransasction(guide,amount){ //어떤 가이드로부터 일정 amou
     }else{ //cash값이 null이면 cash 위치에 새로 set함
         firebase.database().ref("guide/"+guide+"/cash").set(amount)
     }
+}
 
+function assetTransaction(guide,name,size){
+    if(guideData[guide].asset){
+        if(guideData[guide].asset[name]){ //asset값이 null이 아닌 경우에만 transaction 사용
+            firebase.database().ref("guide/"+guide+"/asset/"+name).transaction(function(currentAsset){
+                return currentAsset + size
+            })
+        }else{
+            guideData[guide].asset[name] = size
+            firebase.database().ref("guide/"+guide+"/asset/"+name).set(size)
+        }
+    }else{
+        guideData[guide].asset = {};
+        guideData[guide].asset[name] = size
+        firebase.database().ref("guide/"+guide+"/asset/"+name).set(size)
+    }
+}
+
+function addAsset(){
+    let txt = '';
+    txt+='<div class="casset_line"><input class="casset_asset_name" spellcheck="false" value="ASSET NAME"><input class="casset_asset" type="number"></div>'
+
+    $(".casset_asset_div").append(txt)
 }
 
 function editTeam(div){ //버스정보 -> edit을 누르면 호출됨(edit창 띄우기)
@@ -137,6 +212,7 @@ function editTeam(div){ //버스정보 -> edit을 누르면 호출됨(edit창 �
     }else{
         old_guide = []
     }
+    console.log(old_guide)
 
     firebase.database().ref("product").orderByChild("id").equalTo(pid).once("value",snap => { //but company와 type, 가격을 불러오기 위해 호출
         let data = snap.val();
@@ -259,6 +335,15 @@ function saveTeam(div){
         bussize = $("#op_bus_size").val().split("인승(")[0]*1;
         buscost = $("#op_bus_size").val().split("인승(")[1].slice(0,-2)*1;
     }
+    let cashdata = {};
+    let assetdata = {};
+    if(operation[pid].teams[tid].cash){
+        cashdata = operation[pid].teams[tid].cash;
+    }
+    if(operation[pid].teams[tid].asset){
+        assetdata = operation[pid].teams[tid].asset;
+    }
+    let teamdata = operation[pid].teams[tid];
 
     let newGuideArray = [];
     for (var i = 0; i < $(".obe_body_guide>input").length; i++) {
@@ -273,53 +358,62 @@ function saveTeam(div){
         bus_size:bussize,
         bus_cost:buscost,
         guide:newGuideArray,
-        message:memo_to
+        message:memo_to,
+        cash:cashdata,
+        asset:assetdata
     }
 
     if(old_guide.length>0){ //원래 old_guide가 있었고
         if(newGuideArray.length>0){ //new_guide가 있다면
             if(old_guide[0] !== newGuideArray[0]){ //대장 guide가 혹시 바뀌었는지 비교
-                // TODO: oldguide에게서 asset을 제거하고 asset transaction
+
+                if(operation[pid].teams[tid].asset){ //asset이 있었다면
+                    for (let name in assetdata) {
+                        let size = assetdata[name];
+                        assetTransaction(old_guide[0], name, -size); //Asset을 옮겨주자
+                        assetTransaction(newGuideArray[0], name, size);
+                        toast("변경된 대표 가이드에게 Asset을 부여합니다")
+                    }
+                }
             }
         }else{ //가이드들이 모두 배차 해제되었다면
-            // TODO: oldguide에게서 asset을 제거하고 asset transaction
-        }
-    }else{ //원래 old_guide가 없었다가
-        if(newGuideArray.length>0){ //새로 생겼다면
-            // TODO: newGuide 0번에게 asset을 부여하고 asset transaction
+            if(operation[pid].teams[tid].asset){
+                toast("분배된 Asset이 있어 최소 한 명의 가이드가 배치되어야 합니다.")
+                return false;
+            }
         }
     }
 
-    for (let i = 0; i < old_guide.length; i++) { //edit popup을 처음 열 때 확인한 old_guide정보를 확인해서
-        if(!newGuideArray.includes(old_guide[i])){ //해당 가이드가 new guide 목록에서 빠졌다면
+    for (let i = 0; i < old_guide.length; i++) { // 원래 배치되어 있던 가이드가
+        if(!newGuideArray.includes(old_guide[i])){ //새로운 팀에서 빠졌다면
+            console.log(guideData[old_guide[i]].name + " 가이드가 팀에서 제외되었습니다")
+            console.log(teamdata.cash);
 
             firebase.database().ref("guide/"+old_guide[i]+"/schedule/"+date).remove(); //가이드 스케줄을 제거함
+            cashTransasction(old_guide[i], -cashdata[old_guide[i]]) //가이드가 보유한 cash transaction으로 제거
+            delete opteamdata.cash[old_guide[i]] //cash리스트에서 제거
 
-            if(cash_guide.includes(old_guide[i])){ //그런데 해당 가이드가 cash를 가지고 있기까지 했다면
-                // TODO: cash분배를 0으로 하고 가이드에게서 cash transaction
-                let old_pid = guideTeam[old_guide[i]][0];
-                let old_tid = guideTeam[old_guide[i]][1];
-                let teamdata = operation[old_pid].teams[old_tid];
-
-                // TODO: 팀정보 - cash 배열에서 해당 가이드 제거!!!!!!!!!!!!!!!!!!!
-
+            if(cash_guide.includes(old_guide[i])){ //해당 가이드가 실제로 cash를 가지고 있었다면
                 cash_guide.splice(cash_guide.indexOf(old_guide[i],1));  //cash를 가지고 있던 가이드 배열에서 제거
-                cashTransasction(old_guide[i], -teamdata.cash[old_guide[i]]) //가이드가 보유한 cash transaction으로 제거
-                console.log("가이드제거!!트랜젝션!!")
             }
         }
     }
 
     let toastGuideName = ""
-    for (let i = 0; i < newGuideArray.length; i++) {
-        if(!old_guide.includes(newGuideArray[i])){
-            firebase.database().ref("guide/"+newGuideArray[i]+"/schedule/"+date).set({
+    for (let i = 0; i < newGuideArray.length; i++) { //배치된 가이드가
+        if(!old_guide.includes(newGuideArray[i])){ //팀에 원래 존재하던 가이드가 아니라면
+            firebase.database().ref("guide/"+newGuideArray[i]+"/schedule/"+date).set({ //새로운 스케줄이 생겼다는 뜻이니 set해주고
                 product:pid,
                 team:tid
-            })
+            });
 
-            if(guideTotal.includes(newGuideArray[i])){
-                if(toastGuideName.length>0){
+            if(!opteamdata.cash){
+                opteamdata.cash = {}
+            }
+            opteamdata.cash[newGuideArray[i]] = 0
+
+            if(guideTotal.includes(newGuideArray[i])){ //다른 팀에 있다가 옮겨온 것이라면
+                if(toastGuideName.length>0){ //재배차되었다는것을 알리기 위한 문구를 작성함
                     toastGuideName+=", "+guideData[newGuideArray[i]].name
                 }else{
                     toastGuideName+=guideData[newGuideArray[i]].name
@@ -329,15 +423,24 @@ function saveTeam(div){
                 let old_no = guideTeam[newGuideArray[i]][3];
 
                 operation[old_pid].teams[old_team].guide.splice(old_no,1) //원 소속팀에서 새로 배차된 가이드를 제거
-                firebase.database().ref("operation/"+date+"/"+old_pid+"/teams/"+old_team+"/guide").set(operation[old_pid].teams[old_team].guide); //하고 그 정보를 set함
+                cashTransasction(newGuideArray[i], -operation[old_pid].teams[old_team].cash[newGuideArray[i]]) //가이드가 보유한 cash transaction으로 제거
+
+                if(operation[old_pid].teams[old_team].cash){
+                    if(operation[old_pid].teams[old_team].cash[newGuideArray[i]]){
+                        delete operation[old_pid].teams[old_team].cash[newGuideArray[i]] //원 소속팀 cash분배 리스트에서 제거
+                    }
+                }
+
+                firebase.database().ref("operation/"+date+"/"+old_pid+"/teams/"+old_team).update(operation[old_pid].teams[old_team]); //위의 두 정보를 업데이트함
             }
         }
     }
+
     if(toastGuideName.length>0){
         toast(toastGuideName+" 가이드가 재배치되었습니다.")
     }
 
-    firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid).update(opteamdata)
+    firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid).update(opteamdata);
     $(".pop_blackScreen").addClass("hidden");
     $(".obe").addClass("hidden");
     $("body").css("overflow","auto")

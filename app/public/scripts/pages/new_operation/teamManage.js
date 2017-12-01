@@ -31,11 +31,9 @@ function teamPop(div,event){
 }
 
 let old_guide = []; //원래 배차되어 있던 가이드
-// TODO: cash_guide와 asset_guide는 모든 오퍼레이션 불러올 때 가져와야 할 듯
 
 let cash_guide = []; //현재 cash를 들고 있는 가이드 배열(가이드가 팀 내에서 삭제시 cash 회수)
 let asset_guide = []; //현재 asset을 들고 있는 가이드 배열(가이드 팀 내에서 삭제 뿐만 아니라 같은 팀 내에서 위치만이라도 변경시 asset을 회수)
-let new_guide = [];
 
 let guideTotal = [];//guide 중복 배치를 체크하기 위한 array. 안의 키는 inflate.js에서 데이터를 불러오며 담김
 let guideTeam = {} //{key:[product,teamID, team넘버, guide Array 몇번째인지] 형태}. 중복배치를 하면 product team에서 제거합니다가 뜰것이다
@@ -91,6 +89,20 @@ function saveCasset(){
     let tid = $(".casset_footer_save").attr("tid");
     let teamdata = operation[pid].teams[tid];
 
+    for (let i = 0; i < $(".casset_cash").length; i++) {
+        if($(".casset_cash").eq(i).val()*1 < 0){
+            toast("현금은 음수로 입력할 수 없습니다")
+            return false;
+        }
+    }
+    for (let i = 0; i < $(".casset_asset").length; i++) {
+        if($(".casset_asset").eq(i).val()*1 < 0){
+            toast("Asset은 음수로 입력할 수 없습니다")
+            return false;
+        }
+    }
+
+
     for (let i = 0; i < $(".casset_name").length; i++) {
         let guideName = $(".casset_name").eq(i).html();
         let guide = guideViaName[guideName]
@@ -106,9 +118,6 @@ function saveCasset(){
                 }
             }
 
-        }else if(newCash < 0){ //분배된 캐시에 음수를 입력한 경우
-            toast("분배할 현금은 음수로 입력할 수 없습니다")
-            return false;
         }else{ //그 외 이상한 것을 입력했거나 아무것도 입력하지 않은 경우, 분배된 캐시가 0인 경우
             $(".casset_cash").eq(i).val(0) //입력된 값을 0으로 통일(이상한 값을 입력했거나 아무것도 입력하지 않았을 경우 대비)
             newCash = 0
@@ -141,9 +150,6 @@ function saveCasset(){
                 }
             }
 
-        }else if(size < 0){ //분배된 Asset이에 음수를 입력한 경우
-            toast("Asset은 음수로 입력할 수 없습니다")
-            return false;
         }else{ //그 외 이상한 것을 입력했거나 아무것도 입력하지 않은 경우, 분배된 캐시가 0인 경우
             $(".casset_asset").eq(i).val(0) //입력된 값을 0으로 통일(이상한 값을 입력했거나 아무것도 입력하지 않았을 경우 대비)
             size = 0
@@ -153,13 +159,16 @@ function saveCasset(){
                 delete teamdata.asset[name] //없애버리자
             }
         }
+
         if(size>0){
-            asset[name] = size
+            asset[name] = size;
         }
     }
 
     firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/cash").set(cash);
     firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/asset").set(asset);
+
+    $(".casset_blackBoard").addClass("hidden")
 }
 
 
@@ -204,8 +213,6 @@ function editTeam(div){ //버스정보 -> edit을 누르면 호출됨(edit창 �
     let busno = div.attr("busno");
     let teamdata = operation[pid].teams[tid];
     $("body").css("overflow","hidden");
-
-    new_guide = []
 
     if(teamdata.guide){
         old_guide = teamdata.guide
@@ -345,10 +352,18 @@ function saveTeam(div){
     }
     let teamdata = operation[pid].teams[tid];
 
-    let newGuideArray = [];
+    let new_guide = [];
     for (var i = 0; i < $(".obe_body_guide>input").length; i++) {
         if($(".obe_body_guide>input").eq(i).val() !== "Unassigned"){
-            newGuideArray.push(guideViaName[$(".obe_body_guide>input").eq(i).val()])
+            let guide = guideViaName[$(".obe_body_guide>input").eq(i).val()];
+            new_guide.push(guide)
+
+            if(asset_guide.includes(guide)){//만일 해당 가이드가 이미 Asset을 가진 대표 가이드라면
+                if(!old_guide.includes(guide)){//그런데 다른 팀에서 가지고 있는거라면
+                    toast(guideData[guide].name + " 가이드는 다른 팀에서 Asset을 부여받은 대표 가이드 입니다.")
+                    return false;
+                }
+            }
         }
     }
     let memo_to = $("#op_message").val()
@@ -357,21 +372,22 @@ function saveTeam(div){
         bus_name:busname,
         bus_size:bussize,
         bus_cost:buscost,
-        guide:newGuideArray,
+        guide:new_guide,
         message:memo_to,
         cash:cashdata,
         asset:assetdata
     }
 
+
     if(old_guide.length>0){ //원래 old_guide가 있었고
-        if(newGuideArray.length>0){ //new_guide가 있다면
-            if(old_guide[0] !== newGuideArray[0]){ //대장 guide가 혹시 바뀌었는지 비교
+        if(new_guide.length>0){ //new_guide가 있다면
+            if(old_guide[0] !== new_guide[0]){ //대장 guide가 혹시 바뀌었는지 비교
 
                 if(operation[pid].teams[tid].asset){ //asset이 있었다면
                     for (let name in assetdata) {
                         let size = assetdata[name];
                         assetTransaction(old_guide[0], name, -size); //Asset을 옮겨주자
-                        assetTransaction(newGuideArray[0], name, size);
+                        assetTransaction(new_guide[0], name, size);
                         toast("변경된 대표 가이드에게 Asset을 부여합니다")
                     }
                 }
@@ -385,7 +401,7 @@ function saveTeam(div){
     }
 
     for (let i = 0; i < old_guide.length; i++) { // 원래 배치되어 있던 가이드가
-        if(!newGuideArray.includes(old_guide[i])){ //새로운 팀에서 빠졌다면
+        if(!new_guide.includes(old_guide[i])){ //새로운 팀에서 빠졌다면
             console.log(guideData[old_guide[i]].name + " 가이드가 팀에서 제외되었습니다")
             console.log(teamdata.cash);
 
@@ -400,9 +416,9 @@ function saveTeam(div){
     }
 
     let toastGuideName = ""
-    for (let i = 0; i < newGuideArray.length; i++) { //배치된 가이드가
-        if(!old_guide.includes(newGuideArray[i])){ //팀에 원래 존재하던 가이드가 아니라면
-            firebase.database().ref("guide/"+newGuideArray[i]+"/schedule/"+date).set({ //새로운 스케줄이 생겼다는 뜻이니 set해주고
+    for (let i = 0; i < new_guide.length; i++) { //배치된 가이드가
+        if(!old_guide.includes(new_guide[i])){ //팀에 원래 존재하던 가이드가 아니라면
+            firebase.database().ref("guide/"+new_guide[i]+"/schedule/"+date).set({ //새로운 스케줄이 생겼다는 뜻이니 set해주고
                 product:pid,
                 team:tid
             });
@@ -410,24 +426,24 @@ function saveTeam(div){
             if(!opteamdata.cash){
                 opteamdata.cash = {}
             }
-            opteamdata.cash[newGuideArray[i]] = 0
+            opteamdata.cash[new_guide[i]] = 0
 
-            if(guideTotal.includes(newGuideArray[i])){ //다른 팀에 있다가 옮겨온 것이라면
+            if(guideTotal.includes(new_guide[i])){ //다른 팀에 있다가 옮겨온 것이라면
                 if(toastGuideName.length>0){ //재배차되었다는것을 알리기 위한 문구를 작성함
-                    toastGuideName+=", "+guideData[newGuideArray[i]].name
+                    toastGuideName+=", "+guideData[new_guide[i]].name
                 }else{
-                    toastGuideName+=guideData[newGuideArray[i]].name
+                    toastGuideName+=guideData[new_guide[i]].name
                 }
-                let old_pid = guideTeam[newGuideArray[i]][0];
-                let old_team = guideTeam[newGuideArray[i]][1];
-                let old_no = guideTeam[newGuideArray[i]][3];
+                let old_pid = guideTeam[new_guide[i]][0];
+                let old_team = guideTeam[new_guide[i]][1];
+                let old_no = guideTeam[new_guide[i]][3];
 
                 operation[old_pid].teams[old_team].guide.splice(old_no,1) //원 소속팀에서 새로 배차된 가이드를 제거
-                cashTransasction(newGuideArray[i], -operation[old_pid].teams[old_team].cash[newGuideArray[i]]) //가이드가 보유한 cash transaction으로 제거
+                cashTransasction(new_guide[i], -operation[old_pid].teams[old_team].cash[new_guide[i]]) //가이드가 보유한 cash transaction으로 제거
 
                 if(operation[old_pid].teams[old_team].cash){
-                    if(operation[old_pid].teams[old_team].cash[newGuideArray[i]]){
-                        delete operation[old_pid].teams[old_team].cash[newGuideArray[i]] //원 소속팀 cash분배 리스트에서 제거
+                    if(operation[old_pid].teams[old_team].cash[new_guide[i]]){
+                        delete operation[old_pid].teams[old_team].cash[new_guide[i]] //원 소속팀 cash분배 리스트에서 제거
                     }
                 }
 

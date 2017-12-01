@@ -149,7 +149,8 @@ function operation_generate(date){
     }
     $(".om").html(txt)
 
-    cash_guide = []
+    cash_guide = [];
+    asset_guide = []
 
     for (let product in operation) {
         if(operation[product].people>0){
@@ -171,9 +172,14 @@ function operation_generate(date){
                 }
             }
 
+            if(data.asset){
+                asset_guide.push(data.guide[0])
+            }
+
             // TODO: asset_guide도 이런 식으로 초기화
         }
     }
+    console.log(asset_guide)
     if(lastRendering.product.length>0){
         inflate_listTop() //보고 있던 product가 있는 경우 해당 화면을 갱신한다.
         inflate_reservation()

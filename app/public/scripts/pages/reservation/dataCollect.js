@@ -311,6 +311,7 @@ function collect_pickupPlace(){
     });
     firebase.database().ref("product").on("value",snap=>{
         pdata = snap.val();
+        console.log(pdata)
         let pOriginArray = []
         pNameArray = [];
         pShortArray = [];

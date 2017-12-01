@@ -53,7 +53,7 @@ $(document).ready(function(){
     init_datepicker(); //datepicker를 초기화하고 collect_pickupPlace, collect_agency를 이어서 진행함
     init_quickDate(); //quickdate 날짜들을 어제 ~ 오늘+9일 범위로 설정
     //getOperationData(datestring.today()) //operation data를 DB에서 불러옴.
-    getOperationData("2017-07-11") // TODO: 현재 임시로 예전 데이터를 가지고 노는중
+    getOperationData(datestring.today())
 })
 
 function getOperationData(inputDate){
@@ -175,30 +175,40 @@ function collect_pickupPlace(){
 
     firebase.database().ref("product").on("value",snap=>{
         pdata = snap.val();
-        let pOriginArray = []
         pNameArray = [];
         pShortArray = [];
+        let pOnArray = [];
+        let pOffArray = []
         //지주 사용되는 상품이 dropdown 상단에 위치하도록 함
         let firstArray = ["Seoul_Regular_남쁘","Seoul_Regular_남쁘아","Seoul_Regular_에버","Seoul_Regular_레남아","Seoul_Regular_레남쁘","Seoul_Regular_쁘남레아"]
 
         for (let key in pdata) {
             if(pdata[key].id.indexOf("_")>0){
-                pOriginArray.push(pdata[key].id);
+                if(pdata[key].info.status === "ON"){
+                    pOnArray.push(pdata[key].id);
+                }else{
+                    pOffArray.push(pdata[key].id);
+                }
             }
         }
 
         //최종적으로 표시되는 것은 pNameArray이다. 한 단계 꼬아서 처리하는 이유는, firstArray에 담긴 상품들이 Product에서 추후 제거될 수도 있기 때문.
-        //우선 OriginArray에 모든 상품들을 담은 뒤, originArray에 있는 상품들 중  firstArray에 작성된 product들을 pNameArray에 최우선순위로 담고, 남은 상품들을 이어서 담는다.
+        //우선 onArray와 offArray로 구분한 다음, 각각에서 firstArray에 있는 순서대로 pNameArray에 담는다.
 
-        for (let i = 0; i < firstArray.length; i++) {
-            for (let j = 0; j < pOriginArray.length; j++) {
-                if(pOriginArray[j] === firstArray[i]){
-                    pNameArray.push(firstArray[i]);;
-                    pOriginArray.splice(pOriginArray.indexOf(firstArray[i]),1);
+        for (let i = 0; i < pOnArray.length; i++) {
+            for (let j = 0; j < firstArray.length; i++) {
+                if(pOnArray[i] === firstArray[j]){
+                    pNameArray.push(pOnArray[i]);;
+                    pOnArray.splice(pOnArray.indexOf(pOnArray[i]),1);
                 }
             }
         }
-        for (let i = 0; i < pOriginArray.length; i++) {
+        for (let i = 0; i < pOnArray.length; i++) {
+            pNameArray.push(pOnArray[i]);;
+            pOnArray.splice(pOnArray.indexOf(pOnArray[i]),1);
+        }
+
+        for (let i = 0; i < pOffArray.length; i++) {
             pNameArray.push(pOriginArray[i])
         }
 

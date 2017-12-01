@@ -311,29 +311,39 @@ function collect_pickupPlace(){
     });
     firebase.database().ref("product").on("value",snap=>{
         pdata = snap.val();
-        console.log(pdata)
-        let pOriginArray = []
         pNameArray = [];
         pShortArray = [];
+        let pOnArray = [];
+        let pOffArray = []
+        //지주 사용되는 상품이 dropdown 상단에 위치하도록 함
         let firstArray = ["Seoul_Regular_남쁘","Seoul_Regular_남쁘아","Seoul_Regular_에버","Seoul_Regular_레남아","Seoul_Regular_레남쁘","Seoul_Regular_쁘남레아"]
 
         for (let key in pdata) {
             if(pdata[key].id.indexOf("_")>0){
-                pOriginArray.push(pdata[key].id);
-
-            }
-        }
-
-        for (let i = 0; i < firstArray.length; i++) {
-            for (let j = 0; j < pOriginArray.length; j++) {
-                if(pOriginArray[j] === firstArray[i]){
-                    pNameArray.push(firstArray[i]);;
-                    pOriginArray.splice(pOriginArray.indexOf(firstArray[i]),1);
+                if(pdata[key].info.status === "ON"){
+                    pOnArray.push(pdata[key].id);
+                }else{
+                    pOffArray.push(pdata[key].id);
                 }
             }
         }
-        for (let i = 0; i < pOriginArray.length; i++) {
-            pNameArray.push(pOriginArray[i])
+        //최종적으로 표시되는 것은 pNameArray이다. 한 단계 꼬아서 처리하는 이유는, firstArray에 담긴 상품들이 Product에서 추후 제거될 수도 있기 때문.
+        //우선 onArray와 offArray로 구분한 다음, 각각에서 firstArray에 있는 순서대로 pNameArray에 담는다.
+
+        for (let i = 0; i < pOnArray.length; i++) {
+            for (let j = 0; j < firstArray.length; j++) {
+                if(pOnArray[i] === firstArray[j]){
+                    pNameArray.push(pOnArray[i]);;
+                    pOnArray.splice(pOnArray.indexOf(firstArray[j]),1);
+                }
+            }
+        }
+        for (let i = 0; i < pOnArray.length; i++) {
+            pNameArray.push(pOnArray[i]);;
+        }
+
+        for (let i = 0; i < pOffArray.length; i++) {
+            pNameArray.push(pOffArray[i])
         }
 
         let droptxt = ""

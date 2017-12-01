@@ -27,15 +27,12 @@ $(document).on("click",".r_add_pitem",function(event){
     event.stopPropagation();
     $(".r_add_input_product").val($(this).html());
     let rcity = $(this).html().split("_")[0];
-    console.log(rcity)
-
     let picktxt = ""
 
     let firstPlaceSeoul = ["Myungdong","Dongdaemoon","Hongdae"];
     let firstPlaceBusan = ["Busan Station","Seomyun","Haeundae"]
 
     if(rcity==="Seoul"){
-        console.log("서울가자")
         for (let i = 0; i < firstPlaceSeoul.length; i++) {
             picktxt+='<p class="r_add_placeItem">'+firstPlaceSeoul[i]+'</p>'
         }
@@ -45,7 +42,6 @@ $(document).on("click",".r_add_pitem",function(event){
             }
         };
     }else if(rcity==="Busan"){
-        console.log("부산가자")
         for (let i = 0; i < firstPlaceBusan.length; i++) {
             picktxt+='<p class="r_add_placeItem">'+firstPlaceBusan[i]+'</p>'
         }
@@ -55,6 +51,28 @@ $(document).on("click",".r_add_pitem",function(event){
             }
         };
     }
+
+    let optTxt = ''
+
+    for (let key in pdata) {
+        if(pdata[key].id === $(this).html()){
+            console.log(pdata[key])
+            if(pdata[key].option){
+                console.log("Option있다")
+                let option = pdata[key].option;
+                for (let i = 0; i < option.length; i++) {
+                    if(option[i].option !== "Ignore"){
+                        optTxt+='<div class="r_add_input_optionLine"><input class="r_add_input_option" readonly value="'+option[i].option+'">'
+                        optTxt+='<input class="r_add_input_option_people" value="0"></div>'
+                    }
+                }
+            }
+        }
+    }
+    optTxt+='<div class="r_add_input_optionLine"><div class="r_add_input_option_add btn">+ ADD OPTION</div></div>';
+
+    $(".r_add_input_optionZone").html(optTxt)
+
 
     $(".r_add_pickDrop").html(picktxt)
 })
@@ -70,7 +88,7 @@ $(document).on("click",".r_add_aitem",function(event){
     event.stopPropagation();
     $(".r_add_input_agency").val($(this).html());
 })
-$(".r_add_input_option_add").click(function(){
+$(".r_add_input_optionZone").on("click",".r_add_input_option_add",function(){
     r_add_addOption();
 })
 
@@ -78,7 +96,7 @@ function r_add_addOption(){
     let edittxt = ""
     edittxt+='<div class="r_add_input_optionLine"><input class="r_add_input_option" placeholder="Option Name">'
     edittxt+='<input class="r_add_input_option_people" value="0"></div>'
-    $(".r_add_input_option_add").before(edittxt)
+    $(".r_add_input_option_add").parent().before(edittxt)
 }
 
 function inputSearch(txt){
@@ -153,6 +171,7 @@ function r_new(){
     $(".r_add_input_date").val(datestring.tomorrow())
     $(".r_add_input_date").data('daterangepicker').setStartDate(datestring.tomorrow());
     $(".r_add_input_date").data('daterangepicker').setEndDate(datestring.tomorrow());
+    $(".r_add_input_optionZone").html('<div class="r_add_input_optionLine"><div class="r_add_input_option_add btn">+ ADD OPTION</div></div>')
 }
 
 function r_new_save(){

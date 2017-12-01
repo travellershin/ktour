@@ -191,25 +191,23 @@ function collect_pickupPlace(){
                 }
             }
         }
-
         //최종적으로 표시되는 것은 pNameArray이다. 한 단계 꼬아서 처리하는 이유는, firstArray에 담긴 상품들이 Product에서 추후 제거될 수도 있기 때문.
         //우선 onArray와 offArray로 구분한 다음, 각각에서 firstArray에 있는 순서대로 pNameArray에 담는다.
 
         for (let i = 0; i < pOnArray.length; i++) {
-            for (let j = 0; j < firstArray.length; i++) {
+            for (let j = 0; j < firstArray.length; j++) {
                 if(pOnArray[i] === firstArray[j]){
                     pNameArray.push(pOnArray[i]);;
-                    pOnArray.splice(pOnArray.indexOf(pOnArray[i]),1);
+                    pOnArray.splice(pOnArray.indexOf(firstArray[j]),1);
                 }
             }
         }
         for (let i = 0; i < pOnArray.length; i++) {
             pNameArray.push(pOnArray[i]);;
-            pOnArray.splice(pOnArray.indexOf(pOnArray[i]),1);
         }
 
         for (let i = 0; i < pOffArray.length; i++) {
-            pNameArray.push(pOriginArray[i])
+            pNameArray.push(pOffArray[i])
         }
 
         let droptxt = ""

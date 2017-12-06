@@ -4045,11 +4045,14 @@ However, delay the fade out process for 2.5 seconds */
         float: right;
         margin-left: 10px;
     }
+.p_header_align{
+    float: left;
+}
 .p_header{
     height: 20px;
     width: 1200px;
     margin:0 auto;
-    overflow: hidden;
+    position: relative;
     border-top: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
     padding: 9px 40px 9px 40px;
@@ -4058,12 +4061,13 @@ However, delay the fade out process for 2.5 seconds */
         float: left;
         margin-right: 25px;
     }
+.p_header_dropbtn{
+        cursor: pointer;
+        float: left;
+    }
 .p_header>div{
         overflow: hidden;
     }
-.p_header>div>*{
-            float: left;
-        }
 .p_header>div>img{
             margin-left: 2px;
         }
@@ -4086,8 +4090,27 @@ However, delay the fade out process for 2.5 seconds */
     }
 .p_header .drop_item{
         text-align: left !important;
-        padding-left: 30px;
+        padding: 8px 18px 8px 30px;
     }
+.p_header_drop{
+        position: absolute;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        top:38px;
+        padding: 6px 4px;
+    }
+.p_header_drop>.drop_item--selected{
+            background-position:top 8px left 2px;
+        }
+#drop_status{
+    left: 20px;
+}
+#drop_area{
+    left:120px;
+}
+#drop_category{
+    left: 226px;
+}
 .pc{
     height: 32px;
     width: 1198px;

@@ -366,14 +366,18 @@ function saveTeam(div){
     let cashdata = {};
     let assetdata = {};
     let wagedata = {};
-    if(operation[pid].teams[tid].cash){
-        cashdata = operation[pid].teams[tid].cash;
-    }
-    if(operation[pid].teams[tid].asset){
-        assetdata = operation[pid].teams[tid].asset;
-    }
-    if(operation[pid].teams[tid].wage){
-        wagedata = operation[pid].teams[tid].wage
+    console.log(operation[pid])
+
+    if(operation[pid].teams[tid]){
+        if(operation[pid].teams[tid].cash){
+            cashdata = operation[pid].teams[tid].cash;
+        }
+        if(operation[pid].teams[tid].asset){
+            assetdata = operation[pid].teams[tid].asset;
+        }
+        if(operation[pid].teams[tid].wage){
+            wagedata = operation[pid].teams[tid].wage
+        }
     }
     let teamdata = operation[pid].teams[tid];
 

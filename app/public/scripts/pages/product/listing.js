@@ -2,7 +2,6 @@ let agencyArray = []; //Agency Dropdown에 쓰일 Array
 let cityArray = []; //City Dropdown에 쓰일 Array
 let pickupObj = {}; //pickupPlace Dropdown에 쓰일 Array들이 모인 객체(도시별)
 
-let product = {} //product 가공 전 data
 let filter = {} //어떤 필터가 있나
 let filter_adjusted = { //사용자가 어떤 필터를 선택했나
     status:[],
@@ -16,73 +15,28 @@ let product_filtered = { //사용자가 선택한 필터에 맞는 product들 �
 }
 let inflateArray = []; //필터링 완료된 product
 
+let order = []; //정렬순서
 
-
-$(document).ready(function(){
-    collect_data();
-});
-
-
-function collect_data(){
-    firebase.database().ref("agency").on("value", snap => {
-        agencyArray = []
-        let agency = snap.val();
-        for (let key in agency) {
-            agencyArray.push(agency[key].name)
-        }
-    });
-    firebase.database().ref("place/city").on("value", snap => {
-        cityArray = []
-        let data = snap.val();
-        for (let city in data) {
-            cityArray.push(city);
-            pickupObj[city] = []
-            for (let pickup in data[city]) {
-                pickupObj[city].push(pickup)
-            }
-        }
-
-        $(".pei_area").attr("dropitem",cityArray.toString());
-    });
-    firebase.database().ref("product").on("value", snap => {
-        product = snap.val();
-
-        filtering_data();
-    });
-}
 
 $(".p_header").on("click",".drop_item",function(){ //드롭다운 하위 선택지(필터) 클릭
-    set_filter($(this))
+    set_filter($(this));
+    return false;
+})
+$("body").click(function(){
+    $(".p_header_drop").addClass("hidden")
+})
+$(".p_header_dropbtn").click(function(){
+    let fname = $(this).parent().children("p").html().toLowerCase();
+    console.log(fname)
+    $("#drop_"+fname).toggleClass("hidden");
+    return false;
+})
+$(".p_header_align").click(function(){
+    order.push($(this).html().toLowerCase())
+    console.log(order)
 })
 
-function filtering_data(){
-    inflateArray = []
 
-    let filter_status = new Set();
-    let filter_area = new Set();
-    let filter_category = new Set();
-
-    for (let key in product) {
-        filter_area.add(product[key].info.area);
-        filter_status.add(product[key].info.status);
-        filter_category.add(product[key].info.category);
-
-        inflateArray.push(key)
-    }
-
-    filter = {
-        area : Array.from(filter_area),
-        status : Array.from(filter_status),
-        category : Array.from(filter_category)
-    }
-
-    dynamicDrop($("#p_header_status"),filter.status);
-    dynamicDrop($("#p_header_area"),filter.area);
-    dynamicDrop($("#p_header_category"),filter.category);
-
-    inflate_product(inflateArray);
-
-}
 
 function set_filter(div){
     inflateArray = []
@@ -92,7 +46,7 @@ function set_filter(div){
         category:[]
     }
 
-    let kind = $(div).parent().attr("id").split("_")[3] //어떤 종류의 필터가 선택되었는가!
+    let kind = $(div).parent().attr("id").split("_")[1] //어떤 종류의 필터가 선택되었는가!
     $(div).toggleClass("drop_item--selected"); //필터를 선택한 상황인지 해제한 상황인지 체크
     if($(div).hasClass("drop_item--selected")){
         if(filter_adjusted[kind].length === filter[kind].length){ //모두 선택된 상태(=아무것도 선택 안 된 상태)에서 필터를 선택했다
@@ -125,8 +79,19 @@ function set_filter(div){
     inflate_product(inflateArray);
 }
 
+let iArray = []
+
 function inflate_product(pArray){
+    pArray.sort();
+    iArray = [];
     let txt = "";
+    for (let i = 0; i < pArray.length; i++) {
+        iArray.push(product[pArray[i]]);
+    }
+    for (let i = 0; i < order.length; i++) {
+
+    }
+    console.log(iArray)
 
     $(".p_set_list").html("<p class='bold fl_left'>"+pArray.length + "</p><p class='fl_left'>&nbsp;/ " + Object.keys(product).length + " Product</p>")
     for (let i = 0; i < pArray.length; i++) {

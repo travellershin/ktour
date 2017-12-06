@@ -38,15 +38,27 @@
         </div>
     </div>
 
-    <div class="p_header">
-        <div class="p_header_status dw_dndropdown" id="p_header_status">STATUS</div>
-        <div class="p_header_area dw_dndropdown centering_hor" id="p_header_area">AREA</div>
-        <div class="p_header_category dw_dndropdown centering_hor" id="p_header_category">CATEGORY</div>
-        <p class="p_header_product centering_hor">PRODUCT</p>
-        <p class="p_header_start">START</p>
-        <p class="p_header_end centering_hor">END</p>
+    <div class="p_header clearfix">
+        <div class="p_header_status">
+            <p class="p_header_align">STATUS</p>
+            <img class="p_header_dropbtn" src="./assets/icon-filter.svg">
+        </div>
+        <div class="p_header_area centering_hor">
+            <p class="p_header_align">AREA</p>
+            <img class="p_header_dropbtn" src="./assets/icon-filter.svg">
+        </div>
+        <div class="p_header_category centering_hor">
+            <p class="p_header_align">CATEGORY</p>
+            <img class="p_header_dropbtn" src="./assets/icon-filter.svg">
+        </div>
+        <p class="p_header_product p_header_align">PRODUCT</p>
+        <p class="p_header_start p_header_align">START</p>
+        <p class="p_header_end p_header_align">END</p>
         <p class="p_header_agency">AGENCY</p>
         <p class="p_header_memo">MEMO</p>
+        <div class="p_header_drop hidden" id="drop_status"></div>
+        <div class="p_header_drop hidden" id="drop_area"></div>
+        <div class="p_header_drop hidden" id="drop_category"></div>
     </div>
     <div class="pc_box">
         <!-- 구조 파악용 샘플 데이터 -1
@@ -434,7 +446,7 @@
                         <p class="pei_wage_txt">원</p>
                     </div>
                 </div>
-                
+
                 <p class="pep_title">ASSET COST</p>
                 <div class="pep_p_as_box">
                     <div class="pep_p_as">
@@ -604,6 +616,8 @@
     <script src='./scripts/module/global.js'></script>
     <script src='./scripts/module/dropdown.js'></script>
     <script src='./scripts/module/toast.js'></script>
+    <script src='./scripts/pages/product/dataCollect.js'></script>
+    <script src='./scripts/pages/product/order.js'></script>
     <script src='./scripts/pages/product/listing.js'></script>
     <script src='./scripts/pages/product/edit.js'></script>
     <script src='./scripts/pages/product/save.js'></script>

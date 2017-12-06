@@ -32,8 +32,16 @@ $(".p_header_dropbtn").click(function(){
     return false;
 })
 $(".p_header_align").click(function(){
-    order.push($(this).html().toLowerCase())
+    let oCase = $(this).html().toLowerCase()
+    console.log(oCase)
+
+    if(order[order.length-1]=== oCase + "_asc"){
+        order.push(oCase+"_des")
+    }else{
+        order.push(oCase + "_asc")
+    }
     console.log(order)
+    inflate_product(inflateArray);
 })
 
 
@@ -89,13 +97,14 @@ function inflate_product(pArray){
         iArray.push(product[pArray[i]]);
     }
     for (let i = 0; i < order.length; i++) {
-
+        orderGuide[order[i]]();
     }
+
     console.log(iArray)
 
     $(".p_set_list").html("<p class='bold fl_left'>"+pArray.length + "</p><p class='fl_left'>&nbsp;/ " + Object.keys(product).length + " Product</p>")
-    for (let i = 0; i < pArray.length; i++) {
-        let data = product[pArray[i]]
+    for (let i = 0; i < iArray.length; i++) {
+        let data = iArray[i]
         let area = data.info.area;
         let category = data.info.category;
         let name = data.info.name;

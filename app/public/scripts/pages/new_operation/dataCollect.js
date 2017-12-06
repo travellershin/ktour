@@ -34,6 +34,8 @@ let filter_adjusted = { //실제 적용된 필터(사용자가 아무것도 선�
     nationality:[]
 }
 
+let wage = 0; //가이드를 배차할 때 cost를 산출하기 위함. edit창을 열 때 불러와짐.
+
 let guideCollected = false;
  //화면 inflate는 operation정보가 다 불러와지면 호출되는데, 그 전에 가이드 정보를 불러오는데 실패했을 경우
  //화면 inflate를 미루는 로직에 필요. 하지만 이런 일이 발생할 확률은 극히 적음.

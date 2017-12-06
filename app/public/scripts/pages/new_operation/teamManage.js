@@ -170,6 +170,7 @@ function saveCasset(){
     firebase.database().ref("operation/"+date+"/"+pid+"/teams/"+tid+"/asset").set(asset);
 
     $(".casset_blackBoard").addClass("hidden")
+    $("body").css("overflow","auto")
 }
 
 
@@ -215,6 +216,8 @@ function editTeam(div){ //버스정보 -> edit을 누르면 호출됨(edit창 �
     let teamdata = operation[pid].teams[tid];
     $("body").css("overflow","hidden");
 
+        console.log(pid)
+
     if(teamdata.guide){
         old_guide = teamdata.guide
     }else{
@@ -228,6 +231,10 @@ function editTeam(div){ //버스정보 -> edit을 누르면 호출됨(edit창 �
         for (let key in data) {
             productdata = data[key]
         }
+        wage = productdata.cost.wage;
+        console.log(wage)
+
+
         let busnameArray = []
         let bussizeno = 0;
         for (let i = 0; i < productdata.cost.bus.length; i++) {
@@ -358,11 +365,15 @@ function saveTeam(div){
     }
     let cashdata = {};
     let assetdata = {};
+    let wagedata = {};
     if(operation[pid].teams[tid].cash){
         cashdata = operation[pid].teams[tid].cash;
     }
     if(operation[pid].teams[tid].asset){
         assetdata = operation[pid].teams[tid].asset;
+    }
+    if(operation[pid].teams[tid].wage){
+        wagedata = operation[pid].teams[tid].wage
     }
     let teamdata = operation[pid].teams[tid];
 
@@ -389,7 +400,8 @@ function saveTeam(div){
         guide:new_guide,
         message:memo_to,
         cash:cashdata,
-        asset:assetdata
+        asset:assetdata,
+        wage:wagedata,
     }
 
 
@@ -422,6 +434,7 @@ function saveTeam(div){
             firebase.database().ref("guide/"+old_guide[i]+"/schedule/"+date).remove(); //가이드 스케줄을 제거함
             cashTransasction(old_guide[i], -cashdata[old_guide[i]]) //가이드가 보유한 cash transaction으로 제거
             delete opteamdata.cash[old_guide[i]] //cash리스트에서 제거
+            delete opteamdata.wage[old_guide[i]]
 
             if(cash_guide.includes(old_guide[i])){ //해당 가이드가 실제로 cash를 가지고 있었다면
                 cash_guide.splice(cash_guide.indexOf(old_guide[i],1));  //cash를 가지고 있던 가이드 배열에서 제거
@@ -432,16 +445,31 @@ function saveTeam(div){
     let toastGuideName = ""
     for (let i = 0; i < new_guide.length; i++) { //배치된 가이드가
         if(!old_guide.includes(new_guide[i])){ //팀에 원래 존재하던 가이드가 아니라면
+
+            if(!opteamdata.wage){
+                opteamdata.wage = {}
+            }
+            let bonus = 0
+            if(guideData[new_guide[i]].bonus){
+                bonus = guideData[new_guide[i]].bonus*1
+            }
+            opteamdata.wage[new_guide[i]] = wage + bonus
+            let totalWage = opteamdata.wage[new_guide[i]]
+
             firebase.database().ref("guide/"+new_guide[i]+"/schedule/"+date).set({ //새로운 스케줄이 생겼다는 뜻이니 set해주고
                 product:pid,
                 team:tid,
-                cash:0
+                cash:0,
+                wage:totalWage
             });
 
             if(!opteamdata.cash){
                 opteamdata.cash = {}
             }
             opteamdata.cash[new_guide[i]] = 0
+
+
+
 
             if(guideTotal.includes(new_guide[i])){ //다른 팀에 있다가 옮겨온 것이라면
                 if(toastGuideName.length>0){ //재배차되었다는것을 알리기 위한 문구를 작성함
@@ -461,9 +489,26 @@ function saveTeam(div){
                         delete operation[old_pid].teams[old_team].cash[new_guide[i]] //원 소속팀 cash분배 리스트에서 제거
                     }
                 }
+                if(operation[old_pid].teams[old_team].wage){
+                    if(operation[old_pid].teams[old_team].wage[new_guide[i]]){
+                        delete operation[old_pid].teams[old_team].wage[new_guide[i]] //원 소속팀 wage 리스트에서 제거
+                        operation[old_pid].teams[old_team].wage_cost = 0
+
+                        for (let money in operation[old_pid].teams[old_team].wage) {
+                            operation[old_pid].teams[old_team].wage_cost += operation[old_pid].teams[old_team].wage[money]
+                        }
+                    }
+                }
 
                 firebase.database().ref("operation/"+date+"/"+old_pid+"/teams/"+old_team).update(operation[old_pid].teams[old_team]); //위의 두 정보를 업데이트함
             }
+        }
+    }
+
+    opteamdata.wage_cost = 0
+    if(opteamdata.wage){
+        for (let money in opteamdata.wage) {
+            opteamdata.wage_cost += opteamdata.wage[money]
         }
     }
 

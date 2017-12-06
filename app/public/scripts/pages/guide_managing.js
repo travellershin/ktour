@@ -98,6 +98,10 @@ function Guide(){
 
                 let obj = gdata[guides];
 
+                if(!gdata[guides].imgUrl){
+                    gdata[guides].imgUrl = ""
+                }
+
 
                 txt+='<div class="g_guide" cid="'+ guides +'"><div class="pop_'+guides+' g_pop hidden"><div cid="'+ guides +'" class="g_pop_edit"><img src="./assets/icon-edit.svg" /><p>EDIT</p></div>'
                 txt+='<div cid="'+ guides+'" class="g_pop_delete"><img src="./assets/icon-trash.svg" /><p>DELETE</p></div></div><div class="g_guide_info_div"><img cid="'+ guides +'" class="g_guide_info" src="./assets/icon-more.svg"/></div><div class="g_guide_face_wrapper"><img class="g_guide_face" src="';
@@ -236,6 +240,7 @@ function Guide(){
 
         firebase.database().ref("guide/"+guideID).once("value", snap => {
             let data = snap.val();
+            console.log(data)
 
             guideFaceUrl = data.imgUrl;
             guideFaceCode = data.code
@@ -262,8 +267,12 @@ function Guide(){
                 }
             }
 
+            if(data.imgUrl){
+                $('.gie_face').attr('src',data.imgUrl )
+            }else{
+                $('.gie_face').attr('src',"" )
+            }
 
-            $('.gie_face').attr('src',data.imgUrl )
             $(".pop_blackScreen").removeClass('hidden')
 
         });

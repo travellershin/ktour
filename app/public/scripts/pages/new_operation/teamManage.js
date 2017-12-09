@@ -187,17 +187,28 @@ function cashTransasction(guide,amount){ //어떤 가이드로부터 일정 amou
 function assetTransaction(guide,name,size){
     if(guideData[guide].asset){
         if(guideData[guide].asset[name]){ //asset값이 null이 아닌 경우에만 transaction 사용
-            firebase.database().ref("guide/"+guide+"/asset/"+name).transaction(function(currentAsset){
-                return currentAsset + size
+            firebase.database().ref("guide/"+guide+"/asset/"+name+"/left").transaction(function(currentAsset){
+                if(currentAsset+size === 0){
+                    firebase.database().ref("guide/"+guide+"/asset/"+name).remove();
+                    return;
+                }else{
+                    return currentAsset + size
+                }
             })
         }else{
             guideData[guide].asset[name] = size
-            firebase.database().ref("guide/"+guide+"/asset/"+name).set(size)
+            firebase.database().ref("guide/"+guide+"/asset/"+name).set({
+                asset:name,
+                left:size
+            })
         }
     }else{
         guideData[guide].asset = {};
         guideData[guide].asset[name] = size
-        firebase.database().ref("guide/"+guide+"/asset/"+name).set(size)
+        firebase.database().ref("guide/"+guide+"/asset/"+name).set({
+            asset:name,
+            left:size
+        })
     }
 }
 

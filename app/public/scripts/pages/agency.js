@@ -65,7 +65,8 @@ function Agency(){
             userStatus = agencyID;
 
             $(".ag_info").removeClass("hidden");
-            $(".ag_info_name").val(data.name);
+            $(".ag_info_name").val(data.code);
+            $(".ag_info_reference").val(data.reference);
             if(data.auto){
                 agency.putYes();
             };
@@ -144,8 +145,9 @@ function Agency(){
             console.log("클릭싫어")
         }
 
-        firebase.database().ref("agency/"+agencyKey).set({
+        firebase.database().ref("agency/"+agencyKey).update({
             name:$(".ag_info_name").val(),
+            code:$(".ag_info_name").val(),
             domain:$(".ag_info_domain").val(),
             subject:$(".ag_info_subject").val(),
             rule:$(".ag_info_rule").val(),
@@ -153,7 +155,8 @@ function Agency(){
             replyBody:$(".ag_info_replyBody").val(),
             auto: checkAuto,
             byMail: checkMail,
-            byClick: checkClick
+            byClick: checkClick,
+            reference: $(".ag_info_reference").val()
         })
 
         this.init();

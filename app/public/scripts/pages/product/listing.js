@@ -33,14 +33,12 @@ $(".p_header_dropbtn").click(function(){
 })
 $(".p_header_align").click(function(){
     let oCase = $(this).html().toLowerCase()
-    console.log(oCase)
 
     if(order[order.length-1]=== oCase + "_asc"){
         order.push(oCase+"_des")
     }else{
         order.push(oCase + "_asc")
     }
-    console.log(order)
     inflate_product(inflateArray);
 })
 

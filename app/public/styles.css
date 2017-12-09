@@ -4896,12 +4896,30 @@ textarea.pi_content:focus {
         border-radius: 5px;
 
     }
+.ag_info_nameZone{
+            overflow: hidden;
+        }
+.ag_info_nameZone>*{
+                float: left;
+            }
+.ag_info_nameZone_title{
+                margin-right: 20px;
+                font-size:19px;
+                line-height: 40px;
+            }
+.ag_info_reference{
+            height: 40px;
+            font-size: 28px;
+            line-height: 40px;
+            margin-bottom: 55px;
+            width: 280px;
+        }
 .ag_info_name{
             height: 40px;
             font-size: 28px;
             line-height: 40px;
             margin-bottom: 55px;
-            width: 900px;
+            width: 120px;
         }
 .ag_info_title{
             float: left;

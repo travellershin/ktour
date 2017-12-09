@@ -86,12 +86,32 @@
         border: solid 1px #e0e0e0;
         border-radius: 5px;
 
+        &_nameZone{
+            overflow: hidden;
+            &>*{
+                float: left;
+            }
+            &_title{
+                margin-right: 20px;
+                font-size:19px;
+                line-height: 40px;
+            }
+        }
+
+        &_reference{
+            height: 40px;
+            font-size: 28px;
+            line-height: 40px;
+            margin-bottom: 55px;
+            width: 280px;
+        }
+
         &_name{
             height: 40px;
             font-size: 28px;
             line-height: 40px;
             margin-bottom: 55px;
-            width: 900px;
+            width: 120px;
         }
 
         &_title{

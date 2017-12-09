@@ -39,7 +39,8 @@ function inflate_reservation(){
     for (let fid in filterMap) {
         filterNumber += Array.from(filterMap[fid].keys()).length
     }
-    $(".r_htop_filterRemove").html("모든 필터 해제("+filterNumber+")")
+    $(".r_htop_filterRemove").html("모든 필터 해제("+filterNumber+")");
+    console.log(rData)
 
     for (let i = 0; i < rvOrder.length; i++) {
         orderGuide[rvOrder[i]]()

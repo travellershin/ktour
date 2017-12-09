@@ -7,6 +7,7 @@
 *.swo
 *.swp
 *.vi
+*.hwp
 *~
 *.sass-cache
 node_modules/

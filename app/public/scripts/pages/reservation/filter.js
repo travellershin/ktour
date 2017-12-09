@@ -29,6 +29,12 @@ $("body").click(function(){
     $(".r_drop").addClass("hidden");
 })
 $(".r_htop_filterRemove").click(function(){
+    filterMap = {
+        product : new Map(),
+        pickupPlace : new Map(),
+        nationality : new Map(),
+        agency : new Map()
+    }
     for (let i = 0; i < fArray.length; i++) {
         filter[fArray[i]] = Object.keys(r_total[fArray[i]])
     }

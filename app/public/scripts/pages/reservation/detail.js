@@ -40,9 +40,11 @@ function r_detail(id){
     let field = ["date","product","people","pickupPlace","area","clientName","nationality","agency","tel","email","messenger","agencyCode","pickupTime","memo"];
 
     for (let i = 0; i < field.length; i++) {
+        $('.rv_info_'+field[i]).html("-");
+        $('.rv_info_'+field[i]).val("-");
+        
         if(!data[field[i]]||data[field[i]] == "N/A"){
-            $('.rv_info_'+field[i]).html("-");
-            $('.rv_info_'+field[i]).val("-");
+
         }else{
             $('.rv_info_'+field[i]).html(data[field[i]]);
             $('.rv_info_'+field[i]).val(data[field[i]]);

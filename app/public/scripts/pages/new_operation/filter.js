@@ -24,6 +24,7 @@ $(".r_htop_filterRemove").click(function(){
 })
 
 $(".ol_filterClear").click(function(){
+
     for (let fid in filter_selected) {
         filter_selected[fid].length = 0
     }

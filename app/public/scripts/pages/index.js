@@ -1,16 +1,26 @@
+let adata = {};
+let idArray = [];
+
 $(document).ready(function(){
-    if(window.localStorage['Id'].length>1){
-        //remember id 여부를 판별한다.
-        $('.login_email').val(window.localStorage['Id'])
-        //remember id가 체크되어있다면 기억해둔 id를 불러온다
-        $('.login_password').focus();
-        //password 입력창으로 focus를 넘긴다
-        $(".login_remind_check").attr('checked', true)
-        //checkbox에 체크한다
-    }else{
-        $('.login_email').focus();
-        //email 입력창으로 focus를 넘긴다
-    }
+    firebase.database().ref("auth").once("value", snap => {
+        adata = snap.val();
+        for (let key in adata) {
+            idArray.push(adata[key].mail)
+        }
+
+        if(window.localStorage['Id'].length>1){
+            //remember id 여부를 판별한다.
+            $('.login_email').val(window.localStorage['Id'])
+            //remember id가 체크되어있다면 기억해둔 id를 불러온다
+            $('.login_password').focus();
+            //password 입력창으로 focus를 넘긴다
+            $(".login_remind_check").attr('checked', true)
+            //checkbox에 체크한다
+        }else{
+            $('.login_email').focus();
+            //email 입력창으로 focus를 넘긴다
+        }
+    });
 })
 
 $(document).keydown(function(){
@@ -38,9 +48,6 @@ $('.login_password').keyup(function(){
 $('.login_btn').click(function(){
     logIn();
 })
-let validId = "master2@gmail.com";
-let validPass = "master1234";
-
 
 function checkInput(){
     let regEmail = /\S+@[^.\s]+\.[^.\s]+/;
@@ -63,14 +70,32 @@ function logIn(){
 
     let mail = $('.login_email').val();
     let pass = $('.login_password').val();
+    let validPass = ""
+    let success = false;
+    let loginkey = "";
+    let grade = 0;
+    for (let key in adata) {
+        if(adata[key].mail === mail){
+            validPass = adata[key].password
+            success = true;
+            loginkey = key;
+        }
+    }
 
-    if(validId === mail){
+
+    if(success){
         //ID는 일치함
         if(validPass === pass){
             //로그인 성공
             $('.login_wrong').addClass('hidden');
             $('.login_email').removeClass('input_wrong');
             $('.login_password').removeClass('input_wrong');
+            let helloCheck = 0
+            let token = firebase.database().ref().push().key
+            firebase.database().ref("auth/"+loginkey+"/token").set(token)
+            firebase.database().ref("auth/"+loginkey+"/validdate").set(datestring.today())
+            window.localStorage['ktltoken'] = token;
+            window.localStorage['ktlkey'] = loginkey
 
             location.href = './exception.html'
 

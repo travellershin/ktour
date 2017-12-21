@@ -7,17 +7,34 @@ $(document).ready(function(){
 
     date = datestring.today();
 
-    firebase.database().ref("guide").on("value",snap => {
-        guidedata = snap.val();
+    if(window.localStorage["ktlkey"]){
+        let loginKey = window.localStorage["ktlkey"];
+        let loginToken = window.localStorage["ktltoken"];
+        firebase.database().ref("auth").once("value", snap => {
+            adata = snap.val();
+            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
 
-        for (let key in guidedata) {
-            guideViaName[guidedata[key].name] = key
-        }
-        init_op_datepicker();
+                firebase.database().ref("guide").on("value",snap => {
+                    guidedata = snap.val();
 
-        getOperationData(datestring.today())
+                    for (let key in guidedata) {
+                        guideViaName[guidedata[key].name] = key
+                    }
+                    init_op_datepicker();
 
-    })
+                    getOperationData(datestring.today())
+
+                })
+                
+                console.log("login okay")
+            }else{
+                location.href = './index.html'
+            }
+
+        });
+    }else{
+        location.href = './index.html'
+    }
 
 })
 

@@ -1,7 +1,11 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true,
+    "users": {
+      "$uid": {
+        ".read": true,
+    		".write": true
+      }
+    },
     "reservation": {
       ".indexOn": ["date"]
     },

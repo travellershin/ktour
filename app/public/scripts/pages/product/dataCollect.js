@@ -1,5 +1,22 @@
 $(document).ready(function(){
-    collect_data();
+
+    if(window.localStorage["ktlkey"]){
+        let loginKey = window.localStorage["ktlkey"];
+        let loginToken = window.localStorage["ktltoken"];
+        firebase.database().ref("auth").once("value", snap => {
+            adata = snap.val();
+            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
+                collect_data();
+                console.log("login okay")
+            }else{
+                location.href = './index.html'
+            }
+
+        });
+    }else{
+        location.href = './index.html'
+    }
+
 });
 
 let product = {} //product 가공 전 data

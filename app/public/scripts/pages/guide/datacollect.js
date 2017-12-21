@@ -4,6 +4,26 @@ let IAArray = []; //inflate asset array
 let order = []
 
 $(document).ready(function(){
+    if(window.localStorage["ktlkey"]){
+        let loginKey = window.localStorage["ktlkey"];
+        let loginToken = window.localStorage["ktltoken"];
+        firebase.database().ref("auth").once("value", snap => {
+            adata = snap.val();
+            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
+                initGuide();
+                console.log("login okay")
+            }else{
+                location.href = './index.html'
+            }
+
+        });
+    }else{
+        location.href = './index.html'
+    }
+
+})
+
+function initGuide(){
     order.push("cash")
     firebase.database().ref("guide").on("value", snap =>{
         guideData = snap.val();
@@ -27,7 +47,7 @@ $(document).ready(function(){
 
         inflateAsset(IAArray);
     })
-})
+}
 
 $(".sort_cash").click(function(){
     order.push("cash");

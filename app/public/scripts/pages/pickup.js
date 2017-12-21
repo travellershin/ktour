@@ -1,5 +1,19 @@
 $(document).ready(function(){
-    inflate_pickup();
+    if(window.localStorage["ktlkey"]){
+        let loginKey = window.localStorage["ktlkey"];
+        let loginToken = window.localStorage["ktltoken"];
+        firebase.database().ref("auth").once("value", snap => {
+            adata = snap.val();
+            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
+                inflate_pickup();
+                console.log("login okay")
+            }else{
+                location.href = './index.html'
+            }
+        });
+    }else{
+        location.href = './index.html'
+    }
 })
 $(document).on("click",".pickup_addCity",function(){
     add_city();

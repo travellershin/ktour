@@ -62,6 +62,42 @@ $(document).click(function(){
     $(".r_add_productDrop").addClass("hidden")
 })
 
+$(".r_add_productDrop").on("click",".r_add_pitem",function(){
+    let rcity = $(this).html().split("_")[0];
+
+
+    $(".rv_info_area").val(rcity);
+
+    let picktxt = ""
+
+    let firstPlaceSeoul = ["Myungdong","Dongdaemoon","Hongdae"];
+    let firstPlaceBusan = ["Busan Station","Seomyun","Haeundae"]
+
+    if(rcity==="Seoul"){
+        console.log("서울가자")
+        for (let i = 0; i < firstPlaceSeoul.length; i++) {
+            picktxt+='<p class="drop_item">'+firstPlaceSeoul[i]+'</p>'
+        }
+        for (let place in cityData[rcity]) {
+            if(!firstPlaceSeoul.includes(place)){
+                picktxt+='<p class="drop_item">'+place+'</p>'
+            }
+        };
+    }else if(rcity==="Busan"){
+        console.log("부산가자")
+        for (let i = 0; i < firstPlaceBusan.length; i++) {
+            picktxt+='<p class="drop_item">'+firstPlaceBusan[i]+'</p>'
+        }
+        for (let place in cityData[rcity]) {
+            if(!firstPlaceBusan.includes(place)){
+                picktxt+='<p class="drop_item">'+place+'</p>'
+            }
+        };
+    }
+
+    $("#drop_rev_placedrop").html(picktxt)
+})
+
 function calculate_people(){
     let adult = $(".rec_co_box .rv_info_adult").val();
     let kid = $(".rec_co_box .rv_info_kid").val();
@@ -386,6 +422,16 @@ function rev_detail(pid,id){
     old_revdata.date = data.date;
     old_revdata.team = data.team;
     old_revdata.id = data.id;
+
+    console.log(cityData)
+
+    if(cityData[$(".rv_info_area").val()]){
+        let areaArray = []
+        for (let area in cityData[$(".rv_info_area").val()]) {
+            areaArray.push(area)
+        }
+        dynamicDrop($("#rev_placedrop"),areaArray)
+    }
 
     edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'
 

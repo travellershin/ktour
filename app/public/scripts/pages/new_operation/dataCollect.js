@@ -42,20 +42,37 @@ let guideCollected = false;
 
 $(document).ready(function(){
 
-    firebase.database().ref("guide").on("value",snap => {
-        guideData = snap.val(); //화면을 그릴 때 가이드 이름정보가 필요하므로 가이드 정보를 최우선적으로 불러온다
-        guideCollected = true; //가이드 정보가 불러와졌을 경우에만 화면 inflate를 진행한다.
+    if(window.localStorage["ktlkey"]){
+        let loginKey = window.localStorage["ktlkey"];
+        let loginToken = window.localStorage["ktltoken"];
+        firebase.database().ref("auth").once("value", snap => {
+            adata = snap.val();
+            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
 
-        for (let key in guideData) {
-            guideViaName[guideData[key].name] = key;
-            //사용자가 가이드 이름으로 저장하면 가이드 key값으로 바꾸어 DB에 저장해야 하기 때문에 이 정보가 필요.
-        }
-    })
+                firebase.database().ref("guide").on("value",snap => {
+                    guideData = snap.val(); //화면을 그릴 때 가이드 이름정보가 필요하므로 가이드 정보를 최우선적으로 불러온다
+                    guideCollected = true; //가이드 정보가 불러와졌을 경우에만 화면 inflate를 진행한다.
 
-    init_datepicker(); //datepicker를 초기화하고 collect_pickupPlace, collect_agency를 이어서 진행함
-    init_quickDate(); //quickdate 날짜들을 어제 ~ 오늘+9일 범위로 설정
-    //getOperationData(datestring.today()) //operation data를 DB에서 불러옴.
-    getOperationData(datestring.today())
+                    for (let key in guideData) {
+                        guideViaName[guideData[key].name] = key;
+                        //사용자가 가이드 이름으로 저장하면 가이드 key값으로 바꾸어 DB에 저장해야 하기 때문에 이 정보가 필요.
+                    }
+                })
+
+                init_datepicker(); //datepicker를 초기화하고 collect_pickupPlace, collect_agency를 이어서 진행함
+                init_quickDate(); //quickdate 날짜들을 어제 ~ 오늘+9일 범위로 설정
+                //getOperationData(datestring.today()) //operation data를 DB에서 불러옴.
+                getOperationData(datestring.today())
+
+                console.log("login okay")
+            }else{
+                location.href = './index.html'
+            }
+
+        });
+    }else{
+        location.href = './index.html'
+    }
 })
 
 function getOperationData(inputDate){

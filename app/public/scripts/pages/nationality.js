@@ -1,7 +1,23 @@
 let natdata = {}
 
 $(document).ready(function(){
-    inflate_nationality();
+    if(window.localStorage["ktlkey"]){
+        let loginKey = window.localStorage["ktlkey"];
+        let loginToken = window.localStorage["ktltoken"];
+        firebase.database().ref("auth").once("value", snap => {
+            adata = snap.val();
+            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
+                inflate_nationality();
+                console.log("login okay")
+            }else{
+                location.href = './index.html'
+            }
+
+        });
+    }else{
+        location.href = './index.html'
+    }
+
 })
 $(document).on("click",".pickup_addCountry",function(){
     add_nationality();

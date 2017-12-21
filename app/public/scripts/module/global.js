@@ -59,6 +59,9 @@ function getDateRange(startDate, endDate, listDate){
 };
 
 var datestring = new DateString();
+console.log(datestring.today())
+
+
 function DateString(){
 
         this.today = function(){
@@ -146,5 +149,4 @@ function DateString(){
 
             return  year +"-"+ month +"-"+ day;
         }
-
 }

@@ -17,6 +17,71 @@
     left: 1140px !important;
 }
 
+.export{
+    margin:0 auto;
+    margin-top:calc(50vh - 150px);
+    width: 400px;
+    height: 230px;
+    background-color: white;
+    border-radius: 5px;
+
+
+    &_title{
+        height: 70px;
+        line-height: 70px;
+        font-size: 20px;
+        padding-left: 20px;
+    }
+
+    &_background{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0.7);
+    }
+
+    &_drp{
+        height: 40px;
+        width: 220px;
+        text-align: center;
+        border-radius: 5px;
+        border: 1px solid #e0e0e0;
+        margin: 0 auto;
+        display: block;
+        margin-top: 20px;
+    }
+
+    &_export{
+        background-color: #0084ff;
+        border: solid 1px #0079e9;
+        color: #ffffff;
+        margin-right: 20px;
+
+        &:hover{
+            filter: brightness(0.95);
+        }
+
+        &:active{
+            filter: brightness(1.05);
+        }
+    }
+
+    &_cancel{
+        border: solid 1px #e0e0e0;
+        margin-right: 10px;
+
+        &:hover{
+            background-color: rgba(224, 224, 224, 0.1);
+        }
+
+        &:active{
+            background-color: rgba(224, 224, 224, 0.2);
+        }
+    }
+}
+
 /*날짜 세팅*/
 .r_set{
     overflow: hidden;

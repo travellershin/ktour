@@ -28,6 +28,7 @@
         <p class="header_setting_agency">AGENCY</p>
         <p class="header_setting_pickup">PICKUP</p>
         <p class="header_setting_nationality">NATIONALITY</p>
+        <p class="header_setting_password">CHANGE PASSWORD</p>
     </div>
     <div class="g">
         <div class="g_wrapper">
@@ -44,6 +45,7 @@
                     <p class="sort_cash btn">ORDER BY CASH</p>
                     <p class="sort_asset btn">ORDER BY ASSET</p>
                     <p class="sort_name btn">ORDER BY NAME</p>
+                    <p class="sort_vNo btn">ORDER BY CUSTOM NUMBER</p>
                 </div>
 
                 <div class="longbtn g_add">
@@ -129,9 +131,10 @@
                 <div class="g_e_face_div">
                     <label for="g_e_face_upload" id="gie_upload_photo_label"></label>
                     <img class="g_e_face">
-                    <input type="file" accept="image/*" id="g_e_face_upload" onchange="uploadGuide(this.files)"></input>
+                    <input type="file" accept="image/*" id="g_e_face_upload" onchange="uploadGuide(this.files)">
                 </div>
                 <input class="g_e_name g_e_input_name" placeholder="GUIDE NAME" spellcheck="false"/>
+                <input class="g_e_number" type="number" placeholder="보기 우선순위">
                 <div class="g_e_box">
                     <div class="g_e_line">
                         <p class="g_e_title">START DATE</p>

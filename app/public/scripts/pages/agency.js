@@ -8,7 +8,7 @@ $(document).ready(function(){
         let loginToken = window.localStorage["ktltoken"];
         firebase.database().ref("auth").once("value", snap => {
             adata = snap.val();
-            if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
+            if(adata[loginKey].token === loginToken && adata[loginKey].grade>0){
                 agency.init();
                 console.log("login okay")
             }else{

@@ -1,5 +1,7 @@
-let account = []
-let acc_obj = {}
+let account = [];
+let acc_obj = {};
+let exportStart = "";
+let exportEnd = "";
 
 $(document).ready(function(){
 
@@ -22,6 +24,31 @@ $(document).ready(function(){
 
 })
 
+$(".a_htop_gmail").click(function(){
+    $(".export_background").removeClass("hidden");
+    $("body").css("overflow","hidden");
+    $(".export_drp").html(datestring.today()+" ~ "+datestring.today());
+    $(".export_drp").data('daterangepicker').setStartDate(datestring.today());
+    $(".export_drp").data('daterangepicker').setEndDate(datestring.today());
+    exportStart = datestring.today();
+    exportEnd = datestring.today();
+})
+$(".export_export").click(function(){
+    export_account()
+})
+$(".export_cancel").click(function(){
+    $(".export_background").addClass("hidden");
+    $("body").css("overflow","auto");
+})
+
+function export_account(){
+    let durl = "https://intranet-64851.appspot.com/v1/excel/account?startAt="+exportStart+"&endAt="+exportEnd
+    location.href = durl;
+
+    $(".export_background").addClass("hidden");
+    $("body").css("overflow","auto");
+}
+
 function datepicker_init(){
     $(".a_set_date_txt").html(datestring.today()+" ~ "+datestring.today())
     dateArray = [datestring.today()];
@@ -33,6 +60,11 @@ function datepicker_init(){
         $(".dropbox").addClass("display_none");
         dw_drp(start,end,label);
         collect_data();
+    });
+
+    $('.export_drp').daterangepicker(drp_config,function(start, end, label){
+        exportStart = start.toISOString().slice(0, 10);
+        exportEnd = end.toISOString().slice(0, 10);
     });
 
     $(".a_edit_input_date").daterangepicker({

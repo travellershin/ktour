@@ -31,6 +31,7 @@ function initGuide(){
         inflateInfo();
 
         IAArray = []
+
         for (let key in guideData) {
             guideData[key].key = key
             IAArray.push(guideData[key])
@@ -64,17 +65,34 @@ $(".sort_name").click(function(){
     console.log(order)
     inflateAsset(IAArray);
 })
+$(".sort_vNo").click(function(){
+    order.push("vNo");
+    console.log(order)
+    inflateAsset(IAArray);
+})
 
 
 function inflateInfo(){
 
     let txt = ""
     console.log(guideData)
+    let guideShowArray = [];
 
     for (let key in guideData) {
-        let guide = guideData[key]
+        guideShowArray.push(guideData[key])
+    }
+    guideShowArray.sort(function(a,b){
+        return a.vNo < b.vNo ? 1 : a.vNo > b.vNo ? -1 : 0;
+    })
 
-        txt+='<div class="g_card" gid="'+key+'"><div class="g_card_top"><div class="g_card_face_wrapper"><img class="g_card_face" src="'+guide.imgUrl+'"/>'
+    for (var i = 0; i < guideShowArray.length; i++) {
+        let guide = guideShowArray[i]
+        if(guide.imgUrl){
+            txt+='<div class="g_card" gid="'+guide.key+'"><div class="g_card_top"><div class="g_card_face_wrapper"><img class="g_card_face" src="'+guide.imgUrl+'"/>'
+        }else{
+            txt+='<div class="g_card" gid="'+guide.key+'"><div class="g_card_top"><div class="g_card_face_wrapper"><img class="g_card_face" src="//:0"/>'
+        }
+
         txt+='</div><p class="g_card_name">'+guide.name+'</p></div><div class="g_card_line"><p class="g_card_title">LANGUAGES</p><p class="g_card_contents g_card_info_language">'
         if(guide.language){
             txt+=guide.language.join(", ")+'</p></div>'
@@ -106,8 +124,6 @@ function inflateAsset(garray){
         }
     }
 
-
-
     for (let i = 0; i < garray.length; i++) {
         let guide = garray[i]
 
@@ -115,8 +131,12 @@ function inflateAsset(garray){
         if(guide.cash){
             cash = comma(guide.cash)+" 원"
         }
+        if(guide.imgUrl){
+            atxt+='<div class="ga" gid="'+guide.key+'"><div class="g_card_top"><div class="g_card_face_wrapper"><img class="g_card_face" src="'+guide.imgUrl+'"/></div><p class="g_card_name">'+guide.name+'</p></div>'
+        }else{
+            atxt+='<div class="ga" gid="'+guide.key+'"><div class="g_card_top"><div class="g_card_face_wrapper"><img class="g_card_face" src="//:0"/></div><p class="g_card_name">'+guide.name+'</p></div>'
+        }
 
-        atxt+='<div class="ga" gid="'+guide.key+'"><div class="g_card_top"><div class="g_card_face_wrapper"><img class="g_card_face" src="'+guide.imgUrl+'"/></div><p class="g_card_name">'+guide.name+'</p></div>'
         if(guide.asset){
             let number = Object.keys(guide.asset).length
             atxt+='<div class="ga_asset_box"><div class="ga_asset_top"><p class="ga_asset_top_title">ASSET</p><p class="ga_asset_top_number">'+number+'</p></div><div class="ga_asset_body">'

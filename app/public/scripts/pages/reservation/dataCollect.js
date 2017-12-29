@@ -12,7 +12,9 @@ let filter = {
     pickupPlace:[],
     nationality:[]
 }
-let countPeople = {}
+let countPeople = {};
+let exportStart = "";
+let exportEnd = "";
 
 $(document).ready(function(){
 
@@ -36,31 +38,29 @@ $(document).ready(function(){
 })
 
 $(".r_htop_gmail").click(function(){
+    $(".export_background").removeClass("hidden");
+    $("body").css("overflow","hidden");
+    $(".export_drp").html(datestring.today()+" ~ "+datestring.today());
+    $(".export_drp").data('daterangepicker').setStartDate(datestring.today());
+    $(".export_drp").data('daterangepicker').setEndDate(datestring.today());
+    exportStart = datestring.today();
+    exportEnd = datestring.today();
+})
+$(".export_export").click(function(){
     export_reservation()
+})
+$(".export_cancel").click(function(){
+    $(".export_background").addClass("hidden");
+    $("body").css("overflow","auto");
 })
 
 function export_reservation(){
+    let durl = "https://intranet-64851.appspot.com/v1/excel/reservation?startAt="+exportStart+"&endAt="+exportEnd;
 
-    let startDate = dateArray[0]
-    let endDate = dateArray[dateArray.length - 1]
-    let durl = "https://intranet-64851.appspot.com/v1/excel/reservation?startAt="+startDate+"&endAt="+endDate
+    location.href = durl;
 
-    console.log(durl)
-
-    // Using YQL and JSONP
-    $.ajax({
-        url: durl,
-        // Tell jQuery we're expecting JSONP
-        dataType: "jsonp",
-        // Work with the response
-        success: function( response ) {
-            console.log( response ); // server response
-        },
-        error: function(xhr) {
-          console.log('실패 - ', xhr);
-        }
-    });
-
+    $(".export_background").addClass("hidden");
+    $("body").css("overflow","auto");
 }
 
 
@@ -77,6 +77,11 @@ function datepicker_init(){
     collect_reservation();
     collect_pickupPlace();
     collect_agency();
+
+    $('.export_drp').daterangepicker(drp_config,function(start, end, label){
+        exportStart = start.toISOString().slice(0, 10);
+        exportEnd = end.toISOString().slice(0, 10);
+    });
 
     $('.rv_info_date--picker').daterangepicker({
         "autoApply": true,

@@ -48,11 +48,17 @@ function gInfo_detail(gid){
 
     let data = guideData[gid]
 
-    $(".g_e_face").attr("src",data.imgUrl)
+    if(data.imgUrl){
+        $(".g_e_face").attr("src",data.imgUrl)
+    }else{
+        $(".g_e_face").attr("src","//:0")
+    }
+
 
     for (let i = 0; i < GIArray.length; i++) {
         $(".g_e_input_"+GIArray[i]).val(data[GIArray[i]])
     }
+    $(".g_e_number").val(data.vNo)
     $(".g_e_lang").removeClass("g_e_lang--checked");
     $(".g_e_prefer").removeClass("g_e_prefer--checked");
 
@@ -71,6 +77,7 @@ function gInfo_detail(gid){
     }else{
         $(".g_e_input_driver").val("X")
     }
+
 }
 
 function gInfo_new(){
@@ -115,6 +122,12 @@ function gInfo_save(gid){
     }
     guideData[gid].language = [];
     guideData[gid].preferDay = [];
+
+    if($(".g_e_number").val().length === 0){
+        guideData[gid].vNo = 100;
+    }else{
+        guideData[gid].vNo = $(".g_e_number").val();
+    }
 
     for (let i = 0; i < $(".g_e_lang--checked").length; i++) {
         guideData[gid].language.push($(".g_e_lang--checked").eq(i).attr("id").split("_")[1])

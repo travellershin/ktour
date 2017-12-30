@@ -33,8 +33,7 @@ $('#logo').click(function(){
     event.preventDefault();
     location.href = './check.html';
 })
-
-$('.header_singlelink').click(function(){
+$(".header").on("click",".header_singlelink",function(){
     location.href = $(this).html().toLowerCase()+'.html'
 })
 $(".header_setting>p").click(function(){

@@ -63,7 +63,9 @@ $(document).ready(function(){
                 init_quickDate(); //quickdate 날짜들을 어제 ~ 오늘+9일 범위로 설정
                 //getOperationData(datestring.today()) //operation data를 DB에서 불러옴.
                 getOperationData(datestring.today())
-
+                if(adata[loginKey].grade === 4){
+                    $(".header>ul").append("<li class='header_pageLinks header_singlelink'>MASTERPAGE</li>")
+                }
                 console.log("login okay")
             }else{
                 location.href = './index.html'

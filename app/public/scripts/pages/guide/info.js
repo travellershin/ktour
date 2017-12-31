@@ -153,6 +153,11 @@ function gInfo_save(gid){
 
     console.log(guideData[gid])
 
+    let forAuth = {
+        mail:guideData[gid].email,
+        name:guideData[gid].name
+    }
+
 
     if(fileChanged){
         toast("이미지를 업로드 중입니다");
@@ -160,7 +165,8 @@ function gInfo_save(gid){
         firebase.storage().ref("guides/"+gid).put(file).then(function(snapshot) {
             firebase.storage().ref("guides/"+gid).getDownloadURL().then(function(url){
                 guideData[gid].imgUrl = url
-                firebase.database().ref("guide/"+gid).update(guideData[gid])
+                firebase.database().ref("guide/"+gid).update(guideData[gid]);
+                firebase.database().ref("auth/"+gid).update(forAuth);
                 fileChanged = false;
                 toast("정보 저장 완료");
                 $(".pop_blackScreen").addClass("hidden");
@@ -169,10 +175,11 @@ function gInfo_save(gid){
         });
 
     }else{
-        firebase.database().ref("guide/"+gid).update(guideData[gid])
+        firebase.database().ref("guide/"+gid).update(guideData[gid]);
+        firebase.database().ref("auth/"+gid).update(forAuth);
         toast("정보 저장 완료");
         $(".pop_blackScreen").addClass("hidden");
-        $("body").css("overflow","auto")
+        $("body").css("overflow","auto");
     }
 }
 

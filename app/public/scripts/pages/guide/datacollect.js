@@ -12,6 +12,9 @@ $(document).ready(function(){
             if(adata[loginKey].token === loginToken && adata[loginKey].validdate === datestring.today() && adata[loginKey].grade>0){
                 initGuide();
                 console.log("login okay")
+                if(adata[loginKey].grade === 4){
+                    $(".header>ul").append("<li class='header_pageLinks header_singlelink'>MASTERPAGE</li>")
+                }
             }else{
                 location.href = './index.html'
             }

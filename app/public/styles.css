@@ -7516,7 +7516,11 @@ textarea.pi_content:focus {
                 line-height: 80px;
                 margin-left: 30px;
                 font-weight: bold;
+                cursor: pointer;
             }
+.m_c_box>p:hover{
+                    text-decoration: underline;
+                }
 .m_c_save{
             color:red;
         }

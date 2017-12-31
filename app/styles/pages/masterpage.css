@@ -18,6 +18,11 @@
                 line-height: 80px;
                 margin-left: 30px;
                 font-weight: bold;
+                cursor: pointer;
+
+                &:hover{
+                    text-decoration: underline;
+                }
             }
         }
         &_save{

@@ -9,6 +9,7 @@ $(document).ready(function(){
         }
 
         if(window.localStorage['Id'].length>1){
+            console.log("hi")
             //remember id 여부를 판별한다.
             $('.login_email').val(window.localStorage['Id'])
             //remember id가 체크되어있다면 기억해둔 id를 불러온다

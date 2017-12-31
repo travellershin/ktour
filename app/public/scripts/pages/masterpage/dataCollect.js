@@ -24,6 +24,7 @@ function master_init(){
         console.log(gData);
         firebase.database().ref("auth").on("value", snap => {
             m_authData = snap.val();
+            iArray = [];
             for (let key in m_authData) {
                 m_authData[key].key = key;
                 iArray.push(m_authData[key])

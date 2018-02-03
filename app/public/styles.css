@@ -358,7 +358,7 @@ h1,h2,h3,h4,h5,h6,p{
         border: solid 1px #f54b5e;
     }
 .greyTxt{
-    color: #7c8495;
+    color: #888888;
 }
 img{
     vertical-align:top !important;
@@ -398,7 +398,7 @@ textarea::-webkit-scrollbar-thumb
     color: #f54b5e;
 }
 .header{
-    background-color: #1a1a1a;
+    background-color: black;
     width: 100%;
     height: 60px;
     -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -417,7 +417,7 @@ textarea::-webkit-scrollbar-thumb
         font-size: 15px;
         line-height: 60px;
         text-align: center;
-        color: #7c8495;
+        color: #888888;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
         cursor: pointer;
@@ -618,7 +618,7 @@ textarea::-webkit-scrollbar-thumb
         height:40px;
         margin-left: 150px;
         line-height: 20px;
-        color: #7c8495;
+        color: #888888;
     }
 .login_email{
         margin-top: 50px;
@@ -1699,7 +1699,7 @@ textarea::-webkit-scrollbar-thumb
             line-height: 24px;
             margin:9px 0 9px 0;
             text-align: left;
-            color: #7c8495;
+            color: #888888;
             height: 24px;
 
         }
@@ -1834,7 +1834,7 @@ textarea::-webkit-scrollbar-thumb
             font-weight: bold;
             line-height: 40px;
             text-align: left;
-            color: #7c8495;
+            color: #888888;
             margin-bottom: 20px;
         }
 .rec_ti_people{
@@ -7455,7 +7455,7 @@ textarea.pi_content:focus {
         left: 100px;
     }
 .a_drop_writer{
-        left: 230px;
+        left: 255px;
     }
 .a_drop>p{
         float: none !important;

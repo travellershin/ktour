@@ -29,7 +29,6 @@ function r_detail(id){
     $(".lightBox_shadow").removeClass("hidden")
 
     let data = r_obj[id]
-    console.log(data)
 
     if(data.star){
         $(".ri_header_star").addClass("ri_header_star--on")
@@ -42,7 +41,7 @@ function r_detail(id){
     for (let i = 0; i < field.length; i++) {
         $('.rv_info_'+field[i]).html("-");
         $('.rv_info_'+field[i]).val("-");
-        
+
         if(!data[field[i]]||data[field[i]] == "N/A"){
 
         }else{
@@ -85,14 +84,10 @@ function r_detail(id){
     old_revdata.date = data.date;
     old_revdata.team = data.team;
     old_revdata.id = data.id;
-    console.log(old_revdata)
 
     edittxt+='<div class="rec_co_option_box rec_co_option--add btn">+</div>'
 
     $(".rec_co_option").html(edittxt)
-
-
-    console.log(cityData)
 
     if(cityData[$(".rv_info_area").val()]){
         let areaArray = []

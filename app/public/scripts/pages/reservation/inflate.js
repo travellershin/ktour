@@ -40,7 +40,6 @@ function inflate_reservation(){
         filterNumber += Array.from(filterMap[fid].keys()).length
     }
     $(".r_htop_filterRemove").html("모든 필터 해제("+filterNumber+")");
-    console.log(rData)
 
     for (let i = 0; i < rvOrder.length; i++) {
         orderGuide[rvOrder[i]]()
@@ -114,7 +113,6 @@ function inflate_reservation(){
 }
 
 function inflate_totalPeople(){
-    console.log(countPeople)
     let cityList = ["Seoul","Busan"];
     let firstSeoul = ["Myungdong",'Hongdae',"Dongdaemoon"];
     let firstBusan = ["Busan Station",'Seomyun',"Haeundae"];

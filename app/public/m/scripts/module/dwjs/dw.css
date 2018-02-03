@@ -1,0 +1,52 @@
+dropdown{
+    display: block;
+    user-select: none;
+    margin-left: 50px;
+}
+dropdown>div{
+    overflow: hidden;
+    user-select: none;
+}
+dropdown>div>input{
+    float: left;
+    font-size: 14px;
+    user-select: none;
+}
+dropdown>div>canvas{
+    float: left;
+    user-select: none;
+}
+.dwdd_result{
+    padding:8px 0;
+    display: none;
+    position: absolute;
+    font-size: 14px;
+    border: 1px solid grey;
+    margin-top: 2px;
+    background-color: white;
+}
+.dwdd_result>p{
+ padding:0 8px;
+}
+.dwdd_result>p:hover{
+    background-color: rgba(240,240,240,0.5);
+}
+
+#firstdrop{
+    border: 1px solid grey;
+    width: 200px;
+    height: 30px;
+}
+input,div,p{
+    margin:0;
+    padding: 0;
+    border:none;
+}
+input:focus {
+  outline: none;
+}
+#saecc{
+    border: 1px solid grey;
+    width: 200px;
+    height: 30px;
+}

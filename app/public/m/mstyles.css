@@ -1,0 +1,119 @@
+.header{
+    width: 100%;
+    overflow-x:scroll;
+}
+    .header>ul{
+        width: 300%;
+    }
+    .header_singlelink:last-child{
+        padding-right: 30px;
+    }
+
+.r{
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.r_set{
+        padding:0 20px;
+        overflow: hidden;
+    }
+
+.r_filter{
+        padding: 7px;
+        border:1px solid #e0e0e0;
+        border-radius: 5px;
+        float: right;
+    }
+
+.r_drop{
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+.r_drop>p{
+            padding-left: 40px;
+        }
+
+.r_drop .rf_selected{
+            background-position: left 12px top 14px !important;
+        }
+
+.r_newReservation{
+        width: 60px;
+        height: 60px;
+        background-color: #3f55d2;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 70px;
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+    }
+
+.r_filter_background{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            overflow-x: hidden;
+            top:0;
+            left: 0;
+            background-color: rgba(51, 51, 51, 0.7);
+            padding: 40px 48px 20px 48px;
+        }
+
+.r_filter_close{
+            width: 60px;
+            height: 60px;
+            background-color: #3f55d2;
+            -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 70px;
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            text-align: center;
+            line-height: 60px;
+            color:white;
+            font-weight: bold;
+        }
+
+.ri{
+    width: 100%;
+}
+
+.ri_header{
+        width: 100%;
+    }
+
+.ri_contents{
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+.ri_smallTitle{
+        margin-left: 20px;
+    }
+
+.rv_info_memo{
+    margin-left: 20px;
+    margin-bottom: 0;
+}
+
+.ric{
+    width: 100%;
+    padding: 0;
+    margin:0 !important;
+    border: none;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.ric_ti{
+        width: calc(45% - 20px);
+        float: left;
+    }
+
+.ric_co{
+        width: calc(55% - 20px);
+        float: left;
+    }

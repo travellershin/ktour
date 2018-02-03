@@ -56,9 +56,7 @@ $(document).on("click",".r_add_pitem",function(event){
 
     for (let key in pdata) {
         if(pdata[key].id === $(this).html()){
-            console.log(pdata[key])
             if(pdata[key].option){
-                console.log("Option있다")
                 let option = pdata[key].option;
                 for (let i = 0; i < option.length; i++) {
                     if(option[i].option !== "Ignore"){

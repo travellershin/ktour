@@ -21,7 +21,6 @@ $(".r_hbot_hasdrop--nationalitydrop").click(function(){
 $(".r_hbot_hasdrop").click(function(event){
     if(!$(this).hasClass("r_hbot_pickup")&&!$(this).hasClass("r_hbot_nationality")){
         toggle_filterbox($(this).attr("fid"));
-        console.log("너냐")
         return false
     }
 })
@@ -67,7 +66,6 @@ $(".r_drop").on("click","p",function(){
     if(filter[fid].length === 0){
         filter[fid] = Object.keys(r_total[fid])
     }
-    console.log(filter)
     inflate_reservation()
 
     return false

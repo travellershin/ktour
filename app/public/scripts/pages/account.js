@@ -65,9 +65,9 @@ function save_account(){
         alert("현금 항목의 Income과 Expenditure가 동시에 입력되었습니다.")
     }else{
         let aid = $(".a_edit").attr("aid");
+        if(!acc_obj[aid]){acc_obj[aid]={}}
         let data = acc_obj[aid]
         console.log(data)
-        if(!acc_obj[aid]){acc_obj[aid]={}}
         data.date = $(".a_edit_input_date").val();
         data.card = 0;
         data.cash = 0;
@@ -91,7 +91,9 @@ function save_account(){
 
         firebase.database().ref("account/"+aid).set(data)
         $(".addnewbox").addClass("hidden")
-        $("body").css("overflow","auto")
+        $("body").css("overflow","auto");
+
+        toast("정상적으로 입력되었습니다.")
     }
 }
 
@@ -110,15 +112,23 @@ function show_account(aid){
     $(".a_edit_input_currency").val(data.currency);
     if(data.card>0){
         $(".a_edit_input_cardincome").val(data.card);
+    }else{
+        $(".a_edit_input_cardincome").val("");
     }
     if(data.card<0){
         $(".a_edit_input_cardexp").val(-data.card);
+    }else{
+        $(".a_edit_input_cardexp").val("");
     }
     if(data.cash>0){
         $(".a_edit_input_cashincome").val(data.cash);
+    }else{
+        $(".a_edit_input_cashincome").val("");
     }
     if(data.cash<0){
         $(".a_edit_input_cashexp").val(-data.cash);
+    }else{
+        $(".a_edit_input_cashexp").val("");
     }
 }
 

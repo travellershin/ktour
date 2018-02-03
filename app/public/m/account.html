@@ -1,0 +1,231 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<title>E-mail check / Ktourstory Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="./styles.css">
+<link rel="stylesheet" type="text/css" href="./mstyles.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <ul>
+            <li class="header_pageLinks header_singlelink">RESERVATION</li>
+            <li class="header_pageLinks header_singlelink">OPERATION</li>
+            <li class="header_pageLinks header_singlelink">GUIDE</li>
+            <li class="header_pageLinks header_singlelink header_pageLinks--selected">ACCOUNT</li>
+        </ul>
+    </header>
+    <!--아래 드롭다운을 여는 스크립트는 ./scripts/module/global.js에 명시-->
+
+    <div class="account_wrapper">
+        <div class="a_set">
+            <div class="a_set_date dropdown">
+                <p class="a_set_date_txt drp_txt"></p>
+            </div>
+            <div class="btn a_set_exchange">EXCHANGE RATE</div>
+        </div>
+
+        <div class="a_stat">
+            <div class="a_stat_total">
+                <p class="a_stat_total_title">TOTAL</p>
+                <p class="a_stat_total_value">0</p>
+            </div>
+            <div class="a_stat_card">
+                <div class="a_stat_card_total">
+                    <p class="a_stat_card_total_title">CARD</p>
+                    <p class="a_stat_card_total_value">0</p>
+                </div>
+                <div class="a_stat_card_indi">
+                    <div class="a_stat_card_indi_in">
+                        <p class="a_stat_card_indi_in_title">INCOME</p>
+                        <p class="a_stat_card_indi_in_value">0</p>
+                    </div>
+                    <div class="a_stat_card_indi_ex">
+                        <p class="a_stat_card_indi_ex_title">EXPENDITURE</p>
+                        <p class="a_stat_card_indi_ex_value">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a_stat_cash">
+                <div class="a_stat_card_total">
+                    <p class="a_stat_card_total_title">CASH</p>
+                    <p class="a_stat_cash_total_value">0</p>
+                </div>
+                <div class="a_stat_card_indi">
+                    <div class="a_stat_card_indi_in">
+                        <p class="a_stat_card_indi_in_title">INCOME</p>
+                        <p class="a_stat_cash_indi_in_value">0</p>
+                    </div>
+                    <div class="a_stat_card_indi_ex">
+                        <p class="a_stat_card_indi_ex_title">EXPENDITURE</p>
+                        <p class="a_stat_cash_indi_ex_value">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="a_stat_cash">
+
+            </div>
+        </div>
+
+        <div class="a_htop">
+            <img class="a_filter" src="./assets/icon-filter-deep.svg">
+            <div class="a_htop_add longbtn">
+                <img src="./assets/icon-add.svg"/>
+                <p>ADD NEW ITEM</p>
+            </div>
+        </div>
+
+        <div class="a_contents">
+            <!--
+            <div class="a_item">
+                <p class="a_item_date">17-08-31</p>
+                <p class="a_item_category"></p>
+                <p class="a_item_writer"></p>
+                <p class="a_item_contents"></p>
+                <div class="a_item_liner">
+                    <p class="a_item_title">CARD</p>
+                    <p class="a_item_cardIncome"></p>
+                    <p class="a_item_cardExpenditure"></p>
+                </div>
+                <div class="a_item_liner">
+                    <p class="a_item_title">CASH</p>
+                    <p class="a_item_cashIncome"></p>
+                    <p class="a_item_cashExpenditure"></p>
+                </div>
+            </div>
+            <div class="a_item">
+
+            </div>
+            <div class="a_item">
+
+            </div>
+            <div class="a_item">
+
+            </div>
+
+            -->
+        </div>
+
+    </div>
+
+    <div class="lightBox_shadow addnewbox hidden centering">
+        <div class="a_edit">
+            <div class="a_edit_header">
+                <p class="a_edit_header_title">ACCOUNT ITEM</p>
+                <img src="./assets/icon-close.svg" class="a_edit_header_close"/>
+            </div>
+            <div class="a_edit_wrapper">
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">DATE</p>
+                    <input class="a_edit_input a_edit_input_date"/>
+                </div>
+                <div class="a_edit_line2 clearfix">
+                    <p class="a_edit_sTitle">CATEGORY</p>
+                    <input id="categorydrop" readonly class="a_edit_input dw_dropdown a_edit_input_category" dropitem="reservation,tour,office,etc" />
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">WRITER</p>
+                    <input class="a_edit_input a_edit_input_writer"/>
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">CURRENCY</p>
+                    <input class="a_edit_input a_edit_input_currency dw_dropdown" id="a_edit_input_currency" dropitem="KRW,USD,CNY" spellcheck="false"/>
+                </div>
+                <div class="a_edit_line a_edit_line--contents">
+                    <p class="a_edit_sTitle">CONTENTS</p>
+                    <textarea class="a_edit_input a_edit_input_contents"></textarea>
+                </div>
+                <p class="a_edit_title">CARD</p>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">INCOME</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cardincome"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">EXPENDITURE</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cardexp"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+                <p class="a_edit_title">CASH</p>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">INCOME</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cashincome"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+                <div class="a_edit_line">
+                    <p class="a_edit_sTitle">EXPENDITURE</p>
+                    <input type="number" class="a_edit_input a_edit_input--money a_edit_input_cashexp"/>
+                    <p class="a_edit_won">WON</p>
+                </div>
+            </div>
+            <div class="a_edit_footer">
+                <div class="a_edit_footer_save">SAVE</div>
+                <div class="a_edit_footer_delete longbtn">
+                    <img src="./assets/icon-trash.svg">
+                    <p>DELETE</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightBox_shadow hidden exchangebox centering">
+        <div class="a_ex_box">
+            <div class="a_ex_header">
+                <p>EXCHANGE RATE</p>
+                <img class="a_ex_header_close" src="./assets/icon-close.svg">
+            </div>
+            <div class="a_ex_body">
+                <div class="a_ex_body_line">
+                    <p class="a_ex_body_frontTxt">1 USD</p>
+                    <input type="number" class="a_ex_body_money a_ex_input_usd"/>
+                    <p class="a_ex_body_endTxt">WON</p>
+                </div>
+                <div class="a_ex_body_line">
+                    <p class="a_ex_body_frontTxt">1 CNY</p>
+                    <input type="number" class="a_ex_body_money a_ex_input_cny"/>
+                    <p class="a_ex_body_endTxt">WON</p>
+                </div>
+            </div>
+            <div class="a_ex_footer">
+                <div class="a_ex_footer_save">SAVE</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="export_background hidden">
+        <div class="export">
+            <p class="export_title">EXPORT TO EXCEL</p>
+            <input class="export_drp">
+            <div class="alert_footer">
+                <div class="export_export">EXPORT</div>
+                <div class="export_cancel">CANCEL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="a_lightBox hidden">
+        <div class="a_hbot">
+            <div class="a_drop a_drop_category" fid="category">
+            </div>
+            <div class="a_drop a_drop_writer" fid="writer">
+            </div>
+        </div>
+    </div>
+
+    <script src='./libraries/jquery.js'></script>
+    <script src='./libraries/moment.js'></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <script src="./libraries/jquery-ui.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+    <script src='./scripts/module/firebase.js'></script>
+    <script src='./scripts/module/global.js'></script>
+    <script src='./scripts/module/date.js'></script>
+    <script src='./scripts/module/dropdown.js'></script>
+
+    <script src='./scripts/mobile/account.js'></script>
+    <script src='./scripts/mobile/account/datacollect.js'></script>
+    <script src='./scripts/mobile/account/filter.js'></script>
+    <script src='./scripts/mobile/account/inflate.js'></script>
+</body>

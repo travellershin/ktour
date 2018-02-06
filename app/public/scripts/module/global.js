@@ -36,6 +36,20 @@ $('#logo').click(function(){
 $(".header").on("click",".header_singlelink",function(){
     location.href = $(this).html().toLowerCase()+'.html'
 })
+$(".header").on("click",".header_toDesk",function(){
+    window.localStorage["isMobile"] = "No";
+
+    let durl = window.location.href;
+    durl = durl.split("/m");
+    let final = durl[0]+durl[1];
+
+    location.href = final;
+})
+$(".header").on("click",".header_toMobile",function(){
+    window.localStorage["isMobile"] = "yes";
+    console.log("모바일로 갈래")
+    window.location.reload();
+})
 $(".header_setting>p").click(function(){
     if($(this).html()==="CHANGE PASSWORD"){
         cPPop();
